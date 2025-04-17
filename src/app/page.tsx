@@ -5,7 +5,7 @@ import React from 'react';
 
 export default function Home() {
   return (
-    <div className='space-y-12'>
+    <div className='space-y-12 mb-12'>
       <HeroPages />
       <Services />
       <Products />
