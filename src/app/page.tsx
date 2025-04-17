@@ -1,9 +1,14 @@
+import HeroPages from 'pages/home/hero';
+import Products from 'pages/home/products';
+import Services from 'pages/home/services';
+import React from 'react';
+
 export default function Home() {
   return (
-    <div className="container h-full mt-5 lg:px-0 px-3">
-      <h1 className="text-3xl text-center font-bold text-gray-800 dark:text-gray-100">
-        Welcome to Next.js Templates
-      </h1>
+    <div className='space-y-12'>
+      <HeroPages />
+      <Services />
+      <Products />
     </div>
   );
 }
