@@ -46,7 +46,7 @@ const services: Service[] = [
 
 export default function Services() {
   return (
-    <div>
+    <div className='container mx-auto lg:px-0 px-3'>
       <h2 className="text-3xl font-semibold mb-3">Bizning xizmatlarimiz</h2>
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
         {services.map((s, i) => (

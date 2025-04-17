@@ -31,7 +31,7 @@ const products: Product[] = [
 
 export default function Products() {
   return (
-    <div>
+    <div className='container mx-auto lg:px-0 px-3'>
       <div className="flex items-center mb-3">
         <h2 className="text-3xl font-semibold">Best sellers</h2>
         <ChevronRight />
