@@ -5,7 +5,7 @@ import ServicesButton from './services-button';
 
 export default function Header() {
   return (
-    <header className="bg-transparent z-10 sticky top-0">
+    <header className="bg-transparent z-10 relative">
       <div className="container lg:px-0 px-3 py-4 mx-auto flex items-center justify-center gap-[10px] flex-col">
         <div className="flex items-center self-stretch justify-between gap-12">
           <Link href="/" className=" lg:w-40 w-32">
