@@ -1,5 +1,4 @@
 import CarCard from 'components/shared/car-card';
-import ProductCard from 'components/shared/product-card';
 import { ChevronRight } from 'lucide-react';
 import React from 'react';
 
