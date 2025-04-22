@@ -1,4 +1,4 @@
-import CheckoutMain from 'pages/checkout/checkout-main';
+import CheckoutMain from 'views/checkout/checkout-main';
 import React from 'react';
 
 export default function page() {

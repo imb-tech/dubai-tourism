@@ -7,8 +7,8 @@ import Header from 'components/header/header';
 import Footer from 'components/footer/footer';
 import { QueryClientProvider } from '@tanstack/react-query';
 import { queryClient } from 'lib/query-client';
-import Questions from 'pages/home/questions';
-import Contact from 'pages/home/contact';
+import Questions from 'views/home/questions';
+import Contact from 'views/home/contact';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',

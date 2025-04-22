@@ -1,6 +1,6 @@
-import CarFeatures from 'pages/rent/car-features';
-import CarImages from 'pages/rent/car-images';
-import CarInfo from 'pages/rent/car-info';
+import CarFeatures from 'views/rent/car-features';
+import CarImages from 'views/rent/car-images';
+import CarInfo from 'views/rent/car-info';
 import React from 'react';
 
 export default function RentId() {
