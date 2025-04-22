@@ -1,18 +1,19 @@
 'use client';
 import { Tooltip } from 'components/custom/tooltip';
+import SelectField from 'components/form/select';
 import { Checkbox } from 'components/ui/checkbox';
 import { DatePicker } from 'components/ui/datepicker';
-import Select from 'components/ui/select';
 import { useModal } from 'hooks/use-modal';
 import { cn, formatMoney } from 'lib/utils';
 import { Info } from 'lucide-react';
-import Link from 'next/link';
 import React from 'react';
+import { useForm } from 'react-hook-form';
 
 export default function WtpTable() {
   const { openModal } = useModal('more-info');
+  const methods = useForm<{ name: number }>();
   return (
-    <div className="border rounded-sm bg-white overflow-hidden">
+    <div className="border rounded-sm bg-white overflow-hidden p-3">
       <table className="w-full [&_th]:text-start [&_th]:p-2 [&_td]:px-2 [&_td]:py-2">
         <thead className="bg-secondary">
           <tr>
@@ -74,52 +75,42 @@ export default function WtpTable() {
               </div>
             </td>
             <td>
-              <Select
-                options={[{ id: 1, name: 'Option 1' }]}
-                value={''}
-                setValue={(v) => console.log(v)}
-                className="bg-secondary border-none rounded-sm"
-                label="Sharing Transfers"
+              <SelectField
+                methods={methods}
+                name="name"
+                options={[{ id: 1, name: 'Doniyor' }]}
+                wrapperClassName="w-auto"
+                placeholder="Sharing Transfers"
               />
             </td>
             <td>
               <DatePicker />
             </td>
             <td>
-              <Select
-                options={[
-                  { id: 1, name: '1' },
-                  { id: 2, name: '2' },
-                ]}
-                value={1}
-                setValue={(v) => console.log(v)}
-                className="bg-secondary border-none rounded-sm"
-                label="1"
+              <SelectField
+                methods={methods}
+                name="name"
+                options={[{ id: 1, name: '1' }]}
+                wrapperClassName="w-auto"
+                placeholder="1"
               />
             </td>
             <td>
-              <Select
-                options={[
-                  { id: 1, name: '1' },
-                  { id: 2, name: '2' },
-                ]}
-                value={1}
-                setValue={(v) => console.log(v)}
-                className="bg-secondary border-none rounded-sm"
-                label="1"
+              <SelectField
+                methods={methods}
+                name="name"
+                options={[{ id: 1, name: '1' }]}
+                wrapperClassName="w-auto"
+                placeholder="1"
               />
             </td>
             <td>
-              <Select
-                options={[
-                  { id: 0, name: '0' },
-                  { id: 1, name: '1' },
-                  { id: 2, name: '2' },
-                ]}
-                value={0}
-                setValue={(v) => console.log(v)}
-                className="bg-secondary border-none rounded-sm"
-                label="1"
+              <SelectField
+                methods={methods}
+                name="name"
+                options={[{ id: 1, name: '1' }]}
+                wrapperClassName="w-auto"
+                placeholder="1"
               />
             </td>
             <td>
