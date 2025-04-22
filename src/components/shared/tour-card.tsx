@@ -16,8 +16,8 @@ export default function TourCard({
       <Image
         className="rounded-3xl w-full object-cover h-full object-center"
         src={image}
-        width={300}
-        height={400}
+        width={800}
+        height={800}
         alt={'name'}
       />
       <Link

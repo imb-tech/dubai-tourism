@@ -1,0 +1,144 @@
+'use client';
+import { Tooltip } from 'components/custom/tooltip';
+import { Checkbox } from 'components/ui/checkbox';
+import { DatePicker } from 'components/ui/datepicker';
+import Select from 'components/ui/select';
+import { useModal } from 'hooks/use-modal';
+import { cn, formatMoney } from 'lib/utils';
+import { Info } from 'lucide-react';
+import Link from 'next/link';
+import React from 'react';
+
+export default function WtpTable() {
+  const { openModal } = useModal('more-info');
+  return (
+    <div className="border rounded-sm bg-white overflow-hidden">
+      <table className="w-full [&_th]:text-start [&_th]:p-2 [&_td]:px-2 [&_td]:py-2">
+        <thead className="bg-secondary">
+          <tr>
+            <th>Tour Options</th>
+            <th>Transfer Option</th>
+            <th className="flex gap-2 items-center">
+              Tour Date
+              <Tooltip
+                indicatorClassName="bg-white fill-white"
+                content={
+                  <div className="w-[200px] text-primary">
+                    Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                    Delectus adipisci modi, nihil ratione maxime eaque commodi,
+                    consequuntur inventore distinctio accusamus illum? Quam
+                    aliquam, incidunt beatae temporibus sunt repudiandae
+                    quaerat? Quod?
+                  </div>
+                }
+              >
+                <Info className="text-primary" size={18} />
+              </Tooltip>
+            </th>
+            <th>Adult</th>
+            <th>Child</th>
+            <th>Infant</th>
+            <th className="flex gap-2 items-center">
+              Total amount
+              <Tooltip
+                indicatorClassName="bg-white fill-white"
+                content={
+                  <div className="w-[200px] text-primary">
+                    Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                    Delectus adipisci modi, nihil ratione maxime eaque commodi,
+                    consequuntur inventore distinctio accusamus illum? Quam
+                    aliquam, incidunt beatae temporibus sunt repudiandae
+                    quaerat? Quod?
+                  </div>
+                }
+              >
+                <Info className="text-primary" size={18} />
+              </Tooltip>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <div className="flex items-center gap-2">
+                <span className="text-primary flex items-center">
+                  <Checkbox />
+                </span>
+                <span>Desert Safari For UAE eresidents</span>
+                <span
+                  className="underline text-blue-500 ml-auto"
+                  onClick={openModal}
+                >
+                  More info
+                </span>
+              </div>
+            </td>
+            <td>
+              <Select
+                options={[{ id: 1, name: 'Option 1' }]}
+                value={''}
+                setValue={(v) => console.log(v)}
+                className="bg-secondary border-none rounded-sm"
+                label="Sharing Transfers"
+              />
+            </td>
+            <td>
+              <DatePicker />
+            </td>
+            <td>
+              <Select
+                options={[
+                  { id: 1, name: '1' },
+                  { id: 2, name: '2' },
+                ]}
+                value={1}
+                setValue={(v) => console.log(v)}
+                className="bg-secondary border-none rounded-sm"
+                label="1"
+              />
+            </td>
+            <td>
+              <Select
+                options={[
+                  { id: 1, name: '1' },
+                  { id: 2, name: '2' },
+                ]}
+                value={1}
+                setValue={(v) => console.log(v)}
+                className="bg-secondary border-none rounded-sm"
+                label="1"
+              />
+            </td>
+            <td>
+              <Select
+                options={[
+                  { id: 0, name: '0' },
+                  { id: 1, name: '1' },
+                  { id: 2, name: '2' },
+                ]}
+                value={0}
+                setValue={(v) => console.log(v)}
+                className="bg-secondary border-none rounded-sm"
+                label="1"
+              />
+            </td>
+            <td>
+              <div className={cn('relative pt-4')}>
+                <h3
+                  className={cn(
+                    'font-semibold text-black/45 line-through absolute top-0 text-sm'
+                  )}
+                >
+                  Price: {formatMoney(12000)}
+                </h3>
+                <h3 className={cn('text-xl font-semibold text-primary')}>
+                  Price: {formatMoney(1200)}
+                </h3>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  );
+}

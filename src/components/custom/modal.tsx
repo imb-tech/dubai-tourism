@@ -1,3 +1,4 @@
+"use client" 
 import { ReactNode } from "react"
 import { VisuallyHidden } from "@radix-ui/react-visually-hidden"
 import {
