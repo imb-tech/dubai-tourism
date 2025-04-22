@@ -1,7 +1,9 @@
 'use client';
+import { Button } from 'components/ui/button';
 import React, { useEffect, useState } from 'react';
 
 const backgroundImages = [
+  '/slider-home/slider.jpg',
   '/slider-home/slider1.jpg',
   '/slider-home/slider3.png',
   '/slider-home/slider4.avif',
@@ -33,7 +35,17 @@ const HeroPages = () => {
             zIndex: index === currentImageIndex ? 1 : 0,
             backgroundPosition: 'center top',
           }}
-        ></div>
+        >
+          <div className="h-full flex items-center justify-start text-white container mx-auto lg:px-0 px-3">
+            <div className='w-1/2 space-y-4'>
+              <h1 className="font-bold text-5xl leading-[120%]">
+                Dubaydagi Shaxsiy VIP Xizmatlar
+              </h1>
+              <p>"Biz siz uchun hashamatli xizmatlarni tashkillashtiramiz"</p>
+              <Button className='bg-white text-primary mt-4 hover:bg-white cursor-pointer'>Biz bilan bog'laning</Button>
+            </div>
+          </div>
+        </div>
       ))}
     </section>
   );

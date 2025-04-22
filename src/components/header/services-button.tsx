@@ -1,57 +1,85 @@
-import Image from 'next/image';
+import { cn } from 'lib/utils';
+import Link from 'next/link';
 import React from 'react';
+import {
+  TouresIcon,
+  ConciergeIcon,
+  GroupIcon,
+  RealIcon,
+  RentaIcon,
+  ShoppingIcon,
+  TourIcon,
+  TransfersIcon,
+} from 'components/icons';
 
-const data = [
-  {
-    id: 1,
-    name: 'Tours and Activities',
-    image: '/services-icons/toures.png',
-  },
-  {
-    id: 2,
-    name: 'Transfers',
-    image: '/services-icons/transfers.png',
-  },
-  {
-    id: 3,
-    name: 'MICE Groups',
-    image: '/services-icons/group.png',
-  },
-  {
-    id: 4,
-    name: 'Real Estate',
-    image: '/services-icons/real.png',
-  },
-  {
-    id: 5,
-    name: 'VIP Concierge',
-    image: '/services-icons/concierge.png',
-  },
-  {
-    id: 6,
-    name: 'Tour Packages',
-    image: '/services-icons/tour.png',
-  },
-  {
-    id: 7,
-    name: 'Renta car',
-    image: '/services-icons/renta-car.png',
-  },
-  {
-    id: 8,
-    name: 'Shopping',
-    image: '/services-icons/shopping.png',
-  },
-];
+function ServicesButton({ pathname }: { pathname: string | null }) {
+  const data = [
+    {
+      id: 1,
+      name: 'Tours and Activities',
+      icon: TouresIcon,
+      url: '/tours',
+    },
+    {
+      id: 2,
+      name: 'Transfers',
+      icon: TransfersIcon,
+      url: '/transfers',
+    },
+    {
+      id: 3,
+      name: 'MICE Groups',
+      icon: GroupIcon,
+      url: '/mice-group',
+    },
+    {
+      id: 4,
+      name: 'Real Estate',
+      icon: RealIcon,
+      url: '/real-estate',
+    },
+    {
+      id: 5,
+      name: 'VIP Concierge',
+      icon: ConciergeIcon,
+      url: '/concierge',
+    },
+    {
+      id: 6,
+      name: 'Tour Packages',
+      icon: TourIcon,
+      url: '/packages',
+    },
+    {
+      id: 7,
+      name: 'Renta car',
+      icon: RentaIcon,
+      url: '/rent',
+    },
+    {
+      id: 8,
+      name: 'Shopping',
+      icon: ShoppingIcon,
+      url: '/shopping',
+    },
+  ];
 
-function ServicesButton() {
   return (
     <div className="flex justify-stretch w-full gap-2 items-center overflow-x-auto">
       {data?.map((item) => (
-        <div key={item.id} className="flex bg-[#FFFFFF1A] first:min-w-44  items-center gap-2 p-2 rounded-[8px] justify-center w-full">
-            <Image priority src={item.image} width={20} height={20} alt={item.name}  />
-            <span className='text-white whitespace-nowrap text-sm'>{item.name}</span>
-        </div>
+        <Link
+          href={item.url}
+          key={item.id}
+          className={cn(
+            'flex first:min-w-44  items-center gap-2 p-2 rounded-[8px] justify-center w-full',
+            pathname === '/'
+              ? 'bg-[#FFFFFF1A] text-white '
+              : 'bg-[#D4AF371F]  text-primary'
+          )}
+        >
+          <item.icon />
+          <span className=" whitespace-nowrap text-sm">{item.name}</span>
+        </Link>
       ))}
     </div>
   );
