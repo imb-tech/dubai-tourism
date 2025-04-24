@@ -32,8 +32,8 @@ const cars: Product[] = [
 export default function Cars() {
   return (
     <div className="container mx-auto lg:px-0 px-3">
-      <div className="flex items-center mb-3">
-        <h2 className="text-3xl font-semibold">Rent a car</h2>
+      <div className="flex items-center mb-5">
+        <h2 className="md:text-3xl text-2xl font-semibold">Rent a car</h2>
         <ChevronRight />
       </div>
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">

@@ -7,7 +7,7 @@ import Money from './money';
 
 export default function CarCard({ name, image, price }: Product) {
   return (
-    <div className="rounded-lg min-w-[280px] flex flex-col items-start gap-1 p-2 border">
+    <div className="rounded-lg  flex flex-col items-start gap-1 p-2 border">
       <Image
         src={image}
         width={300}
@@ -15,19 +15,19 @@ export default function CarCard({ name, image, price }: Product) {
         alt={name}
         className="mt-auto"
       />
-      <h3 className="text-2xl font-semibold mt-1">{name}</h3>
+      <h3 className="md:text-2xl font-semibold mt-1">{name}</h3>
       <ul className="flex justify-between py-1 w-full">
         <li className="flex items-center gap-1 text-primary">
           <MapIcon size={18} />
-          <span className="text-black font-medium text-sm">260 km/day</span>
+          <span className="text-black font-medium md:text-sm text-sm">260 km/day</span>
         </li>
         <li className="flex items-center gap-1 text-primary">
           <EngineIcon size={18} />
-          <span className="text-black font-medium text-sm">600 hp</span>
+          <span className="text-black font-medium md:text-sm text-sm">600 hp</span>
         </li>
         <li className="flex items-center gap-1 text-primary">
           <KarobkaIcon size={18} />
-          <span className="text-black font-medium text-sm">Automatic</span>
+          <span className="text-black font-medium md:text-sm text-sm">Automatic</span>
         </li>
       </ul>
       <Money

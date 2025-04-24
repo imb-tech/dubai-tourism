@@ -25,7 +25,7 @@ export default function Header() {
           </Link>
           <Navbar pathname={pathname} />
 
-          <div className="flex flex-col items-start gap-1">
+          <div className="hidden lg:flex flex-col items-start gap-1">
             <a
               href="tel:+998900002323"
               className={cn(

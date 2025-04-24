@@ -1,8 +1,8 @@
-import { RentImageSlider } from 'pages/rent/rent-page-slider';
-import WtpComments from 'pages/wtp/wtp-comments';
-import WtpFeatures from 'pages/wtp/wtp-features';
-import WtpForm from 'pages/wtp/wtp-form';
-import WtpMap from 'pages/wtp/wtp-map';
+import { RentImageSlider } from 'views/rent/rent-page-slider';
+import WtpComments from 'views/wtp/wtp-comments';
+import WtpFeatures from 'views/wtp/wtp-features';
+import WtpForm from 'views/wtp/wtp-form';
+import WtpMap from 'views/wtp/wtp-map';
 import React from 'react';
 
 export default function wtp() {

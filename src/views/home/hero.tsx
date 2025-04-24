@@ -24,7 +24,7 @@ const HeroPages = () => {
   }, [backgroundImages.length]);
 
   return (
-    <section className={`p-3 sm:p-6 h-[700px]`}>
+    <section className={`p-3 sm:p-6 h-[620px]`}>
       {backgroundImages.map((image, index) => (
         <div
           key={index}

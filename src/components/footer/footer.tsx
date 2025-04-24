@@ -126,7 +126,7 @@ export default function Footer() {
   return (
     <footer className="pb-6 bg-[#F5F5F5] pt-14">
       <div className="container mx-auto lg:px-0 px-3">
-        <div className="grid grid-cols-4">
+        <div className="grid lg:grid-cols-4 grid-cols-2 gap-3">
           {data.map((item) => (
             <div key={item.id}>
               <h1 className="text-[24px] text-black mb-8 ">{item.title}</h1>

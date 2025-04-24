@@ -42,8 +42,8 @@ const tours: Tour[] = [
 export default function Tours() {
   return (
     <div className="container mx-auto lg:px-0 px-3">
-      <h2 className="text-3xl font-semibold mb-3">Tour packages</h2>
-      <div className="grid grid-cols-4 gap-5">
+      <h2 className="md:text-3xl text-2xl font-semibold mb-5">Tour packages</h2>
+      <div className="grid lg:grid-cols-4 md:grid-cols-3 grid-cols-2 md:gap-5 gap-3">
         {tours.map((s, i) => (
           <TourCard key={s.id} index={i} {...s} />
         ))}

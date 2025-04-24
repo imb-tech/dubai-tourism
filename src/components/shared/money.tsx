@@ -24,7 +24,7 @@ export default function Money({
       {discount && (
         <h3
           className={cn(
-            'font-semibold text-black/45 line-through absolute top-0',
+            'font-semibold text-black/45 text-sm line-through absolute top-0',
             priceClassName
           )}
         >
@@ -32,7 +32,7 @@ export default function Money({
         </h3>
       )}
       <h3
-        className={cn('text-xl font-semibold text-primary', discountClassName)}
+        className={cn('md:text-xl text-sm font-semibold text-primary', discountClassName)}
       >
         From AED {formatMoney(discount)} {suffix}
       </h3>

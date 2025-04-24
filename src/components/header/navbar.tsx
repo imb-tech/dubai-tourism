@@ -12,7 +12,7 @@ const navLinks = [
 ];
 function Navbar({ pathname = '/' }: { pathname: string | null }) {
   return (
-    <div className="space-x-6">
+    <div className="space-x-6 lg:block hidden">
       {navLinks.map((link) => (
         <Link
           key={link.href}

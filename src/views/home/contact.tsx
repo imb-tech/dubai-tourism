@@ -4,9 +4,9 @@ import React from 'react';
 
 const Contact = () => {
   return (
-    <div>
+    <div className='lg:px-0 px-3'>
     <div
-      className="container mx-auto p-10 mb-6  h-[400px] rounded-2xl w-full bg-cover bg-center"
+      className="container mx-auto p-10 mb-6   h-[400px] rounded-2xl w-full bg-cover bg-center"
       style={{
         backgroundImage: `url("/images/contact-info.png")`,
       }}

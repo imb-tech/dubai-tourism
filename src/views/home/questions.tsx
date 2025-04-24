@@ -17,8 +17,8 @@ const data = [
 
 function Questions() {
   return (
-    <div className="container mx-auto lg:px-0 px-3 my-12">
-      <h1 className="text-3xl my-5 font-semibold">Ko’p beriladigan savollar</h1>
+    <div className="container mx-auto lg:px-0 px-3 mb-12 ">
+      <h1 className="md:text-3xl text-2xl my-5 font-semibold">Ko’p beriladigan savollar</h1>
       <Accordion
         type="single"
         collapsible
