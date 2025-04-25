@@ -1,6 +1,4 @@
 import CarCard from 'components/shared/car-card';
-import Cars from 'views/home/cars';
-import { CarImageSlides } from 'views/rent/car-image-slide';
 import RentFilter from 'views/rent/rent-filter';
 import { RentImageSlider } from 'views/rent/rent-page-slider';
 import React from 'react';

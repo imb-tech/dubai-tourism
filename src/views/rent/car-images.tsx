@@ -1,5 +1,4 @@
 'use client';
-import Modal from 'components/custom/modal';
 import { GallaryIcon } from 'components/icons';
 import { cn } from 'lib/utils';
 import Image from 'next/image';

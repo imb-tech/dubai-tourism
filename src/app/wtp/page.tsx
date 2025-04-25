@@ -7,7 +7,7 @@ import React from 'react';
 
 export default function wtp() {
   return (
-    <div className="container mx-auto">
+    <div className="container mx-auto lg:px-0 px-3">
       <h1 className="text-center text-4xl my-8">
         Atlantis Aquaventure Waterpark
       </h1>
