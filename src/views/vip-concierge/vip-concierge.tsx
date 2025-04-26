@@ -23,7 +23,7 @@ const filters = [
   },
 ];
 
-export default function AtractionFilter() {
+export default function VipConciergeFilter() {
   return (
     <div className="lg:grid grid-cols-3 gap-2 py-3 border rounded-[12px] p-2">
       <SelectParams

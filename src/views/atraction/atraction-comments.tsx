@@ -3,7 +3,7 @@ import Modal from 'components/custom/modal';
 import CommentCard from 'components/shared/comment-card';
 import { Button } from 'components/ui/button';
 import React from 'react';
-import WriteComment from './write-comment';
+import WriteComment from './atraction-comment';
 import { useModal } from 'hooks/use-modal';
 
 export default function WtpComments() {

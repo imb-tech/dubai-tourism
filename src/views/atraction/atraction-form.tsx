@@ -2,15 +2,14 @@ import {
   CartIcon,
   CheckIcon,
   ClockIcon,
-  PriceIcon,
   UserIcon,
   WhatsappIcon,
 } from 'components/icons';
 import { Button } from 'components/ui/button';
 import React from 'react';
-import WtpTable from './wtp-table';
+import WtpTable from './atraction-table';
 import Modal from 'components/custom/modal';
-import WtpInfo from './wtp-info';
+import WtpInfo from './atraction-info';
 
 export default function WtpForm() {
   return (

@@ -1,16 +1,38 @@
+import DrawerImagesView from 'components/drawer/page';
 import { cn } from 'lib/utils';
 import Link from 'next/link';
 import React from 'react';
-import ShopppingImages from 'views/shopping/shopping-images';
 import ShoppingCard from 'views/shopping/shopping-card';
 
+const images = [
+  {
+    id: 1,
+    url: '/shopping/shopping1.png',
+  },
+  {
+    id: 2,
+    url: '/shopping/shopping2.png',
+  },
+  {
+    id: 3,
+    url: '/shopping/shopping3.png',
+  },
+  {
+    id: 4,
+    url: '/shopping/shopping4.png',
+  },
+  {
+    id: 5,
+    url: '/shopping/shopping5.png',
+  },
+];
 
 export default function ShoppingId() {
   return (
     <React.Fragment>
       <div className="container mx-auto lg:px-0 px-3">
         <h1 className="text-center text-4xl my-8">Ring</h1>
-        <ShopppingImages />
+        <DrawerImagesView images={images} />
         <div className="grid lg:grid-cols-2 grid-cols-1 gap-5 mt-8">
           {data.map((item, index) => (
             <div
@@ -41,11 +63,11 @@ export default function ShoppingId() {
           ))}
         </div>
       </div>
-      <div className='bg-[#F5F8FC] py-10 my-12'>
+      <div className="bg-[#F5F8FC] py-10 my-12">
         <div className="container mx-auto lg:px-0 px-3">
           <h1 className="font-semibold lg:text-3xl  text-2xl">See more</h1>
           <div className="grid lg:grid-cols-4 mt-5 mb-8 md:grid-cols-3 grid-cols-3 gap-5">
-            {dataShoppping.slice(0,4).map((item) => (
+            {dataShoppping.slice(0, 4).map((item) => (
               <ShoppingCard key={item.id} item={item} />
             ))}
           </div>

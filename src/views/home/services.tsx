@@ -10,37 +10,37 @@ const services: Service[] = [
   {
     name: 'Transfers xizmati',
     image: '/atroksion.png',
-    link: '#',
+    link: '/transfer-service',
   },
   {
     name: 'Mice group',
     image: '/atroksion.png',
-    link: '#',
+    link: '/atraction',
   },
   {
     name: 'VIP Concierge',
     image: '/atroksion.png',
-    link: '#',
+    link: '/vip-oncierge',
   },
   {
     name: 'Real estate',
     image: '/atroksion.png',
-    link: '#',
+    link: '/rent-apartment',
   },
   {
     name: 'Dubayda avtomobil ijarasi',
     image: '/atroksion.png',
-    link: '#',
+    link: '/rent',
   },
   {
     name: 'Shopping xizmati',
     image: '/atroksion.png',
-    link: '#',
+    link: '/shopping',
   },
   {
     name: 'Tur paketlar',
     image: '/atroksion.png',
-    link: '#',
+    link: '/tour-packages',
   },
 ];
 

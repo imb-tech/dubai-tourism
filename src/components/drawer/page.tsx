@@ -5,40 +5,20 @@ import Image from 'next/image';
 import React from 'react';
 import { useModal } from 'hooks/use-modal';
 import CustomDrawer from 'components/custom/drawer';
-import { SliderComponents } from 'components/slider/page';
+import { DriwerImageSlides } from 'components/slider/drawer-slider';
 
-
-const images = [
-  {
-    id: 1,
-    url: '/shopping/shopping1.png',
-  },
-  {
-    id: 2,
-    url: '/shopping/shopping2.png',
-  },
-  {
-    id: 3,
-    url: '/shopping/shopping3.png',
-  },
-  {
-    id: 4,
-    url: '/shopping/shopping4.png',
-  },
-  {
-    id: 5,
-    url: '/shopping/shopping5.png',
-  },
-];
-
-export default function ShopppingImages() {
+export default function DrawerImagesView({
+  images,
+}: {
+  images: { url: string; id: number }[];
+}) {
   const { openModal } = useModal();
   return (
     <div className="grid grid-cols-4 gap-2 relative">
       {images?.map((im, i) => (
         <Image
           key={im.id}
-          src={im.url}
+          src={im?.url}
           alt="rent car item"
           width={600}
           height={600}
@@ -58,7 +38,7 @@ export default function ShopppingImages() {
       </div>
 
       <CustomDrawer className="max-w-full min-h-full" title="Shopping">
-        <SliderComponents images={[...images, ...images, ...images]} />
+        <DriwerImageSlides images={[...images, ...images, ...images]} />
       </CustomDrawer>
     </div>
   );

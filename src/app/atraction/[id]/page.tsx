@@ -1,7 +1,7 @@
-import WtpComments from 'views/wtp/wtp-comments';
-import WtpFeatures from 'views/wtp/wtp-features';
-import WtpForm from 'views/wtp/wtp-form';
-import WtpMap from 'views/wtp/wtp-map';
+import WtpComments from 'views/atraction/atraction-comments';
+import WtpFeatures from 'views/atraction/atraction-features';
+import WtpForm from 'views/atraction/atraction-form';
+import WtpMap from 'views/atraction/atraction-map';
 import React from 'react';
 import { SliderComponents } from 'components/slider/page';
 import { images } from 'services/data';
@@ -15,9 +15,7 @@ export default function wtp() {
       <SliderComponents images={images} />
       <WtpForm />
       <WtpMap/>
-
       <WtpFeatures />
-
       <WtpComments/>
 
     </div>

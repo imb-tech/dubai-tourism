@@ -12,7 +12,7 @@ import {
 } from 'components/ui/carousel';
 import { cn } from 'lib/utils';
 
-export function CarImageSlides({ images }: { images: CarImage[] }) {
+export function DriwerImageSlides({ images }: { images: any[] }) {
   const [mainApi, setMainApi] = React.useState<CarouselApi>();
   const [thumbApi, setThumbApi] = React.useState<CarouselApi>();
   const [currentIndex, setCurrentIndex] = React.useState(0);

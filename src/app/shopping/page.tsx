@@ -27,7 +27,6 @@ const Shopping = () => {
 
 export default Shopping;
 
-
 const dataShoppping = [
   {
     id: 1,
