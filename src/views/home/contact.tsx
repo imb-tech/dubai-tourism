@@ -47,7 +47,7 @@ const Contact = () => {
             name="full_name"
             placeholder="Ismingiz"
             required
-            className="h-[40px] shadow-none bg-gray-100"
+            className="h-[40px] shadow-none bg-[#F5F8FC]"
           />
           <PhoneField methods={form} name="phone" label="Telefon raqam" 
           className='h-[40px]'  
@@ -59,7 +59,7 @@ const Contact = () => {
             methods={form}
             name="email"
             required
-            className="h-[40px] shadow-none bg-gray-100"
+            className="h-[40px] shadow-none bg-[#F5F8FC]"
           />
           <FormTextarea
             name="comment"
@@ -68,7 +68,7 @@ const Contact = () => {
             placeholder="Sizning xabaringiz"
             required
             wrapperClassName="col-span-3 "
-            className='bg-gray-100'
+            className='bg-[#F5F8FC]'
           />
           <Button type='submit' className='col-span-3 cursor-pointer'>Ariza qoldirish</Button>
         </form>

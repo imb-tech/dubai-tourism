@@ -1,4 +1,4 @@
-import Image from 'next/image';
+import { FaceBookIcon, InstagramIcon, TelegramIcon } from 'components/icons';
 import Link from 'next/link';
 
 const data = [
@@ -105,26 +105,26 @@ const data = [
 const socialData = [
   {
     id: 1,
-    image: '/social-icons/instagram.png',
+    image: InstagramIcon,
     name: 'instagram',
     link: '',
   },
   {
     id: 2,
-    image: '/social-icons/telegram.png',
+    image: TelegramIcon,
     name: 'telegram',
     link: '',
   },
   {
     id: 3,
-    image: '/social-icons/face.png',
+    image: FaceBookIcon,
     name: 'facebook',
     link: '',
   },
 ];
 export default function Footer() {
   return (
-    <footer className="pb-6 bg-[#F5F5F5] pt-14">
+    <footer className="pb-6 bg-[#F5F8FC] pt-14">
       <div className="container mx-auto lg:px-0 px-3">
         <div className="grid lg:grid-cols-4 grid-cols-2 gap-3">
           {data.map((item) => (
@@ -152,16 +152,14 @@ export default function Footer() {
             </ul>
           </div>
         </div>
-        <div className="inline-flex items-start gap-6">
+        <div className="inline-flex items-start gap-6 ">
           {socialData?.map((item) => (
-            <Link key={item.id} href={item.link}>
-              <Image
-                priority
-                width={40}
-                height={40}
-                alt={item.name}
-                src={item.image}
-              />
+            <Link
+              key={item.id}
+              href={item.link}
+              className="bg-[#D1E4FD] text-primary p-2 rounded-full"
+            >
+              <item.image />
             </Link>
           ))}
         </div>

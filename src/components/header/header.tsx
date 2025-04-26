@@ -5,6 +5,7 @@ import ServicesButton from './services-button';
 import { usePathname } from 'next/navigation';
 import { Button } from 'components/ui/button';
 import { cn } from 'lib/utils';
+import { CartIcon, LoginIcon } from 'components/icons';
 
 export default function Header() {
   const pathname = usePathname();
@@ -47,11 +48,25 @@ export default function Header() {
             </a>
           </div>
           <div className="flex items-end gap-3  h-[45px]">
-            <Button className=" bg-white hover:bg-white text-primary">
-              Login
+            <Button
+              className={cn(
+                ' shadow-none  flex gap-1 items-center',
+                pathname === '/'
+                  ? 'hover:bg-white bg-white text-orange-500'
+                  : 'bg-[#F5F5F5] text-black '
+              )}
+            >
+              <LoginIcon /> Login
             </Button>
-            <Button className=" bg-white hover:bg-white text-primary">
-              Login
+            <Button
+              className={cn(
+                '  shadow-none ',
+                pathname === '/'
+                  ? 'hover:bg-white bg-white text-orange-500'
+                  : 'bg-[#F5F5F5] text-black '
+              )}
+            >
+              <CartIcon />
             </Button>
           </div>
         </div>

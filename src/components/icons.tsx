@@ -809,3 +809,89 @@ export const BathIcon = ({ size = 20 }: IconProps) => (
     />
   </svg>
 );
+export const LoginIcon = ({ size = 20 }: IconProps) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width={size}
+    height={size}
+    viewBox="0 0 24 25"
+    fill="none"
+  >
+    <path
+      d="M8.90039 8.05999C9.21039 4.45999 11.0604 2.98999 15.1104 2.98999H15.2404C19.7104 2.98999 21.5004 4.77999 21.5004 9.24999V15.77C21.5004 20.24 19.7104 22.03 15.2404 22.03H15.1104C11.0904 22.03 9.24039 20.58 8.91039 17.04"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <path
+      d="M2 12.5H14.88"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <path
+      d="M12.6504 9.15002L16.0004 12.5L12.6504 15.85"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </svg>
+);
+
+export const InstagramIcon = ({ size = 30 }: IconProps) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width={size}
+    height={size}
+    viewBox="0 0 40 40"
+    fill="none"
+  >
+    <path
+      d="M25.9917 7.00781H14.0084C10.1417 7.00781 7.00781 10.1423 7.00781 14.0084V25.9917C7.00781 29.8584 10.1423 32.9923 14.0089 32.9923H25.9911C29.8578 32.9923 32.9923 29.8578 32.9923 25.9911V14.0084C32.9923 10.1417 29.8578 7.00781 25.9911 7.00781H25.9917Z"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeMiterlimit="10"
+    />
+    <path
+      d="M20.0007 26.272C23.4648 26.272 26.273 23.4638 26.273 19.9998C26.273 16.5357 23.4648 13.7275 20.0007 13.7275C16.5367 13.7275 13.7285 16.5357 13.7285 19.9998C13.7285 23.4638 16.5367 26.272 20.0007 26.272Z"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeMiterlimit="10"
+    />
+    <path
+      d="M27.6154 13.7278C28.3576 13.7278 28.9593 13.1261 28.9593 12.3839C28.9593 11.6417 28.3576 11.04 27.6154 11.04C26.8732 11.04 26.2715 11.6417 26.2715 12.3839C26.2715 13.1261 26.8732 13.7278 27.6154 13.7278Z"
+      fill="#1878F3"
+    />
+  </svg>
+);
+export const TelegramIcon = ({ size = 30 }: IconProps) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width={size}
+    height={size}
+    viewBox="0 0 40 40"
+    fill="none"
+  >
+    <path
+      d="M32.7964 6.89994L2.9197 18.2633C1.2947 18.7449 1.33637 20.3566 2.5447 20.7533L10.0164 23.0999L12.8897 31.9333C13.2447 32.8949 13.5147 33.2716 14.118 33.2716C14.743 33.2716 14.973 33.0416 15.638 32.4766C16.388 31.7649 17.5547 30.6349 19.3864 28.8349L27.173 34.6116C28.6097 35.4066 29.6297 34.9883 30.0047 33.2733L34.8764 8.99161C35.3964 6.89827 34.168 6.27161 32.793 6.89827L32.7964 6.89994ZM11.2047 22.5749L28.2164 11.8383C29.0497 11.2733 29.3197 11.9016 28.9464 12.3416L14.8297 25.1083L14.1014 31.4933L11.2064 22.5766L11.2047 22.5749Z"
+      fill="currentColor"
+    />
+  </svg>
+);
+export const FaceBookIcon = ({ size = 30 }: IconProps) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width={size}
+    height={size}
+    viewBox="0 0 40 40"
+    fill="none"
+  >
+    <path
+      d="M23.3327 22.5002H27.4993L29.166 15.8335H23.3327V12.5002C23.3327 10.7835 23.3327 9.16683 26.666 9.16683H29.166V3.56683C28.6227 3.49516 26.571 3.3335 24.4043 3.3335C19.8793 3.3335 16.666 6.09516 16.666 11.1668V15.8335H11.666V22.5002H16.666V36.6668H23.3327V22.5002Z"
+      fill="currentColor"
+    />
+  </svg>
+);
