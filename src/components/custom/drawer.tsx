@@ -1,7 +1,6 @@
 'use client';
 import { ReactNode } from 'react';
 import { VisuallyHidden } from '@radix-ui/react-visually-hidden';
-import { DialogTitle } from '../ui/dialog';
 import { useModal } from 'hooks/use-modal';
 import { Drawer, DrawerContent, DrawerTitle } from 'components/ui/drawer';
 

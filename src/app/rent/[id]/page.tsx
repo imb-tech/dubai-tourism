@@ -2,6 +2,8 @@ import CarFeatures from 'views/rent/car-features';
 import CarInfo from 'views/rent/car-info';
 import React from 'react';
 import DrawerImagesView from 'components/drawer/page';
+import Questions from 'components/questions/questions';
+import { childData } from 'services/data';
 
 const images= [
   {
@@ -34,6 +36,11 @@ export default function RentId() {
       <DrawerImagesView images={images} />
       <CarInfo />
       <CarFeatures />
+      <Questions
+        title="Frequently asked questions"
+        parentData={["Renta a Car Questions"]}
+        childData={childData}
+      />
     </div>
   );
 }

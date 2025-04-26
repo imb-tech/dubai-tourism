@@ -1,7 +1,8 @@
+import Questions from 'components/questions/questions';
 import CarCard from 'components/shared/car-card';
 import { SliderComponents } from 'components/slider/page';
 import React from 'react';
-import { images } from 'services/data';
+import { childData, images } from 'services/data';
 import TourPackagesFilter from 'views/tour-packages/tour-packages';
 
 const ToursPackages = () => {
@@ -19,6 +20,11 @@ const ToursPackages = () => {
           <CarCard key={s.id} {...s} />
         ))}
       </div>
+      <Questions
+        title="Frequently asked questions"
+        parentData={["Tour Packages Questions"]}
+        childData={childData}
+      />
     </div>
   );
 };

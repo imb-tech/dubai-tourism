@@ -4,7 +4,8 @@ import WtpForm from 'views/atraction/atraction-form';
 import WtpMap from 'views/atraction/atraction-map';
 import React from 'react';
 import { SliderComponents } from 'components/slider/page';
-import { images } from 'services/data';
+import { childData, images } from 'services/data';
+import Questions from 'components/questions/questions';
 
 export default function wtp() {
   return (
@@ -17,7 +18,11 @@ export default function wtp() {
       <WtpMap/>
       <WtpFeatures />
       <WtpComments/>
-
+      <Questions
+        title="Frequently asked questions"
+        parentData={["Atraction Questions"]}
+        childData={childData}
+      />
     </div>
   );
 }

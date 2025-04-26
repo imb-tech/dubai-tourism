@@ -4,15 +4,22 @@ import Products from 'views/home/products';
 import Services from 'views/home/services';
 import Tours from 'views/home/tours';
 import React from 'react';
+import Questions from 'components/questions/questions';
+import { childData, parentData } from 'services/data';
 
 export default function Home() {
   return (
-    <div className='space-y-12 mb-12'>
+    <div className="space-y-12 mb-12">
       <HeroPages />
       <Services />
       <Products />
-      <Cars/>
-      <Tours/>
+      <Cars />
+      <Tours />
+      <Questions
+        title="Frequently asked questions"
+        parentData={parentData}
+        childData={childData}
+      />
     </div>
   );
 }

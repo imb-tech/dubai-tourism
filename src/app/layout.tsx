@@ -7,7 +7,6 @@ import Header from 'components/header/header';
 import Footer from 'components/footer/footer';
 import { QueryClientProvider } from '@tanstack/react-query';
 import { queryClient } from 'lib/query-client';
-import Questions from 'views/home/questions';
 import Contact from 'views/home/contact';
 
 const geistSans = Geist({
@@ -33,7 +32,6 @@ export default function RootLayout({
           <QueryClientProvider client={queryClient}>
             <Header />
             <main className="min-h-screen ">{children}</main>
-            <Questions/>
             <Contact/>
             <Footer />
             <Toaster richColors />

@@ -1,7 +1,8 @@
+import Questions from 'components/questions/questions';
 import CarCard from 'components/shared/car-card';
 import { SliderComponents } from 'components/slider/page';
 import React from 'react';
-import { images } from 'services/data';
+import { childData, images } from 'services/data';
 import ApartmentFilter from 'views/rent-apartment/apartment-filter';
 
 const RentApartment = () => {
@@ -19,6 +20,11 @@ const RentApartment = () => {
           <CarCard key={s.id} {...s} />
         ))}
       </div>
+      <Questions
+        title="Frequently asked questions"
+        parentData={["Renta Apartment Questions"]}
+        childData={childData}
+      />
     </div>
   );
 };

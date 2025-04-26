@@ -1,6 +1,7 @@
+import Questions from 'components/questions/questions';
 import { SliderComponents } from 'components/slider/page';
 import React from 'react';
-import { images } from 'services/data';
+import { childData, images } from 'services/data';
 import ShoppingCard from 'views/shopping/shopping-card';
 import SHoppingFilter from 'views/shopping/shopping-filter';
 
@@ -21,6 +22,11 @@ const Shopping = () => {
           <ShoppingCard key={item.id} item={item} />
         ))}
       </div>
+      <Questions
+        title="Frequently asked questions"
+        parentData={["Shopping Questions"]}
+        childData={childData}
+      />
     </div>
   );
 };
