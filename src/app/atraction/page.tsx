@@ -1,7 +1,7 @@
-import { images } from 'app/shopping/page';
 import CarCard from 'components/shared/car-card';
 import { SliderComponents } from 'components/slider/page';
 import React from 'react';
+import { images } from 'services/data';
 import AtractionFilter from 'views/atraction/atraction-filter';
 
 const cars: Product[] = [

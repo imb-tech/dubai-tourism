@@ -2,7 +2,7 @@ import CarCard from 'components/shared/car-card';
 import RentFilter from 'views/rent/rent-filter';
 import React from 'react';
 import { SliderComponents } from 'components/slider/page';
-import { images } from 'app/shopping/page';
+import { images } from 'services/data';
 
 export default function page() {
   return (

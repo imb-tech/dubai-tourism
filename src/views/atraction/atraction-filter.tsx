@@ -1,4 +1,5 @@
 'use client';
+import ParamInput from 'components/params/input';
 import SelectParams from 'components/params/select';
 import { Button } from 'components/ui/button';
 import { SearchIcon } from 'lucide-react';
@@ -36,10 +37,12 @@ export default function AtractionFilter() {
         options={filters}
         placeholder="filter2"
       />
-      <Button className="h-[50px] text-lg flex justify-between">
-        <span>Search</span>
-        <SearchIcon />
-      </Button>
+      <ParamInput
+        placeholder="Search"
+        className="bg-primary placeholder:text-white text-white"
+        fullWidth
+        suffix={<SearchIcon className="text-white" size={20} />}
+      />
     </div>
   );
 }

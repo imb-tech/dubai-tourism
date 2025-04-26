@@ -1,7 +1,6 @@
-'use client';
-
-import React from 'react';
-import { useRouter, useSearchParams } from 'next/navigation';
+"use client"
+import React, { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { ClassNameValue } from 'tailwind-merge';
 import {
   Select as Select2,
@@ -36,12 +35,19 @@ const SelectParams = ({
   returnVal = 'id',
 }: thisProps) => {
   const router = useRouter();
-  const searchParams = useSearchParams();
 
-  const currentValue = searchParams.get(paramKey) || '';
+  const [currentValue, setCurrentValue] = useState<string>('all');
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const params = new URLSearchParams(window.location.search);
+      const value = params.get(paramKey);
+      setCurrentValue(value || 'all');
+    }
+  }, [paramKey]);
 
   const handleChange = (newValue: string) => {
-    const params = new URLSearchParams(searchParams.toString());
+    const params = new URLSearchParams(window.location.search);
 
     if (newValue === 'all') {
       params.delete(paramKey);
@@ -50,6 +56,7 @@ const SelectParams = ({
     }
 
     router.push(`?${params.toString()}`);
+    setCurrentValue(newValue);
   };
 
   return (

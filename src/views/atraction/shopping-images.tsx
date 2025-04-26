@@ -6,7 +6,7 @@ import React from 'react';
 import { useModal } from 'hooks/use-modal';
 import CustomDrawer from 'components/custom/drawer';
 import { SliderComponents } from 'components/slider/page';
-import { images } from 'app/shopping/page';
+import { images } from 'services/data';
 
 
 export default function ShopppingImages() {

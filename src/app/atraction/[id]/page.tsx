@@ -4,7 +4,7 @@ import WtpForm from 'views/wtp/wtp-form';
 import WtpMap from 'views/wtp/wtp-map';
 import React from 'react';
 import { SliderComponents } from 'components/slider/page';
-import { images } from 'app/shopping/page';
+import { images } from 'services/data';
 
 export default function wtp() {
   return (

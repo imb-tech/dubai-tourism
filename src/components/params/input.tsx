@@ -1,8 +1,13 @@
 'use client';
-
-import React, { ChangeEvent, KeyboardEvent, useRef } from 'react';
+import React, {
+  ChangeEvent,
+  KeyboardEvent,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 import { Input, InputProps } from '../ui/input';
-import { useRouter, useSearchParams, usePathname } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 
 type Props = {
   paramName?: string;
@@ -18,13 +23,25 @@ export default function ParamInput({
   ...props
 }: Props) {
   const router = useRouter();
-  const searchParams = useSearchParams();
-  const pathname = usePathname();
   const inputRef = useRef<HTMLInputElement>(null);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
 
   function handlePush(val: string | undefined) {
-    const params = new URLSearchParams(clearOther ? '' : searchParams.toString());
+    const url = new URL(window.location.href);
+    const params = new URLSearchParams(url.search);
+
+    if (clearOther) {
+      params.forEach((_, key) => {
+        if (key !== paramName) {
+          params.delete(key);
+        }
+      });
+    }
 
     if (val) {
       params.set(paramName, val);
@@ -32,7 +49,9 @@ export default function ParamInput({
       params.delete(paramName);
     }
 
-    router.push(`${redirectPath || pathname}?${params.toString()}`);
+    router.push(
+      `${redirectPath || window.location.pathname}?${params.toString()}`
+    );
   }
 
   function onKeyDown(e: KeyboardEvent<HTMLInputElement>) {
@@ -54,14 +73,16 @@ export default function ParamInput({
     }, 400);
   }
 
-  return (
+  return isClient ? (
     <Input
-      defaultValue={searchParams.get(paramName) || ''}
+      defaultValue={
+        new URLSearchParams(window.location.search).get(paramName) || ''
+      }
       ref={inputRef}
       onChange={handleChange}
       placeholder={placeholder}
       onKeyDown={onKeyDown}
       {...props}
     />
-  );
+  ) : null;
 }

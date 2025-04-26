@@ -4,7 +4,7 @@ import {
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from '@/components/ui/accordion';
+} from 'components/ui/accordion';
 
 const data = [
   'Когда начинается бронирование отдыха в Турции на октябрь 2023?',
