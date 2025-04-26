@@ -57,7 +57,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
                         />)}
                 {!!suffix && (
                     <span
-                        className={`absolute right-2 top-1.5 text-muted-foreground box-content cursor-pointer backdrop-blur z-1 ${props.disabled && "pointer-events-none cursor-not-allowed opacity-50"} `}
+                        className={`absolute right-2 top-[50%] translate-y-[-50%] text-muted-foreground box-content cursor-pointer backdrop-blur z-1 ${props.disabled && "pointer-events-none cursor-not-allowed opacity-50"} `}
                     >
                         {suffix}
                     </span>

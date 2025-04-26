@@ -18,7 +18,7 @@ function ServicesButton({ pathname }: { pathname: string | null }) {
       id: 1,
       name: 'Tours and Activities',
       icon: TouresIcon,
-      url: '/tours',
+      url: '/atraction',
     },
     {
       id: 2,

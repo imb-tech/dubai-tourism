@@ -70,7 +70,7 @@ const Contact = () => {
             wrapperClassName="col-span-3 "
             className='bg-gray-100'
           />
-          <Button className='col-span-3'>Ariza qoldirish</Button>
+          <Button type='submit' className='col-span-3 cursor-pointer'>Ariza qoldirish</Button>
         </form>
       </div>
     </div>

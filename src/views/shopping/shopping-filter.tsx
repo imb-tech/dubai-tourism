@@ -1,6 +1,6 @@
 'use client';
-import { Button } from 'components/ui/button';
-import SelectField from 'components/ui/select';
+import ParamInput from 'components/params/input';
+import SelectParams from 'components/params/select';
 import { SearchIcon } from 'lucide-react';
 import React from 'react';
 
@@ -26,38 +26,32 @@ const filters = [
 export default function SHoppingFilter() {
   return (
     <div className="lg:grid grid-cols-5 gap-2 py-3 border rounded-[12px] p-2">
-      <SelectField
-        value={1}
-        setValue={(v) => console.log(v)}
-        label="Avto type"
+      <SelectParams
+        paramKey="filter1"
         options={filters}
-        className="h-[50px] text-lg bg-[#f5f5f5] border-none ring-0 outline-none shadow-none px-5"
+        placeholder="filter1"
       />
-      <SelectField
-        value={1}
-        setValue={(v) => console.log(v)}
-        label="Brand"
+      <SelectParams
+        paramKey="filter2"
         options={filters}
-        className="h-[50px] text-lg bg-[#f5f5f5] border-none ring-0 outline-none shadow-none px-5"
+        placeholder="filter2"
       />
-      <SelectField
-        value={1}
-        setValue={(v) => console.log(v)}
-        label="Brand"
+      <SelectParams
+        paramKey="filter3"
         options={filters}
-        className="h-[50px] text-lg bg-[#f5f5f5] border-none ring-0 outline-none shadow-none px-5"
+        placeholder="filter3"
       />
-      <SelectField
-        value={1}
-        setValue={(v) => console.log(v)}
-        label="Brand"
+      <SelectParams
+        paramKey="filter4"
         options={filters}
-        className="h-[50px] text-lg bg-[#f5f5f5] border-none ring-0 outline-none shadow-none px-5"
+        placeholder="filter4"
       />
-      <Button className="h-[50px] text-lg flex justify-between">
-        <span>Search</span>
-        <SearchIcon />
-      </Button>
+      <ParamInput
+        placeholder="Search"
+        className="bg-primary placeholder:text-white"
+        fullWidth
+        suffix={<SearchIcon className="text-white" size={20} />}
+      />
     </div>
   );
 }

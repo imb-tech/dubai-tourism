@@ -1,5 +1,5 @@
+import { SliderComponents } from 'components/slider/page';
 import React from 'react';
-import { SHopImageSlider } from 'views/shopping/shop-page-slider';
 import ShoppingCard from 'views/shopping/shopping-card';
 import SHoppingFilter from 'views/shopping/shopping-filter';
 
@@ -10,9 +10,9 @@ const Shopping = () => {
         Atlantis Aquaventure Waterpark
       </h1>
 
-      <SHopImageSlider images={images} />
-      <div className='my-5'>
-      <SHoppingFilter />
+      <SliderComponents images={images} />
+      <div className="my-5">
+        <SHoppingFilter />
       </div>
       <h1 className="font-semibold lg:text-3xl  text-2xl">Best seller</h1>
       <div className="grid lg:grid-cols-4 mt-5 mb-8 md:grid-cols-3 grid-cols-3 gap-5">
@@ -26,7 +26,7 @@ const Shopping = () => {
 
 export default Shopping;
 
-const images: ShoppingImage[] = [
+export const images: ShoppingImage[] = [
   {
     id: 1,
     title: '1+1 aktsiya',

@@ -6,30 +6,8 @@ import React from 'react';
 import { useModal } from 'hooks/use-modal';
 import CustomDrawer from 'components/custom/drawer';
 import { SliderComponents } from 'components/slider/page';
+import { images } from 'app/shopping/page';
 
-
-const images = [
-  {
-    id: 1,
-    url: '/shopping/shopping1.png',
-  },
-  {
-    id: 2,
-    url: '/shopping/shopping2.png',
-  },
-  {
-    id: 3,
-    url: '/shopping/shopping3.png',
-  },
-  {
-    id: 4,
-    url: '/shopping/shopping4.png',
-  },
-  {
-    id: 5,
-    url: '/shopping/shopping5.png',
-  },
-];
 
 export default function ShopppingImages() {
   const { openModal } = useModal();

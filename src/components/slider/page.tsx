@@ -10,7 +10,7 @@ import {
   CarouselPrevious,
 } from 'components/ui/carousel';
 
-export function SHopImageSlider({ images }: { images: ShoppingImage[] }) {
+export function SliderComponents({ images }: { images: ShoppingImage[] }) {
   return (
     <div className="relative rounded-lg overflow-hidden border">
       <Carousel className="w-full" opts={{ loop: true }}>

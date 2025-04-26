@@ -5,7 +5,7 @@ const services: Service[] = [
   {
     name: 'Atraction ticketlar',
     image: '/atroksion.png',
-    link: '#',
+    link: '/atraction',
   },
   {
     name: 'Transfers xizmati',

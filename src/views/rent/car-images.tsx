@@ -3,11 +3,12 @@ import { GallaryIcon } from 'components/icons';
 import { cn } from 'lib/utils';
 import Image from 'next/image';
 import React from 'react';
-import { CarImageSlides } from './car-image-slide';
 import { useModal } from 'hooks/use-modal';
 import CustomDrawer from 'components/custom/drawer';
+import { SliderComponents } from 'components/slider/page';
 
-const images: CarImage[] = [
+
+const images= [
   {
     id: 1,
     url: 'https://s3-alpha-sig.figma.com/img/e3ac/2e9d/74a9eec1b28c60891cb0e2ee8102fdab?Expires=1745798400&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=oDq4WO5fPw3Lzl3cctqgbgB4cOUPjLMK~CUNBf~r-wDlc~q1FUntMPAtFkIPT89g9TtfU6P4z5Aa1wzj-pL8jARp6FxcFnFkN9L7uwjpUazvTrDMYDrF4fvyYHCDBZqIjEZfOYdtjCqvp261q1UoDYdV2c9-Ke50f7pfEPDBk3BSu-E0Mi1brSOTw92ES2CtCvRuFnltQi-ER~W0pD8ePeqdsldtzrts01ZNshnVhMv~3flzUKfluQV~dS3W8XVx2VNEj3nzulkI2adk9jESRa~6Uk8g9uCzpTu9ngJl-y75vw9DfhFxqJeRTd4TtgHxjmWApGmRHIA7wHiEgARw8Q__',
@@ -57,7 +58,7 @@ export default function CarImages() {
       </div>
 
       <CustomDrawer className="max-w-full min-h-full" title="Mercedes G63 AMG">
-        <CarImageSlides images={[...images, ...images, ...images]} />
+        <SliderComponents images={[...images, ...images, ...images]} />
       </CustomDrawer>
     </div>
   );

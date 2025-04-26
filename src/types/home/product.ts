@@ -9,4 +9,5 @@ type Product = {
     speed?: number
     comments?: number
     rate?: number
+    url:string
 }
