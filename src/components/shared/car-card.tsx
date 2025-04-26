@@ -44,7 +44,7 @@ export default function CarCard({ name, image, price, url }: Product) {
       />
 
       <Link
-        href={url}
+        href={url || "/"}
         className={buttonVariants({ size: 'lg', className: 'w-full' })}
       >
         Batafsil

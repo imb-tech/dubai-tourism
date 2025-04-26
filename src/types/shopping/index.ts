@@ -1,6 +1,6 @@
 type ShoppingImage = {
     id?: number
-    url?: string,
+    url: string,
     title?:string,
     description?:string,
     phone?:string | number

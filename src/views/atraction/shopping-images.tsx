@@ -16,7 +16,7 @@ export default function ShopppingImages() {
       {images?.map((im, i) => (
         <Image
           key={im.id}
-          src={im.url}
+          src={im?.url}
           alt="rent car item"
           width={600}
           height={600}

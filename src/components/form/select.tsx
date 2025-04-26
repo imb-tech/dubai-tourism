@@ -1,4 +1,5 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
+"use client"
+
 import { cn } from 'lib/utils';
 import { ChevronDown } from 'lucide-react';
 import { ReactNode } from 'react';

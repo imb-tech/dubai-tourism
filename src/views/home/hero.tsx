@@ -16,12 +16,12 @@ const HeroPages = () => {
   useEffect(() => {
     const intervalId = setInterval(() => {
       setCurrentImageIndex(
-        (prevIndex) => (prevIndex + 1) % backgroundImages.length
+        (prevIndex) => (prevIndex + 1) % backgroundImages?.length
       );
     }, 3000);
 
     return () => clearInterval(intervalId);
-  }, [backgroundImages.length]);
+  }, []);
 
   return (
     <section className={`p-3 sm:p-6 h-[620px]`}>

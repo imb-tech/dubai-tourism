@@ -21,7 +21,7 @@ export default function page() {
 }
 
 
-export const cars: Product[] = [
+ const cars: Product[] = [
   {
     id: 1,
     name: 'Lambar gambar',

@@ -64,7 +64,7 @@ export const images: ShoppingImage[] = [
   },
 ];
 
-export const dataShoppping = [
+const dataShoppping = [
   {
     id: 1,
     name: 'Eternity Engraved Diamond Huggies',

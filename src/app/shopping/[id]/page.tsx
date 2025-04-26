@@ -2,8 +2,8 @@ import { cn } from 'lib/utils';
 import Link from 'next/link';
 import React from 'react';
 import ShopppingImages from 'views/shopping/shopping-images';
-import { dataShoppping } from '../page';
 import ShoppingCard from 'views/shopping/shopping-card';
+
 
 export default function ShoppingId() {
   return (
@@ -87,5 +87,92 @@ const data = [
     title: 'Discover Tanzanite at NG Emirates Jewellery',
     description:
       'Found in only one place on earth, Tanzanite is a relatively recent discovery, first unearthed in 1967 in Tanzania. Named by Tiffany & Co, this blue-violet variety of zoisite quickly gained popularity for its vivid color, high clarity, and potential for large cut stones. Tanzanite crystals display different colors depending on the viewing direction, allowing cutters to fashion gems with a range of colors from violetish blue to bluish-violet, depending on the desired weight retention from the rough stone.',
+  },
+];
+
+const dataShoppping = [
+  {
+    id: 1,
+    name: 'Eternity Engraved Diamond Huggies',
+    tag: 'weddingring',
+    sold: 'Best seller',
+    image: '/uzuk.png',
+  },
+  {
+    id: 2,
+    name: 'Eternity Engraved Diamond Huggies',
+    tag: 'weddingring',
+    sold: 'Best seller',
+    image: '/uzuk.png',
+  },
+  {
+    id: 3,
+    name: 'Eternity Engraved Diamond Huggies',
+    tag: 'weddingring',
+    sold: 'Best seller',
+    image: '/uzuk.png',
+  },
+  {
+    id: 4,
+    name: 'Eternity Engraved Diamond Huggies',
+    tag: 'weddingring',
+    sold: 'Best seller',
+    image: '/uzuk.png',
+  },
+  {
+    id: 5,
+    name: 'Eternity Engraved Diamond Huggies',
+    tag: 'weddingring',
+    sold: 'Best seller',
+    image: '/uzuk.png',
+  },
+  {
+    id: 6,
+    name: 'Eternity Engraved Diamond Huggies',
+    tag: 'weddingring',
+    sold: 'Best seller',
+    image: '/uzuk.png',
+  },
+  {
+    id: 7,
+    name: 'Eternity Engraved Diamond Huggies',
+    tag: 'weddingring',
+    sold: 'Best seller',
+    image: '/uzuk.png',
+  },
+  {
+    id: 8,
+    name: 'Eternity Engraved Diamond Huggies',
+    tag: 'weddingring',
+    sold: 'Best seller',
+    image: '/uzuk.png',
+  },
+  {
+    id: 9,
+    name: 'Eternity Engraved Diamond Huggies',
+    tag: 'weddingring',
+    sold: 'Best seller',
+    image: '/uzuk.png',
+  },
+  {
+    id: 10,
+    name: 'Eternity Engraved Diamond Huggies',
+    tag: 'weddingring',
+    sold: 'Best seller',
+    image: '/uzuk.png',
+  },
+  {
+    id: 11,
+    name: 'Eternity Engraved Diamond Huggies',
+    tag: 'weddingring',
+    sold: 'Best seller',
+    image: '/uzuk.png',
+  },
+  {
+    id: 12,
+    name: 'Eternity Engraved Diamond Huggies',
+    tag: 'weddingring',
+    sold: 'Best seller',
+    image: '/uzuk.png',
   },
 ];

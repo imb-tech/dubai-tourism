@@ -4,7 +4,7 @@ import { SliderComponents } from 'components/slider/page';
 import React from 'react';
 import AtractionFilter from 'views/atraction/atraction-filter';
 
-export const cars: Product[] = [
+const cars: Product[] = [
   {
     id: 1,
     name: 'Lambar gambar',
@@ -59,89 +59,4 @@ const AtractionPage = () => {
 
 export default AtractionPage;
 
-export const dataShoppping = [
-  {
-    id: 1,
-    name: 'Eternity Engraved Diamond Huggies',
-    tag: 'weddingring',
-    sold: 'Best seller',
-    image: '/uzuk.png',
-  },
-  {
-    id: 2,
-    name: 'Eternity Engraved Diamond Huggies',
-    tag: 'weddingring',
-    sold: 'Best seller',
-    image: '/uzuk.png',
-  },
-  {
-    id: 3,
-    name: 'Eternity Engraved Diamond Huggies',
-    tag: 'weddingring',
-    sold: 'Best seller',
-    image: '/uzuk.png',
-  },
-  {
-    id: 4,
-    name: 'Eternity Engraved Diamond Huggies',
-    tag: 'weddingring',
-    sold: 'Best seller',
-    image: '/uzuk.png',
-  },
-  {
-    id: 5,
-    name: 'Eternity Engraved Diamond Huggies',
-    tag: 'weddingring',
-    sold: 'Best seller',
-    image: '/uzuk.png',
-  },
-  {
-    id: 6,
-    name: 'Eternity Engraved Diamond Huggies',
-    tag: 'weddingring',
-    sold: 'Best seller',
-    image: '/uzuk.png',
-  },
-  {
-    id: 7,
-    name: 'Eternity Engraved Diamond Huggies',
-    tag: 'weddingring',
-    sold: 'Best seller',
-    image: '/uzuk.png',
-  },
-  {
-    id: 8,
-    name: 'Eternity Engraved Diamond Huggies',
-    tag: 'weddingring',
-    sold: 'Best seller',
-    image: '/uzuk.png',
-  },
-  {
-    id: 9,
-    name: 'Eternity Engraved Diamond Huggies',
-    tag: 'weddingring',
-    sold: 'Best seller',
-    image: '/uzuk.png',
-  },
-  {
-    id: 10,
-    name: 'Eternity Engraved Diamond Huggies',
-    tag: 'weddingring',
-    sold: 'Best seller',
-    image: '/uzuk.png',
-  },
-  {
-    id: 11,
-    name: 'Eternity Engraved Diamond Huggies',
-    tag: 'weddingring',
-    sold: 'Best seller',
-    image: '/uzuk.png',
-  },
-  {
-    id: 12,
-    name: 'Eternity Engraved Diamond Huggies',
-    tag: 'weddingring',
-    sold: 'Best seller',
-    image: '/uzuk.png',
-  },
-];
+
