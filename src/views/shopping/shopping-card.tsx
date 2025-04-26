@@ -16,7 +16,7 @@ function ShoppingCard({ item }: { item: any }) {
       <div>
         <Link
           href={'#'}
-          className="rounded-2xl bg-amber-100 text-primary text-xs py-1 px-2"
+          className="rounded-2xl bg-[#FFDDD6] text-orange-500 text-xs py-1 px-2"
         >
           #{item.tag}
         </Link>

@@ -74,7 +74,7 @@ function ServicesButton({ pathname }: { pathname: string | null }) {
             'flex first:min-w-44  items-center gap-2 p-2 rounded-[8px] justify-center w-full',
             pathname === '/'
               ? 'bg-[#FFFFFF1A] text-white '
-              : 'bg-[#D4AF371F]  text-primary'
+              : 'bg-[#FFF3EC]  text-[#FF5533]'
           )}
         >
           <item.icon />

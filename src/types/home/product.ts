@@ -1,13 +1,20 @@
 type Product = {
-    id: number
-    name: string
-    image: string
-    price: number
-    discount?: number
-    karobka?: "Mechanic" | "Automatic"
-    hp?: number
-    speed?: number
-    comments?: number
-    rate?: number
-    url?:string
-}
+    id: string | number;
+    name: string;
+    location?: string;
+    tag?: string;
+    image: string;
+    distance?: number;
+    horsepower?: number;
+    transmission?: 'Automatic' | 'Manual';
+    reviewsCount?: number;
+    rating?: number;
+    areaSqFt?: number;
+    beds?: number;
+    baths?: number;
+    price: number;
+    discount?: number;
+    url?: string
+    sale?: boolean
+    suffix?: string
+};

@@ -32,9 +32,12 @@ export default function Money({
         </h3>
       )}
       <h3
-        className={cn('md:text-xl text-sm font-semibold text-primary', discountClassName)}
+        className={cn(
+          'md:text-xl text-sm font-semibold text-[#FF5533]',
+          discountClassName
+        )}
       >
-        From AED {formatMoney(discount)} {suffix}
+        From AED {formatMoney(discount)} {suffix ? '/' : ''} {suffix}
       </h3>
     </div>
   );

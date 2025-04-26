@@ -81,7 +81,7 @@ export default function CarInfo() {
         <Button
           size="lg"
           variant="ghost"
-          className="bg-white hover:bg-white text-primary hover:text-primary gap-1"
+          className="bg-[#52C41A] hover:bg-[#53c41add] text-white hover:text-white gap-1"
         >
           <WhatsappIcon size={25} />
           <span>Whatsapp</span>

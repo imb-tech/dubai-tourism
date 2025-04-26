@@ -29,7 +29,7 @@ const images= [
 
 export default function RentId() {
   return (
-    <div className="container mx-auto sm:px-10">
+    <div className="container mx-auto lg:px-0 px-3">
       <h1 className="text-center text-4xl my-8">Dubayda avtomobil ijarasi</h1>
       <DrawerImagesView images={images} />
       <CarInfo />

@@ -3,6 +3,7 @@ import { Button } from 'components/ui/button';
 import React, { useEffect, useState } from 'react';
 
 const backgroundImages = [
+  '/slider-home/slider0.png',
   '/slider-home/slider.jpg',
   '/slider-home/slider1.jpg',
   '/slider-home/slider3.png',
@@ -24,7 +25,7 @@ const HeroPages = () => {
   }, []);
 
   return (
-    <section className={`p-3 sm:p-6 h-[620px]`}>
+    <div className={`p-3 sm:p-6 h-[620px]`}>
       {backgroundImages.map((image, index) => (
         <div
           key={index}
@@ -37,17 +38,24 @@ const HeroPages = () => {
           }}
         >
           <div className="h-full flex items-center justify-start text-white container mx-auto lg:px-0 px-3">
-            <div className='w-1/2 space-y-4'>
+            <div className="w-1/2 space-y-4">
               <h1 className="font-bold text-5xl leading-[120%]">
                 Dubaydagi Shaxsiy VIP Xizmatlar
               </h1>
-              <p>"Biz siz uchun hashamatli xizmatlarni tashkillashtiramiz"</p>
-              <Button className='bg-white text-primary mt-4 hover:bg-white cursor-pointer'>Biz bilan bog'laning</Button>
+              <p>
+                Experience the luxury and elegance of Dubai like never before
+                with our Exclusive VIP Tour. This bespoke journey takes you
+                through Dubai's most iconic landmarks, with personalized
+                services tailored to your needs.
+              </p>
+              <Button className="bg-primary text-white mt-4 cursor-pointer">
+                Biz bilan bog'laning
+              </Button>
             </div>
           </div>
         </div>
       ))}
-    </section>
+    </div>
   );
 };
 
