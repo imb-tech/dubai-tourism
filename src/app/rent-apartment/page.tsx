@@ -1,6 +1,7 @@
 import Questions from 'components/questions/questions';
 import CarCard from 'components/shared/car-card';
 import { SliderComponents } from 'components/slider/page';
+import SectionDetailsHeading from 'components/ui/page-heading';
 import React from 'react';
 import { childData, images } from 'services/data';
 import ApartmentFilter from 'views/rent-apartment/apartment-filter';
@@ -8,7 +9,7 @@ import ApartmentFilter from 'views/rent-apartment/apartment-filter';
 const RentApartment = () => {
   return (
     <div className="container mx-auto lg:px-0 px-3">
-      <h1 className="text-center text-4xl my-8">Rent an apartment</h1>
+      <SectionDetailsHeading title="Rent an apartment" />
 
       <SliderComponents images={images} />
       <div className="my-5">
@@ -22,7 +23,7 @@ const RentApartment = () => {
       </div>
       <Questions
         title="Frequently asked questions"
-        parentData={["Renta Apartment Questions"]}
+        parentData={['Renta Apartment Questions']}
         childData={childData}
       />
     </div>

@@ -6,6 +6,7 @@ import CarCard from 'components/shared/car-card';
 import { CustomCarousel } from 'components/custom/carousel';
 import { CreativeCommons } from 'lucide-react';
 import { Button } from 'components/ui/button';
+import SectionDetailsHeading from 'components/ui/page-heading';
 
 const images = [
   {
@@ -80,9 +81,7 @@ export default function RentId() {
   return (
     <React.Fragment>
       <div className="container mx-auto lg:px-0 px-3">
-        <h1 className="text-center lg:text-4xl my-8 text-2xl">
-          28ft luxury Yacht
-        </h1>
+        <SectionDetailsHeading title="28ft luxury Yacht" />
         <DrawerImagesView images={images} />
 
         <div className="space-y-4 border rounded-md p-4 mt-5 mb-12 bg-[#F5F8FC]">

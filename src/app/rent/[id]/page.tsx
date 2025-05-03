@@ -6,6 +6,7 @@ import Questions from 'components/questions/questions';
 import { childData } from 'services/data';
 import CarCard from 'components/shared/car-card';
 import { CustomCarousel } from 'components/custom/carousel';
+import SectionDetailsHeading from 'components/ui/page-heading';
 
 const images = [
   {
@@ -91,9 +92,7 @@ export default function RentId() {
   return (
     <React.Fragment>
       <div className="container mx-auto lg:px-0 px-3">
-        <h1 className="text-center lg:text-4xl my-8 text-2xl">
-          Dubayda avtomobil ijarasi
-        </h1>
+        <SectionDetailsHeading title="Dubayda avtomobil ijarasi" />
         <DrawerImagesView images={images} />
         <CarInfo />
         <CarFeatures />

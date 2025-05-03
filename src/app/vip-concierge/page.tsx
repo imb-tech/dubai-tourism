@@ -1,6 +1,7 @@
 import Questions from 'components/questions/questions';
 import CarCard from 'components/shared/car-card';
 import { SliderComponents } from 'components/slider/page';
+import SectionDetailsHeading from 'components/ui/page-heading';
 import React from 'react';
 import { childData, images } from 'services/data';
 import VipConciergeFilter from 'views/vip-concierge/vip-concierge';
@@ -9,8 +10,7 @@ import VipConciergeFilter from 'views/vip-concierge/vip-concierge';
 const VipConcierge = () => {
   return (
     <div className="container mx-auto lg:px-0 px-3">
-      <h1 className="text-center lg:text-4xl text-2xl lg:font-normal font-semibold lg:my-8 my-5">VIP Concierge</h1>
-
+      <SectionDetailsHeading title="VIP Concierge" />
       <SliderComponents images={images} />
       <div className="my-5">
         <VipConciergeFilter />

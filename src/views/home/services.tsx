@@ -16,7 +16,7 @@ const services: Service[] = [
   {
     name: 'Mice group',
     image: '/atroksion.png',
-    link: '/atraction',
+    link: '/mice-group',
   },
   {
     name: 'VIP Concierge',

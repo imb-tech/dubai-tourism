@@ -1,6 +1,7 @@
 import Questions from 'components/questions/questions';
 import CarCard from 'components/shared/car-card';
 import { SliderComponents } from 'components/slider/page';
+import SectionDetailsHeading from 'components/ui/page-heading';
 import React from 'react';
 import { childData, images } from 'services/data';
 import TourPackagesFilter from 'views/tour-packages/tour-packages';
@@ -8,8 +9,7 @@ import TourPackagesFilter from 'views/tour-packages/tour-packages';
 const ToursPackages = () => {
   return (
     <div className="container mx-auto lg:px-0 px-3">
-      <h1 className="text-center lg:text-4xl lg:my-8 lg:font-normal font-medium mb-5 text-2xl ">Dubayda avtomobil ijarasi</h1>
-
+      <SectionDetailsHeading title="Dubayda avtomobil ijarasi" />
       <SliderComponents images={images} />
       <div className="my-5">
         <TourPackagesFilter />

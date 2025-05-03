@@ -8,6 +8,7 @@ import { childData, images } from 'services/data';
 import Questions from 'components/questions/questions';
 import CarCard from 'components/shared/car-card';
 import { CustomCarousel } from 'components/custom/carousel';
+import SectionDetailsHeading from 'components/ui/page-heading';
 
 const cars: Product[] = [
   {
@@ -66,9 +67,7 @@ export default function wtp() {
   return (
     <React.Fragment>
       <div className="container mx-auto lg:px-0 px-3">
-        <h1 className="text-center lg:text-4xl lg:my-8 my-5 text-2xl lg:font-normal font-semibold">
-          Atlantis Aquaventure Waterpark
-        </h1>
+        <SectionDetailsHeading title="Atlantis Aquaventure Waterpark" />
         <SliderComponents images={images} />
         <WtpForm />
         <WtpMap />

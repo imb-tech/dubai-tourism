@@ -1,6 +1,7 @@
 import { CustomCarousel } from 'components/custom/carousel';
 import DrawerImagesView from 'components/drawer/page';
 import Questions from 'components/questions/questions';
+import SectionDetailsHeading from 'components/ui/page-heading';
 import { cn } from 'lib/utils';
 import Link from 'next/link';
 import React from 'react';
@@ -37,7 +38,7 @@ export default function ShoppingId() {
   return (
     <React.Fragment>
       <div className="container mx-auto lg:px-0 px-3">
-        <h1 className="text-center lg:text-4xl text-2xl lg:my-8 my-4">Ring</h1>
+        <SectionDetailsHeading title="Ring" />
         <DrawerImagesView images={images} />
         <div className="grid lg:grid-cols-2 grid-cols-1 gap-5 mt-8 lg:font-normal font-semibold">
           {data.map((item, index) => (
@@ -48,7 +49,9 @@ export default function ShoppingId() {
                 index === 0 ? 'lg:col-span-2 col-span-1' : 'col-span-1'
               )}
             >
-              <h1 className="lg:text-3xl text-2xl font-semibold">{item.title}</h1>
+              <h1 className="lg:text-3xl text-2xl font-semibold">
+                {item.title}
+              </h1>
               <div className="flex items-center gap-3">
                 {item.tag ? (
                   <Link
@@ -64,7 +67,9 @@ export default function ShoppingId() {
                   </div>
                 ) : null}
               </div>
-              <p className="lg:text-[#121212] lg:text-[16px] text-sm">{item.description}</p>
+              <p className="lg:text-[#121212] lg:text-[16px] text-sm">
+                {item.description}
+              </p>
             </div>
           ))}
         </div>

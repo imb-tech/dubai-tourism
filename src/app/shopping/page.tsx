@@ -1,18 +1,15 @@
 import Questions from 'components/questions/questions';
 import { SliderComponents } from 'components/slider/page';
+import SectionDetailsHeading from 'components/ui/page-heading';
 import React from 'react';
 import { childData, images } from 'services/data';
 import ShoppingCard from 'views/shopping/shopping-card';
 import SHoppingFilter from 'views/shopping/shopping-filter';
 
-
-
 const Shopping = () => {
   return (
     <div className="container mx-auto lg:px-0 px-3">
-      <h1 className="text-center lg:text-4xl text-2xl lg:my-8 my-5 font-semibold lg:font-normal">
-        Atlantis Aquaventure Waterpark
-      </h1>
+      <SectionDetailsHeading title="Atlantis Aquaventure Waterpark" />
 
       <SliderComponents images={images} />
       <div className="my-5">
@@ -26,7 +23,7 @@ const Shopping = () => {
       </div>
       <Questions
         title="Frequently asked questions"
-        parentData={["Shopping Questions"]}
+        parentData={['Shopping Questions']}
         childData={childData}
       />
     </div>

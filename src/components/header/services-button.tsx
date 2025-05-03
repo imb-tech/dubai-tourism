@@ -38,7 +38,7 @@ function ServicesButton({ pathname }: { pathname: string | null }) {
       id: 3,
       name: 'MICE Groups',
       icon: GroupIcon,
-      url: '/atraction',
+      url: '/mice-group',
     },
     {
       id: 4,
