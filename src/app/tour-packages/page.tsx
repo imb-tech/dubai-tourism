@@ -8,14 +8,14 @@ import TourPackagesFilter from 'views/tour-packages/tour-packages';
 const ToursPackages = () => {
   return (
     <div className="container mx-auto lg:px-0 px-3">
-      <h1 className="text-center text-4xl my-8">Dubayda avtomobil ijarasi</h1>
+      <h1 className="text-center lg:text-4xl lg:my-8 lg:font-normal font-medium mb-5 text-2xl ">Dubayda avtomobil ijarasi</h1>
 
       <SliderComponents images={images} />
       <div className="my-5">
         <TourPackagesFilter />
       </div>
 
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         {cars.map((s) => (
           <CarCard key={s.id} {...s} />
         ))}

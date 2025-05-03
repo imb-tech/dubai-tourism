@@ -21,7 +21,7 @@ const services: Service[] = [
   {
     name: 'VIP Concierge',
     image: '/atroksion.png',
-    link: '/vip-oncierge',
+    link: '/vip-concierge',
   },
   {
     name: 'Real estate',
@@ -47,8 +47,8 @@ const services: Service[] = [
 
 export default function Services() {
   return (
-    <div className='container mx-auto lg:px-0 px-3'>
-      <SectionHeading title={"Bizning xizmatlarimiz"} className='mb-5' />
+    <div className="container mx-auto lg:px-0 px-3">
+      <SectionHeading title={'Bizning xizmatlarimiz'} className="mb-5" />
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
         {services.map((s, i) => (
           <ServicesCard key={i} {...s} />
