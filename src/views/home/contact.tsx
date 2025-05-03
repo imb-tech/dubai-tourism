@@ -12,14 +12,9 @@ const Contact = () => {
   const onSubmit = (data: any) => {};
   return (
     <div className="lg:px-0 px-3 mb-12">
-      <div
-        className="container mx-auto p-10 mb-6   h-[400px] rounded-2xl w-full bg-cover bg-center"
-        style={{
-          backgroundImage: `url("/images/contact-info.png")`,
-        }}
-      >
-        <div className="lg:w-1/2 w-full flex flex-col gap-6">
-          <h1 className="font-semibold text-3xl text-white">
+      <div className="container mx-auto lg:p-10 p-6 mb-6 lg:bg-[url(/images/contact-info.png)] bg-[#FF5533] lg:h-[400px] rounded-2xl w-full bg-cover bg-center">
+        <div className="lg:w-1/2 w-full flex flex-col lg:gap-6 gap-5">
+          <h1 className="font-semibold lg:text-3xl text-2xl text-white">
             Savolingiz bormi?
           </h1>
           <p className="text-white">
@@ -28,19 +23,22 @@ const Contact = () => {
           </p>
           <Link
             href={'tel:+998901682272'}
-            className="font-semibold text-3xl text-white"
+            className="font-semibold lg:text-3xl text-2xl text-white"
           >
             +998 (90) 168-22-72{' '}
           </Link>
           <div>
-            <Button className="text-[#FF7043] bg-white hover:bg-white px-24 cursor-pointer">
+            <Button className="text-[#FF5533] lg:w-0 w-full bg-white hover:bg-white px-24 cursor-pointer">
               Bepul maslahat
             </Button>
           </div>
         </div>
       </div>
       <div className="border border-[#E1E1E1] container mx-auto p-6 rounded-[12px]">
-        <form onSubmit={form.handleSubmit(onSubmit)} className='grid grid-cols-3 gap-4'>
+        <form
+          onSubmit={form.handleSubmit(onSubmit)}
+          className="grid grid-cols-1 lg:grid-cols-3 gap-4 "
+        >
           <FormInput
             label="Ism"
             methods={form}
@@ -49,8 +47,11 @@ const Contact = () => {
             required
             className="h-[40px] shadow-none bg-[#F5F8FC]"
           />
-          <PhoneField methods={form} name="phone" label="Telefon raqam" 
-          className='h-[40px]'  
+          <PhoneField
+            methods={form}
+            name="phone"
+            label="Telefon raqam"
+            className="h-[40px]"
           />
           <FormInput
             type="email"
@@ -67,10 +68,12 @@ const Contact = () => {
             label="Xabar"
             placeholder="Sizning xabaringiz"
             required
-            wrapperClassName="col-span-3 "
-            className='bg-[#F5F8FC]'
+            wrapperClassName="lg:col-span-3 "
+            className="bg-[#F5F8FC]"
           />
-          <Button type='submit' className='col-span-3 cursor-pointer'>Ariza qoldirish</Button>
+          <Button type="submit" className="lg:col-span-3 cursor-pointer">
+            Ariza qoldirish
+          </Button>
         </form>
       </div>
     </div>

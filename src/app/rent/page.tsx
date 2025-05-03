@@ -7,12 +7,12 @@ import Questions from 'components/questions/questions';
 
 export default function page() {
   return (
-    <div className="container mx-auto">
-      <h1 className="text-center text-4xl my-8">Dubayda avtomobil ijarasi</h1>
+    <div className="container mx-auto ">
+      <h1 className="text-center lg:text-4xl sm:text-3xl text-2xl md:my-8 my-4 font-semibold">Dubayda avtomobil ijarasi</h1>
       <SliderComponents images={images} />
       <div className="py-3" />
       <RentFilter />
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 lg:px-0 px-3 md:grid-cols-3 lg:grid-cols-4 gap-4">
         {cars.map((s) => (
           <CarCard key={s.id} {...s} />
         ))}

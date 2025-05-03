@@ -2,6 +2,7 @@ import { ChevronRight } from 'lucide-react';
 import React from 'react';
 import CarCard from 'components/shared/car-card';
 import { cn } from 'lib/utils';
+import SectionHeading from 'components/ui/section-heading';
 
 export default function Products({
   data = [],
@@ -14,12 +15,12 @@ export default function Products({
 }) {
   return (
     <div className={cn(className)}>
-      <div className="container mx-auto lg:px-0 px-3">
+      <div className="container mx-auto lg:px-0 px-3 ">
         <div className="flex items-center mb-5">
-          <h2 className="text-3xl font-semibold">{title}</h2>
+          <SectionHeading title={title} />
           <ChevronRight />
         </div>
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        <div className="flex overflow-x-auto lg:overscroll-x-none  scrollbar-hide lg:grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
           {data.map((s) => (
             <CarCard key={s.id} {...s} />
           ))}

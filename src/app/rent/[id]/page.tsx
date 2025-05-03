@@ -4,8 +4,9 @@ import React from 'react';
 import DrawerImagesView from 'components/drawer/page';
 import Questions from 'components/questions/questions';
 import { childData } from 'services/data';
+import CarCard from 'components/shared/car-card';
 
-const images= [
+const images = [
   {
     id: 1,
     url: 'https://s3-alpha-sig.figma.com/img/e3ac/2e9d/74a9eec1b28c60891cb0e2ee8102fdab?Expires=1745798400&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=oDq4WO5fPw3Lzl3cctqgbgB4cOUPjLMK~CUNBf~r-wDlc~q1FUntMPAtFkIPT89g9TtfU6P4z5Aa1wzj-pL8jARp6FxcFnFkN9L7uwjpUazvTrDMYDrF4fvyYHCDBZqIjEZfOYdtjCqvp261q1UoDYdV2c9-Ke50f7pfEPDBk3BSu-E0Mi1brSOTw92ES2CtCvRuFnltQi-ER~W0pD8ePeqdsldtzrts01ZNshnVhMv~3flzUKfluQV~dS3W8XVx2VNEj3nzulkI2adk9jESRa~6Uk8g9uCzpTu9ngJl-y75vw9DfhFxqJeRTd4TtgHxjmWApGmRHIA7wHiEgARw8Q__',
@@ -28,19 +29,120 @@ const images= [
   },
 ];
 
+const cars: Product[] = [
+  {
+    id: 1,
+    name: 'Lambar gambar',
+    image:
+      'https://s3-alpha-sig.figma.com/img/0f7d/b948/24f139d6e8e95cda732725bf48af5e86?Expires=1745798400&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=aw2B8DstoCu7S77CiQ98SaRuThV3jBzo~LYjlGCCOu3IqglsQ-zDVrFBG0DVdrPrpIkn5biwmzyBgaC36SUVxhM5Ey3mDc06f8TKmwOGtCE8i3JUDoxNapJ7JlNEsEmkWR9GytgFkVMtRRStEK9pes2-QMSUbPHOk7wu7honzqLFvzCqNb3gOvwCNMrkV11BvjvyUeVw2Z8W4~DZU8lmfL4Z1yUnnQrVVRBdYKp~r~r9i4zDrZ8VKaFebj4WYoOlJQBroJVNsqYnQ0v-8Q1AkcF47Iq3qKd8J6jPMJC6~bBWAKZ~Nwb9nqYcIIojxtve1xRJl7PZiDuKuBSNpfwOmA__',
+    distance: 260,
+    suffix: 'day',
+    horsepower: 600,
+    discount: 350,
+    price: 375,
+    url: '/rent/1',
+    transmission: 'Automatic',
+  },
+  {
+    id: 2,
+    name: 'Sunset Cruiser',
+    image:
+      'https://s3-alpha-sig.figma.com/img/543d/5369/fdf229e6c8f73363083a5ecb593b7b01?Expires=1745798400&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=Zr6WdrCAfhNWDH1Y9P43aPRK-w2iT~HzfimwhU6IwCeGf0pGTGrErS8QjtOfYwuTErYYKI6RLbPCykYOKSarzqvz41QMT8~6HJPKnucwAHI6gU1~fVKyLTVhmw3YQ2mo0PDh59Wu0KHfWY5q7KJHK1i8y6z6bzz5QmOknF5lyExyVdqLne5W-bMDL8ybUAE~PuISFsGJipJIvLAcngVllySaDol71WoccACCUx~2ZXcy0JTZBIAlT1pFekYSzRPArKxiKIqRJxOm6VHs2KNnfwTXt7~OXZIdqy75T1QiqcO55FfM1fsyTZ9luna-Iy6rXs465o3VQ2enBVzF2rie7g__',
+    distance: 300,
+    horsepower: 550,
+    transmission: 'Automatic',
+    discount: 400,
+    price: 420,
+    suffix: 'day',
+    url: '/rent/2',
+  },
+  {
+    id: 3,
+    name: 'Urban Thunder',
+    image:
+      'https://s3-alpha-sig.figma.com/img/25ad/3e81/3c3c731e62949ee48be600d299179abe?Expires=1745798400&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=C3C8M8XZ-HeBKJLPOuRYrj-568Omh9SHAKVM2QRL7GCA8ZL8ALUqZF5~5kyDC5I4yl9MLwwmr94nULBza6DhxArD0mC9D3tQ80qJTNJeRH1RpLTOzhNEGXAT2p1vFhU1l2oEDy~eUr7nMTUbvQznfDHYwnTdvQHBUUSVa4JVBUEs2M~jopxFCA~Gn~z-zBn4T3DiB0EgejOddJ0UMrTQWiinP2Djgk4JeqIEMmiuwNqVyrnzOnCYo2vQgciPyGAVBYdFHk4fAmQmCfPVd0MXZbdxkK7kLy9DvzJZkHXYSp7s4pYO74sS~Fmb7S3njcF0KMvqHX9vxSQmuLq-RgclEQ__',
+    distance: 280,
+    horsepower: 620,
+    transmission: 'Manual',
+    discount: 370,
+    price: 395,
+    suffix: 'day',
+    url: '/rent/3',
+  },
+  {
+    id: 4,
+    name: 'Silver Streak',
+    image:
+      'https://s3-alpha-sig.figma.com/img/6766/d07a/4355846de98f8dd83ea1e9f8c8380623?Expires=1745798400&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=NXxaaQPvHSc2r4lflzMmOq9eDH5cT0aUlmEu8Dg7Kvvoc~f1ZJi~h2FGJg0KmkfReEUXCGDyuiDd9AMJxcyHU5nxlgLWEjw9v9dBTevMlAYJymQ8ndrkaVZSOEtVkLP~Cwz420SNnV08yYw9QX9cEJq50fr~OCXX60gVFnkOGDpBSzAUF-gHUHHGbGXl0mUlX0-5GGauedZTnOYOG~tIagbs2tIQeILH7iIkipeK1xm36Apkbq0pjcq3Rs-8BD4XRsQ-FxpOQZyALz5UClMm19wlBretr2LHqyLg8T0~TbtgUETooerVVFGi6FOtGyGa-f~gU9g6tzCdAO0ACXRxAA__',
+    distance: 250,
+    horsepower: 580,
+    transmission: 'Automatic',
+    discount: 390,
+    price: 410,
+    url: '/rent/4',
+    suffix: 'day',
+  },
+];
 
 export default function RentId() {
   return (
-    <div className="container mx-auto lg:px-0 px-3">
-      <h1 className="text-center text-4xl my-8">Dubayda avtomobil ijarasi</h1>
-      <DrawerImagesView images={images} />
-      <CarInfo />
-      <CarFeatures />
+    <React.Fragment>
+      <div className="container mx-auto lg:px-0 px-3">
+        <h1 className="text-center lg:text-4xl my-8 text-2xl">
+          Dubayda avtomobil ijarasi
+        </h1>
+        <DrawerImagesView images={images} />
+        <CarInfo />
+        <CarFeatures />
+        <div className="space-y-4 border rounded-md p-4 mt-5 mb-12">
+          <h1 className=" lg:text-3xl  font-semibold text-2xl">
+            Rent Ferrari SF90 in Dubai
+          </h1>
+          <div>
+            <div className="flex items-center gap-6">
+              <p>
+                The Ferrari SF90 boasts a turbocharged 3.9-liter V8 engine
+                paired with three electric motors, generating a combined 986
+                horsepower. This exotic Italian car is a masterpiece, combining
+                cutting-edge hybrid technology with Ferrari’s legendary
+                performance. The SF90 embodies Ferrari’s prestige, featuring an
+                interior of exquisite luxury, complete with leather and advanced
+                materials. Cruise by the palm trees and enjoy the thrill of
+                driving one of the fastest cars in the world while soaking in
+                the allure of Dubai.
+              </p>
+              <p>
+                The Ferrari SF90 boasts a turbocharged 3.9-liter V8 engine
+                paired with three electric motors, generating a combined 986
+                horsepower. This exotic Italian car is a masterpiece, combining
+                cutting-edge hybrid technology with Ferrari’s legendary
+                performance. The SF90 embodies Ferrari’s prestige, featuring an
+                interior of exquisite luxury, complete with leather and advanced
+                materials. Cruise by the palm trees and enjoy the thrill of
+                driving one of the fastest cars in the world while soaking in
+                the allure of Dubai.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className="">
+        <div className="container mx-auto lg:px-0 px-3">
+          <h1 className="lg:text-3xl my-5 text-2xl font-semibold">
+            See more
+          </h1>
+          <div className="grid grid-cols-1 lg:px-0 px-3 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            {cars.map((s) => (
+              <CarCard key={s.id} {...s} />
+            ))}
+          </div>
+        </div>
+      </div>
       <Questions
         title="Frequently asked questions"
-        parentData={["Renta a Car Questions"]}
+        parentData={['Renta a Car Questions']}
         childData={childData}
       />
-    </div>
+    </React.Fragment>
   );
 }

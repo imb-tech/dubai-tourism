@@ -29,7 +29,7 @@ function Questions({ title ="", parentData=[], childData=[] }: Props) {
             key={index}
             value={index.toString()}
           >
-            <AccordionTrigger className="font-semibold text-xl">
+            <AccordionTrigger className="font-semibold text-lg lg:text-xl">
               {item}
             </AccordionTrigger>
             <AccordionContent>

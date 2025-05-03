@@ -22,7 +22,7 @@ const filters = [
 
 export default function RentFilter() {
   return (
-    <div className="lg:grid grid-cols-4 gap-2 py-3 border rounded-[12px] p-2 mb-5">
+    <div className="grid lg:grid-cols-4 grid-cols-1 gap-2 py-3 border rounded-[12px] p-2 mb-5">
       <SelectParams
         paramKey="filter1"
         options={filters}

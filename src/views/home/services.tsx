@@ -1,4 +1,5 @@
 import ServicesCard from 'components/shared/services-card';
+import SectionHeading from 'components/ui/section-heading';
 import React from 'react';
 
 const services: Service[] = [
@@ -47,7 +48,7 @@ const services: Service[] = [
 export default function Services() {
   return (
     <div className='container mx-auto lg:px-0 px-3'>
-      <h2 className="sm:text-3xl text-2xl font-semibold mb-5">Bizning xizmatlarimiz</h2>
+      <SectionHeading title={"Bizning xizmatlarimiz"} className='mb-5' />
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
         {services.map((s, i) => (
           <ServicesCard key={i} {...s} />

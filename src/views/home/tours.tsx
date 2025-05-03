@@ -1,4 +1,5 @@
 import TourCard from 'components/shared/tour-card';
+import SectionHeading from 'components/ui/section-heading';
 import React from 'react';
 
 const tours: Tour[] = [
@@ -42,8 +43,8 @@ const tours: Tour[] = [
 export default function Tours() {
   return (
     <div className="container mx-auto lg:px-0 px-3">
-      <h2 className="md:text-3xl text-2xl font-semibold mb-5">Tour packages</h2>
-      <div className="grid lg:grid-cols-4 md:grid-cols-3 grid-cols-2 md:gap-5 gap-3">
+      <SectionHeading title="Tour packages" className='mb-5' />
+      <div className="flex overflow-x-auto lg:grid lg:grid-cols-4 md:grid-cols-3 grid-cols-2 md:gap-5 gap-3">
         {tours.map((s, i) => (
           <TourCard key={s.id} index={i} {...s} />
         ))}
