@@ -96,7 +96,7 @@ function ServicesButton({ pathname }: { pathname: string | null }) {
           <Button
             variant="outline"
             className={cn(
-              'flex justify-start border-none ',
+              'flex justify-start border-none shadow-none',
               pathname === '/'
                 ? 'bg-[#FFFFFF1A] hover:bg-[#FFFFFF1A] hover:text-white text-white '
                 : 'bg-[#FFF3EC]  text-[#FF5533]'

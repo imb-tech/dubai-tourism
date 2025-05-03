@@ -13,9 +13,9 @@ import WtpInfo from './atraction-info';
 
 export default function WtpForm() {
   return (
-    <div className="p-6 rounded-lg bg-secondary mt-14">
-      <h2 className="text-2xl font-semibold">Atlantis Aquaventure Waterpark</h2>
-      <ul className="grid grid-cols-3 gap-2 mt-3">
+    <div className="lg:px-6 py-6 px-3 rounded-lg bg-secondary mt-14">
+      <h2 className="text-xl lg:text-2xl font-semibold">Atlantis Aquaventure Waterpark</h2>
+      <ul className="grid lg:grid-cols-3 grid-cols-1  gap-2 mt-3">
         <li className="flex items-center gap-2 bg-white font-semibold p-3 rounded-md">
           <div className="text-primary">
             <ClockIcon size={36} />
@@ -47,7 +47,7 @@ export default function WtpForm() {
         </li>
       </ul>
 
-      <h2 className="text-2xl font-semibold mt-10 mb-3">
+      <h2 className="text-xl lg:text-2xl font-semibold mt-10 mb-3">
         Atlantis Aquaventure Waterpark offers
       </h2>
       <WtpTable />
@@ -60,7 +60,7 @@ export default function WtpForm() {
         <Button
           size="lg"
           variant="ghost"
-          className="bg-[#52C41A] hover:bg-white text-primary  hover:text-primary gap-1"
+          className="bg-[#52C41A] hover:bg-white text-white  hover:text-primary gap-1"
         >
           <WhatsappIcon size={25} />
           <span>Whatsapp</span>

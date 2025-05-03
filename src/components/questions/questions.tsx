@@ -15,7 +15,7 @@ type Props = {
 
 function Questions({ title ="", parentData=[], childData=[] }: Props) {
   return (
-    <div className="container mx-auto lg:px-0 px-3 mb-12">
+    <div className=" mb-12">
       <h1 className="md:text-3xl text-2xl my-5 font-semibold">{title}</h1>
       <Accordion
         type="single"

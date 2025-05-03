@@ -1,7 +1,10 @@
+import { CustomCarousel } from 'components/custom/carousel';
 import DrawerImagesView from 'components/drawer/page';
+import Questions from 'components/questions/questions';
 import { cn } from 'lib/utils';
 import Link from 'next/link';
 import React from 'react';
+import { childData } from 'services/data';
 import ShoppingCard from 'views/shopping/shopping-card';
 
 const images = [
@@ -28,21 +31,24 @@ const images = [
 ];
 
 export default function ShoppingId() {
+  const slides = dataShoppping
+    .slice(0, 4)
+    .map((item) => <ShoppingCard key={item.id} item={item} />);
   return (
     <React.Fragment>
       <div className="container mx-auto lg:px-0 px-3">
-        <h1 className="text-center text-4xl my-8">Ring</h1>
+        <h1 className="text-center lg:text-4xl text-2xl lg:my-8 my-4">Ring</h1>
         <DrawerImagesView images={images} />
-        <div className="grid lg:grid-cols-2 grid-cols-1 gap-5 mt-8">
+        <div className="grid lg:grid-cols-2 grid-cols-1 gap-5 mt-8 lg:font-normal font-semibold">
           {data.map((item, index) => (
             <div
               key={index}
               className={cn(
-                'rounded-xl p-6 flex flex-col items-start gap-4 self-stretch bg-white  border border-[#E1E1E1]',
-                index === 0 ? 'col-span-2' : 'col-span-1'
+                'rounded-xl lg:p-6 p-4 flex flex-col items-start lg:gap-4 gap-2 self-stretch bg-white  border border-[#E1E1E1]',
+                index === 0 ? 'lg:col-span-2 col-span-1' : 'col-span-1'
               )}
             >
-              <h1 className="text-3xl font-semibold">{item.title}</h1>
+              <h1 className="lg:text-3xl text-2xl font-semibold">{item.title}</h1>
               <div className="flex items-center gap-3">
                 {item.tag ? (
                   <Link
@@ -58,20 +64,28 @@ export default function ShoppingId() {
                   </div>
                 ) : null}
               </div>
-              <p className="text-[#121212] text-[16px]">{item.description}</p>
+              <p className="lg:text-[#121212] lg:text-[16px] text-sm">{item.description}</p>
             </div>
           ))}
         </div>
       </div>
-      <div className="bg-[#F5F8FC] py-10 my-12">
+      <div className="bg-[#F5F8FC] lg:py-10 py-5 my-12">
         <div className="container mx-auto lg:px-0 px-3">
           <h1 className="font-semibold lg:text-3xl  text-2xl">See more</h1>
-          <div className="grid lg:grid-cols-4 mt-5 mb-8 md:grid-cols-3 grid-cols-3 gap-5">
-            {dataShoppping.slice(0, 4).map((item) => (
-              <ShoppingCard key={item.id} item={item} />
-            ))}
+          <div className="hidden md:grid lg:grid-cols-4 mt-5 mb-8 md:grid-cols-2  gap-5">
+            {slides}
+          </div>
+          <div className="sm:hidden my-5 ">
+            <CustomCarousel items={slides} />
           </div>
         </div>
+      </div>
+      <div className="container mx-auto lg:px-0 px-3">
+        <Questions
+          title="Frequently asked questions"
+          parentData={['Shopping Questions']}
+          childData={childData}
+        />
       </div>
     </React.Fragment>
   );

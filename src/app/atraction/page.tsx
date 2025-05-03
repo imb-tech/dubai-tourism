@@ -8,14 +8,14 @@ import AtractionFilter from 'views/atraction/atraction-filter';
 const AtractionPage = () => {
   return (
     <div className="container mx-auto lg:px-0 px-3">
-      <h1 className="text-center text-4xl my-8">Dubayda avtomobil ijarasi</h1>
+      <h1 className="text-center lg:text-4xl lg:my-8 text-2xl my-5 font-semibold">Atraction tickets</h1>
 
       <SliderComponents images={images} />
       <div className="my-5">
         <AtractionFilter />
       </div>
 
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+      <div className="grid sm:grid-cols-2 grid-cols-1  lg:grid-cols-4 gap-4">
         {cars.map((s) => (
           <CarCard key={s.id} {...s} />
         ))}

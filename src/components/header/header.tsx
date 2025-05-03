@@ -11,7 +11,7 @@ export default function Header() {
   const pathname = usePathname();
 
   return (
-    <header className="bg-transparent z-10 relative">
+    <header className="bg-transparent z-10 relative ">
       <div className="container lg:px-0 px-3 py-4 mx-auto flex items-center justify-center gap-[10px] flex-col">
         <div className="flex items-center self-stretch justify-between gap-6">
           <Link href="/" className=" lg:w-40 w-32">

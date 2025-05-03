@@ -5,6 +5,7 @@ import DrawerImagesView from 'components/drawer/page';
 import Questions from 'components/questions/questions';
 import { childData } from 'services/data';
 import CarCard from 'components/shared/car-card';
+import { CustomCarousel } from 'components/custom/carousel';
 
 const images = [
   {
@@ -85,6 +86,8 @@ const cars: Product[] = [
 ];
 
 export default function RentId() {
+  const slides = cars.map((s) => <CarCard key={s.id} {...s} />);
+
   return (
     <React.Fragment>
       <div className="container mx-auto lg:px-0 px-3">
@@ -99,7 +102,7 @@ export default function RentId() {
             Rent Ferrari SF90 in Dubai
           </h1>
           <div>
-            <div className="flex items-center gap-6">
+            <div className="flex flex-col lg:flex-row items-center gap-6">
               <p>
                 The Ferrari SF90 boasts a turbocharged 3.9-liter V8 engine
                 paired with three electric motors, generating a combined 986
@@ -126,23 +129,24 @@ export default function RentId() {
           </div>
         </div>
       </div>
-      <div className="">
+      <div className="bg-[#F5F8FC] lg:py-10 py-4">
         <div className="container mx-auto lg:px-0 px-3">
-          <h1 className="lg:text-3xl my-5 text-2xl font-semibold">
-            See more
-          </h1>
-          <div className="grid grid-cols-1 lg:px-0 px-3 md:grid-cols-3 lg:grid-cols-4 gap-4">
-            {cars.map((s) => (
-              <CarCard key={s.id} {...s} />
-            ))}
+          <h1 className="lg:text-3xl mb-5 text-2xl font-semibold">See more</h1>
+          <div className="sm:grid grid-cols-1 hidden  sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            {slides}
+          </div>
+          <div className="sm:hidden">
+            <CustomCarousel items={slides} />
           </div>
         </div>
       </div>
-      <Questions
-        title="Frequently asked questions"
-        parentData={['Renta a Car Questions']}
-        childData={childData}
-      />
+      <div className="container mx-auto lg:px-0 px-3">
+        <Questions
+          title="Frequently asked questions"
+          parentData={['Renta a Car Questions']}
+          childData={childData}
+        />
+      </div>
     </React.Fragment>
   );
 }

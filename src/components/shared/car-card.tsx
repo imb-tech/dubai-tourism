@@ -38,7 +38,7 @@ export default function CustomCard({
   return (
     <div className="relative rounded-lg border flex flex-col p-2 gap-2 min-w-[320px] lg:min-w-40">
       {sale && (
-        <Badge className="absolute bg-[#FF7043] top-0 left-0 p-2 text-white text-xs font-medium rounded-none rounded-tl-lg rounded-br-lg">
+        <Badge className="absolute bg-[#FF5533] top-0 left-0 p-2 text-white text-xs font-medium rounded-none rounded-tl-lg rounded-br-lg">
           Best seller
         </Badge>
       )}

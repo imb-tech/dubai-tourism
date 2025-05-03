@@ -11,16 +11,28 @@ export default function Home() {
     <div className="space-y-12 mb-12">
       <HeroPages />
       <Services />
-      <Products data={products} title="Best Seller" className='bg-[#F5F8FC] py-14' />
-      <Products data={cars} title="Atraction tickets" />
-      <Products data={products} title="Rent a car" className='bg-[#F5F8FC] py-14' />
-      <Products data={cars} title="Shopping" />
-      <Tours />
-      <Questions
-        title="Frequently asked questions"
-        parentData={parentData}
-        childData={childData}
+      <Products
+        autoplayDelay={1500}
+        data={products}
+        title="Best Seller"
+        className="bg-[#F5F8FC] py-14"
       />
+      <Products autoplayDelay={1500} data={cars} title="Atraction tickets" />
+      <Products
+        autoplayDelay={2000}
+        data={products}
+        title="Rent a car"
+        className="bg-[#F5F8FC] py-14"
+      />
+      <Products autoplayDelay={1800} data={cars} title="Shopping" />
+      <Tours />
+      <div className="container mx-auto lg:px-0 px-3">
+        <Questions
+          title="Frequently asked questions"
+          parentData={parentData}
+          childData={childData}
+        />
+      </div>
     </div>
   );
 }
