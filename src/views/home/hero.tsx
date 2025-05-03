@@ -60,8 +60,8 @@ const HeroPages = () => {
                   through Dubai's most iconic landmarks, with personalized
                   services tailored to your needs.
                 </p>
-                <Button className="bg-primary text-white mt-4 cursor-pointer">
-                  Biz bilan bog'laning
+                <Button className="bg-primary text-white mt-4 cursor-pointer w-full lg:h-12 h-11 sm:w-max px-8">
+                Get in touch
                 </Button>
               </div>
             </div>
