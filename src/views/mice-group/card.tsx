@@ -23,8 +23,8 @@ function MiceGroupCard({
       <CardContent className="flex flex-col lg:flex-row gap-4 lg:p-4 p-3 ">
         <div
           className={cn(
-            'lg:w-1/2 flex flex-col justify-between order-2',
-            `lg:rder-${id}`
+            'lg:w-1/2 flex flex-col justify-between order-2 ',
+            id % 2 === 1 ? 'lg:order-1' : 'lg:order-2'
           )}
         >
           <div>
@@ -70,7 +70,7 @@ function MiceGroupCard({
         <div
           className={cn(
             'lg:w-1/2 h-48 sm:h-56 md:h-64 w-full lg:h-auto relative order-1',
-            `lg:order-${id + 1} order-1`
+            id % 2 === 0 ? 'lg:order-1' : 'lg:order-2'
           )}
         >
           <Image
