@@ -1,6 +1,7 @@
 import { CustomCarousel } from 'components/custom/carousel';
 import DrawerImagesView from 'components/drawer/page';
 import Questions from 'components/questions/questions';
+import { SliderComponents } from 'components/slider/page';
 import SectionDetailsHeading from 'components/ui/page-heading';
 import { cn } from 'lib/utils';
 import Link from 'next/link';
@@ -39,7 +40,12 @@ export default function ShoppingId() {
     <React.Fragment>
       <div className="container mx-auto lg:px-0 px-3">
         <SectionDetailsHeading title="Ring" />
-        <DrawerImagesView images={images} />
+        <div className="hidden lg:block">
+          <DrawerImagesView images={images} />
+        </div>
+        <div className="lg:hidden">
+          <SliderComponents images={images} showCout={true} />
+        </div>
         <div className="grid lg:grid-cols-2 grid-cols-1 gap-5 mt-8 lg:font-normal font-semibold">
           {data.map((item, index) => (
             <div

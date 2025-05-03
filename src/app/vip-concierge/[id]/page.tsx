@@ -7,6 +7,7 @@ import { CustomCarousel } from 'components/custom/carousel';
 import { CreativeCommons } from 'lucide-react';
 import { Button } from 'components/ui/button';
 import SectionDetailsHeading from 'components/ui/page-heading';
+import { SliderComponents } from 'components/slider/page';
 
 const images = [
   {
@@ -82,7 +83,12 @@ export default function RentId() {
     <React.Fragment>
       <div className="container mx-auto lg:px-0 px-3">
         <SectionDetailsHeading title="28ft luxury Yacht" />
-        <DrawerImagesView images={images} />
+        <div className="hidden lg:block">
+          <DrawerImagesView images={images} />
+        </div>
+        <div className="lg:hidden">
+          <SliderComponents images={images} showCout={true} />
+        </div>
 
         <div className="space-y-4 border rounded-md p-4 mt-5 mb-12 bg-[#F5F8FC]">
           <h1 className=" lg:text-3xl  font-semibold text-2xl">
@@ -101,20 +107,22 @@ export default function RentId() {
                 driving one of the fastest cars in the world while soaking in
                 the allure of Dubai.
               </p>
-              <div className='space-y-3'>
+              <div className="space-y-3">
                 <h1 className=" lg:text-2xl  font-semibold text-xl">
-                Rental Price
+                  Rental Price
                 </h1>
-                <div className='bg-white p-2 rounded-md flex items-center gap-3'>
-                 <div className='rounded-full p-3 bg-[#F5F8FC] inline-block'>
-                 <CreativeCommons />
-                 </div>
-                 <div>
-                  <del className='text-gray-400 text-sm'>Price: 2 000 AED</del>
-                  <h1 className='font-semibold text-lg'>AED 450 /hr</h1>
-                 </div>
+                <div className="bg-white p-2 rounded-md flex items-center gap-3">
+                  <div className="rounded-full p-3 bg-[#F5F8FC] inline-block">
+                    <CreativeCommons />
+                  </div>
+                  <div>
+                    <del className="text-gray-400 text-sm">
+                      Price: 2 000 AED
+                    </del>
+                    <h1 className="font-semibold text-lg">AED 450 /hr</h1>
+                  </div>
                 </div>
-                <Button className='w-full mt-3'>Leave a request</Button>
+                <Button className="w-full mt-3">Leave a request</Button>
               </div>
             </div>
           </div>

@@ -1,4 +1,4 @@
-"use client"
+'use client';
 import React from 'react';
 import DrawerImagesView from 'components/drawer/page';
 import Questions from 'components/questions/questions';
@@ -9,6 +9,7 @@ import FeaturesCard from 'views/mice-group/features-card';
 import { useForm } from 'react-hook-form';
 import FormInput from 'components/form/input';
 import BookingForm from 'views/mice-group/bron-form';
+import { SliderComponents } from 'components/slider/page';
 
 const images = [
   {
@@ -49,7 +50,12 @@ export default function RentId() {
     <div className="container mx-auto lg:px-0 px-3">
       <SectionDetailsHeading title="Personal concierge" />
       <div className="space-y-5  mb-12">
-        <DrawerImagesView images={images} />
+        <div className="hidden lg:block">
+          <DrawerImagesView images={images} />
+        </div>
+        <div className="lg:hidden">
+          <SliderComponents images={images} showCout={true} />
+        </div>
         <div className="space-y-4 border rounded-md p-4  bg-[#F5F8FC]">
           <h1 className=" lg:text-2xl  font-semibold text-xl">
             About Personal concierge
@@ -76,7 +82,7 @@ export default function RentId() {
           <h1 className=" lg:text-2xl  font-semibold text-xl">
             Booking information
           </h1>
-          <BookingForm/>
+          <BookingForm />
         </div>
       </div>
       <Questions

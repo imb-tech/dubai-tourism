@@ -7,6 +7,7 @@ import { childData } from 'services/data';
 import CarCard from 'components/shared/car-card';
 import { CustomCarousel } from 'components/custom/carousel';
 import SectionDetailsHeading from 'components/ui/page-heading';
+import { SliderComponents } from 'components/slider/page';
 
 const images = [
   {
@@ -93,7 +94,12 @@ export default function RentId() {
     <React.Fragment>
       <div className="container mx-auto lg:px-0 px-3">
         <SectionDetailsHeading title="Dubayda avtomobil ijarasi" />
-        <DrawerImagesView images={images} />
+        <div className="hidden lg:block">
+          <DrawerImagesView images={images} />
+        </div>
+        <div className="lg:hidden">
+          <SliderComponents images={images} showCout={true} />
+        </div>
         <CarInfo />
         <CarFeatures />
         <div className="space-y-4 border rounded-md p-4 mt-5 mb-12">

@@ -72,7 +72,7 @@ export function CustomCarousel({
           </div>
         )}
       </Carousel>
-
+ 
       {showPagination && items.length > 1 && (
         <div className="flex gap-1 mt-2">
           {items.map((_, index) => (
