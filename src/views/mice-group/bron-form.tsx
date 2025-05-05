@@ -99,6 +99,7 @@ export default function BookingForm() {
   return (
     <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-4">
       <FormInput
+       variant='clean'
         type="number"
         methods={form}
         name="count_people"
@@ -190,6 +191,7 @@ export default function BookingForm() {
         <h1 className="text-lg font-semibold mb-4">{"Aloqa ma'lumotlari"}</h1>
         <div className="space-y-4">
           <FormInput
+          variant='clean'
             methods={form}
             name="name"
             className="mt-1 2xl:h-[50px] h-[40px]"
@@ -212,6 +214,7 @@ export default function BookingForm() {
             placeholder={'Email manzilingiz'}
             required={form.watch('phone') ? false : true}
             message={'Ismingizni kiriting'}
+             variant='clean'
           />
         </div>
       </div>

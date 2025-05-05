@@ -24,6 +24,7 @@ const Register = () => {
     <div className="space-y-4">
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
         <FormInput
+         variant='clean'
           methods={form}
           name="first_name"
           className="mt-1 2xl:h-[50px] h-[40px]"
@@ -33,6 +34,7 @@ const Register = () => {
           required
         />
         <FormInput
+         variant='clean'
           methods={form}
           name="last_name"
           className="mt-1 2xl:h-[50px] h-[40px]"
@@ -42,6 +44,7 @@ const Register = () => {
           required
         />
         <FormInput
+         variant='clean'
           methods={form}
           name="email"
           className="mt-1 2xl:h-[50px] h-[40px] "

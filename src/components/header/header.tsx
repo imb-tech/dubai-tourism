@@ -14,7 +14,7 @@ import Login from 'views/auth/login';
 
 export default function Header() {
   const pathname = usePathname();
-  const { openModal } = useModal();
+  const { openModal } = useModal('auth');
   const { text } = useTextStore();
 
   return (
@@ -80,6 +80,7 @@ export default function Header() {
         </div>
         <ServicesButton pathname={pathname} />
         <Modal
+          modalKey="auth"
           title={text === 'login' ? 'Login' : 'Register'}
           titleClass="lg:text-3xl font-semibold text-2xl"
         >
