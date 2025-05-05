@@ -5,7 +5,7 @@ import ServicesButton from './services-button';
 import { usePathname } from 'next/navigation';
 import { Button } from 'components/ui/button';
 import { cn } from 'lib/utils';
-import { CartIcon, LoginIcon } from 'components/icons';
+import { CartIcon, LoginIcon, User2Icon } from 'components/icons';
 import Modal from 'components/custom/modal';
 import Register from 'views/auth/register';
 import { useModal } from 'hooks/use-modal';
@@ -13,12 +13,17 @@ import { useTextStore } from 'store/auth';
 import Login from 'views/auth/login';
 import EmailVerification from 'views/auth/message-code';
 import { useOtpTimerStore } from 'store/useOtpTimerStore';
+import { useAuthStore } from 'store/auth-store';
+import { User } from 'lucide-react';
 
 export default function Header() {
   const pathname = usePathname();
   const { openModal } = useModal('auth');
   const { timer, isActive } = useOtpTimerStore();
+  const { token } = useAuthStore();
   const { text } = useTextStore();
+
+  console.log(token);
 
   return (
     <header className="bg-transparent z-10 relative ">
@@ -58,17 +63,30 @@ export default function Header() {
             </a>
           </div>
           <div className="flex items-end gap-3  h-[45px]">
-            <Button
-              onClick={openModal}
-              className={cn(
-                ' shadow-none  flex gap-1 items-center',
-                pathname === '/'
-                  ? 'hover:bg-white bg-white text-orange-500'
-                  : 'bg-[#F5F5F5] text-black '
-              )}
-            >
-              <LoginIcon /> Login
-            </Button>
+            {token ? (
+              <Button
+                className={cn(
+                  ' shadow-none  flex gap-1 items-center',
+                  pathname === '/'
+                    ? 'hover:bg-white bg-white text-orange-500'
+                    : 'bg-[#F5F5F5] text-black '
+                )}
+              >
+                <User size={20} />
+              </Button>
+            ) : (
+              <Button
+                onClick={openModal}
+                className={cn(
+                  ' shadow-none  flex gap-1 items-center',
+                  pathname === '/'
+                    ? 'hover:bg-white bg-white text-orange-500'
+                    : 'bg-[#F5F5F5] text-black '
+                )}
+              >
+                <LoginIcon /> Login
+              </Button>
+            )}
             <Button
               className={cn(
                 '  shadow-none ',

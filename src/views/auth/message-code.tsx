@@ -8,10 +8,11 @@ import FormInputOTP from 'components/form/input-otp';
 import { useTextStore } from 'store/auth';
 import { useOtpTimerStore } from 'store/useOtpTimerStore';
 import { useGet } from 'hooks/useGet';
-import { VERIFY } from 'constants/api-endpoints';
+import { NEW_CODE, VERIFY } from 'constants/api-endpoints';
 import { usePost } from 'hooks/usePost';
 import { toast } from 'sonner';
 import { useAuthStore } from 'store/auth-store';
+import { useModal } from 'hooks/use-modal';
 
 const formatTime = (seconds: number) => {
   const mins = Math.floor(seconds / 60);
@@ -38,14 +39,19 @@ export default function EmailVerification({
 }) {
   const { resetTimer } = useOtpTimerStore();
   const { setToken } = useAuthStore();
+  const { closeModal } = useModal('auth');
+  const { user, setText, clearUser, clearText } = useTextStore();
+
   const { mutate } = usePost({
     onSuccess: (data) => {
-      setToken(data?.access_token);
+      if (data?.access) {
+        setToken(data?.access);
+      }
+      closeModal();
+      clearText(), clearUser();
       toast.success('Successful');
     },
   });
-
-  const { user, setText } = useTextStore();
 
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
@@ -56,6 +62,11 @@ export default function EmailVerification({
 
   const onSubmit = (data: FormValues) => {
     mutate(VERIFY, { ...data, email: user?.email });
+  };
+
+  const resetCode = () => {
+    resetTimer();
+    mutate(NEW_CODE, user);
   };
 
   return (
@@ -75,7 +86,7 @@ export default function EmailVerification({
           ) : (
             <button
               type="button"
-              onClick={resetTimer}
+              onClick={resetCode}
               className="text-sm cursor-pointer text-muted-foreground hover:text-primary"
             >
               Resend code

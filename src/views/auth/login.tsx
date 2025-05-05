@@ -21,7 +21,6 @@ const Login = () => {
   const { mutate } = usePost({
     onSuccess: () => {
       toast.success('Successful');
-      clearText();
       startTimer();
       setText('code');
     },
@@ -30,7 +29,7 @@ const Login = () => {
   const onSubmit = (data: Formtype) => {
     if (data.email) {
       setUser(data);
-      mutate(LOGIN, data);
+      mutate(LOGIN, {...data, via:"input"});
     }else{
       toast.error("The data was not entered correctly.")
     }
@@ -49,6 +48,7 @@ const Login = () => {
           variant="clean"
           methods={form}
           name="email"
+           type="email"
           className="mt-1 2xl:h-[50px] h-[40px] "
           label={'Email'}
           placeholder={'Email manzilingiz'}

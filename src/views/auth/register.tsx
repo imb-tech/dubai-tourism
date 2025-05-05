@@ -25,7 +25,6 @@ const Register = () => {
       toast.success('Successful');
       startTimer();
       setText('code');
-      clearText();
     },
   });
 
@@ -75,7 +74,8 @@ const Register = () => {
           label={'Email'}
           placeholder={'Email manzilingiz'}
           required
-          message={'Ismingizni kiriting'}
+           type="email"
+          message={'Email manzilingiz'}
         />
         <Button type="submit" className="w-full">
           Register
