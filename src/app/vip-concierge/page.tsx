@@ -1,6 +1,7 @@
 import Questions from 'components/questions/questions';
 import CarCard from 'components/shared/car-card';
 import { SliderComponents } from 'components/slider/page';
+import SectionDetailsHeading from 'components/ui/page-heading';
 import React from 'react';
 import { childData, images } from 'services/data';
 import VipConciergeFilter from 'views/vip-concierge/vip-concierge';
@@ -9,14 +10,13 @@ import VipConciergeFilter from 'views/vip-concierge/vip-concierge';
 const VipConcierge = () => {
   return (
     <div className="container mx-auto lg:px-0 px-3">
-      <h1 className="text-center text-4xl my-8">VIP Concierge</h1>
-
+      <SectionDetailsHeading title="VIP Concierge" />
       <SliderComponents images={images} />
       <div className="my-5">
         <VipConciergeFilter />
       </div>
 
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         {cars.map((s) => (
           <CarCard key={s.id} {...s} />
         ))}

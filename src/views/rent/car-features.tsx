@@ -97,9 +97,9 @@ export default function CarFeatures() {
     },
   ];
   return (
-    <div className="p-6 rounded-lg border mt-5">
+    <div className="lg:p-6 p-3 rounded-lg border mt-5">
       <h2 className="md:text-3xl text-2xl font-semibold m-0">Cart Features</h2>
-      <ul className="grid grid-cols-8 gap-2 mt-3">
+      <ul className="grid lg:grid-cols-8 md:grid-cols-5 grid-cols-3 gap-2 mt-3">
         {data.map((el) => (
           <li
             className="flex flex-col items-center gap-1 bg-primary/10 font-semibold p-3 py-5 rounded-md"

@@ -4,11 +4,12 @@ import React from 'react';
 import { SliderComponents } from 'components/slider/page';
 import { childData, images } from 'services/data';
 import Questions from 'components/questions/questions';
+import SectionDetailsHeading from 'components/ui/page-heading';
 
 export default function page() {
   return (
-    <div className="container mx-auto ">
-      <h1 className="text-center lg:text-4xl sm:text-3xl text-2xl md:my-8 my-4 font-semibold">Dubayda avtomobil ijarasi</h1>
+    <div className="container mx-auto lg:px-0 px-3">
+      <SectionDetailsHeading title="Dubayda avtomobil ijarasi" />
       <SliderComponents images={images} />
       <div className="py-3" />
       <RentFilter />
@@ -19,14 +20,12 @@ export default function page() {
       </div>
       <Questions
         title="Frequently asked questions"
-        parentData={["Renta a Car Questions"]}
+        parentData={['Renta a Car Questions']}
         childData={childData}
       />
     </div>
   );
 }
-
-
 
 const cars: Product[] = [
   {

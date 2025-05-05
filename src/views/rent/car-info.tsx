@@ -24,9 +24,9 @@ const keys: Record<keyof CarInfo, string> = {
 
 export default function CarInfo() {
   return (
-    <div className="p-6 rounded-lg bg-secondary mt-20">
-      <h2 className="text-4xl font-semibold m-0">Mercedes G63 AMG</h2>
-      <ul className="grid grid-cols-3 gap-2 mt-3">
+    <div className="lg:px-6 px-3 py-6 rounded-lg bg-secondary lg:mt-20 mt-10">
+      <h2 className="lg:text-4xl text-2xl font-semibold m-0">Mercedes G63 AMG</h2>
+      <ul className="grid md:grid-cols-3 grid-cols-1 gap-2 mt-3">
         {Object.entries(keys).map(([k, v]) => (
           <li
             className="flex items-center gap-2 bg-white font-semibold p-3 rounded-md"
@@ -43,8 +43,8 @@ export default function CarInfo() {
         ))}
       </ul>
 
-      <h2 className="text-3xl font-semibold mt-8">Rental Price</h2>
-      <ul className="grid grid-cols-3 gap-2 mt-3">
+      <h2 className="lg:text-3xl text-2xl font-semibold mt-8">Rental Price</h2>
+      <ul className="grid md:grid-cols-3 grid-cols-1 gap-2 mt-3">
         <li className="flex items-center gap-2 bg-white font-semibold p-3 rounded-md">
           <div className="text-primary">
             <PriceIcon size={36} />
@@ -76,7 +76,7 @@ export default function CarInfo() {
         </li>
       </ul>
 
-      <div className="grid grid-cols-2 gap-2 mt-5">
+      <div className="grid md:grid-cols-2 grid-cols-1 gap-2 mt-5">
         <Button size="lg">Ariza qoldirish</Button>
         <Button
           size="lg"

@@ -1,6 +1,7 @@
 import Questions from 'components/questions/questions';
 import CarCard from 'components/shared/car-card';
 import { SliderComponents } from 'components/slider/page';
+import SectionDetailsHeading from 'components/ui/page-heading';
 import React from 'react';
 import { childData, images } from 'services/data';
 import TransferFilter from 'views/transfer-service/transfer-filter';
@@ -154,7 +155,7 @@ const cars: Product[] = [
 const TransferService = () => {
   return (
     <div className="container mx-auto lg:px-0 px-3">
-      <h1 className="text-center text-4xl my-8">Transfer Service</h1>
+      <SectionDetailsHeading title="Transfer Service" />
 
       <SliderComponents images={images} />
       <div className="my-5">

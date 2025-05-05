@@ -3,16 +3,20 @@ import React from 'react';
 import CarCard from 'components/shared/car-card';
 import { cn } from 'lib/utils';
 import SectionHeading from 'components/ui/section-heading';
+import { CustomCarousel } from 'components/custom/carousel';
 
 export default function Products({
   data = [],
   title = '',
   className,
+  autoplayDelay
 }: {
   data: Product[];
   title: string;
   className?: string;
+  autoplayDelay?:number
 }) {
+  const slides = data.map((s) => <CarCard key={s.id} {...s} />);
   return (
     <div className={cn(className)}>
       <div className="container mx-auto lg:px-0 px-3 ">
@@ -20,10 +24,11 @@ export default function Products({
           <SectionHeading title={title} />
           <ChevronRight />
         </div>
-        <div className="flex overflow-x-auto lg:overscroll-x-none  scrollbar-hide lg:grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-          {data.map((s) => (
-            <CarCard key={s.id} {...s} />
-          ))}
+        <div className="hidden sm:grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          {slides}
+        </div>
+        <div className="sm:hidden">
+          <CustomCarousel items={slides} autoplayDelay={autoplayDelay} />
         </div>
       </div>
     </div>

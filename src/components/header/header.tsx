@@ -6,12 +6,19 @@ import { usePathname } from 'next/navigation';
 import { Button } from 'components/ui/button';
 import { cn } from 'lib/utils';
 import { CartIcon, LoginIcon } from 'components/icons';
+import Modal from 'components/custom/modal';
+import Register from 'views/auth/register';
+import { useModal } from 'hooks/use-modal';
+import { useTextStore } from 'store/auth';
+import Login from 'views/auth/login';
 
 export default function Header() {
   const pathname = usePathname();
+  const { openModal } = useModal('auth');
+  const { text } = useTextStore();
 
   return (
-    <header className="bg-transparent z-10 relative">
+    <header className="bg-transparent z-10 relative ">
       <div className="container lg:px-0 px-3 py-4 mx-auto flex items-center justify-center gap-[10px] flex-col">
         <div className="flex items-center self-stretch justify-between gap-6">
           <Link href="/" className=" lg:w-40 w-32">
@@ -49,6 +56,7 @@ export default function Header() {
           </div>
           <div className="flex items-end gap-3  h-[45px]">
             <Button
+              onClick={openModal}
               className={cn(
                 ' shadow-none  flex gap-1 items-center',
                 pathname === '/'
@@ -62,7 +70,7 @@ export default function Header() {
               className={cn(
                 '  shadow-none ',
                 pathname === '/'
-                  ? 'hover:bg-white bg-white text-orange-500'
+                  ? 'hover:bg-white bg-white text-orange-500 '
                   : 'bg-[#F5F5F5] text-black '
               )}
             >
@@ -71,6 +79,13 @@ export default function Header() {
           </div>
         </div>
         <ServicesButton pathname={pathname} />
+        <Modal
+          modalKey="auth"
+          title={text === 'login' ? 'Login' : 'Register'}
+          titleClass="lg:text-3xl font-semibold text-2xl"
+        >
+          {text === 'login' ? <Login /> : <Register />}
+        </Modal>
       </div>
     </header>
   );

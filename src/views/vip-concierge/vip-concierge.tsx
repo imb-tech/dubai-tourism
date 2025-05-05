@@ -25,13 +25,18 @@ const filters = [
 
 export default function VipConciergeFilter() {
   return (
-    <div className="lg:grid grid-cols-3 gap-2 py-3 border rounded-[12px] p-2">
+    <div className="grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 gap-2 py-3 border rounded-[12px] p-2">
       <SelectParams
         paramKey="filter1"
         options={filters}
         placeholder="filter1"
       />
       <SelectParams
+        paramKey="filter2"
+        options={filters}
+        placeholder="filter2"
+      />
+       <SelectParams
         paramKey="filter2"
         options={filters}
         placeholder="filter2"

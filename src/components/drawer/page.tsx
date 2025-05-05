@@ -14,7 +14,7 @@ export default function DrawerImagesView({
 }) {
   const { openModal } = useModal();
   return (
-    <div className="grid grid-cols-4 gap-2 relative">
+    <div className="grid lg:grid-cols-4 grid-cols-1  gap-2 relative">
       {images?.map((im, i) => (
         <Image
           key={im.id}
