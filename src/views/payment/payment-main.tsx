@@ -1,5 +1,5 @@
 'use client';
-import React, { useCallback, useMemo, useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import PaymentForm from './payment-form';
 import PaymentTypes from './payment-types';
 import { FormProvider, useForm } from 'react-hook-form';
@@ -8,6 +8,7 @@ import FormInput from 'components/form/input';
 import { Button } from 'components/ui/button';
 import { Checkbox } from 'components/ui/checkbox';
 import { DownloadIcon } from 'lucide-react';
+import SectionDetailsHeading from 'components/ui/page-heading';
 
 type FormFields = {
   name: string;
@@ -36,6 +37,8 @@ export default function PaymentMain() {
             </div>
           </div>
         );
+      case 3:
+        return <div>Payment</div>;
       case 4:
         return (
           <div className="bg-secondary p-3 rounded-md">
@@ -48,7 +51,6 @@ export default function PaymentMain() {
             </div>
           </div>
         );
-
       default:
         return (
           <div className="flex flex-col gap-3 p-3 bg-primary/5">
@@ -128,15 +130,7 @@ export default function PaymentMain() {
   const component = (v: number) => {
     switch (v) {
       case 3:
-        return (
-          <div className="flex items-center bg-background p-6 rounded-md gap-4">
-            <Checkbox defaultChecked />
-            <p>By clicking Pay now you agree with Terms and Conditions</p>
-            <Button size="lg" type="button" className="ml-auto">
-              Pay now
-            </Button>
-          </div>
-        );
+        return <div>Payment</div>;
       case 4:
         return (
           <div className="bg-secondary p-3 rounded-md">
@@ -241,10 +235,11 @@ export default function PaymentMain() {
   return (
     <FormProvider {...methods}>
       <div className="container mx-auto">
-        <h1 className="text-center text-3xl mb-6">
-          Atlantis Aquaventure Waterpark
-        </h1>
-        <OrderSteps setStep={(v) => setStep(v)} />
+        <SectionDetailsHeading
+          title="Atlantis Aquaventure Waterpark"
+          // className="text-center text-3xl mb-6"
+        />
+        <OrderSteps setStep={(v) => setStep(v)} step={step} />
         <div className="hidden sm:block">{desktopContent}</div>
         <div className="visible sm:hidden">{mobileContent}</div>
       </div>

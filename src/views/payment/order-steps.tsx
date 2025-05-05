@@ -1,21 +1,19 @@
 import { UserIcon } from 'components/icons';
 import { cn } from 'lib/utils';
-import React, { useMemo, useState } from 'react';
+import React, { useMemo } from 'react';
 
 type Props = {
   setStep?: (v: number) => void;
+  step: number;
 };
 
-export default function OrderSteps({ setStep }: Props) {
-  const [active, _setActive] = useState<number>(1);
-
+export default function OrderSteps({ setStep, step: active }: Props) {
   const images = useMemo(
     () => steps?.filter((c) => c.id >= active || active - c.id === 1),
     [active]
   );
 
   function setActive(v: number) {
-    _setActive(v);
     setStep?.(v);
   }
 
