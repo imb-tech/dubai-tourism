@@ -8,7 +8,6 @@ import FormInput from 'components/form/input';
 import { Button } from 'components/ui/button';
 import { Checkbox } from 'components/ui/checkbox';
 import { DownloadIcon } from 'lucide-react';
-import SectionDetailsHeading from 'components/ui/page-heading';
 import { Check } from 'lucide-react';
 import { useModal } from 'hooks/use-modal';
 import Modal from 'components/custom/modal';
@@ -34,15 +33,18 @@ export default function PaymentMain() {
               <div className="flex items-center bg-background p-6 rounded-md gap-4">
                 <Checkbox defaultChecked />
                 <p>By clicking Pay now you agree with Terms and Conditions</p>
-                <Button onClick={openModal} size="lg" type="button" className="ml-auto">
+                <Button
+                  onClick={openModal}
+                  size="lg"
+                  type="button"
+                  className="ml-auto"
+                >
                   Pay now
                 </Button>
               </div>
             </div>
           </div>
         );
-      case 3:
-        return <div>Payment</div>;
       case 4:
         return (
           <div className="bg-secondary p-3 rounded-md">
@@ -55,6 +57,7 @@ export default function PaymentMain() {
             </div>
           </div>
         );
+
       default:
         return (
           <div className="flex flex-col gap-3 p-3 bg-primary/5">
@@ -134,7 +137,20 @@ export default function PaymentMain() {
   const component = (v: number) => {
     switch (v) {
       case 3:
-        return <div>Payment</div>;
+        return (
+          <div className="flex items-center bg-background p-6 rounded-md gap-4">
+            <Checkbox defaultChecked />
+            <p>By clicking Pay now you agree with Terms and Conditions</p>
+            <Button
+              onClick={openModal}
+              size="lg"
+              type="button"
+              className="ml-auto"
+            >
+              Pay now
+            </Button>
+          </div>
+        );
       case 4:
         return (
           <div className="bg-secondary p-3 rounded-md">
@@ -157,7 +173,12 @@ export default function PaymentMain() {
               <div className="flex items-center bg-background p-6 rounded-md gap-4">
                 <Checkbox defaultChecked />
                 <p>By clicking Pay now you agree with Terms and Conditions</p>
-                <Button onClick={openModal} size="lg" type="button" className="ml-auto">
+                <Button
+                  onClick={openModal}
+                  size="lg"
+                  type="button"
+                  className="ml-auto"
+                >
                   Pay now
                 </Button>
               </div>
@@ -239,20 +260,23 @@ export default function PaymentMain() {
   return (
     <FormProvider {...methods}>
       <div className="container mx-auto">
-        <SectionDetailsHeading
-          title="Atlantis Aquaventure Waterpark"
-          // className="text-center text-3xl mb-6"
-        />
-        <OrderSteps setStep={(v) => setStep(v)} step={step} />
+        <h1 className="text-center text-3xl mb-6">
+          Atlantis Aquaventure Waterpark
+        </h1>
+        <OrderSteps setStep={(v) => setStep(v)} />
         <div className="hidden sm:block">{desktopContent}</div>
         <div className="visible sm:hidden">{mobileContent}</div>
         <Modal modalKey="payment">
-          <div className='flex justify-center flex-col items-center gap-4'>
-            <span className='rounded-full bg-primary text-white p-2'>
-            <Check className='h-6 w-6' />
+          <div className="flex justify-center flex-col items-center gap-4">
+            <span className="rounded-full bg-primary text-white p-2">
+              <Check className="h-6 w-6" />
             </span>
-            <h1 className='font-semibold text-2xl text-center'>Payment approved successfully</h1>
-            <Button className='lg:w-max w-full' onClick={closeModal}>Close</Button>
+            <h1 className="font-semibold text-2xl text-center">
+              Payment approved successfully
+            </h1>
+            <Button className="lg:w-max w-full" onClick={closeModal}>
+              Close
+            </Button>
           </div>
         </Modal>
       </div>
