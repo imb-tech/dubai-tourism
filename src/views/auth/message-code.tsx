@@ -7,6 +7,11 @@ import { useForm } from 'react-hook-form';
 import FormInputOTP from 'components/form/input-otp';
 import { useTextStore } from 'store/auth';
 import { useOtpTimerStore } from 'store/useOtpTimerStore';
+import { useGet } from 'hooks/useGet';
+import { VERIFY } from 'constants/api-endpoints';
+import { usePost } from 'hooks/usePost';
+import { toast } from 'sonner';
+import { useAuthStore } from 'store/auth-store';
 
 const formatTime = (seconds: number) => {
   const mins = Math.floor(seconds / 60);
@@ -32,6 +37,13 @@ export default function EmailVerification({
   isActive: boolean;
 }) {
   const { resetTimer } = useOtpTimerStore();
+  const { setToken } = useAuthStore();
+  const { mutate } = usePost({
+    onSuccess: (data) => {
+      setToken(data?.access_token);
+      toast.success('Successful');
+    },
+  });
 
   const { user, setText } = useTextStore();
 
@@ -43,7 +55,7 @@ export default function EmailVerification({
   });
 
   const onSubmit = (data: FormValues) => {
-    console.log('Submitted OTP:', data.code);
+    mutate(VERIFY, { ...data, email: user?.email });
   };
 
   return (

@@ -6,6 +6,9 @@ import FormInput from 'components/form/input';
 import Image from 'next/image';
 import { useTextStore } from 'store/auth';
 import { useOtpTimerStore } from 'store/useOtpTimerStore';
+import { usePost } from 'hooks/usePost';
+import { toast } from 'sonner';
+import { REGISTER } from 'constants/api-endpoints';
 
 type Formtype = {
   first_name: string;
@@ -16,13 +19,23 @@ type Formtype = {
 const Register = () => {
   const { setText, clearText, setUser, user } = useTextStore();
   const form = useForm<Formtype>();
-  const {startTimer} = useOtpTimerStore();
+  const { startTimer } = useOtpTimerStore();
+  const { mutate } = usePost({
+    onSuccess: () => {
+      toast.success('Successful');
+      startTimer();
+      setText('code');
+      clearText();
+    },
+  });
 
   const onSubmit = (data: Formtype) => {
-    setUser(data);
-    startTimer()
-    setText('code');
-    console.log(data);
+    if (data.email) {
+      setUser(data);
+      mutate(REGISTER, data);
+    }else{
+      toast.error("The data was not entered correctly.")
+    }
   };
 
   useEffect(() => {
