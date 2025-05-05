@@ -1,28 +1,39 @@
 'use client';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { Button } from 'components/ui/button';
 import FormInput from 'components/form/input';
 import Image from 'next/image';
 import { useTextStore } from 'store/auth';
+import { useOtpTimerStore } from 'store/useOtpTimerStore';
 
 type Formtype = {
   email: string;
 };
 
 const Login = () => {
-  const { setText, clearText } = useTextStore();
+  const { setText, clearText, setUser, user } = useTextStore();
   const form = useForm<Formtype>();
+  const {startTimer} = useOtpTimerStore();
 
   const onSubmit = (data: Formtype) => {
+    setUser(data);
+    startTimer();
+    setText('code');
     console.log(data);
   };
+
+  useEffect(() => {
+    if (user?.email && !user?.first_name) {
+      form.reset(user);
+    }
+  }, [user]);
 
   return (
     <div className="space-y-4">
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
         <FormInput
-         variant='clean'
+          variant="clean"
           methods={form}
           name="email"
           className="mt-1 2xl:h-[50px] h-[40px] "

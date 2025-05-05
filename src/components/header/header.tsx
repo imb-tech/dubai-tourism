@@ -11,10 +11,13 @@ import Register from 'views/auth/register';
 import { useModal } from 'hooks/use-modal';
 import { useTextStore } from 'store/auth';
 import Login from 'views/auth/login';
+import EmailVerification from 'views/auth/message-code';
+import { useOtpTimerStore } from 'store/useOtpTimerStore';
 
 export default function Header() {
   const pathname = usePathname();
   const { openModal } = useModal('auth');
+  const { timer, isActive } = useOtpTimerStore();
   const { text } = useTextStore();
 
   return (
@@ -81,10 +84,22 @@ export default function Header() {
         <ServicesButton pathname={pathname} />
         <Modal
           modalKey="auth"
-          title={text === 'login' ? 'Login' : 'Register'}
+          title={
+            text === 'login'
+              ? 'Login'
+              : text === 'register'
+              ? 'Register'
+              : 'Email confirmation'
+          }
           titleClass="lg:text-3xl font-semibold text-2xl"
         >
-          {text === 'login' ? <Login /> : <Register />}
+          {text === 'login' ? (
+            <Login />
+          ) : text === 'register' ? (
+            <Register />
+          ) : (
+            <EmailVerification isActive={isActive} timer={timer} />
+          )}
         </Modal>
       </div>
     </header>
