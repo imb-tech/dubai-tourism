@@ -6,8 +6,9 @@ import { Button } from 'components/ui/button';
 import { Label } from 'components/ui/label';
 import { RadioGroup, RadioGroupItem } from 'components/ui/radio-group';
 import { cn } from 'lib/utils';
-import { List, Map, SearchIcon } from 'lucide-react';
+import { List, SearchIcon } from 'lucide-react';
 import React, { useState } from 'react';
+import { useTextApartmentStore } from 'store/rent-apartment';
 
 const filters = [
   {
@@ -29,39 +30,40 @@ const filters = [
 ];
 
 export default function ApartmentFilter() {
-  const [viewMode, setViewMode] = useState<'list' | 'map'>('list');
+  const { text, setText } = useTextApartmentStore();
+
   const [propertyStatus, setPropertyStatus] = useState('off-plan');
 
   return (
     <div>
       <div className="grid grid-cols-2 gap-4 mb-4 border rounded-[12px] p-2">
         <Button
-          variant={viewMode === 'list' ? 'default' : 'outline'}
+          variant={text === 'list' ? 'default' : 'outline'}
           className={cn(
             'shadow-none h-12 flex justify-start',
-            viewMode === 'map' ? 'bg-[#F5F5F5]' : ''
+            text === 'map' ? 'bg-[#F5F5F5]' : ''
           )}
-          onClick={() => setViewMode('list')}
+          onClick={() => setText('list')}
         >
           <List className="h-5 w-5" />
           <span className="font-medium">List view</span>
         </Button>
         <Button
-          variant={viewMode === 'map' ? 'default' : 'outline'}
+          variant={text === 'map' ? 'default' : 'outline'}
           className={cn(
             'shadow-none h-12 justify-start',
-            viewMode === 'list'
+            text === 'list'
               ? 'bg-[#F5F5F5] text-primary hover:text-primary'
               : 'text-white'
           )}
-          onClick={() => setViewMode('map')}
+          onClick={() => setText('map')}
         >
           <MapIcon />
           <span className="font-medium">Map view</span>
         </Button>
       </div>
 
-      <div className="grid lg:grid-cols-7 grid-cols-1 gap-2 py-3 border rounded-[12px] p-2">
+      <div className="hidden lg:grid lg:grid-cols-7 grid-cols-1 gap-2 py-3 border rounded-[12px] p-2">
         <SelectParams
           paramKey="filter1"
           options={filters}

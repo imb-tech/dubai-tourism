@@ -1,12 +1,17 @@
+'use client';
 import Questions from 'components/questions/questions';
 import CarCard from 'components/shared/car-card';
 import { SliderComponents } from 'components/slider/page';
 import SectionDetailsHeading from 'components/ui/page-heading';
 import React from 'react';
 import { childData, images } from 'services/data';
+import { useTextApartmentStore } from 'store/rent-apartment';
 import ApartmentFilter from 'views/rent-apartment/apartment-filter';
 
 const RentApartment = () => {
+  const { text } = useTextApartmentStore();
+
+
   return (
     <div className="container mx-auto lg:px-0 px-3">
       <SectionDetailsHeading title="Rent an apartment" />
@@ -16,16 +21,41 @@ const RentApartment = () => {
         <ApartmentFilter />
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-        {cars.map((s) => (
-          <CarCard key={s.id} {...s} />
-        ))}
+      {text === 'list' ? (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 ">
+          {cars.map((s) => (
+            <CarCard key={s.id} {...s} />
+          ))}
+        </div>
+      ) : (
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 ">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 lg:order-1 order-2">
+            {cars.slice(0, 4).map((s) => (
+              <CarCard key={s.id} {...s} />
+            ))}
+          </div>
+
+          <div className='lg:order-2 order-1'>
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d321.98712541444945!2d69.23603555442904!3d41.20093632800717!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e1!3m2!1suz!2s!4v1745214332280!5m2!1suz!2s"
+              width="100%"
+              height="450"
+              allowFullScreen
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              className="rounded-md lg:h-[900px]"
+            ></iframe>
+          </div>
+        </div>
+      )}
+
+      <div className="mt-8">
+        <Questions
+          title="Frequently asked questions"
+          parentData={['Renta Apartment Questions']}
+          childData={childData}
+        />
       </div>
-      <Questions
-        title="Frequently asked questions"
-        parentData={['Renta Apartment Questions']}
-        childData={childData}
-      />
     </div>
   );
 };

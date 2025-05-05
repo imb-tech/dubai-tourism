@@ -97,7 +97,7 @@ export function SliderComponents({
         <CarouselNext className="absolute  hidden md:block cursor-pointer right-2 top-1/2 -translate-y-1/2" />
       </Carousel>
       {showPagination && images.length > 1 && (
-        <div className="flex gap-1 mt-2   z-20  absolute bottom-4 left-1/2 -translate-x-1/2">
+        <div className="flex gap-1 mt-2    absolute bottom-4 left-1/2 -translate-x-1/2">
           {images.map((_, index) => (
             <button
               key={index}
@@ -112,7 +112,7 @@ export function SliderComponents({
         </div>
       )}
       {showCout && images.length > 1 && (
-        <div className="absolute right-2 top-[70%] -translate-y-[70%] z-20 px-3 py-1 rounded-full bg-white text-black text-sm font-medium shadow">
+        <div className="absolute right-2 top-[70%] -translate-y-[70%] px-3 py-1 rounded-full bg-white text-black text-sm font-medium shadow">
           {`${current + 1} / ${images.length}`}
         </div>
       )}

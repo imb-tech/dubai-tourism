@@ -8,7 +8,7 @@ import SectionDetailsHeading from 'components/ui/page-heading';
 
 export default function page() {
   return (
-    <div className="container mx-auto ">
+    <div className="container mx-auto lg:px-0 px-3">
       <SectionDetailsHeading title="Dubayda avtomobil ijarasi" />
       <SliderComponents images={images} />
       <div className="py-3" />
