@@ -1,0 +1,199 @@
+import { UserIcon } from 'components/icons';
+import { cn } from 'lib/utils';
+import React, { useMemo, useState } from 'react';
+
+type Props = {
+  setStep?: (v: number) => void;
+};
+
+export default function OrderSteps({ setStep }: Props) {
+  const [active, _setActive] = useState<number>(1);
+
+  const images = useMemo(
+    () => steps?.filter((c) => c.id >= active || active - c.id === 1),
+    [active]
+  );
+
+  function setActive(v: number) {
+    _setActive(v);
+    setStep?.(v);
+  }
+
+  return (
+    <div className="max-w-full overflow-x-hidden">
+      <div className="grid grid-cols-4 sm:grid-cols-3 py-3 gap-3 px-2 sm:px-0 min-w-[600px] md:hidden">
+        {images?.map((st) => {
+          const Ic = st.icon;
+          return (
+            <div
+              key={st.id}
+              className={cn(
+                'flex flex-col gap-2 items-center text-primary py-5 rounded-md cursor-pointer relative',
+                st.id === active ? 'bg-primary text-white' : 'bg-primary/5'
+              )}
+              onClick={() => setActive(st.id)}
+            >
+              <span className="absolute bg-background size-8 rounded-full text-primary flex items-center justify-center left-2 top-2">
+                {st.id}
+              </span>
+              <span>
+                <Ic size={32} />
+              </span>
+              <span className={st.id === active ? 'text-white' : 'text-black'}>
+                {st.label}
+              </span>
+            </div>
+          );
+        })}
+      </div>
+      <div className="hidden md:grid grid-cols-4 sm:grid-cols-3 py-3 gap-3 px-2 sm:px-0 min-w-[600px]">
+        {steps
+          ?.filter((p) => p.id !== 2)
+          ?.map((st, i) => {
+            const Ic = st.icon;
+            return (
+              <div
+                key={st.id}
+                className={cn(
+                  'flex flex-col gap-2 items-center text-primary py-5 rounded-md cursor-pointer relative',
+                  st.id === active ? 'bg-primary text-white' : 'bg-primary/5'
+                )}
+                onClick={() => setActive(st.id)}
+              >
+                <span className="absolute bg-background size-8 rounded-full text-primary flex items-center justify-center left-2 top-2">
+                  {i + 1}
+                </span>
+                <span>
+                  <Ic size={32} />
+                </span>
+                <span
+                  className={st.id === active ? 'text-white' : 'text-black'}
+                >
+                  {st.label}
+                </span>
+              </div>
+            );
+          })}
+      </div>
+    </div>
+  );
+}
+
+const CartIcon = ({ size = 32 }: { size?: number }) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width={size}
+    height={size}
+    viewBox="0 0 32 32"
+    fill="none"
+  >
+    <path
+      d="M21.6654 30C22.954 30 23.9987 28.9554 23.9987 27.6667C23.9987 26.378 22.954 25.3334 21.6654 25.3334C20.3767 25.3334 19.332 26.378 19.332 27.6667C19.332 28.9554 20.3767 30 21.6654 30Z"
+      fill="currentColor"
+    />
+    <path
+      d="M11.0013 30C12.29 30 13.3346 28.9554 13.3346 27.6667C13.3346 26.378 12.29 25.3334 11.0013 25.3334C9.71264 25.3334 8.66797 26.378 8.66797 27.6667C8.66797 28.9554 9.71264 30 11.0013 30Z"
+      fill="currentColor"
+    />
+    <path
+      opacity="0.4"
+      d="M6.45463 5.2533L6.18797 8.51996C6.13463 9.14663 6.62797 9.66663 7.25464 9.66663H27.668C28.228 9.66663 28.6946 9.23995 28.7346 8.67995C28.908 6.31995 27.108 4.39996 24.748 4.39996H8.38796C8.25463 3.8133 7.98796 3.25329 7.57463 2.78662C6.92129 2.07995 5.98797 1.66663 5.02797 1.66663H2.66797C2.1213 1.66663 1.66797 2.11996 1.66797 2.66663C1.66797 3.21329 2.1213 3.66663 2.66797 3.66663H4.98798C5.40131 3.66663 5.78797 3.83997 6.06797 4.1333C6.34797 4.43997 6.4813 4.83996 6.45463 5.2533Z"
+      fill="currentColor"
+    />
+    <path
+      d="M27.3454 11.6666H6.89211C6.33211 11.6666 5.87877 12.0933 5.82544 12.64L5.34544 18.44C5.15877 20.7066 6.94544 22.6666 9.22544 22.6666H24.0521C26.0521 22.6666 27.8121 21.0266 27.9588 19.0266L28.3988 12.8C28.4521 12.1866 27.9721 11.6666 27.3454 11.6666Z"
+      fill="currentColor"
+    />
+  </svg>
+);
+
+const InvoiceIcon = ({ size = 32 }: { size?: number }) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width={size}
+    height={size}
+    viewBox="0 0 32 32"
+    fill="none"
+  >
+    <path
+      d="M29.332 7.99995V11.2266C29.332 13.3333 27.9987 14.6666 25.892 14.6666H21.332V5.34661C21.332 3.86661 22.5454 2.65328 24.0254 2.66661C25.4787 2.67995 26.812 3.26661 27.772 4.22661C28.732 5.19995 29.332 6.53328 29.332 7.99995Z"
+      fill="currentColor"
+    />
+    <path
+      opacity="0.4"
+      d="M2.66797 9.33329V28C2.66797 29.1066 3.9213 29.7333 4.8013 29.0666L7.0813 27.36C7.61464 26.96 8.3613 27.0133 8.8413 27.4933L11.0546 29.72C11.5746 30.24 12.428 30.24 12.948 29.72L15.188 27.48C15.6546 27.0133 16.4013 26.96 16.9213 27.36L19.2013 29.0666C20.0813 29.72 21.3346 29.0933 21.3346 28V5.33329C21.3346 3.86663 22.5346 2.66663 24.0013 2.66663H9.33464H8.0013C4.0013 2.66663 2.66797 5.05329 2.66797 7.99996V9.33329Z"
+      fill="currentColor"
+    />
+    <path
+      d="M16 16.3467H12C11.4533 16.3467 11 16.8 11 17.3467C11 17.8933 11.4533 18.3467 12 18.3467H16C16.5467 18.3467 17 17.8933 17 17.3467C17 16.8 16.5467 16.3467 16 16.3467Z"
+      fill="currentColor"
+    />
+    <path
+      d="M12 13.0134H16C16.5467 13.0134 17 12.5601 17 12.0134C17 11.4668 16.5467 11.0134 16 11.0134H12C11.4533 11.0134 11 11.4668 11 12.0134C11 12.5601 11.4533 13.0134 12 13.0134Z"
+      fill="currentColor"
+    />
+    <path
+      d="M7.95833 10.6801C7.21167 10.6801 6.625 11.2801 6.625 12.0134C6.625 12.7467 7.225 13.3467 7.95833 13.3467C8.69167 13.3467 9.29167 12.7467 9.29167 12.0134C9.29167 11.2801 8.69167 10.6801 7.95833 10.6801Z"
+      fill="currentColor"
+    />
+    <path
+      d="M7.95833 16.0134C7.21167 16.0134 6.625 16.6134 6.625 17.3468C6.625 18.0801 7.225 18.6801 7.95833 18.6801C8.69167 18.6801 9.29167 18.0801 9.29167 17.3468C9.29167 16.6134 8.69167 16.0134 7.95833 16.0134Z"
+      fill="currentColor"
+    />
+  </svg>
+);
+
+const PrintIcon = ({ size = 32 }: { size?: number }) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width={size}
+    height={size}
+    viewBox="0 0 32 32"
+    fill="none"
+  >
+    <path
+      d="M21.3346 20V25.3333C21.3346 27.5467 19.548 29.3333 17.3346 29.3333H14.668C12.4546 29.3333 10.668 27.5467 10.668 25.3333V20H21.3346Z"
+      fill="currentColor"
+    />
+    <path
+      d="M9.33203 9.33329V6.66663C9.33203 4.45329 11.1187 2.66663 13.332 2.66663H18.6654C20.8787 2.66663 22.6654 4.45329 22.6654 6.66663V9.33329H9.33203Z"
+      fill="currentColor"
+    />
+    <path
+      opacity="0.4"
+      d="M24 9.33337H8C5.33333 9.33337 4 10.6667 4 13.3334V20C4 22.6667 5.33333 24 8 24H10.6667V20H21.3333V24H24C26.6667 24 28 22.6667 28 20V13.3334C28 10.6667 26.6667 9.33337 24 9.33337ZM13.3333 15.6667H9.33333C8.78667 15.6667 8.33333 15.2134 8.33333 14.6667C8.33333 14.12 8.78667 13.6667 9.33333 13.6667H13.3333C13.88 13.6667 14.3333 14.12 14.3333 14.6667C14.3333 15.2134 13.88 15.6667 13.3333 15.6667Z"
+      fill="currentColor"
+    />
+    <path
+      d="M14.332 14.6666C14.332 15.2133 13.8787 15.6666 13.332 15.6666H9.33203C8.78536 15.6666 8.33203 15.2133 8.33203 14.6666C8.33203 14.12 8.78536 13.6666 9.33203 13.6666H13.332C13.8787 13.6666 14.332 14.12 14.332 14.6666Z"
+      fill="currentColor"
+    />
+    <path
+      d="M22.6654 21H9.33203C8.78536 21 8.33203 20.5467 8.33203 20C8.33203 19.4533 8.78536 19 9.33203 19H22.6654C23.212 19 23.6654 19.4533 23.6654 20C23.6654 20.5467 23.212 21 22.6654 21Z"
+      fill="currentColor"
+    />
+  </svg>
+);
+
+const steps = [
+  {
+    id: 1,
+    label: 'Add to cart',
+    icon: CartIcon,
+  },
+  {
+    id: 2,
+    label: 'Personal info',
+    icon: UserIcon,
+  },
+  {
+    id: 3,
+    label: 'Payment',
+    icon: InvoiceIcon,
+  },
+  {
+    id: 4,
+    label: 'Print Vaucher',
+    icon: PrintIcon,
+  },
+];
