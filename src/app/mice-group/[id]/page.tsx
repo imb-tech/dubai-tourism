@@ -3,11 +3,8 @@ import React from 'react';
 import DrawerImagesView from 'components/drawer/page';
 import Questions from 'components/questions/questions';
 import { childData } from 'services/data';
-
 import SectionDetailsHeading from 'components/ui/page-heading';
 import FeaturesCard from 'views/mice-group/features-card';
-import { useForm } from 'react-hook-form';
-import FormInput from 'components/form/input';
 import BookingForm from 'views/mice-group/bron-form';
 import { SliderComponents } from 'components/slider/page';
 
@@ -34,18 +31,7 @@ const images = [
   },
 ];
 
-interface FormType {
-  employee_count: number | string;
-  start_date: string;
-  end_date: string;
-  comment: string;
-}
-
 export default function RentId() {
-  const form = useForm<FormType>();
-  const onSubmit = (data: FormType) => {
-    console.log(data);
-  };
   return (
     <div className="container mx-auto lg:px-0 px-3">
       <SectionDetailsHeading title="Personal concierge" />

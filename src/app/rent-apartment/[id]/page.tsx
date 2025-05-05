@@ -6,7 +6,15 @@ import CarCard from 'components/shared/car-card';
 import { CustomCarousel } from 'components/custom/carousel';
 import SectionDetailsHeading from 'components/ui/page-heading';
 import { SliderComponents } from 'components/slider/page';
-import { Gem } from 'lucide-react';
+import { Button } from 'components/ui/button';
+import FloorPlans from 'views/rent-apartment/floor-plans';
+import Amenities from 'views/rent-apartment/amenities';
+import PaymentPlan from 'views/rent-apartment/payment-plan';
+import PropertyMap from 'views/rent-apartment/peoperty-map';
+import BedroomOptions from 'views/rent-apartment/bedroom-options';
+import PropertyDetails from 'views/rent-apartment/property-details';
+import AboutProject from 'views/rent-apartment/about';
+import PropertyHeader from 'views/rent-apartment/property-header';
 
 const images = [
   {
@@ -107,33 +115,35 @@ export default function RentId() {
           <SliderComponents images={images} showCout={true} />
         </div>
 
-        <div className="space-y-4 border rounded-md p-4 bg-[#F5F8FC] my-5 ">
-          <h1 className=" lg:text-2xl  font-semibold text-xl">About Project</h1>
-
-          <p>
-            Pelagos is a modern residential complex in Dubai Marina. It offers a
-            premium selection of studios and 1-2BR аpartments. The unit sizes
-            range from 381 sq. ft. to 1526 sq. ft. Residences at this
-            development come with quality kitchen appliances.This ensures
-            convenience & luxury for the residents. The properties stаrt at AED
-            1.9M, having a flexible 50/50 payment plan. This makes it an
-            attractive investment opportunity. Residents can enjoy an elite
-            lifestyle with proximity to the Dubai Marina Mall
-          </p>
-
-          <div className="grid lg:grid-cols-4 grid-cols-2 gap-3">
-            {Array.from({ length: 4 }).map((_, index) => (
-              <div
-                key={index}
-                className="bg-white p-4 rounded-md flex flex-col items-center gap-3 justify-between"
-              >
-                <Gem className="text-primary" />
-                <h1 className="text-lg font-medium text-center">
-                  Dubai, Business Bay, 12 A
-                </h1>
-              </div>
-            ))}
+        <div className="space-y-5 mb-8">
+          <PropertyHeader
+            price="23,270,000 AED"
+            startingPrice="9,556 ft (6,520,063)"
+            paymentPlan="50/50"
+            handover="Q2 2027"
+          />
+          <div className="bg-[#F5F8FC] p-4 border rounded-md grid lg:grid-cols-2 grid-cols-1 gap-6">
+            <AboutProject />
+            <PropertyDetails
+              developer="H&H"
+              propertyType="Villa"
+              handover="Q2 2027"
+              paymentPlan="50/50"
+              areaName="Dubai Hills"
+            />
+            <div className="lg:col-span-2 col-span-1">
+              <BedroomOptions />
+              <Button className="w-full shadow-none">Leave a request</Button>
+            </div>
           </div>
+
+          <PropertyMap />
+
+          <PaymentPlan />
+
+          <Amenities />
+
+          <FloorPlans />
         </div>
       </div>
 

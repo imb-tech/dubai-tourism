@@ -72,6 +72,7 @@ export default function wtp() {
         <WtpForm />
         <WtpMap />
         <WtpFeatures />
+
         <div className="space-y-4 border rounded-md p-4 mt-5 mb-12">
           <h1 className=" lg:text-3xl  font-semibold text-2xl">About</h1>
           <div>
@@ -97,6 +98,7 @@ export default function wtp() {
             </div>
           </div>
         </div>
+
         <WtpComments />
       </div>
 
@@ -111,6 +113,7 @@ export default function wtp() {
           </div>
         </div>
       </div>
+      
       <div className="container mx-auto lg:px-0 px-3">
         <Questions
           title="Frequently asked questions"

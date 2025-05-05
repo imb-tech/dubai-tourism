@@ -40,6 +40,7 @@ const Contact = () => {
           className="grid grid-cols-1 lg:grid-cols-3 gap-4 "
         >
           <FormInput
+            variant="clean"
             label="Ism"
             methods={form}
             name="full_name"
@@ -51,9 +52,10 @@ const Contact = () => {
             methods={form}
             name="phone"
             label="Telefon raqam"
-            className="h-[40px]"
+            className="h-[40px] "
           />
           <FormInput
+           variant="clean"
             type="email"
             label="Email"
             placeholder="Email manzilingiz"
@@ -68,7 +70,8 @@ const Contact = () => {
             label="Xabar"
             placeholder="Sizning xabaringiz"
             required
-            wrapperClassName="lg:col-span-3 "
+            className='border-none'
+            wrapperClassName="lg:col-span-3  "
           />
           <Button type="submit" className="lg:col-span-3 cursor-pointer">
             Ariza qoldirish

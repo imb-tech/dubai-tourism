@@ -9,12 +9,12 @@ export default function Products({
   data = [],
   title = '',
   className,
-  autoplayDelay
+  autoplayDelay,
 }: {
   data: Product[];
   title: string;
   className?: string;
-  autoplayDelay?:number
+  autoplayDelay?: number;
 }) {
   const slides = data.map((s) => <CarCard key={s.id} {...s} />);
   return (
@@ -22,7 +22,7 @@ export default function Products({
       <div className="container mx-auto lg:px-0 px-3 ">
         <div className="flex items-center mb-5">
           <SectionHeading title={title} />
-          <ChevronRight />
+          <ChevronRight className="mt-1" />
         </div>
         <div className="hidden sm:grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {slides}

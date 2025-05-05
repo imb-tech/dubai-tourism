@@ -112,7 +112,7 @@ export function SliderComponents({
         </div>
       )}
       {showCout && images.length > 1 && (
-        <div className="absolute right-2 top-[70%] -translate-y-[70%] px-3 py-1 rounded-full bg-white text-black text-sm font-medium shadow">
+        <div className="absolute right-2 bottom-2 px-3 py-1 rounded-full bg-white text-black text-sm font-medium shadow">
           {`${current + 1} / ${images.length}`}
         </div>
       )}
