@@ -7,7 +7,9 @@ import OrderSteps from './order-steps';
 import FormInput from 'components/form/input';
 import { Button } from 'components/ui/button';
 import { Checkbox } from 'components/ui/checkbox';
-import { DownloadIcon } from 'lucide-react';
+import { Check, CircleCheck, CircleCheckBig, DownloadIcon } from 'lucide-react';
+import { useModal } from 'hooks/use-modal';
+import Modal from 'components/custom/modal';
 
 type FormFields = {
   name: string;
@@ -17,6 +19,7 @@ type FormFields = {
 export default function PaymentMain() {
   const methods = useForm<FormFields>();
   const [step, setStep] = useState<number>(1);
+  const { openModal, closeModal } = useModal('payment');
 
   const componentMobile = (v: number) => {
     switch (v) {
@@ -29,7 +32,7 @@ export default function PaymentMain() {
               <div className="flex items-center bg-background p-6 rounded-md gap-4">
                 <Checkbox defaultChecked />
                 <p>By clicking Pay now you agree with Terms and Conditions</p>
-                <Button size="lg" type="button" className="ml-auto">
+                <Button onClick={openModal} size="lg" type="button" className="ml-auto">
                   Pay now
                 </Button>
               </div>
@@ -132,7 +135,7 @@ export default function PaymentMain() {
           <div className="flex items-center bg-background p-6 rounded-md gap-4">
             <Checkbox defaultChecked />
             <p>By clicking Pay now you agree with Terms and Conditions</p>
-            <Button size="lg" type="button" className="ml-auto">
+            <Button onClick={openModal} size="lg" type="button" className="ml-auto">
               Pay now
             </Button>
           </div>
@@ -159,7 +162,7 @@ export default function PaymentMain() {
               <div className="flex items-center bg-background p-6 rounded-md gap-4">
                 <Checkbox defaultChecked />
                 <p>By clicking Pay now you agree with Terms and Conditions</p>
-                <Button size="lg" type="button" className="ml-auto">
+                <Button onClick={openModal} size="lg" type="button" className="ml-auto">
                   Pay now
                 </Button>
               </div>
@@ -247,6 +250,15 @@ export default function PaymentMain() {
         <OrderSteps setStep={(v) => setStep(v)} />
         <div className="hidden sm:block">{desktopContent}</div>
         <div className="visible sm:hidden">{mobileContent}</div>
+        <Modal modalKey="payment">
+          <div className='flex justify-center flex-col items-center gap-4'>
+            <span className='rounded-full bg-primary text-white p-2'>
+            <Check className='h-6 w-6' />
+            </span>
+            <h1 className='font-semibold text-2xl text-center'>Payment approved successfully</h1>
+            <Button className='lg:w-max w-full' onClick={closeModal}>Close</Button>
+          </div>
+        </Modal>
       </div>
     </FormProvider>
   );

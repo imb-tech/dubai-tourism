@@ -1,5 +1,7 @@
+import Questions from 'components/questions/questions';
 import SectionDetailsHeading from 'components/ui/page-heading';
 import React from 'react';
+import { childData } from 'services/data';
 import MiceGroupCard from 'views/mice-group/card';
 
 const data = [
@@ -68,12 +70,17 @@ const data = [
 function page() {
   return (
     <div className="container mx-auto lg:px-0 px-3">
-        <SectionDetailsHeading title='MICE group services'/>
+      <SectionDetailsHeading title="MICE group services" />
       <div className="space-y-3">
         {data.map((item) => (
           <MiceGroupCard data={item} key={item.id} />
         ))}
       </div>
+      <Questions
+        title="Frequently asked questions"
+        parentData={['Vip Concierge  Questions']}
+        childData={childData}
+      />
     </div>
   );
 }

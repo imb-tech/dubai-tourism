@@ -1,8 +1,31 @@
+'use client';
+import Modal from 'components/custom/modal';
 import { Button } from 'components/ui/button';
+import { useModal } from 'hooks/use-modal';
 import { formatMoney } from 'lib/utils';
+import { useRouter } from 'next/navigation';
 import React from 'react';
+import { useTextStore } from 'store/auth';
+import { useAuthStore } from 'store/auth-store';
+import Login from 'views/auth/login';
+import Register from 'views/auth/register';
 
 export default function GoToPayment() {
+  const { openModal } = useModal('auth');
+  const { text } = useTextStore();
+  const { token } = useAuthStore();
+  const { push } = useRouter();
+
+  const handleClick = () => {
+    if (token) {
+      push('/checkout');
+    } else {
+      openModal();
+    }
+  };
+
+
+   
   return (
     <div className="bg-white rounded-md p-4">
       <h2 className="font-semibold text-xl">Total</h2>
@@ -10,7 +33,15 @@ export default function GoToPayment() {
         <span className="font-semibold">Final Amount</span>
         <span className="font-bold"> AED {formatMoney(360)}</span>
       </div>
-      <Button>Go to payment</Button>
+      <Button onClick={handleClick}>Go to payment</Button>
+
+      <Modal
+        modalKey="auth"
+        title={text === 'login' ? 'Login' : 'Register'}
+        titleClass="lg:text-3xl font-semibold text-2xl"
+      >
+        {text === 'login' ? <Login /> : <Register />}
+      </Modal>
     </div>
   );
 }
