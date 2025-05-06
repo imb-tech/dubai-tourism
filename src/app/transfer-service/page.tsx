@@ -4,7 +4,7 @@ import { SliderComponents } from 'components/slider/page';
 import SectionDetailsHeading from 'components/ui/page-heading';
 import React from 'react';
 import { childData, images } from 'services/data';
-import TransferFilter from 'views/transfer-service/transfer-filter';
+import TransferForm from 'views/transfer-service/transfer-form';
 
 const cars: Product[] = [
   {
@@ -17,7 +17,7 @@ const cars: Product[] = [
     rating: 4.5,
     discount: 350,
     price: 375,
-    url: '/tour-packages/1',
+    url: '/transfer-service/1',
   },
   {
     id: 2,
@@ -29,7 +29,7 @@ const cars: Product[] = [
     suffix: '2',
     discount: 400,
     price: 420,
-    url: '/tour-packages/2',
+    url: '/transfer-service/2',
   },
   {
     id: 3,
@@ -41,7 +41,7 @@ const cars: Product[] = [
     suffix: '3',
     discount: 370,
     price: 395,
-    url: '/tour-packages/3',
+    url: '/transfer-service/3',
   },
   {
     id: 4,
@@ -53,7 +53,7 @@ const cars: Product[] = [
     suffix: '4',
     discount: 390,
     price: 410,
-    url: '/tour-packages/4',
+    url: '/transfer-service/4',
   },
   {
     id: 5,
@@ -65,7 +65,7 @@ const cars: Product[] = [
     suffix: '5',
     discount: 350,
     price: 375,
-    url: '/tour-packages/5',
+    url: '/transfer-service/5',
   },
   {
     id: 6,
@@ -77,7 +77,7 @@ const cars: Product[] = [
     suffix: '6',
     discount: 400,
     price: 420,
-    url: '/tour-packages/6',
+    url: '/transfer-service/6',
   },
   {
     id: 7,
@@ -89,7 +89,7 @@ const cars: Product[] = [
     suffix: '7',
     discount: 370,
     price: 395,
-    url: '/tour-packages/7',
+    url: '/transfer-service/7',
   },
   {
     id: 8,
@@ -101,7 +101,7 @@ const cars: Product[] = [
     suffix: '8',
     discount: 390,
     price: 410,
-    url: '/tour-packages/8',
+    url: '/transfer-service/8',
   },
   {
     id: 9,
@@ -113,7 +113,7 @@ const cars: Product[] = [
     suffix: '9',
     discount: 350,
     price: 375,
-    url: '/tour-packages/9',
+    url: '/transfer-service/9',
   },
   {
     id: 10,
@@ -125,7 +125,7 @@ const cars: Product[] = [
     suffix: '10',
     discount: 400,
     price: 420,
-    url: '/tour-packages/10',
+    url: '/transfer-service/10',
   },
   {
     id: 11,
@@ -137,7 +137,7 @@ const cars: Product[] = [
     suffix: '11',
     discount: 370,
     price: 395,
-    url: '/tour-packages/11',
+    url: '/transfer-service/11',
   },
   {
     id: 12,
@@ -152,19 +152,19 @@ const cars: Product[] = [
     url: '/rent/12',
   },
 ];
+
 const TransferService = () => {
   return (
     <div className="container mx-auto lg:px-0 px-3">
       <SectionDetailsHeading title="Transfer Service" />
 
       <SliderComponents images={images} />
-      <div className="my-5">
-        <TransferFilter />
-      </div>
+
+      <TransferForm />
 
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
         {cars.map((s) => (
-          <CarCard key={s.id} {...s} />
+          <CarCard key={s.id} {...s} image='/images/car.png' />
         ))}
       </div>
       <Questions
