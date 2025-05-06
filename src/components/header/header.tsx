@@ -5,7 +5,7 @@ import ServicesButton from './services-button';
 import { usePathname } from 'next/navigation';
 import { Button } from 'components/ui/button';
 import { cn } from 'lib/utils';
-import { CartIcon, LoginIcon, User2Icon } from 'components/icons';
+import { CartIcon, LoginIcon } from 'components/icons';
 import Modal from 'components/custom/modal';
 import Register from 'views/auth/register';
 import { useModal } from 'hooks/use-modal';
@@ -15,6 +15,8 @@ import EmailVerification from 'views/auth/message-code';
 import { useOtpTimerStore } from 'store/useOtpTimerStore';
 import { useAuthStore } from 'store/auth-store';
 import { User } from 'lucide-react';
+import { useGet } from 'hooks/useGet';
+import { PROFILE } from 'constants/api-endpoints';
 
 export default function Header() {
   const pathname = usePathname();
@@ -22,8 +24,9 @@ export default function Header() {
   const { timer, isActive } = useOtpTimerStore();
   const { token } = useAuthStore();
   const { text } = useTextStore();
+  const { data } = useGet(PROFILE, { options: { enabled: Boolean(token) } });
 
-  console.log(token);
+  console.log(data);
 
   return (
     <header className="bg-transparent z-10 relative ">
@@ -41,27 +44,29 @@ export default function Header() {
           </Link>
           <Navbar pathname={pathname} />
 
-          <div className="hidden lg:flex flex-col items-start gap-1">
-            <a
-              href="tel:+998900002323"
-              className={cn(
-                'font-bold   border-b',
-                pathname === '/' ? 'text-white' : ''
-              )}
-            >
-              {' '}
-              +998 90 000-23-23
-            </a>
-            <a
-              href="#"
-              className={cn(
-                'text-sm ',
-                pathname === '/' ? 'text-gray-300' : 'text-[#00000099]'
-              )}
-            >
-              OAE, Dubai, 12 block, 12 street
-            </a>
-          </div>
+          {token ? (
+            <div className="hidden lg:flex flex-col items-start gap-1">
+              <a
+                href="tel:+998900002323"
+                className={cn(
+                  'font-bold   border-b',
+                  pathname === '/' ? 'text-white' : ''
+                )}
+              >
+                {' '}
+                +998 90 000-23-23
+              </a>
+              <a
+                href="#"
+                className={cn(
+                  'text-sm ',
+                  pathname === '/' ? 'text-gray-300' : 'text-[#00000099]'
+                )}
+              >
+                OAE, Dubai, 12 block, 12 street
+              </a>
+            </div>
+          ) : null}
           <div className="flex items-end gap-3  h-[45px]">
             {token ? (
               <Button

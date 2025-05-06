@@ -2,6 +2,7 @@ export const REGISTER = "users/auth/register";
 export const LOGIN = "users/auth/login";
 export const VERIFY = "users/auth/verify";
 export const NEW_CODE = "users/auth/new-code";
+export const PROFILE = "users/auth/profile";
 export const APARTMENTS = "services/apartments"
 export const APARTMENTS_APPLICATIONS = "services/apartments/applications"
 export const BANNERS = "services/banners"

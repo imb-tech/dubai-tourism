@@ -25,4 +25,4 @@ export const useAuthStore = create<AuthStore>((set) => ({
 if (typeof window !== 'undefined') {
     const tokenFromLocalStorage = localStorage.getItem('token');
     useAuthStore.getState().setToken(tokenFromLocalStorage || '');
-  }
+}

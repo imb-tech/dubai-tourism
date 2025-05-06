@@ -7,7 +7,6 @@ import { useForm } from 'react-hook-form';
 import FormInputOTP from 'components/form/input-otp';
 import { useTextStore } from 'store/auth';
 import { useOtpTimerStore } from 'store/useOtpTimerStore';
-import { useGet } from 'hooks/useGet';
 import { NEW_CODE, VERIFY } from 'constants/api-endpoints';
 import { usePost } from 'hooks/usePost';
 import { toast } from 'sonner';

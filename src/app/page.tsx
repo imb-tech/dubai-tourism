@@ -5,8 +5,14 @@ import Tours from 'views/home/tours';
 import React from 'react';
 import Questions from 'components/questions/questions';
 import { childData, parentData } from 'services/data';
+import { POPULAR_QUESTIONS } from 'constants/api-endpoints';
+import { fetchData } from 'lib/fetchData';
 
-export default function Home() {
+export default async function Home() {
+  const data = await fetchData(POPULAR_QUESTIONS);
+
+  console.log(data);
+
   return (
     <div className="space-y-12 mb-12">
       <HeroPages />
