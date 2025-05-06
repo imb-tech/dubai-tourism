@@ -1,5 +1,7 @@
 import Questions from 'components/questions/questions';
 import SectionDetailsHeading from 'components/ui/page-heading';
+import { MICE_SERVICES } from 'constants/api-endpoints';
+import { fetchData } from 'lib/fetchData';
 import React from 'react';
 import MiceGroupCard from 'views/mice-group/card';
 
@@ -66,7 +68,11 @@ const data = [
   },
 ];
 
-function page() {
+async function page() {
+  const banners = await fetchData(MICE_SERVICES);
+
+  console.log(banners);
+
   return (
     <div className="container mx-auto lg:px-0 px-3">
       <SectionDetailsHeading title="MICE group services" />

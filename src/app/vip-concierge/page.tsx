@@ -2,16 +2,20 @@ import Questions from 'components/questions/questions';
 import CarCard from 'components/shared/car-card';
 import { SliderComponents } from 'components/slider/page';
 import SectionDetailsHeading from 'components/ui/page-heading';
+import { BANNERS } from 'constants/api-endpoints';
+import { fetchData } from 'lib/fetchData';
 import React from 'react';
-import {images } from 'services/data';
 import VipConciergeFilter from 'views/vip-concierge/vip-concierge';
 
+const VipConcierge = async () => {
+  const banners = await fetchData(BANNERS, {
+    params: { service: 'concierges' },
+  });
 
-const VipConcierge = () => {
   return (
     <div className="container mx-auto lg:px-0 px-3">
       <SectionDetailsHeading title="VIP Concierge" />
-      <SliderComponents images={images} />
+      <SliderComponents images={banners} />
       <div className="my-5">
         <VipConciergeFilter />
       </div>

@@ -2,8 +2,9 @@ import Questions from 'components/questions/questions';
 import CarCard from 'components/shared/car-card';
 import { SliderComponents } from 'components/slider/page';
 import SectionDetailsHeading from 'components/ui/page-heading';
+import { BANNERS } from 'constants/api-endpoints';
+import { fetchData } from 'lib/fetchData';
 import React from 'react';
-import {  images } from 'services/data';
 import TransferForm from 'views/transfer-service/transfer-form';
 
 const cars: Product[] = [
@@ -153,18 +154,22 @@ const cars: Product[] = [
   },
 ];
 
-const TransferService = () => {
+const TransferService = async () => {
+  const banners = await fetchData(BANNERS, {
+    params: { service: 'transfers' },
+  });
+
   return (
     <div className="container mx-auto lg:px-0 px-3">
       <SectionDetailsHeading title="Transfer Service" />
 
-      <SliderComponents images={images} />
+      <SliderComponents images={banners} />
 
       <TransferForm />
 
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
         {cars.map((s) => (
-          <CarCard key={s.id} {...s} image='/images/car.png' />
+          <CarCard key={s.id} {...s} image="/images/car.png" />
         ))}
       </div>
       <Questions title="Transfer Services Questions" service="transfers" />

@@ -82,7 +82,7 @@ export function DriwerImageSlides({ images }: { images: any[] }) {
               <CarouselItem key={index}>
                 <div className="relative aspect-[16/9] w-full">
                   <Image
-                    src={src.url || '/placeholder.svg'}
+                    src={src.file || '/placeholder.svg'}
                     alt={`Slide ${index + 1}`}
                     fill
                     className="object-cover"

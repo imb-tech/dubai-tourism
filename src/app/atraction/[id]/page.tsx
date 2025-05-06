@@ -4,11 +4,12 @@ import WtpForm from 'views/atraction/atraction-form';
 import WtpMap from 'views/atraction/atraction-map';
 import React from 'react';
 import { SliderComponents } from 'components/slider/page';
-import { images } from 'services/data';
 import Questions from 'components/questions/questions';
 import CarCard from 'components/shared/car-card';
 import { CustomCarousel } from 'components/custom/carousel';
 import SectionDetailsHeading from 'components/ui/page-heading';
+import { BANNERS } from 'constants/api-endpoints';
+import { fetchData } from 'lib/fetchData';
 
 const cars: Product[] = [
   {
@@ -61,14 +62,17 @@ const cars: Product[] = [
   },
 ];
 
-export default function wtp() {
+export default async function wtp() {
   const slides = cars.map((s) => <CarCard key={s.id} {...s} />);
+  const banners = await fetchData(BANNERS, {
+    params: { service: 'attractions' },
+  });
 
   return (
     <React.Fragment>
       <div className="container mx-auto lg:px-0 px-3">
         <SectionDetailsHeading title="Atlantis Aquaventure Waterpark" />
-        <SliderComponents images={images} />
+        <SliderComponents images={banners} />
         <WtpForm />
         <WtpMap />
         <WtpFeatures />
@@ -113,12 +117,9 @@ export default function wtp() {
           </div>
         </div>
       </div>
-      
+
       <div className="container mx-auto lg:px-0 px-3">
-        <Questions
-          title="Atraction Questions"
-          service='attractions'
-        />
+        <Questions title="Atraction Questions" service="attractions" />
       </div>
     </React.Fragment>
   );

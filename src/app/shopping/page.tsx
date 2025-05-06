@@ -1,17 +1,22 @@
 import Questions from 'components/questions/questions';
 import { SliderComponents } from 'components/slider/page';
 import SectionDetailsHeading from 'components/ui/page-heading';
+import { BANNERS } from 'constants/api-endpoints';
+import { fetchData } from 'lib/fetchData';
 import React from 'react';
-import { images } from 'services/data';
 import ShoppingCard from 'views/shopping/shopping-card';
 import SHoppingFilter from 'views/shopping/shopping-filter';
 
-const Shopping = () => {
+const Shopping = async () => {
+  const banners = await fetchData(BANNERS, {
+    params: { service: 'shopping' },
+  });
+
   return (
     <div className="container mx-auto lg:px-0 px-3">
       <SectionDetailsHeading title="Atlantis Aquaventure Waterpark" />
 
-      <SliderComponents images={images} />
+      <SliderComponents images={banners} />
       <div className="my-5">
         <SHoppingFilter />
       </div>

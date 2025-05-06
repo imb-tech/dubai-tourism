@@ -3,47 +3,32 @@ import DrawerImagesView from 'components/drawer/page';
 import Questions from 'components/questions/questions';
 import { SliderComponents } from 'components/slider/page';
 import SectionDetailsHeading from 'components/ui/page-heading';
+import { BANNERS } from 'constants/api-endpoints';
+import { fetchData } from 'lib/fetchData';
 import { cn } from 'lib/utils';
 import Link from 'next/link';
 import React from 'react';
 import ShoppingCard from 'views/shopping/shopping-card';
 
-const images = [
-  {
-    id: 1,
-    url: '/shopping/shopping1.png',
-  },
-  {
-    id: 2,
-    url: '/shopping/shopping2.png',
-  },
-  {
-    id: 3,
-    url: '/shopping/shopping3.png',
-  },
-  {
-    id: 4,
-    url: '/shopping/shopping4.png',
-  },
-  {
-    id: 5,
-    url: '/shopping/shopping5.png',
-  },
-];
 
-export default function ShoppingId() {
+export default async function ShoppingId() {
   const slides = dataShoppping
     .slice(0, 4)
     .map((item) => <ShoppingCard key={item.id} item={item} />);
+
+  const banners = await fetchData(BANNERS, {
+    params: { service: 'shopping' },
+  });
+
   return (
     <React.Fragment>
       <div className="container mx-auto lg:px-0 px-3">
         <SectionDetailsHeading title="Ring" />
         <div className="hidden lg:block">
-          <DrawerImagesView images={images} />
+          <DrawerImagesView images={banners} />
         </div>
         <div className="lg:hidden">
-          <SliderComponents images={images} showCout={true} />
+          <SliderComponents images={banners} showCout={true} />
         </div>
         <div className="grid lg:grid-cols-2 grid-cols-1 gap-5 mt-8 lg:font-normal font-semibold">
           {data.map((item, index) => (
@@ -91,7 +76,7 @@ export default function ShoppingId() {
         </div>
       </div>
       <div className="container mx-auto lg:px-0 px-3">
-      <Questions title="Shopping Questions" service="shopping" />
+        <Questions title="Shopping Questions" service="shopping" />
       </div>
     </React.Fragment>
   );

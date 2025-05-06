@@ -1,12 +1,13 @@
 import React from 'react';
 import Questions from 'components/questions/questions';
-import { childData } from 'services/data';
 import CarCard from 'components/shared/car-card';
 import { CustomCarousel } from 'components/custom/carousel';
 import { CreativeCommons } from 'lucide-react';
 import { Button } from 'components/ui/button';
 import { SliderComponents } from 'components/slider/page';
 import SectionDetailsHeading from 'components/ui/page-heading';
+import { BANNERS } from 'constants/api-endpoints';
+import { fetchData } from 'lib/fetchData';
 
 const cars: Product[] = [
     {
@@ -59,37 +60,19 @@ const cars: Product[] = [
     },
   ];
 
-export const images: ShoppingImage[] = [
-  {
-    id: 1,
-    url: '/image-shopping.png',
-  },
-  {
-    id: 2,
-    url: '/image-shopping.png',
-  },
-  {
-    id: 3,
-    url: '/image-shopping.png',
-  },
-  {
-    id: 4,
-    url: '/image-shopping.png',
-  },
-  {
-    id: 5,
-    url: '/image-shopping.png',
-  },
-];
 
-export default function RentId() {
+
+export default async function RentId() {
   const slides = cars.map((s) => <CarCard key={s.id} {...s} />);
+   const banners = await fetchData(BANNERS, {
+      params: { service: 'tour_packages' },
+    });
 
   return (
     <React.Fragment>
       <div className="container mx-auto lg:px-0 px-3">
         <SectionDetailsHeading title="28ft luxury Yacht" />
-        <SliderComponents images={images} />
+        <SliderComponents images={banners} />
 
         <div className="space-y-4 border rounded-md p-4 mt-5 mb-12 bg-[#F5F8FC]">
           <h1 className=" lg:text-3xl  font-semibold text-2xl">Overview</h1>
