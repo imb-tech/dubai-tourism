@@ -2,7 +2,6 @@
 import React from 'react';
 import DrawerImagesView from 'components/drawer/page';
 import Questions from 'components/questions/questions';
-import { childData } from 'services/data';
 import SectionDetailsHeading from 'components/ui/page-heading';
 import FeaturesCard from 'views/mice-group/features-card';
 import BookingForm from 'views/mice-group/bron-form';
@@ -71,11 +70,7 @@ export default function RentId() {
           <BookingForm />
         </div>
       </div>
-      <Questions
-        title="Frequently asked questions"
-        parentData={['Vip Concierge  Questions']}
-        childData={childData}
-      />
+      <Questions title="MICE Group  questions" service="mice_services" />
     </div>
   );
 }

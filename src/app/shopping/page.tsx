@@ -2,7 +2,7 @@ import Questions from 'components/questions/questions';
 import { SliderComponents } from 'components/slider/page';
 import SectionDetailsHeading from 'components/ui/page-heading';
 import React from 'react';
-import { childData, images } from 'services/data';
+import { images } from 'services/data';
 import ShoppingCard from 'views/shopping/shopping-card';
 import SHoppingFilter from 'views/shopping/shopping-filter';
 
@@ -21,11 +21,7 @@ const Shopping = () => {
           <ShoppingCard key={item.id} item={item} />
         ))}
       </div>
-      <Questions
-        title="Frequently asked questions"
-        parentData={['Shopping Questions']}
-        childData={childData}
-      />
+      <Questions title="Shopping Questions" service="shopping" />
     </div>
   );
 };

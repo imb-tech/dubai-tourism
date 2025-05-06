@@ -3,7 +3,7 @@ import CarCard from 'components/shared/car-card';
 import { SliderComponents } from 'components/slider/page';
 import SectionDetailsHeading from 'components/ui/page-heading';
 import React from 'react';
-import { childData, images } from 'services/data';
+import {  images } from 'services/data';
 import TransferFilter from 'views/transfer-service/transfer-filter';
 
 const cars: Product[] = [
@@ -167,11 +167,7 @@ const TransferService = () => {
           <CarCard key={s.id} {...s} />
         ))}
       </div>
-      <Questions
-        title="Frequently asked questions"
-        parentData={['Transfer Services Questions']}
-        childData={childData}
-      />
+      <Questions title="Transfer Services Questions" service="transfers" />
     </div>
   );
 };

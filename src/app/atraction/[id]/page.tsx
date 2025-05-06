@@ -4,7 +4,7 @@ import WtpForm from 'views/atraction/atraction-form';
 import WtpMap from 'views/atraction/atraction-map';
 import React from 'react';
 import { SliderComponents } from 'components/slider/page';
-import { childData, images } from 'services/data';
+import { images } from 'services/data';
 import Questions from 'components/questions/questions';
 import CarCard from 'components/shared/car-card';
 import { CustomCarousel } from 'components/custom/carousel';
@@ -116,9 +116,8 @@ export default function wtp() {
       
       <div className="container mx-auto lg:px-0 px-3">
         <Questions
-          title="Frequently asked questions"
-          parentData={['Atraction Questions']}
-          childData={childData}
+          title="Atraction Questions"
+          service='attractions'
         />
       </div>
     </React.Fragment>

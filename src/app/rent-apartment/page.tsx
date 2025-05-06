@@ -4,7 +4,7 @@ import CarCard from 'components/shared/car-card';
 import { SliderComponents } from 'components/slider/page';
 import SectionDetailsHeading from 'components/ui/page-heading';
 import React from 'react';
-import { childData, images } from 'services/data';
+import { images } from 'services/data';
 import { useTextApartmentStore } from 'store/rent-apartment';
 import ApartmentFilter from 'views/rent-apartment/apartment-filter';
 
@@ -50,11 +50,8 @@ const RentApartment = () => {
       )}
 
       <div className="mt-8">
-        <Questions
-          title="Frequently asked questions"
-          parentData={['Renta Apartment Questions']}
-          childData={childData}
-        />
+       
+        <Questions title="Renta Apartment Questions" service="apartments" />
       </div>
     </div>
   );

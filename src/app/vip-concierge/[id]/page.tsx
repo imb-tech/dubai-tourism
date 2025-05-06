@@ -1,7 +1,6 @@
 import React from 'react';
 import DrawerImagesView from 'components/drawer/page';
 import Questions from 'components/questions/questions';
-import { childData } from 'services/data';
 import CarCard from 'components/shared/car-card';
 import { CustomCarousel } from 'components/custom/carousel';
 import { CreativeCommons } from 'lucide-react';
@@ -140,11 +139,7 @@ export default function RentId() {
         </div>
       </div>
       <div className="container mx-auto lg:px-0 px-3">
-        <Questions
-          title="Frequently asked questions"
-          parentData={['Vip Concierge  Questions']}
-          childData={childData}
-        />
+        <Questions title="VIP Concierge Questions" service="concierges" />
       </div>
     </React.Fragment>
   );

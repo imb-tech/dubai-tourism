@@ -163,11 +163,7 @@ export default function RentId() {
         </div>
       </div>
       <div className="container mx-auto lg:px-0 px-3">
-        <Questions
-          title="Frequently asked questions"
-          parentData={['Vip Concierge  Questions']}
-          childData={childData}
-        />
+      <Questions title="Tour Packages Questions" service="tour_packages" />
       </div>
     </React.Fragment>
   );

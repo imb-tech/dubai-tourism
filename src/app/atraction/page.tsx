@@ -3,7 +3,7 @@ import CarCard from 'components/shared/car-card';
 import { SliderComponents } from 'components/slider/page';
 import SectionDetailsHeading from 'components/ui/page-heading';
 import React from 'react';
-import { childData, images } from 'services/data';
+import { images } from 'services/data';
 import AtractionFilter from 'views/atraction/atraction-filter';
 
 const AtractionPage = () => {
@@ -20,11 +20,7 @@ const AtractionPage = () => {
           <CarCard key={s.id} {...s} />
         ))}
       </div>
-      <Questions
-        title="Frequently asked questions"
-        parentData={['Atraction Questions']}
-        childData={childData}
-      />
+      <Questions title="Atraction Questions" service="attractions" />
     </div>
   );
 };

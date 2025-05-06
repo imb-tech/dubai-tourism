@@ -2,7 +2,7 @@ import CarCard from 'components/shared/car-card';
 import RentFilter from 'views/rent/rent-filter';
 import React from 'react';
 import { SliderComponents } from 'components/slider/page';
-import { childData, images } from 'services/data';
+import { images } from 'services/data';
 import Questions from 'components/questions/questions';
 import SectionDetailsHeading from 'components/ui/page-heading';
 
@@ -18,11 +18,7 @@ export default function page() {
           <CarCard key={s.id} {...s} />
         ))}
       </div>
-      <Questions
-        title="Frequently asked questions"
-        parentData={['Renta a Car Questions']}
-        childData={childData}
-      />
+      <Questions title="Renta a Car Questions" service="cars" />
     </div>
   );
 }

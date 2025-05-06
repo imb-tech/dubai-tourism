@@ -3,7 +3,7 @@ import CarCard from 'components/shared/car-card';
 import { SliderComponents } from 'components/slider/page';
 import SectionDetailsHeading from 'components/ui/page-heading';
 import React from 'react';
-import { childData, images } from 'services/data';
+import {images } from 'services/data';
 import VipConciergeFilter from 'views/vip-concierge/vip-concierge';
 
 
@@ -21,11 +21,7 @@ const VipConcierge = () => {
           <CarCard key={s.id} {...s} />
         ))}
       </div>
-      <Questions
-        title="Frequently asked questions"
-        parentData={["VIP Concierge Questions"]}
-        childData={childData}
-      />
+      <Questions title="VIP Concierge Questions" service="concierges" />
     </div>
   );
 };

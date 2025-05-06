@@ -6,7 +6,6 @@ import SectionDetailsHeading from 'components/ui/page-heading';
 import { cn } from 'lib/utils';
 import Link from 'next/link';
 import React from 'react';
-import { childData } from 'services/data';
 import ShoppingCard from 'views/shopping/shopping-card';
 
 const images = [
@@ -92,11 +91,7 @@ export default function ShoppingId() {
         </div>
       </div>
       <div className="container mx-auto lg:px-0 px-3">
-        <Questions
-          title="Frequently asked questions"
-          parentData={['Shopping Questions']}
-          childData={childData}
-        />
+      <Questions title="Shopping Questions" service="shopping" />
       </div>
     </React.Fragment>
   );

@@ -5,28 +5,35 @@ interface FetchOptions {
     revalidate?: number;
 }
 
-
 export async function fetchData<T = any>(
     endpoint: string,
     { params = {}, revalidate = 60 }: FetchOptions = {}
-): Promise<T> {
-    const queryString = new URLSearchParams(
-        Object.entries(params).reduce((acc, [key, value]) => {
-            acc[key] = String(value);
-            return acc;
-        }, {} as Record<string, string>)
-    ).toString();
+): Promise<T | null> {
+    try {
+        const queryString = new URLSearchParams(
+            Object.entries(params).reduce((acc, [key, value]) => {
+                acc[key] = String(value);
+                return acc;
+            }, {} as Record<string, string>)
+        ).toString();
 
-    const url = `${baseURL}${endpoint}${queryString ? `?${queryString}` : ''}`;
+        const url = `${baseURL}${endpoint}${queryString ? `?${queryString}` : ''}`;
 
-    const res = await fetch(url, {
-        next: { revalidate },
-    });
+        const res = await fetch(url, {
+            next: { revalidate },
+        });
 
-    if (!res.ok) {
-        throw new Error(`Failed to fetch: ${res.status}`);
+        if (!res.ok) {
+            console.log(`Fetch failed for ${url} - status ${res.status}`);
+            return null;
+        }
+
+        const data: T = await res.json();
+        return data;
+
+    } catch (error) {
+        console.log(`Fetch error: ${error}`);
+        return null;
     }
-
-    const data: T = await res.json();
-    return data;
 }
+

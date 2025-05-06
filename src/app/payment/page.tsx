@@ -8,11 +8,7 @@ export default function page() {
     <React.Fragment>
       <PaymentMain />
       <div className="container mx-auto lg:px-0 px-3">
-        <Questions
-          title="Frequently asked questions"
-          parentData={['Vip Concierge  Questions']}
-          childData={childData}
-        />
+        <Questions title="Payment  questions" service="mice_services" />
       </div>
     </React.Fragment>
   );

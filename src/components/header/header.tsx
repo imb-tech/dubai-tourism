@@ -16,17 +16,40 @@ import { useOtpTimerStore } from 'store/useOtpTimerStore';
 import { useAuthStore } from 'store/auth-store';
 import { User } from 'lucide-react';
 import { useGet } from 'hooks/useGet';
-import { PROFILE } from 'constants/api-endpoints';
+import { LOGIN, PROFILE } from 'constants/api-endpoints';
+import { useSession } from 'next-auth/react';
+import { useEffect, useRef } from 'react';
+import { usePost } from 'hooks/usePost';
+import { toast } from 'sonner';
 
 export default function Header() {
   const pathname = usePathname();
   const { openModal } = useModal('auth');
   const { timer, isActive } = useOtpTimerStore();
-  const { token } = useAuthStore();
+  const { closeModal } = useModal('auth');
+  const { token, setToken } = useAuthStore();
   const { text } = useTextStore();
+  const hasCalledRef = useRef(false);
+  const { mutate, isPending } = usePost({
+    onSuccess: (data) => {
+      if (data?.access_token) {
+        setToken(data?.access_token);
+      }
+      closeModal();
+      toast.success('Muavffaqiyatli kirdingiz!');
+    },
+  });
   const { data } = useGet(PROFILE, { options: { enabled: Boolean(token) } });
 
-  console.log(data);
+  const { data: session } = useSession();
+
+  useEffect(() => {
+    if (session?.user?.email && !hasCalledRef.current && !token) {
+      hasCalledRef.current = true;
+      mutate(LOGIN, { email: session.user.email, via: 'google',first_name:session?.user?.name?.split(" ")[0], last_name:session?.user?.name?.split(" ")[1] });
+    }
+  }, [session, mutate, token]);
+
 
   return (
     <header className="bg-transparent z-10 relative ">

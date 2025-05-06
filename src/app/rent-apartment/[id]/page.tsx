@@ -1,7 +1,6 @@
 import React from 'react';
 import DrawerImagesView from 'components/drawer/page';
 import Questions from 'components/questions/questions';
-import { childData } from 'services/data';
 import CarCard from 'components/shared/car-card';
 import { CustomCarousel } from 'components/custom/carousel';
 import SectionDetailsHeading from 'components/ui/page-heading';
@@ -159,11 +158,7 @@ export default function RentId() {
         </div>
       </div>
       <div className="container mx-auto lg:px-0 px-3">
-        <Questions
-          title="Frequently asked questions"
-          parentData={['Renta a Car Questions']}
-          childData={childData}
-        />
+        <Questions title="Renta Apartment Questions" service="apartments" />
       </div>
     </React.Fragment>
   );
