@@ -32,8 +32,8 @@ const Register = () => {
     if (data.email) {
       setUser(data);
       mutate(REGISTER, data);
-    }else{
-      toast.error("The data was not entered correctly.")
+    } else {
+      toast.error('The data was not entered correctly.');
     }
   };
 
@@ -41,7 +41,7 @@ const Register = () => {
     if (user?.email && user?.first_name) {
       form.reset(user);
     }
-  }, [user]);
+  }, [user, form]);
 
   return (
     <div className="space-y-4">
@@ -74,7 +74,7 @@ const Register = () => {
           label={'Email'}
           placeholder={'Email manzilingiz'}
           required
-           type="email"
+          type="email"
           message={'Email manzilingiz'}
         />
         <Button type="submit" className="w-full">
@@ -139,7 +139,8 @@ const Register = () => {
       <div className="text-center text-sm">
         <span
           onClick={() => {
-            clearText(), setText('login');
+            clearText();
+            setText('login');
           }}
           className="text-blue-500 hover:underline cursor-pointer"
         >

@@ -47,7 +47,8 @@ export default function EmailVerification({
         setToken(data?.access);
       }
       closeModal();
-      clearText(), clearUser();
+      clearText();
+      clearUser();
       toast.success('Successful');
     },
   });

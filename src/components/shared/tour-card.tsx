@@ -19,8 +19,8 @@ export default function TourCard({
       )}
     >
       <Image
-        className="md:rounded-3xl rounded-xl w-full object-cover   h-[200px] lg:h-[420px] object-center"
-        src={image}
+        className="md:rounded-3xl rounded-xl w-full object-cover   h-full object-center"
+        src={'/image.jpg'}
         width={800}
         height={800}
         alt={'name'}

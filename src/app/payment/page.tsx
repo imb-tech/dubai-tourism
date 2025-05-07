@@ -1,6 +1,5 @@
 import Questions from 'components/questions/questions';
 import React from 'react';
-import { childData } from 'services/data';
 import PaymentMain from 'views/payment/payment-main';
 
 export default function page() {

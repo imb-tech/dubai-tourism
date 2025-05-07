@@ -8,13 +8,13 @@ import React from 'react';
 import AtractionFilter from 'views/atraction/atraction-filter';
 
 const AtractionPage = async () => {
-  const banners = await fetchData(BANNERS, {
+  const banners = await fetchData<Banner[]>(BANNERS, {
     params: { service: 'attractions' },
   });
   return (
     <div className="container mx-auto lg:px-0 px-3">
       <SectionDetailsHeading title="Atraction tickets" />
-      <SliderComponents images={banners} />
+      <SliderComponents images={banners || []} />
       <div className="my-5">
         <AtractionFilter />
       </div>

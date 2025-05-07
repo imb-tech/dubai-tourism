@@ -1,5 +1,5 @@
 'use client';
-import React, { useMemo, useState } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import PaymentForm from './payment-form';
 import PaymentTypes from './payment-types';
 import { FormProvider, useForm } from 'react-hook-form';
@@ -22,7 +22,7 @@ export default function PaymentMain() {
   const [step, setStep] = useState<number>(1);
   const { openModal, closeModal } = useModal('payment');
 
-  const componentMobile = (v: number) => {
+  const componentMobile = useCallback((v: number) => {
     switch (v) {
       case 2:
         return (
@@ -132,9 +132,9 @@ export default function PaymentMain() {
           </div>
         );
     }
-  };
+  }, [methods, openModal]);
 
-  const component = (v: number) => {
+  const component = useCallback((v: number) => {
     switch (v) {
       case 3:
         return (
@@ -252,10 +252,13 @@ export default function PaymentMain() {
           </div>
         );
     }
-  };
+  }, [methods,openModal]);
 
-  const mobileContent = useMemo(() => componentMobile(step), [step]);
-  const desktopContent = useMemo(() => component(step), [step]);
+  const mobileContent = useMemo(
+    () => componentMobile(step),
+    [step, componentMobile]
+  );
+  const desktopContent = useMemo(() => component(step), [step, component]);
 
   return (
     <FormProvider {...methods}>

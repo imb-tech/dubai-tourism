@@ -43,7 +43,7 @@ export default function CustomCard({
         </Badge>
       )}
       <Image
-        src={image}
+        src={"/image.jpg"}
         width={400}
         height={300}
         alt={name}
@@ -78,7 +78,7 @@ export default function CustomCard({
               <li className="flex items-center gap-1 text-[#74AEF8]">
                 <EngineIcon size={18} />
                 <span className="text-black font-medium md:text-sm text-sm">
-                  {horsepower} hp
+                  {horsepower}
                 </span>
               </li>
             ) : null}

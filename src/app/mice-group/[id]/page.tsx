@@ -9,16 +9,16 @@ import { BANNERS } from 'constants/api-endpoints';
 import { fetchData } from 'lib/fetchData';
 
 export default async function RentId() {
-  const banners = await fetchData(BANNERS, { params: { service: 'mice_services' } });
+  const banners = await fetchData<Banner[]>(BANNERS, { params: { service: 'mice_services' } });
   return (
     <div className="container mx-auto lg:px-0 px-3">
       <SectionDetailsHeading title="Personal concierge" />
       <div className="space-y-5  mb-12">
         <div className="hidden lg:block">
-          <DrawerImagesView images={banners} />
+          <DrawerImagesView images={banners || []} />
         </div>
         <div className="lg:hidden">
-          <SliderComponents images={banners} showCout={true} />
+          <SliderComponents images={banners || []} showCout={true} />
         </div>
         <div className="space-y-4 border rounded-md p-4  bg-[#F5F8FC]">
           <h1 className=" lg:text-2xl  font-semibold text-xl">

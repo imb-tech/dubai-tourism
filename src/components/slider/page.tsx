@@ -16,7 +16,7 @@ export function SliderComponents({
   showPagination = true,
   showCout =false,
 }: {
-  images: ShoppingImage[];
+  images: Banner[];
   showPagination?: boolean;
   showCout?: boolean;
 }) {
@@ -48,7 +48,7 @@ export function SliderComponents({
               <div className="relative w-full bg-gray-50 lg:!h-[460px] sm:!h-[240px] md:!h-[300px] !h-[260px]  flex items-start">
                 {
                   <Image
-                    src={src.file || '/placeholder.svg'}
+                    src={src.file || src.image || '/image.jpg'}
                     alt={`Slide ${index + 1}`}
                     width={1500}
                     height={500}
@@ -99,7 +99,7 @@ export function SliderComponents({
       </Carousel>
       {showPagination && images?.length > 1 && (
         <div className="flex gap-1 mt-2    absolute bottom-4 left-1/2 -translate-x-1/2">
-          {images.map((_, index) => (
+          {images?.map((_, index) => (
             <button
               key={index}
               className={cn(
@@ -112,9 +112,9 @@ export function SliderComponents({
           ))}
         </div>
       )}
-      {showCout && images.length > 1 && (
+      {showCout && images?.length > 1 && (
         <div className="absolute right-2 bottom-2 px-3 py-1 rounded-full bg-white text-black text-sm font-medium shadow">
-          {`${current + 1} / ${images.length}`}
+          {`${current + 1} / ${images?.length}`}
         </div>
       )}
     </div>

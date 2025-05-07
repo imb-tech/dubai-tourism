@@ -3,6 +3,7 @@ import SelectField from 'components/form/select';
 import FormTextarea from 'components/form/textarea';
 import { Checkbox } from 'components/ui/checkbox';
 import { Label } from 'components/ui/label';
+import Image from 'next/image';
 import React from 'react';
 import { useForm } from 'react-hook-form';
 
@@ -41,7 +42,7 @@ export default function TransferNotesForm() {
 
         <ul>
           <li className="flex items-center gap-5 px-1">
-            <img src="/images/seat.png" alt="" height={60} width={60} />
+            <Image src="/images/seat.png" alt="Image" height={60} width={60} priority />
             <div className="flex-1">
               <h3 className="font-semibold">
                 Child seat{' '}

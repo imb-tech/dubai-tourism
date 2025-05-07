@@ -64,7 +64,7 @@ const cars: Product[] = [
 
 export default async function wtp() {
   const slides = cars.map((s) => <CarCard key={s.id} {...s} />);
-  const banners = await fetchData(BANNERS, {
+  const banners = await fetchData<Banner[]>(BANNERS, {
     params: { service: 'attractions' },
   });
 
@@ -72,7 +72,7 @@ export default async function wtp() {
     <React.Fragment>
       <div className="container mx-auto lg:px-0 px-3">
         <SectionDetailsHeading title="Atlantis Aquaventure Waterpark" />
-        <SliderComponents images={banners} />
+        <SliderComponents images={banners || []} />
         <WtpForm />
         <WtpMap />
         <WtpFeatures />

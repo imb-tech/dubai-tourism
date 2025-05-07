@@ -155,7 +155,7 @@ const cars: Product[] = [
 ];
 
 const TransferService = async () => {
-  const banners = await fetchData(BANNERS, {
+  const banners = await fetchData<Banner[]>(BANNERS, {
     params: { service: 'transfers' },
   });
 
@@ -163,7 +163,7 @@ const TransferService = async () => {
     <div className="container mx-auto lg:px-0 px-3">
       <SectionDetailsHeading title="Transfer Service" />
 
-      <SliderComponents images={banners} />
+      <SliderComponents images={banners || []} />
 
       <TransferForm />
 

@@ -40,7 +40,7 @@ const Login = () => {
     if (user?.email && !user?.first_name) {
       form.reset(user);
     }
-  }, [user]);
+  }, [user, form]);
 
   return (
     <div className="space-y-4">
@@ -110,7 +110,7 @@ const Login = () => {
             alt="apple logo"
             width={25}
             height={25}
-            property=""
+            priority
           />
           Apple
         </Button>
@@ -119,7 +119,8 @@ const Login = () => {
       <div className="text-center text-sm">
         <span
           onClick={() => {
-            clearText(), setText('register');
+            clearText();
+            setText('register');
           }}
           className="text-blue-500 hover:underline cursor-pointer"
         >

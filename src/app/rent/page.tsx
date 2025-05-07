@@ -8,12 +8,12 @@ import { fetchData } from 'lib/fetchData';
 import { BANNERS } from 'constants/api-endpoints';
 
 export default async function page() {
-  const banners = await fetchData(BANNERS, { params: { service: 'cars' } });
+  const banners = await fetchData<Banner[]>(BANNERS, { params: { service: 'cars' } });
 
   return (
     <div className="container mx-auto lg:px-0 px-3">
       <SectionDetailsHeading title="Dubayda avtomobil ijarasi" />
-      <SliderComponents images={banners} />
+      <SliderComponents images={banners || []} />
       <div className="py-3" />
       <RentFilter />
       <div className="grid grid-cols-1 lg:px-0 px-3 md:grid-cols-3 lg:grid-cols-4 gap-4">

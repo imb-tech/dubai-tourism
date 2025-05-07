@@ -8,14 +8,14 @@ import React from 'react';
 import TourPackagesFilter from 'views/tour-packages/tour-packages';
 
 const ToursPackages = async () => {
-  const banners = await fetchData(BANNERS, {
+  const banners = await fetchData<Banner[]>(BANNERS, {
     params: { service: 'tour_packages' },
   });
 
   return (
     <div className="container mx-auto lg:px-0 px-3">
       <SectionDetailsHeading title="Dubayda avtomobil ijarasi" />
-      <SliderComponents images={banners} />
+      <SliderComponents images={banners || []} />
       <div className="my-5">
         <TourPackagesFilter />
       </div>

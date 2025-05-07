@@ -83,7 +83,7 @@ const cars: Product[] = [
 
 export default async function RentId() {
   const slides = cars.map((s) => <CarCard key={s.id} {...s} />);
-  const banners = await fetchData(BANNERS, {
+  const banners = await fetchData<Banner[]>(BANNERS, {
     params: { service: 'apartments' },
   });
 
@@ -92,10 +92,10 @@ export default async function RentId() {
       <div className="container mx-auto lg:px-0 px-3">
         <SectionDetailsHeading title="Duplex Full Floor apartment" />
         <div className="hidden lg:block">
-          <DrawerImagesView images={banners} />
+          <DrawerImagesView images={banners || []} />
         </div>
         <div className="lg:hidden">
-          <SliderComponents images={banners} showCout={true} />
+          <SliderComponents images={banners || []} showCout={true} />
         </div>
 
         <div className="space-y-5 mb-8">

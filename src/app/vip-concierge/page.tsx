@@ -8,14 +8,14 @@ import React from 'react';
 import VipConciergeFilter from 'views/vip-concierge/vip-concierge';
 
 const VipConcierge = async () => {
-  const banners = await fetchData(BANNERS, {
+  const banners = await fetchData<Banner[]>(BANNERS, {
     params: { service: 'concierges' },
   });
 
   return (
     <div className="container mx-auto lg:px-0 px-3">
       <SectionDetailsHeading title="VIP Concierge" />
-      <SliderComponents images={banners} />
+      <SliderComponents images={banners || []} />
       <div className="my-5">
         <VipConciergeFilter />
       </div>

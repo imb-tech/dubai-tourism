@@ -9,7 +9,7 @@ import ApartmentFilter from 'views/rent-apartment/apartment-filter';
 
 const RentApartment = async () => {
   const text= "list"
-  const banners = await fetchData(BANNERS, {
+  const banners = await fetchData<Banner[]>(BANNERS, {
     params: { service: 'apartments' },
   }); 
 
@@ -17,7 +17,7 @@ const RentApartment = async () => {
     <div className="container mx-auto lg:px-0 px-3">
       <SectionDetailsHeading title="Rent an apartment" />
 
-      <SliderComponents images={banners} />
+      <SliderComponents images={banners || []} />
       <div className="my-5">
         <ApartmentFilter />
       </div>

@@ -1,5 +1,6 @@
 'use client';
 import { cn } from 'lib/utils';
+import Image from 'next/image';
 import React, { useState } from 'react';
 
 const paymentTypes = [
@@ -50,7 +51,13 @@ export default function PaymentTypes() {
             )}
             onClick={() => setActive(tp.id)}
           >
-            <img src={tp.img} className="h-16" />
+            <Image
+              width={70}
+              height={70}
+              src={tp.img}
+              className="h-16"
+              alt={`Choose a Payment Method-${tp.id}`}
+            />
           </div>
         ))}
       </div>

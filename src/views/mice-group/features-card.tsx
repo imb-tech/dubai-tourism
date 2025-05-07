@@ -1,9 +1,7 @@
 import { Gem } from 'lucide-react';
 import React from 'react';
 
-type Props = {};
-
-function FeaturesCard({}: Props) {
+function FeaturesCard() {
   return (
     <div
       className="bg-[#F5F8FC] p-4 rounded-md flex flex-col items-center gap-3 justify-between"

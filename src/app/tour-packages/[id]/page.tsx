@@ -64,7 +64,7 @@ const cars: Product[] = [
 
 export default async function RentId() {
   const slides = cars.map((s) => <CarCard key={s.id} {...s} />);
-   const banners = await fetchData(BANNERS, {
+   const banners = await fetchData<Banner[]>(BANNERS, {
       params: { service: 'tour_packages' },
     });
 
@@ -72,7 +72,7 @@ export default async function RentId() {
     <React.Fragment>
       <div className="container mx-auto lg:px-0 px-3">
         <SectionDetailsHeading title="28ft luxury Yacht" />
-        <SliderComponents images={banners} />
+        <SliderComponents images={banners || []} />
 
         <div className="space-y-4 border rounded-md p-4 mt-5 mb-12 bg-[#F5F8FC]">
           <h1 className=" lg:text-3xl  font-semibold text-2xl">Overview</h1>
