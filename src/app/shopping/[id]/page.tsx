@@ -11,14 +11,14 @@ import React from 'react';
 import ShoppingCard from 'views/shopping/shopping-card';
 
 export type PageProps = {
-  params: { id: string };
-  searchParams: { [key: string]: string | string[] | undefined };
+  params: Promise<{ id: string }>;
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 };
 
 export default async function ShoppingId({ params, searchParams }: PageProps) {
   console.log(searchParams);
 
-  const { id } = params;
+  const { id } = await params;
 
   const shopping = await fetchData<Shopping>(`${SHOPPING_GOLDS}/${id}`);
 
