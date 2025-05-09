@@ -33,12 +33,19 @@ export default function FormInput<IForm extends FieldValues>({
   } = methods;
 
   const reg = register(name, {
-    required: {
-      value: required,
-      message: message,
-    },
+    required: required
+      ? {
+          value: true,
+          message: message || `${label || 'This field'} is required`,
+        }
+      : false,
+    ...(type === 'email' && {
+      pattern: {
+        value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+        message: 'Please enter a valid email address',
+      },
+    }),
   });
-
   useEffect(() => {
     register(name);
   }, [name, register]);

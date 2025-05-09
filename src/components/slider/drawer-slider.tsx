@@ -12,7 +12,7 @@ import {
 } from 'components/ui/carousel';
 import { cn } from 'lib/utils';
 
-export function DriwerImageSlides({ images }: { images: any[] }) {
+export function DriwerImageSlides({ images }: { images: Banner[] }) {
   const [mainApi, setMainApi] = React.useState<CarouselApi>();
   const [thumbApi, setThumbApi] = React.useState<CarouselApi>();
   const [currentIndex, setCurrentIndex] = React.useState(0);
@@ -82,7 +82,7 @@ export function DriwerImageSlides({ images }: { images: any[] }) {
               <CarouselItem key={index}>
                 <div className="relative aspect-[16/9] w-full">
                   <Image
-                    src={src.url || '/placeholder.svg'}
+                    src={src.file || src.image || '/image.jpg'}
                     alt={`Slide ${index + 1}`}
                     fill
                     className="object-cover"
@@ -122,9 +122,10 @@ export function DriwerImageSlides({ images }: { images: any[] }) {
                 >
                   <div className="aspect-[4/3] w-full">
                     <Image
-                      src={src.url || '/placeholder.svg'}
+                      src={src.file || src.image || '/image.jpg'}
                       alt={`Thumbnail ${index + 1}`}
                       fill
+                      priority
                       className="object-cover"
                     />
                     <div

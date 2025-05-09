@@ -8,6 +8,7 @@ import Footer from 'components/footer/footer';
 import { QueryClientProvider } from '@tanstack/react-query';
 import { queryClient } from 'lib/query-client';
 import Contact from 'views/home/contact';
+import { SessionProvider } from 'next-auth/react';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -25,18 +26,20 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-      <html lang="en">
-        <body
-          className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-        >
+    <html lang="en">
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+      >
+        <SessionProvider>
           <QueryClientProvider client={queryClient}>
             <Header />
             <main className="min-h-screen ">{children}</main>
-            <Contact/>
+            <Contact />
             <Footer />
             <Toaster richColors />
           </QueryClientProvider>
-        </body>
-      </html>
+        </SessionProvider>
+      </body>
+    </html>
   );
 }

@@ -2,15 +2,18 @@ import CarCard from 'components/shared/car-card';
 import RentFilter from 'views/rent/rent-filter';
 import React from 'react';
 import { SliderComponents } from 'components/slider/page';
-import { childData, images } from 'services/data';
 import Questions from 'components/questions/questions';
 import SectionDetailsHeading from 'components/ui/page-heading';
+import { fetchData } from 'lib/fetchData';
+import { BANNERS } from 'constants/api-endpoints';
 
-export default function page() {
+export default async function page() {
+  const banners = await fetchData<Banner[]>(BANNERS, { params: { service: 'cars' } });
+
   return (
     <div className="container mx-auto lg:px-0 px-3">
       <SectionDetailsHeading title="Dubayda avtomobil ijarasi" />
-      <SliderComponents images={images} />
+      <SliderComponents images={banners || []} />
       <div className="py-3" />
       <RentFilter />
       <div className="grid grid-cols-1 lg:px-0 px-3 md:grid-cols-3 lg:grid-cols-4 gap-4">
@@ -18,11 +21,7 @@ export default function page() {
           <CarCard key={s.id} {...s} />
         ))}
       </div>
-      <Questions
-        title="Frequently asked questions"
-        parentData={['Renta a Car Questions']}
-        childData={childData}
-      />
+      <Questions title="Renta a Car Questions" service="cars" />
     </div>
   );
 }

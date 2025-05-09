@@ -1,10 +1,14 @@
 'use client';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { Button } from 'components/ui/button';
 import FormInput from 'components/form/input';
 import Image from 'next/image';
 import { useTextStore } from 'store/auth';
+import { useOtpTimerStore } from 'store/useOtpTimerStore';
+import { usePost } from 'hooks/usePost';
+import { toast } from 'sonner';
+import { REGISTER } from 'constants/api-endpoints';
 
 type Formtype = {
   first_name: string;
@@ -13,18 +17,37 @@ type Formtype = {
 };
 
 const Register = () => {
-  const { setText, clearText } = useTextStore();
+  const { setText, clearText, setUser, user } = useTextStore();
   const form = useForm<Formtype>();
+  const { startTimer } = useOtpTimerStore();
+  const { mutate } = usePost({
+    onSuccess: () => {
+      toast.success('Successful');
+      startTimer();
+      setText('code');
+    },
+  });
 
   const onSubmit = (data: Formtype) => {
-    console.log(data);
+    if (data.email) {
+      setUser(data);
+      mutate(REGISTER, data);
+    } else {
+      toast.error('The data was not entered correctly.');
+    }
   };
+
+  useEffect(() => {
+    if (user?.email && user?.first_name) {
+      form.reset(user);
+    }
+  }, [user, form]);
 
   return (
     <div className="space-y-4">
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
         <FormInput
-         variant='clean'
+          variant="clean"
           methods={form}
           name="first_name"
           className="mt-1 2xl:h-[50px] h-[40px]"
@@ -34,7 +57,7 @@ const Register = () => {
           required
         />
         <FormInput
-         variant='clean'
+          variant="clean"
           methods={form}
           name="last_name"
           className="mt-1 2xl:h-[50px] h-[40px]"
@@ -44,14 +67,15 @@ const Register = () => {
           required
         />
         <FormInput
-         variant='clean'
+          variant="clean"
           methods={form}
           name="email"
           className="mt-1 2xl:h-[50px] h-[40px] "
           label={'Email'}
           placeholder={'Email manzilingiz'}
           required
-          message={'Ismingizni kiriting'}
+          type="email"
+          message={'Email manzilingiz'}
         />
         <Button type="submit" className="w-full">
           Register
@@ -115,7 +139,8 @@ const Register = () => {
       <div className="text-center text-sm">
         <span
           onClick={() => {
-            clearText(), setText('login');
+            clearText();
+            setText('login');
           }}
           className="text-blue-500 hover:underline cursor-pointer"
         >

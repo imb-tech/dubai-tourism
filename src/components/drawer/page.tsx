@@ -7,24 +7,20 @@ import { useModal } from 'hooks/use-modal';
 import CustomDrawer from 'components/custom/drawer';
 import { DriwerImageSlides } from 'components/slider/drawer-slider';
 
-export default function DrawerImagesView({
-  images,
-}: {
-  images: { url: string; id: number }[];
-}) {
+export default function DrawerImagesView({ images }: { images: Banner[] }) {
   const { openModal } = useModal();
   return (
-    <div className="grid lg:grid-cols-4 grid-cols-1  gap-2 relative">
-      {images?.map((im, i) => (
+    <div className="grid lg:grid-cols-4 grid-cols-1  gap-2 relative ">
+      {images?.slice(0, 5)?.map((im, i) => (
         <Image
           key={im.id}
-          src={im?.url}
+          src={im?.file || im?.image || '/image.jpg'}
           alt="rent car item"
           width={600}
-          height={600}
+          height={250}
           className={cn(
-            'h-full w-full object-cover rounded-md',
-            i === 0 ? 'col-span-2 row-span-2' : ''
+            ' w-full  object-cover rounded-md ',
+            i === 0 ? 'col-span-2 row-span-2  ' : ''
           )}
         />
       ))}
@@ -38,7 +34,7 @@ export default function DrawerImagesView({
       </div>
 
       <CustomDrawer className="max-w-full min-h-full" title="Shopping">
-        <DriwerImageSlides images={[...images, ...images, ...images]} />
+        <DriwerImageSlides images={images} />
       </CustomDrawer>
     </div>
   );

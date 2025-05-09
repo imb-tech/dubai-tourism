@@ -105,7 +105,7 @@ const HeroPages = () => {
                   r="14"
                   stroke="white"
                   strokeOpacity="1"
-                  strokeWidth="5"
+                  strokeWidth="4"
                   strokeDasharray="100"
                   strokeDashoffset="100"
                   className={index === currentImageIndex ? 'animate-fill' : ''}

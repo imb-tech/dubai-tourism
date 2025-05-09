@@ -31,7 +31,6 @@ const filters = [
 
 export default function ApartmentFilter() {
   const { text, setText } = useTextApartmentStore();
-
   const [propertyStatus, setPropertyStatus] = useState('off-plan');
 
   return (

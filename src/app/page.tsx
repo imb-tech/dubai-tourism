@@ -4,9 +4,20 @@ import Services from 'views/home/services';
 import Tours from 'views/home/tours';
 import React from 'react';
 import Questions from 'components/questions/questions';
-import { childData, parentData } from 'services/data';
+import {
+  CARS,
+  POPULAR_QUESTIONS,
+} from 'constants/api-endpoints';
+import { fetchData } from 'lib/fetchData';
 
-export default function Home() {
+export default async function Home() {
+  const carsData = await fetchData(CARS);
+  const shoppingData = await fetchData(POPULAR_QUESTIONS);
+  const servicesData = await fetchData(POPULAR_QUESTIONS);
+  const rentCarData = await fetchData(POPULAR_QUESTIONS);
+  const atractionData = await fetchData(POPULAR_QUESTIONS);
+  const tourPackageData = await fetchData(POPULAR_QUESTIONS);
+
   return (
     <div className="space-y-12 mb-12">
       <HeroPages />
@@ -27,11 +38,7 @@ export default function Home() {
       <Products autoplayDelay={1800} data={cars} title="Shopping" />
       <Tours />
       <div className="container mx-auto lg:px-0 px-3">
-        <Questions
-          title="Frequently asked questions"
-          parentData={parentData}
-          childData={childData}
-        />
+        <Questions title="Frequently asked questions" service='' />
       </div>
     </div>
   );

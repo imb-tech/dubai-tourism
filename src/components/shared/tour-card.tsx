@@ -12,10 +12,15 @@ export default function TourCard({
   const isColTwo = index == 2 || index == 4 || index == 6;
 
   return (
-    <div className={cn('relative min-w-[240px]', isColTwo ? 'lg:col-span-2 md:col-span-3' : 'col-span-1')}>
+    <div
+      className={cn(
+        'relative min-w-[240px]   h-[200px] lg:h-[420px]',
+        isColTwo ? 'lg:col-span-2 md:col-span-3' : 'col-span-1'
+      )}
+    >
       <Image
-        className="md:rounded-3xl rounded-xl w-full object-cover h-full object-center"
-        src={image}
+        className="md:rounded-3xl rounded-xl w-full object-cover   h-full object-center"
+        src={'/image.jpg'}
         width={800}
         height={800}
         alt={'name'}

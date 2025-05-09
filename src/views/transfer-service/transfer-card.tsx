@@ -1,18 +1,20 @@
-import {
-  BagIcon,
-  CalendarIcon,
-  ClockIcon,
-  Location2Icon,
-  UserIcon,
-} from 'components/icons';
+import { CalendarIcon, ClockIcon } from 'components/icons';
 import { Button } from 'components/ui/button';
 import { Plus } from 'lucide-react';
+import { BagIcon, UserIcon } from 'components/icons';
+import Image from 'next/image';
 import React from 'react';
 
 export default function TransferCard() {
   return (
     <div className="bg-background rounded-md p-5">
-      <img src="/images/car.png" alt="" />
+      <Image
+        src="/images/car.png"
+        alt="camara"
+        width={30}
+        height={30}
+        priority
+      />
       <div className="flex flex-col gap-1">
         <h3 className="text-lg font-semibold">Scoda octavia</h3>
 

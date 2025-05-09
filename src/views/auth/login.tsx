@@ -1,30 +1,55 @@
 'use client';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { Button } from 'components/ui/button';
 import FormInput from 'components/form/input';
 import Image from 'next/image';
 import { useTextStore } from 'store/auth';
+import { useOtpTimerStore } from 'store/useOtpTimerStore';
+import { usePost } from 'hooks/usePost';
+import { LOGIN } from 'constants/api-endpoints';
+import { toast } from 'sonner';
+import { signIn } from 'next-auth/react';
 
 type Formtype = {
   email: string;
 };
 
 const Login = () => {
-  const { setText, clearText } = useTextStore();
+  const { setText, clearText, setUser, user } = useTextStore();
   const form = useForm<Formtype>();
+  const { startTimer } = useOtpTimerStore();
+  const { mutate } = usePost({
+    onSuccess: () => {
+      toast.success('Successful');
+      startTimer();
+      setText('code');
+    },
+  });
 
   const onSubmit = (data: Formtype) => {
-    console.log(data);
+    if (data.email) {
+      setUser(data);
+      mutate(LOGIN, { ...data, via: 'input' });
+    } else {
+      toast.error('The data was not entered correctly.');
+    }
   };
+
+  useEffect(() => {
+    if (user?.email && !user?.first_name) {
+      form.reset(user);
+    }
+  }, [user, form]);
 
   return (
     <div className="space-y-4">
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
         <FormInput
-         variant='clean'
+          variant="clean"
           methods={form}
           name="email"
+          type="email"
           className="mt-1 2xl:h-[50px] h-[40px] "
           label={'Email'}
           placeholder={'Email manzilingiz'}
@@ -46,6 +71,7 @@ const Login = () => {
 
       <div className="grid grid-cols-2 gap-4">
         <Button
+          onClick={() => signIn('google')}
           variant="outline"
           className="flex items-center justify-center gap-2 shadow-none bg-[#F5F5F5] border-none"
         >
@@ -84,7 +110,7 @@ const Login = () => {
             alt="apple logo"
             width={25}
             height={25}
-            property=""
+            priority
           />
           Apple
         </Button>
@@ -93,7 +119,8 @@ const Login = () => {
       <div className="text-center text-sm">
         <span
           onClick={() => {
-            clearText(), setText('register');
+            clearText();
+            setText('register');
           }}
           className="text-blue-500 hover:underline cursor-pointer"
         >

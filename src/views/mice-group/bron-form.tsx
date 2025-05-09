@@ -13,6 +13,7 @@ import ErrorMessage from 'components/ui/error-message';
 import { Label } from 'components/ui/label';
 import { Checkbox } from 'components/ui/checkbox';
 import FormDatePicker from 'components/form/date-picker';
+import { MICE_SERVICES_APPLICATIONS } from 'constants/api-endpoints';
 
 function formatDate(dateStr: string) {
   const [day, month, year] = dateStr.split('/').map(Number);
@@ -30,10 +31,10 @@ function parseDateDMY(dateString: string) {
 
 type FormType = {
   count_people: string;
-  arrival: string;
-  departure: string;
-  extra_demands: string;
-  name: string;
+  start: string;
+  end: string;
+  comment: string;
+  full_name: string;
   email: string;
   phone: string;
   services?: number[];
@@ -52,10 +53,10 @@ export default function BookingForm() {
   const form = useForm<FormType>({
     defaultValues: {
       count_people: '',
-      arrival: '',
-      departure: '',
-      extra_demands: '',
-      name: '',
+      start: '',
+      end: '',
+      comment: '',
+      full_name: '',
       email: '',
       phone: '',
       services: [],
@@ -67,15 +68,15 @@ export default function BookingForm() {
   const handleSubmit = (values: FormType) => {
     const formattedData = {
       ...values,
-      arrival: formatDate(values.arrival),
-      departure: formatDate(values.departure),
+      arrival: formatDate(values.start),
+      departure: formatDate(values.end),
     };
 
     if (!values.services || values.services.length === 0) {
       delete formattedData.services;
     }
 
-    mutate('tourbook', formattedData, {
+    mutate(MICE_SERVICES_APPLICATIONS, formattedData, {
       onSuccess: () => {
         toast.success('Xush kelibsiz! buyurtma qabul qilindi');
         form.reset();
@@ -99,7 +100,7 @@ export default function BookingForm() {
   return (
     <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-4">
       <FormInput
-       variant='clean'
+        variant="clean"
         type="number"
         methods={form}
         name="count_people"
@@ -113,7 +114,7 @@ export default function BookingForm() {
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 items-end">
         <FormDatePicker
           methods={form}
-          name="arrival"
+          name="start"
           label={'Kelish va ketish sanasi'}
           message={'Kelish sanasini kiriting'}
           placeholder={'Kelish sanasi'}
@@ -124,13 +125,13 @@ export default function BookingForm() {
         <FormDatePicker
           message={'Ketish sanasini kiriting'}
           methods={form}
-          name="departure"
+          name="end"
           placeholder={'Ketish sanasi'}
           className="2xl:h-[50px] h-[40px] mt-1 cursor-pointer"
           required
           fromDate={
-            form.watch('arrival')
-              ? new Date(parseDateDMY(form.watch('arrival')))
+            form.watch('start')
+              ? new Date(parseDateDMY(form.watch('start')))
               : new Date()
           }
         />
@@ -180,7 +181,7 @@ export default function BookingForm() {
       <FormTextarea
         label={"Qo'shimcha talablar"}
         methods={form}
-        name="extra_demands"
+        name="comment"
         rows={8}
         wrapperClassName={'h-[120px]'}
         className="h-full mt-1"
@@ -191,9 +192,9 @@ export default function BookingForm() {
         <h1 className="text-lg font-semibold mb-4">{"Aloqa ma'lumotlari"}</h1>
         <div className="space-y-4">
           <FormInput
-          variant='clean'
+            variant="clean"
             methods={form}
-            name="name"
+            name="full_name"
             className="mt-1 2xl:h-[50px] h-[40px]"
             label={'Ism'}
             placeholder={'Ismingiz'}
@@ -214,7 +215,7 @@ export default function BookingForm() {
             placeholder={'Email manzilingiz'}
             required={form.watch('phone') ? false : true}
             message={'Ismingizni kiriting'}
-             variant='clean'
+            variant="clean"
           />
         </div>
       </div>

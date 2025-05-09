@@ -2,15 +2,20 @@ import Questions from 'components/questions/questions';
 import CarCard from 'components/shared/car-card';
 import { SliderComponents } from 'components/slider/page';
 import SectionDetailsHeading from 'components/ui/page-heading';
+import { BANNERS } from 'constants/api-endpoints';
+import { fetchData } from 'lib/fetchData';
 import React from 'react';
-import { childData, images } from 'services/data';
 import TourPackagesFilter from 'views/tour-packages/tour-packages';
 
-const ToursPackages = () => {
+const ToursPackages = async () => {
+  const banners = await fetchData<Banner[]>(BANNERS, {
+    params: { service: 'tour_packages' },
+  });
+
   return (
     <div className="container mx-auto lg:px-0 px-3">
       <SectionDetailsHeading title="Dubayda avtomobil ijarasi" />
-      <SliderComponents images={images} />
+      <SliderComponents images={banners || []} />
       <div className="my-5">
         <TourPackagesFilter />
       </div>
@@ -20,11 +25,7 @@ const ToursPackages = () => {
           <CarCard key={s.id} {...s} />
         ))}
       </div>
-      <Questions
-        title="Frequently asked questions"
-        parentData={["Tour Packages Questions"]}
-        childData={childData}
-      />
+      <Questions title="Tour Packages Questions" service="tour_packages" />
     </div>
   );
 };
