@@ -15,13 +15,17 @@ import { Checkbox } from 'components/ui/checkbox';
 import FormDatePicker from 'components/form/date-picker';
 import { MICE_SERVICES_APPLICATIONS } from 'constants/api-endpoints';
 
-function formatDate(dateStr: string) {
+function formatDate(dateStr: string): string {
   const [day, month, year] = dateStr.split('/').map(Number);
 
-  const date = new Date(year, month - 1, day, 0, 0, 0);
+  if (!day || !month || !year) return '';
 
-  const formattedDate = date.toISOString()?.split('.')[0];
-  return formattedDate;
+  const date = new Date(year, month - 1, day);
+  const yyyy = date.getFullYear();
+  const mm = String(date.getMonth() + 1).padStart(2, '0');
+  const dd = String(date.getDate()).padStart(2, '0');
+
+  return `${yyyy}-${mm}-${dd}`;
 }
 
 function parseDateDMY(dateString: string) {
@@ -30,7 +34,7 @@ function parseDateDMY(dateString: string) {
 }
 
 type FormType = {
-  count_people: string;
+  people_count: string;
   start: string;
   end: string;
   comment: string;
@@ -52,7 +56,7 @@ export default function BookingForm() {
 
   const form = useForm<FormType>({
     defaultValues: {
-      count_people: '',
+      people_count: '',
       start: '',
       end: '',
       comment: '',
@@ -103,7 +107,7 @@ export default function BookingForm() {
         variant="clean"
         type="number"
         methods={form}
-        name="count_people"
+        name="people_count"
         className="mt-1 2xl:h-[50px] h-[40px]"
         label={'Ishtirokchilar sonini tanlang'}
         placeholder={'Ishtirokchilar sonini tanlang'}

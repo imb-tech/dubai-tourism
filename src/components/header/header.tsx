@@ -32,8 +32,8 @@ export default function Header() {
   const hasCalledRef = useRef(false);
   const { mutate, isPending } = usePost({
     onSuccess: (data) => {
-      if (data?.access_token) {
-        setToken(data?.access_token);
+      if (data?.access) {
+        setToken(data?.access);
       }
       closeModal();
       toast.success('Muavffaqiyatli kirdingiz!');
@@ -46,10 +46,14 @@ export default function Header() {
   useEffect(() => {
     if (session?.user?.email && !hasCalledRef.current && !token) {
       hasCalledRef.current = true;
-      mutate(LOGIN, { email: session.user.email, via: 'google',first_name:session?.user?.name?.split(" ")[0], last_name:session?.user?.name?.split(" ")[1] });
+      mutate(LOGIN, {
+        email: session.user.email,
+        via: 'google',
+        first_name: session?.user?.name?.split(' ')[0],
+        last_name: session?.user?.name?.split(' ')[1],
+      });
     }
   }, [session, mutate, token]);
-
 
   return (
     <header className="bg-transparent z-10 relative ">

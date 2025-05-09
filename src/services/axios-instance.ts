@@ -5,7 +5,6 @@ export const baseURL = process.env.NEXT_PUBLIC_BASE_URL;
 export const axiosInstance = axios.create({
     baseURL: baseURL,
     timeout: 30000,
-    withCredentials: true,
 });
 
 export const getToken = () => {

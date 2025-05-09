@@ -13,6 +13,7 @@ export default async function RentId({ params }: PageProps) {
   const { id } = await params;
   const data = await fetchData<MiceGroup>(`${MICE_SERVICES}/${id}`);
 
+
   return (
     <div className="container mx-auto lg:px-0 px-3">
       <SectionDetailsHeading title={data?.title || 'MICE Group'} />
