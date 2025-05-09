@@ -68,8 +68,8 @@ export default function BookingForm() {
   const handleSubmit = (values: FormType) => {
     const formattedData = {
       ...values,
-      arrival: formatDate(values.start),
-      departure: formatDate(values.end),
+      start: formatDate(values.start),
+      end: formatDate(values.end),
     };
 
     if (!values.services || values.services.length === 0) {
