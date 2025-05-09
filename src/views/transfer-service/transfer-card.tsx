@@ -1,4 +1,12 @@
-import { BagIcon, UserIcon } from 'components/icons';
+import {
+  BagIcon,
+  CalendarIcon,
+  ClockIcon,
+  Location2Icon,
+  UserIcon,
+} from 'components/icons';
+import { Button } from 'components/ui/button';
+import { Plus } from 'lucide-react';
 import React from 'react';
 
 export default function TransferCard() {
@@ -22,6 +30,53 @@ export default function TransferCard() {
             </span>
           </li>
         </ul>
+
+        <span className="border-t h-1 w-full my-2"></span>
+
+        <div>
+          <p className="font-semibold">Outward Journey</p>
+
+          <ul className="py-2">
+            <li>
+              <p className="flex items-center gap-1 text-sm font-semibold">
+                <span className="block size-3 bg-black/40 rounded-full"></span>
+                Rome Flumicino Airport(FCO),{' '}
+                <span className="font-light">Rome, Italy</span>
+              </p>
+            </li>
+            <li className="pl-[5px]">
+              <span className="block h-3 border-l border-l-primary/80"></span>
+            </li>
+            <li>
+              <p className="flex items-center gap-1 text-sm font-semibold">
+                <span className="block size-3 bg-primary/80 rounded-full"></span>
+                Dubai Airport(DBX), Dubai,{' '}
+                <span className="font-light">United Arab Emirates</span>
+              </p>
+            </li>
+          </ul>
+
+          <p className="flex items-center gap-3 font-semibold mt-1">
+            <span className="text-primary">
+              <CalendarIcon size={16} />
+            </span>
+            <span className="text-sm">O3 May 2025</span>
+          </p>
+
+          <p className="flex items-center gap-3 font-semibold mt-3">
+            <span className="text-primary">
+              <ClockIcon size={16} />
+            </span>
+            <span className="text-sm">12:35(1:35 pm)</span>
+          </p>
+        </div>
+
+        <span className="border-t h-1 w-full my-2"></span>
+
+        <Button>
+          <Plus size={16} />
+          Add return
+        </Button>
       </div>
     </div>
   );
