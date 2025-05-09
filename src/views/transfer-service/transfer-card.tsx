@@ -11,8 +11,8 @@ export default function TransferCard() {
       <Image
         src="/images/car.png"
         alt="camara"
-        width={30}
-        height={30}
+        width={300}
+        height={300}
         priority
       />
       <div className="flex flex-col gap-1">

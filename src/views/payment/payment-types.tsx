@@ -34,10 +34,14 @@ const paymentTypes = [
   },
 ];
 
-export default function PaymentTypes() {
+export default function PaymentTypes({
+  className = '',
+}: {
+  className?: string;
+}) {
   const [active, setActive] = useState<number>(1);
   return (
-    <div className="bg-background rounded-md p-6">
+    <div className={cn('bg-background rounded-md p-6', className)}>
       <h2 className="md:text-3xl text-2xl font-semibold m-0 mb-4">
         Choose a Payment Method
       </h2>
@@ -55,7 +59,7 @@ export default function PaymentTypes() {
               width={70}
               height={70}
               src={tp.img}
-              className="h-16"
+              className="w-20 h-auto"
               alt={`Choose a Payment Method-${tp.id}`}
             />
           </div>

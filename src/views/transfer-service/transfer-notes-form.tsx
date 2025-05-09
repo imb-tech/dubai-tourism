@@ -30,19 +30,25 @@ export default function TransferNotesForm() {
         />
 
         <fieldset className="flex items-center flex-row-reverse justify-end gap-2">
-          <Label htmlFor="trtr" className="text-xl">
+          <Label htmlFor="trtr" className="text-sm sm:text-xl">
             Do you need a child seat or booster seat?
           </Label>
           <Checkbox
             defaultChecked
             id="trtr"
-            className="size-6 shadow-none checked:bg-primary/40"
+            className="sm:size-6 shadow-none checked:bg-primary/40"
           />
         </fieldset>
 
         <ul>
-          <li className="flex items-center gap-5 px-1">
-            <Image src="/images/seat.png" alt="Image" height={60} width={60} priority />
+          <li className="flex flex-col md:flex-row md:items-center gap-5 px-1">
+            <Image
+              src="/images/seat.png"
+              alt="Image"
+              height={60}
+              width={60}
+              priority
+            />
             <div className="flex-1">
               <h3 className="font-semibold">
                 Child seat{' '}
