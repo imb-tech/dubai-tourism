@@ -2,6 +2,7 @@ import { CustomCarousel } from 'components/custom/carousel';
 import DrawerImagesView from 'components/drawer/page';
 import Questions from 'components/questions/questions';
 import { SliderComponents } from 'components/slider/page';
+import { Button } from 'components/ui/button';
 import SectionDetailsHeading from 'components/ui/page-heading';
 import { SHOPPING_GOLDS } from 'constants/api-endpoints';
 import { fetchData } from 'lib/fetchData';
@@ -16,7 +17,6 @@ export type PageProps = {
 };
 
 export default async function ShoppingId({ params, searchParams }: PageProps) {
-  console.log(searchParams);
 
   const { id } = await params;
 
@@ -25,6 +25,9 @@ export default async function ShoppingId({ params, searchParams }: PageProps) {
   const slides = shopping?.similar?.map((item) => (
     <ShoppingCard key={item.id} item={item} />
   ));
+
+   console.log(shopping);
+   
 
   return (
     <React.Fragment>
@@ -63,6 +66,7 @@ export default async function ShoppingId({ params, searchParams }: PageProps) {
             <p className="lg:text-[#121212] lg:text-[16px] text-sm">
               {shopping?.description}
             </p>
+            <Button className='w-full mt-3'>Узнать цену</Button>
           </div>
           {shopping?.properties?.map((item, index) => (
             <div
@@ -74,7 +78,7 @@ export default async function ShoppingId({ params, searchParams }: PageProps) {
               <h1 className="lg:text-3xl text-2xl font-semibold">
                 {item.title}
               </h1>
-              <p className="lg:text-[#121212] lg:text-[16px] text-sm">
+              <p className="lg:text-[#121212] lg:text-[16px] text-sm whitespace-pre-line">
                 {item.description}
               </p>
             </div>

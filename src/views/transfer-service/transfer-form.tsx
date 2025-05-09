@@ -1,6 +1,6 @@
 'use client';
 
-import { Car2Icon, Location2Icon, PlaneIcon } from 'components/icons';
+import { Car2Icon, PlaneIcon } from 'components/icons';
 import { Button } from 'components/ui/button';
 import IconFormDatePicker from 'components/ui/prefixy-date-picker';
 import IconFormInput from 'components/ui/prefixy-input';
@@ -34,9 +34,9 @@ export default function TransferForm() {
   const [isReturn, setIsReturn] = useState<boolean>(false);
 
   return (
-    <div className="p-5 my-8 border rounded-md shadow-[0px_4px_124px_0px_rgba(18,24,34,0.09)]">
-      <div className="flex gap-5 items-center">
-        <div className="flex items-center bg-primary/20 rounded-lg py-2 px-1 pl-4 justify-center">
+    <div className="md:p-5 my-8 p-3 border rounded-md shadow-[0px_4px_124px_0px_rgba(18,24,34,0.09)]">
+      <div className="flex md:gap-5 gap-3 md:items-center items-start flex-col md:flex-row">
+        <div className="flex  items-center bg-primary/20 rounded-lg py-2 px-1 pl-4 justify-center">
           <span className="text-primary">
             <Car2Icon size={22} />
           </span>
@@ -45,16 +45,16 @@ export default function TransferForm() {
           </span>
         </div>
         <div>
-          <h1 className="text-2xl font-semibold">
+          <h1 className="md:text-2xl text-lg font-semibold">
             Reliable Airport Transfers in Dubai – Comfort and Convenience
           </h1>
-          <p className="text-black/50 font-bold">
+          <p className="text-black/50 font-semibold text-sm">
             Choose Your Destination and Preferred Time
           </p>
         </div>
       </div>
       <form className="py-4 flex flex-col gap-3">
-        <div className="grid grid-cols-2 gap-3">
+        <div className="grid md:grid-cols-2 grid-cols-1 gap-3">
           <SearchSelect
             methods={form}
             options={[

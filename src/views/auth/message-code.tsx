@@ -65,8 +65,10 @@ export default function EmailVerification({
   };
 
   const resetCode = () => {
-    resetTimer();
-    mutate(NEW_CODE, user);
+    if (isActive) {
+      resetTimer();
+      mutate(NEW_CODE, user);
+    }
   };
 
   return (

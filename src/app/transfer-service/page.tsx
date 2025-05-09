@@ -152,7 +152,7 @@ const cars: Product[] = [
     price: 410,
     url: '/rent/12',
   },
-];
+]; 
 
 const TransferService = async () => {
   const banners = await fetchData<Banner[]>(BANNERS, {
@@ -167,7 +167,7 @@ const TransferService = async () => {
 
       <TransferForm />
 
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         {cars.map((s) => (
           <CarCard key={s.id} {...s} image="/images/car.png" />
         ))}

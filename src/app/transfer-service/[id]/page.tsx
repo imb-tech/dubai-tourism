@@ -8,7 +8,6 @@ export default function RentId() {
     <React.Fragment>
       <div className="container mx-auto lg:px-0 px-3">
         <SectionDetailsHeading title="Transfer service purchase details" />
-
         <TransferDetail />
       </div>
       <div className="container mx-auto lg:px-0 px-3">

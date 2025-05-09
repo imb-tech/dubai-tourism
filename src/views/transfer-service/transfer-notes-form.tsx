@@ -49,7 +49,6 @@ export default function TransferNotesForm() {
                 <span className="text-green-400  border-[0.5px] border-green-400 px-1 py-1 rounded-xl text-xs">
                   Free
                 </span>
-                 
               </h3>
               <p>
                 Suitable for toddlers weighing 0-18 kg (approx 0 to 4 years).
