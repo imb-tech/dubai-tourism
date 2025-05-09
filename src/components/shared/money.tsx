@@ -3,7 +3,7 @@ import React, { ReactNode } from 'react';
 import { ClassNameValue } from 'tailwind-merge';
 
 type Props = {
-  price: number;
+  price: number | string | undefined;
   discount?: number;
   suffix?: ReactNode;
   className?: ClassNameValue;
@@ -19,6 +19,7 @@ export default function Money({
   discountClassName,
   suffix,
 }: Props) {
+
   return (
     <div className={cn('relative pt-6', className, !discount && 'pt-0')}>
       {discount && (
@@ -37,7 +38,7 @@ export default function Money({
           discountClassName
         )}
       >
-        From AED {formatMoney(discount)} {suffix ? '/' : ''} {suffix}
+        From AED {formatMoney(price)} {suffix ? '/' : ''} {suffix}
       </h3>
     </div>
   );

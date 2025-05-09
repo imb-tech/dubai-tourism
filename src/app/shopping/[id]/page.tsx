@@ -26,8 +26,7 @@ export default async function ShoppingId({ params, searchParams }: PageProps) {
     <ShoppingCard key={item.id} item={item} />
   ));
 
-   console.log(shopping);
-   
+
 
   return (
     <React.Fragment>

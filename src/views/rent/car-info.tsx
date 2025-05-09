@@ -1,7 +1,5 @@
-import { CheckIcon, PriceIcon, WhatsappIcon } from 'components/icons';
-import Money from 'components/shared/money';
+import { CheckIcon, PriceVIpIcon, WhatsappIcon } from 'components/icons';
 import { Button } from 'components/ui/button';
-import { formatMoney } from 'lib/utils';
 import React from 'react';
 
 type CarInfo = {
@@ -13,31 +11,55 @@ type CarInfo = {
   minage: number;
 };
 
-const keys: Record<keyof CarInfo, string> = {
-  model: 'Model',
-  delivery: 'Dubai Free',
-  insurance: 'Insurance',
-  kms: 'KMs',
-  deposit: 'Deposit',
-  minage: 'Min age',
-};
+export default function CarInfo({ cars }: { cars: RentCar | null }) {
+  const carsInfo = [
+    {
+      id: 1,
+      label: 'Model',
+      value: cars?.year,
+    },
+    {
+      id: 2,
+      label: 'Insurance',
+      value: cars?.insurance,
+    },
+    {
+      id: 3,
+      label: 'Deposit',
+      value: cars?.deposit ? 'Yes' : 'No',
+    },
+    {
+      id: 4,
+      label: 'Delivery',
+      value: cars?.delivery,
+    },
+    {
+      id: 5,
+      label: 'KMs',
+      value: cars?.km_per_day,
+    },
+    {
+      id: 6,
+      label: 'Min age',
+      value: cars?.min_age,
+    },
+  ];
 
-export default function CarInfo() {
   return (
     <div className="lg:px-6 px-3 py-6 rounded-lg bg-secondary lg:mt-20 mt-10">
-      <h2 className="lg:text-4xl text-2xl font-semibold m-0">Mercedes G63 AMG</h2>
-      <ul className="grid md:grid-cols-3 grid-cols-1 gap-2 mt-3">
-        {Object.entries(keys).map(([k, v]) => (
+      <h1 className="lg:text-4xl text-2xl font-semibold m-0 ">{cars?.name}</h1>
+      <ul className="grid md:grid-cols-3 grid-cols-1 gap-2 mt-4">
+        {carsInfo.map((item) => (
           <li
             className="flex items-center gap-2 bg-white font-semibold p-3 rounded-md"
-            key={k}
+            key={item.id}
           >
             <div className="text-primary">
               <CheckIcon size={32} />
             </div>
-            <div className="flex flex-col">
-              <span>{v}</span>
-              <span>Full</span>
+            <div className="flex flex-col capitalize">
+              <span>{item.label}</span>
+              <span>{item.value}</span>
             </div>
           </li>
         ))}
@@ -47,7 +69,10 @@ export default function CarInfo() {
       <ul className="grid md:grid-cols-3 grid-cols-1 gap-2 mt-3">
         <li className="flex items-center gap-2 bg-white font-semibold p-3 rounded-md">
           <div className="text-primary">
-            <PriceIcon size={36} />
+            <span className="text-primary">
+              {' '}
+              <PriceVIpIcon />
+            </span>
           </div>
           <div className="flex flex-col">
             <span>Daily</span>
@@ -57,7 +82,10 @@ export default function CarInfo() {
 
         <li className="flex items-center gap-2 bg-white font-semibold p-3 rounded-md">
           <div className="text-primary">
-            <PriceIcon size={36} />
+            <span className="text-primary">
+              {' '}
+              <PriceVIpIcon />
+            </span>
           </div>
           <div className="flex flex-col">
             <span>Weekly </span>
@@ -67,7 +95,10 @@ export default function CarInfo() {
 
         <li className="flex items-center gap-2 bg-white font-semibold p-3 rounded-md">
           <div className="text-primary">
-            <PriceIcon size={36} />
+            <span className="text-primary">
+              {' '}
+              <PriceVIpIcon />
+            </span>
           </div>
           <div className="flex flex-col">
             <span>Monthly</span>

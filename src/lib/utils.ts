@@ -5,7 +5,7 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
 
-export function formatMoney(amount?: number): string {
+export function formatMoney(amount?: number | string | undefined): string {
   const [integerPart, decimalPart] =
     amount ? amount.toString().split(".") : ""
   const newIntegerPart = integerPart?.replace(/\B(?=(\d{3})+(?!\d))/g, " ")

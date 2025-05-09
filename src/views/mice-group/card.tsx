@@ -1,23 +1,13 @@
 import { Card, CardContent } from 'components/ui/card';
 import Image from 'next/image';
-import { Diamond, Gem } from 'lucide-react';
-import { Button, buttonVariants } from 'components/ui/button';
+import { Gem } from 'lucide-react';
+import { buttonVariants } from 'components/ui/button';
 import { cn } from 'lib/utils';
 import Link from 'next/link';
 
-function MiceGroupCard({
-  data,
-}: {
-  data: {
-    id: number;
-    name: string;
-    image: string;
-    desc: string;
-    comment: string;
-    comment2: string;
-  };
-}) {
-  const { comment, comment2, desc, id, image, name } = data;
+function MiceGroupCard({ data }: { data: MiceGroup }) {
+  const { features, description, id, image, title, slug } = data;
+
   return (
     <Card className="overflow-hidden bg-white shadow-none py-0">
       <CardContent className="flex flex-col lg:flex-row gap-4 lg:p-4 p-3 ">
@@ -29,7 +19,7 @@ function MiceGroupCard({
         >
           <div>
             <div className="flex items-center gap-2 mb-3 sm:mb-4">
-              <div className="bg-[#edcc2555] rounded-full p-1">
+              <div className="bg-yellow-50 rounded-full p-1">
                 <Image
                   src="/mice.png"
                   alt="Private jet flying over Dubai coastline"
@@ -39,28 +29,27 @@ function MiceGroupCard({
                   height={60}
                 />
               </div>
-              <h2 className="text-xl sm:text-2xl font-bold">{name}</h2>
+              <h2 className="text-xl sm:text-2xl font-bold">{title}</h2>
             </div>
 
             <p className="text-gray-600 text-sm sm:text-base mb-4 sm:mb-6">
-              {desc}
+              {description}
             </p>
 
             <div className="space-y-3 sm:space-y-4 hidden sm:block">
-              <div className="flex items-start gap-2 sm:gap-3">
-                <Gem className="h-5 w-5 sm:h-7 sm:w-7 text-blue-500 mt-0.5" />
-                <p className="text-gray-800 text-sm sm:text-base">{comment}</p>
-              </div>
-
-              <div className="flex items-start gap-2 sm:gap-3">
-                <Gem className="h-5 w-5 sm:h-7 sm:w-7 text-blue-500 mt-0.5" />
-                <p className="text-gray-800 text-sm sm:text-base">{comment2}</p>
-              </div>
+              {features?.map((item) => (
+                <div key={item.id} className="flex items-start gap-2 sm:gap-3">
+                  <Gem className="min-h-5 min-w-5 sm:min-h-7 sm:min-w-7 text-blue-500 mt-0.5" />
+                  <p className="text-gray-800 text-sm sm:text-base font-semibold">
+                    {item.name}
+                  </p>
+                </div>
+              ))}
             </div>
           </div>
 
           <Link
-            href={`/mice-group/${id}`}
+            href={`/mice-group/${slug}`}
             className={cn(buttonVariants({ size: 'lg' }), 'w-full')}
           >
             See more
@@ -74,7 +63,7 @@ function MiceGroupCard({
           )}
         >
           <Image
-            src={image}
+            src={image || '/image.jpg'}
             alt="Private jet flying over Dubai coastline"
             className="object-cover rounded-md h-full w-full"
             height={320}

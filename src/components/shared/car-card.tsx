@@ -3,7 +3,6 @@ import Link from 'next/link';
 import { cn } from 'lib/utils';
 import { buttonVariants } from 'components/ui/button';
 import Money from './money';
-import { StarIcon } from 'lucide-react';
 import { Badge } from 'components/ui/badge';
 import {
   BagIconCar,
@@ -12,6 +11,7 @@ import {
   KarobkaIcon,
   LocationIcon,
   MapIcon,
+  RateIcon,
   RoomIcon,
   User2Icon,
 } from 'components/icons';
@@ -22,33 +22,36 @@ export default function CustomCard({
   location,
   rating,
   areaSqFt,
-  beds,
+  gear,
   baths,
-  horsepower,
   price,
   discount,
   reviewsCount,
-  distance,
-  url = '/',
+  km_per_day,
+  slug,
   tag,
-  transmission,
-  sale,
+  year,
+  beds,
+  best_seller,
   suffix,
+  url = '/',
 }: Product) {
   return (
     <div className="relative rounded-lg border flex flex-col p-2 gap-2 min-w-[320px] lg:min-w-40">
-      {sale && (
+      {best_seller && (
         <Badge className="absolute bg-[#FF5533] top-0 left-0 p-2 text-white text-xs font-medium rounded-none rounded-tl-lg rounded-br-lg">
           Best seller
         </Badge>
       )}
-      <Image
-        src={"/image.jpg"}
-        width={400}
-        height={300}
-        alt={name}
-        className="rounded-md object-contain w-full h-48"
-      />
+      <div className="w-full h-48">
+        <Image
+          src={image || '/image.jpg'}
+          width={400}
+          height={300}
+          alt={name}
+          className="rounded-md object-contain w-full h-full"
+        />
+      </div>
       <div className="flex flex-col gap-1">
         <h3 className="text-lg font-semibold">{name}</h3>
 
@@ -64,29 +67,29 @@ export default function CustomCard({
           </Badge>
         ) : null}
 
-        {distance || horsepower || transmission ? (
+        {km_per_day || year || gear ? (
           <ul className="flex items-center justify-between gap-1 py-1 w-full">
-            {distance && (
+            {km_per_day && (
               <li className="flex items-center gap-1 text-[#74AEF8]">
                 <MapIcon size={18} />
                 <span className="text-black font-medium md:text-sm text-sm">
-                  {distance} km {suffix ? '/' : ''} {suffix}
+                  {km_per_day} km {suffix ? '/' : ''} {suffix}
                 </span>
               </li>
             )}
-            {horsepower ? (
+            {year ? (
               <li className="flex items-center gap-1 text-[#74AEF8]">
                 <EngineIcon size={18} />
                 <span className="text-black font-medium md:text-sm text-sm">
-                  {horsepower}
+                  {year}
                 </span>
               </li>
             ) : null}
-            {transmission ? (
+            {gear ? (
               <li className="flex items-center gap-1 text-[#74AEF8]">
                 <KarobkaIcon size={18} />
-                <span className="text-black font-medium md:text-sm text-sm">
-                  {transmission}
+                <span className="text-black font-medium md:text-sm text-sm capitalize">
+                  {gear}
                 </span>
               </li>
             ) : null}
@@ -105,7 +108,7 @@ export default function CustomCard({
             ) : null}
             {rating ? (
               <li className="flex items-center gap-1 text-[#74AEF8]">
-                <StarIcon size={18} />
+                <RateIcon size={18} />
                 <span className="text-black font-medium md:text-sm text-sm">
                   {rating}
                 </span>
@@ -151,7 +154,7 @@ export default function CustomCard({
         />
 
         <Link
-          href={url}
+          href={`${url}/${slug}`}
           className={cn(buttonVariants({ size: 'lg' }), 'w-full')}
         >
           Buyurtma qilish

@@ -1,20 +1,21 @@
 type Product = {
     id: string | number;
     name: string;
+    price?: number | string
     location?: string;
     tag?: string;
     image: string;
-    distance?: number;
-    horsepower?: number;
-    transmission?: 'Automatic' | 'Manual';
+    url?: string;
+    km_per_day?: number;
+    year?: number;
+    gear?: string;
     reviewsCount?: number;
     rating?: number;
     areaSqFt?: number;
     beds?: number;
     baths?: number;
-    price: number;
     discount?: number;
-    url?: string
-    sale?: boolean
+    slug: string
+    best_seller?: boolean
     suffix?: string
 };

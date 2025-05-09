@@ -60,7 +60,7 @@ export function CustomCarousel({
         setApi={setApi}
       >
         <CarouselContent>
-          {items.map((item, index) => (
+          {items?.map((item, index) => (
             <CarouselItem key={index}>{item}</CarouselItem>
           ))}
         </CarouselContent>

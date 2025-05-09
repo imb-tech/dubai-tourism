@@ -12,17 +12,22 @@ export default function DrawerImagesView({ images }: { images: Banner[] }) {
   return (
     <div className="grid lg:grid-cols-4 grid-cols-1  gap-2 relative ">
       {images?.slice(0, 5)?.map((im, i) => (
-        <Image
+        <div
           key={im.id}
-          src={im?.file || im?.image || '/image.jpg'}
-          alt="rent car item"
-          width={600}
-          height={250}
           className={cn(
-            ' w-full  object-cover rounded-md ',
-            i === 0 ? 'col-span-2 row-span-2  ' : ''
+            ' w-full h-full overflow-hidden ',
+            i === 0 ? 'col-span-2 row-span-2 h-[380px]' : 'h-[184px]'
           )}
-        />
+        >
+          <Image
+            src={im?.file || im?.image || '/image.jpg'}
+            alt="rent car item"
+            width={600}
+            className="h-full w-full object-cover rounded-md "
+            height={250}
+            priority
+          />
+        </div>
       ))}
 
       <div
