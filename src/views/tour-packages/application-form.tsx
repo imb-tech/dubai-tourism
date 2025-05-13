@@ -4,10 +4,11 @@ import { useForm } from 'react-hook-form';
 import { Button } from 'components/ui/button';
 import FormInput from 'components/form/input';
 import { usePost } from 'hooks/usePost';
-import { LOGIN } from 'constants/api-endpoints';
+import { APARTMENTS_APPLICATIONS } from 'constants/api-endpoints';
 import { toast } from 'sonner';
 import PhoneField from 'components/form/phone-field';
 import FormTextarea from 'components/form/textarea';
+import { useModal } from 'hooks/use-modal';
 
 type FormType = {
   comment: string;
@@ -16,17 +17,19 @@ type FormType = {
   phone: string;
 };
 
-const ApplicationForm = () => {
+const ApplicationFormTourPackages = () => {
   const form = useForm<FormType>();
+  const { closeModal } = useModal('tour_packages');
   const { mutate } = usePost({
     onSuccess: () => {
       toast.success('Your booking aplication is send successfully');
+      closeModal();
     },
   });
 
   const onSubmit = (data: FormType) => {
     if (data.email) {
-      mutate(LOGIN, { ...data, via: 'input' });
+      mutate(APARTMENTS_APPLICATIONS, { ...data, type: 'all' });
     } else {
       toast.error('The data was not entered correctly.');
     }
@@ -78,4 +81,4 @@ const ApplicationForm = () => {
   );
 };
 
-export default ApplicationForm;
+export default ApplicationFormTourPackages;

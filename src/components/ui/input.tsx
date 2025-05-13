@@ -14,7 +14,7 @@ export type InputProps = {
 const inputVariants: Record<string, ClassNameValue> = {
   default: '',
   clean:
-    'border-none shadow-none bg-secondary/80 focus-visible:ring-0 focus-visible:ring-0 focus-visible:shadow-xs',
+    'border-none shadow-none bg-secondary/80 focus-visible:ring-2 focus-visible:ring-2 focus-visible:shadow-xs',
 };
 
 const inputSizes: Record<string, ClassNameValue> = {
@@ -55,7 +55,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
           <Search width={16} className={searchIconClassnames} />
         )}
         {!!prefixIcon && (
-          <span className="absolute left-1 top-0.5 text-muted-foreground p-1 box-content cursor-pointer backdrop-blur z-1">
+          <span className="absolute right-1 top-[50%] translate-y-[-50%] text-muted-foreground p-1 box-content cursor-pointer  z-1">
             {prefixIcon}
           </span>
         )}

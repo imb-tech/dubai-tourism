@@ -7,8 +7,8 @@ import SectionDetailsHeading from 'components/ui/page-heading';
 import { BANNERS } from 'constants/api-endpoints';
 import { fetchData } from 'lib/fetchData';
 import Modal from 'components/custom/modal';
-import ApplicationForm from 'components/shared/application-form';
 import TourFnfo from 'views/tour-packages/tour-info';
+import ApplicationFormTourPackages from 'views/tour-packages/application-form';
 
 const cars: Product[] = [
   {
@@ -98,7 +98,7 @@ export default async function RentId() {
         title={'Submit an application'}
         titleClass="lg:text-3xl font-semibold text-2xl"
       >
-        <ApplicationForm />
+        <ApplicationFormTourPackages />
       </Modal>
     </React.Fragment>
   );

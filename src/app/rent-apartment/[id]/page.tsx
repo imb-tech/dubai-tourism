@@ -16,7 +16,7 @@ import PropertyHeader from 'views/rent-apartment/property-header';
 import { BANNERS } from 'constants/api-endpoints';
 import { fetchData } from 'lib/fetchData';
 import Modal from 'components/custom/modal';
-import ApplicationForm from 'components/shared/application-form';
+import ApplicationFormApartment from 'views/rent-apartment/application-form';
 
 const cars: Product[] = [
   {
@@ -152,7 +152,7 @@ export default async function RentId() {
         title={'Submit an application'}
         titleClass="lg:text-3xl font-semibold text-2xl"
       >
-        <ApplicationForm />
+        <ApplicationFormApartment />
       </Modal>
     </React.Fragment>
   );

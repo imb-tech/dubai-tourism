@@ -21,16 +21,15 @@ import { useSession } from 'next-auth/react';
 import { useEffect, useRef } from 'react';
 import { usePost } from 'hooks/usePost';
 import { toast } from 'sonner';
+import UserMenu from './user-menu';
 
 export default function Header() {
   const pathname = usePathname();
-  const { openModal } = useModal('auth');
-  const { timer, isActive } = useOtpTimerStore();
   const { closeModal } = useModal('auth');
   const { token, setToken } = useAuthStore();
-  const { text } = useTextStore();
   const hasCalledRef = useRef(false);
-  const { mutate, isPending } = usePost({
+
+  const { mutate } = usePost({
     onSuccess: (data) => {
       if (data?.access) {
         setToken(data?.access);
@@ -39,7 +38,10 @@ export default function Header() {
       toast.success('Muavffaqiyatli kirdingiz!');
     },
   });
-  const { data } = useGet(PROFILE, { options: { enabled: Boolean(token) } });
+
+  const { data } = useGet<Profile>(PROFILE, {
+    options: { enabled: Boolean(token) },
+  });
 
   const { data: session } = useSession();
 
@@ -71,60 +73,38 @@ export default function Header() {
           </Link>
           <Navbar pathname={pathname} />
 
-          {token ? (
+          {/* {token ? (
             <div className="hidden lg:flex flex-col items-start gap-1">
               <a
-                href="tel:+998900002323"
+                href={
+                  data?.phone ? `tel:${data?.phone}` : `mailto:${data?.email}`
+                }
                 className={cn(
                   'font-bold   border-b',
                   pathname === '/' ? 'text-white' : ''
                 )}
               >
                 {' '}
-                +998 90 000-23-23
+                {data?.email || data?.phone}
               </a>
-              <a
-                href="#"
+              <span
                 className={cn(
-                  'text-sm ',
+                  'text-sm capitalize',
                   pathname === '/' ? 'text-gray-300' : 'text-[#00000099]'
                 )}
               >
-                OAE, Dubai, 12 block, 12 street
-              </a>
+                {data?.first_name} {data?.last_name}
+              </span>
             </div>
-          ) : null}
+          ) : null} */}
           <div className="flex items-end gap-3  h-[45px]">
-            {token ? (
-              <Button
-                className={cn(
-                  ' shadow-none  flex gap-1 items-center',
-                  pathname === '/'
-                    ? 'hover:bg-white bg-white text-orange-500'
-                    : 'bg-[#F5F5F5] text-black '
-                )}
-              >
-                <User size={20} />
-              </Button>
-            ) : (
-              <Button
-                onClick={openModal}
-                className={cn(
-                  ' shadow-none  flex gap-1 items-center',
-                  pathname === '/'
-                    ? 'hover:bg-white bg-white text-orange-500'
-                    : 'bg-[#F5F5F5] text-black '
-                )}
-              >
-                <LoginIcon /> Login
-              </Button>
-            )}
+            <UserMenu data={data} />
             <Button
               className={cn(
                 '  shadow-none ',
                 pathname === '/'
                   ? 'hover:bg-white bg-white text-orange-500 '
-                  : 'bg-[#F5F5F5] text-black '
+                  : 'bg-[#F5F5F5] hover:bg-[#ebe8e8] text-black '
               )}
             >
               <CartIcon />
@@ -132,25 +112,6 @@ export default function Header() {
           </div>
         </div>
         <ServicesButton pathname={pathname} />
-        <Modal
-          modalKey="auth"
-          title={
-            text === 'login'
-              ? 'Login'
-              : text === 'register'
-              ? 'Register'
-              : 'Email confirmation'
-          }
-          titleClass="lg:text-3xl font-semibold text-2xl"
-        >
-          {text === 'login' ? (
-            <Login />
-          ) : text === 'register' ? (
-            <Register />
-          ) : (
-            <EmailVerification isActive={isActive} timer={timer} />
-          )}
-        </Modal>
       </div>
     </header>
   );

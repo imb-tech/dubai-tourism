@@ -10,7 +10,8 @@ import { fetchData } from 'lib/fetchData';
 import { PageProps } from 'app/shopping/[id]/page';
 import VipInfo from 'views/vip-concierge/vip-info';
 import Modal from 'components/custom/modal';
-import ApplicationForm from 'components/shared/application-form';
+import ApplicationFormVIP from 'views/vip-concierge/application-form';
+
 
 export default async function RentId({ params }: PageProps) {
   const { id } = await params;
@@ -50,7 +51,7 @@ export default async function RentId({ params }: PageProps) {
         title={'Submit an application'}
         titleClass="lg:text-3xl font-semibold text-2xl"
       >
-        <ApplicationForm />
+        <ApplicationFormVIP />
       </Modal>
     </React.Fragment>
   );

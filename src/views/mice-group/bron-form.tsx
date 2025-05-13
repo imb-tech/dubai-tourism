@@ -15,7 +15,7 @@ import { Checkbox } from 'components/ui/checkbox';
 import FormDatePicker from 'components/form/date-picker';
 import { MICE_SERVICES_APPLICATIONS } from 'constants/api-endpoints';
 
-function formatDate(dateStr: string): string {
+export function formatDate(dateStr: string): string {
   const [day, month, year] = dateStr.split('/').map(Number);
 
   if (!day || !month || !year) return '';
@@ -76,8 +76,12 @@ export default function BookingForm() {
       end: formatDate(values.end),
     };
 
-    if (!values.services || values.services.length === 0) {
-      delete formattedData.services;
+    if (!data.services || data.services.length === 0) {
+      form.setError('services', {
+        type: 'manual',
+        message: 'Iltimos, kamida bitta Service xizmat turini tanlang.',
+      });
+      return;
     }
 
     mutate(MICE_SERVICES_APPLICATIONS, formattedData, {
