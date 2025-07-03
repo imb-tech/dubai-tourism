@@ -46,7 +46,7 @@ export default function TransferSteps({ setStep }: Props) {
           );
         })}
       </div>
-      <div className="hidden md:grid grid-cols-4 sm:grid-cols-3 py-3 gap-3 px-2 sm:px-0 min-w-[600px]">
+      <div className="hidden md:grid grid-cols-4 sm:grid-cols-3 py-3 gap-3 px-2 sm:px-0 min-w-[600px] overflow-x-auto">
         {steps.map((st, i) => {
           const Ic = st.icon;
           return (

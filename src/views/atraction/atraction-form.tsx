@@ -52,10 +52,10 @@ export default function WtpForm() {
       </h2>
       <WtpTable />
 
-      <div className="grid grid-cols-2 gap-2 mt-5">
+      <div className="hidden md:grid grid-cols-1 md:grid-cols-2 gap-2 mt-5">
         <Button size="lg">
           <CartIcon />
-          savatchaga qo'shish
+          Savatchaga qo'shish
         </Button>
         <Button
           size="lg"

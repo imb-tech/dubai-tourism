@@ -33,4 +33,3 @@ const Shopping = async () => {
 };
 
 export default Shopping;
-

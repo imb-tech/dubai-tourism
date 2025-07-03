@@ -54,9 +54,13 @@ export default function TransferPersonalForm() {
           required
         />
       </div>
-
+      <p className="text-sm py-0.5">
+        Meeting with a name sign. Enter the name you want written on the sign
+      </p>
       <div className="flex items-center justify-end gap-2 pt-3cou">
-        <Button variant="secondary" className="shadow-none">Back</Button>
+        <Button variant="secondary" className="shadow-none">
+          Back
+        </Button>
         <Button>Continue</Button>
       </div>
     </div>

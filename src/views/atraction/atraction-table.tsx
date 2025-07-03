@@ -1,20 +1,25 @@
 'use client';
 import { Tooltip } from 'components/custom/tooltip';
 import SelectField from 'components/form/select';
+import { Button } from 'components/ui/button';
+import { Card, CardContent, CardHeader } from 'components/ui/card';
 import { Checkbox } from 'components/ui/checkbox';
 import { DatePicker } from 'components/ui/datepicker';
 import { useModal } from 'hooks/use-modal';
 import { cn, formatMoney } from 'lib/utils';
-import { Info } from 'lucide-react';
-import React from 'react';
+import { Info, Minus, Plus } from 'lucide-react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import AttractionCardMobile from './attraction-card';
 
 export default function WtpTable() {
   const { openModal } = useModal('more-info');
   const methods = useForm<{ name: number }>();
+
   return (
-    <div className="border rounded-sm bg-white overflow-hidden p-3">
-      <table className="w-full [&_th]:text-start [&_th]:p-2 [&_td]:px-2 [&_td]:py-2">
+    <>
+    <div className="border lg:block hidden rounded-sm bg-white overflow-hidden p-3">
+      <table className="table w-full [&_th]:text-start [&_th]:p-2 [&_td]:px-2 [&_td]:py-2">
         <thead className="bg-secondary">
           <tr>
             <th>Tour Options</th>
@@ -131,5 +136,8 @@ export default function WtpTable() {
         </tbody>
       </table>
     </div>
+      <AttractionCardMobile />
+      <AttractionCardMobile />
+    </>
   );
 }
