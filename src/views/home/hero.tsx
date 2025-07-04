@@ -61,7 +61,7 @@ const HeroPages = () => {
                   services tailored to your needs.
                 </p>
                 <Button className="bg-primary text-white mt-4 cursor-pointer w-full lg:h-12 h-11 sm:w-max px-8">
-                Get in touch
+                  Get in touch
                 </Button>
               </div>
             </div>

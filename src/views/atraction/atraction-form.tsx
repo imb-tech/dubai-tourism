@@ -10,11 +10,55 @@ import React from 'react';
 import WtpTable from './atraction-table';
 import Modal from 'components/custom/modal';
 import WtpInfo from './atraction-info';
+import AttractionCardMobile from './attraction-card';
+
+const dataAtraction = [
+  {
+    id: '1',
+    tour_options: 'Amerika',
+    transfer_option: 'Birinchisi',
+    date: '2024-12-15',
+    adult: 0,
+    child: 0,
+    infant: 0,
+  },
+  {
+    id: '2',
+    tour_options: 'Hindiston',
+    transfer_option: 'Ikkinchisi',
+    date: '2024-12-15',
+    adult: 0,
+    child: 0,
+    infant: 0,
+  },
+  {
+    id: '3',
+    tour_options: 'Dubai',
+    transfer_option: 'Uchinchisi',
+    date: '2024-12-15',
+    adult: 0,
+    child: 0,
+    infant: 0,
+  },
+  {
+    id: '4',
+    tour_options: 'Toshkent',
+    transfer_option: "To'rtinchisi",
+    date: '2024-12-15',
+    adult: 0,
+    child: 0,
+    infant: 0,
+  },
+];
+
+const onSubmit = () => {};
 
 export default function WtpForm() {
   return (
     <div className="lg:px-6 py-6 px-3 rounded-lg bg-secondary mt-14">
-      <h2 className="text-xl lg:text-2xl font-semibold">Atlantis Aquaventure Waterpark</h2>
+      <h2 className="text-xl lg:text-2xl font-semibold">
+        Atlantis Aquaventure Waterpark
+      </h2>
       <ul className="grid lg:grid-cols-3 grid-cols-1  gap-2 mt-3">
         <li className="flex items-center gap-2 bg-white font-semibold p-3 rounded-md">
           <div className="text-primary">
@@ -50,24 +94,11 @@ export default function WtpForm() {
       <h2 className="text-xl lg:text-2xl font-semibold mt-10 mb-3">
         Atlantis Aquaventure Waterpark offers
       </h2>
-      <WtpTable />
-
-      <div className="hidden md:grid grid-cols-1 md:grid-cols-2 gap-2 mt-5">
-        <Button size="lg">
-          <CartIcon />
-          Savatchaga qo'shish
-        </Button>
-        <Button
-          size="lg"
-          variant="ghost"
-          className="bg-[#52C41A] hover:bg-white text-white  hover:text-primary gap-1"
-        >
-          <WhatsappIcon size={25} />
-          <span>Whatsapp</span>
-        </Button>
-      </div>
-
-      <Modal modalKey='more-info' className='max-w-xl'>
+      <WtpTable data={dataAtraction} />
+      {dataAtraction.map((item, index) => (
+        <AttractionCardMobile key={index} data={item} />
+      ))}
+      <Modal modalKey="more-info" className="max-w-xl">
         <WtpInfo />
       </Modal>
     </div>

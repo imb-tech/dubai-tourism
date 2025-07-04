@@ -9,8 +9,9 @@ import { formatMoney } from 'lib/utils';
 import { Minus, Plus, User } from 'lucide-react';
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import AddToCartAttraction from './attraction-add';
 
-const AttractionCardMobile = () => {
+const AttractionCardMobile = ({ data }: { data: Atraction }) => {
   const { openModal } = useModal('more-info');
   const methods = useForm<{ name: number }>();
   const [adult, setAdult] = useState(0);
@@ -34,7 +35,7 @@ const AttractionCardMobile = () => {
   return (
     <Card className="lg:hidden mb-4">
       <CardHeader>
-        <span>Desert Safari For UAE eresidents</span>
+        <span>{data.tour_options}</span>
         <span className="underline text-blue-500 mr-auto" onClick={openModal}>
           More info
         </span>
@@ -109,7 +110,7 @@ const AttractionCardMobile = () => {
             <span className="">+230 AED per child</span>
           </div>
         </div>
-        <div className="p-2 bg-secondary rounded-sm px-3 text-sm">
+        <div className="p-2 bg-secondary rounded-sm text-sm">
           <div className="grid grid-cols-2 items-center">
             <p className="font-normal">Infant (0-3 Yrs)</p>
             <div className="grid grid-cols-3 gap-1 items-center ml-auto">
@@ -144,20 +145,7 @@ const AttractionCardMobile = () => {
           <p className="">Total</p>
           <p className="text-end">AED {formatMoney(360)}</p>
         </div>
-        <div className="grid lg:hidden grid-cols-1 md:grid-cols-2 gap-2 mt-5">
-          <Button size="lg">
-            <CartIcon />
-            Savatchaga qo'shish
-          </Button>
-          <Button
-            size="lg"
-            variant="ghost"
-            className="bg-[#52C41A] hover:bg-white text-white  hover:text-primary gap-1"
-          >
-            <WhatsappIcon size={25} />
-            <span>Whatsapp</span>
-          </Button>
-        </div>
+        <AddToCartAttraction data={[{ ...data, adult, child, infant }]} />
       </CardContent>
     </Card>
   );
