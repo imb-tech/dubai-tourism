@@ -1,6 +1,7 @@
 import FormInput from 'components/form/input';
 import SelectField from 'components/form/select';
 import FormTextarea from 'components/form/textarea';
+import { Button } from 'components/ui/button';
 import { Checkbox } from 'components/ui/checkbox';
 import { Label } from 'components/ui/label';
 import Image from 'next/image';
@@ -30,7 +31,10 @@ export default function TransferNotesForm() {
         />
 
         <fieldset className="flex items-center flex-row-reverse justify-end gap-2">
-          <Label htmlFor="trtr" className="text-sm sm:text-xl">
+          <Label
+            htmlFor="trtr"
+            className="text-sm sm:text-xl whitespace-normal"
+          >
             Do you need a child seat or booster seat?
           </Label>
           <Checkbox
@@ -51,7 +55,7 @@ export default function TransferNotesForm() {
             />
             <div className="flex-1">
               <h3 className="font-semibold">
-                Child seat{' '}
+                Child seat
                 <span className="text-green-400  border-[0.5px] border-green-400 px-1 py-1 rounded-xl text-xs">
                   Free
                 </span>
@@ -83,6 +87,9 @@ export default function TransferNotesForm() {
           placeholder="Sizning xabaringiz"
           className="bg-secondary border-none focus-visible:ring-0"
         />
+        <div className="flex items-center md:justify-end gap-2 pt-3cou">
+          <Button className="w-full md:w-auto">Continue</Button>
+        </div>
       </form>
     </div>
   );

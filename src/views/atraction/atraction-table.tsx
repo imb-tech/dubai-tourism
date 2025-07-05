@@ -8,13 +8,19 @@ import { useModal } from 'hooks/use-modal';
 import { cn, formatMoney } from 'lib/utils';
 import { Info } from 'lucide-react';
 import React, { useState } from 'react';
-import { useForm } from 'react-hook-form';
 import AddToCartAttraction from './attraction-add';
+import Select from 'components/ui/select';
+import { useForm } from 'react-hook-form';
+
+type RowData = Atraction & {
+  checked: boolean;
+  adult: number;
+  child: number;
+  infant: number;
+};
 
 export default function WtpTable({ data }: { data: Atraction[] }) {
   const { openModal } = useModal('more-info');
-
-  const [selectedItems, setSelectedItems] = useState<Atraction[]>([]);
 
   const methods = useForm<{
     name: number;
@@ -23,22 +29,36 @@ export default function WtpTable({ data }: { data: Atraction[] }) {
     adult: number;
   }>();
 
-  const changeSelected = (item: Atraction) => {
-    // setSelectedItems([item]);
-    setSelectedItems((prev) => {
-      const exists = prev.some((i) => i.id === item.id);
-      if (exists) {
-        return prev.filter((i) => i.id !== item.id);
-      } else {
-        return [...prev, item];
-      }
-    });
-  };
+  const [rows, setRows] = useState<RowData[]>(
+    data.map((item) => ({
+      ...item,
+      checked: false,
+      adult: 0,
+      child: 0,
+      infant: 0,
+    }))
+  );
 
   const optionsValues = Array.from({ length: 17 }, (_, i) => ({
     id: i,
     name: i.toString(),
   }));
+
+  const toggleChecked = (id: string, checked: boolean) => {
+    setRows((prev) =>
+      prev.map((row) => (row.id === id ? { ...row, checked } : row))
+    );
+  };
+
+  const updateQuantity = (
+    id: string,
+    key: 'adult' | 'child' | 'infant',
+    value: number
+  ) => {
+    setRows((prev) =>
+      prev.map((row) => (row.id === id ? { ...row, [key]: value } : row))
+    );
+  };
 
   return (
     <div className="border lg:block hidden rounded-sm bg-white overflow-hidden p-3">
@@ -79,17 +99,19 @@ export default function WtpTable({ data }: { data: Atraction[] }) {
           </tr>
         </thead>
         <tbody>
-          {data.map((item, index) => (
-            <tr key={index}>
+          {rows.map((row) => (
+            <tr key={row.id}>
               <td>
                 <div className="flex items-center gap-2">
-                  <span className="text-primary flex items-center">
-                    <Checkbox
-                      checked={selectedItems.some((i) => i.id === item.id)}
-                      onCheckedChange={() => changeSelected(item)}
-                    />
-                  </span>
-                  <span>{item.tour_options}</span>
+                  <Checkbox
+                    checked={row.checked}
+                    onCheckedChange={(checked) => {
+                      if (typeof checked === 'boolean') {
+                        toggleChecked(row.id, checked);
+                      }
+                    }}
+                  />
+                  <span>{row.tour_options}</span>
                   <span
                     className="underline text-blue-500 ml-auto cursor-pointer"
                     onClick={openModal}
@@ -103,7 +125,7 @@ export default function WtpTable({ data }: { data: Atraction[] }) {
                   methods={methods}
                   name="name"
                   options={[{ id: 1, name: 'Doniyor' }]}
-                  wrapperClassName="w-auto"
+                  className="w-auto"
                   placeholder="Sharing Transfers"
                 />
               </td>
@@ -111,42 +133,41 @@ export default function WtpTable({ data }: { data: Atraction[] }) {
                 <DatePicker />
               </td>
               <td>
-                <SelectField
-                  methods={methods}
-                  name="adult"
+                <Select
                   options={optionsValues}
-                  wrapperClassName="w-auto"
-                  placeholder="0"
+                  value={row.adult}
+                  setValue={(val) =>
+                    updateQuantity(row.id, 'adult', Number(val))
+                  }
+                  className="w-auto"
                 />
               </td>
               <td>
-                <SelectField
-                  methods={methods}
-                  name="child"
+                <Select
                   options={optionsValues}
-                  wrapperClassName="w-auto"
-                  placeholder="0"
+                  value={row.child}
+                  setValue={(val) =>
+                    updateQuantity(row.id, 'child', Number(val))
+                  }
+                  className="w-auto"
                 />
               </td>
               <td>
-                <SelectField
-                  methods={methods}
-                  name="infant"
+                <Select
                   options={optionsValues}
-                  wrapperClassName="w-auto"
-                  placeholder="0"
+                  value={row.infant}
+                  setValue={(val) =>
+                    updateQuantity(row.id, 'infant', Number(val))
+                  }
+                  className="w-auto"
                 />
               </td>
               <td>
                 <div className={cn('relative pt-4')}>
-                  <h3
-                    className={cn(
-                      'font-semibold text-black/45 line-through absolute top-0 text-sm'
-                    )}
-                  >
+                  <h3 className="font-semibold text-black/45 line-through absolute top-0 text-sm">
                     Price: {formatMoney(12000)}
                   </h3>
-                  <h3 className={cn('text-xl font-semibold text-primary')}>
+                  <h3 className="text-xl font-semibold text-primary">
                     Price: {formatMoney(1200)}
                   </h3>
                 </div>
@@ -156,7 +177,7 @@ export default function WtpTable({ data }: { data: Atraction[] }) {
         </tbody>
       </table>
 
-      <AddToCartAttraction data={selectedItems} />
+      <AddToCartAttraction data={rows.filter((row) => row.checked)} />
     </div>
   );
 }

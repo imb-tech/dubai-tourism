@@ -21,4 +21,5 @@ type Product = {
   distance?: number;
   best_seller?: boolean;
   suffix?: string;
+  sale?:boolean
 };

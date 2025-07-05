@@ -39,10 +39,12 @@ export default function TransferPaymentForm() {
         </div>
       </div>
 
-      <div className="flex items-center bg-background rounded-md gap-4">
-        <Checkbox defaultChecked />
-        <p>By clicking Pay now you agree with Terms and Conditions</p>
-        <div className="ml-auto">
+      <div className="md:flex items-center bg-background rounded-md gap-4">
+        <div className="flex items-center gap-2 mb-6 md:mb-0">
+          <Checkbox defaultChecked />
+          <p>By clicking Pay now you agree with Terms and Conditions</p>
+        </div>
+        <div className="grid grid-cols-2 md:ml-auto">
           <Button variant="secondary" className="shadow-none mr-2">
             Back
           </Button>

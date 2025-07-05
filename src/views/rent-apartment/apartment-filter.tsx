@@ -62,7 +62,7 @@ export default function ApartmentFilter() {
         </Button>
       </div>
 
-      <div className="hidden lg:grid lg:grid-cols-7 grid-cols-1 gap-2 py-3 border rounded-[12px] p-2">
+      <div className="grid lg:grid-cols-7 grid-cols-1 gap-2 py-3 border rounded-[12px] p-2">
         <SelectParams
           paramKey="filter1"
           options={filters}

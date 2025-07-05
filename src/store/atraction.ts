@@ -14,6 +14,7 @@ type FormType = {
 type Atraction = {
   atraction: FormType[];
   addAtraction: (newAtraction: FormType[]) => void;
+  removeAtraction: (id: string) => void;
   clearAtraction: () => void;
 };
 
@@ -23,18 +24,24 @@ export const useAtractionStore = create<Atraction>()(
       atraction: [],
       addAtraction: (newAtraction) =>
         set((state) => {
-
-          console.log(
-            state.atraction.map((item) => item)
-          );
-
-          const current = state.atraction.filter(
-            (item) => !newAtraction.some((newItem) => newItem.id !== item.id)
-          );
+          const current = [...state.atraction];
+          newAtraction.forEach((item) => {
+            const index = current.findIndex((idx) => idx.id === item.id);
+            if (index !== -1) {
+              current[index] = { ...current[index], ...item };
+            } else {
+              current.push(item);
+            }
+            return current;
+          });
           return {
-            atraction: [...current, ...newAtraction],
+            atraction: current,
           };
         }),
+      removeAtraction: (id) =>
+        set((state) => ({
+          atraction: state.atraction.filter((item) => item.id !== id),
+        })),
       clearAtraction: () => set({ atraction: [] }),
     }),
     {
