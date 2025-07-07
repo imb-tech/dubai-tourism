@@ -1,21 +1,20 @@
-import { clsx, type ClassValue } from "clsx"
-import { twMerge } from "tailwind-merge"
+import { clsx, type ClassValue } from 'clsx';
+import { twMerge } from 'tailwind-merge';
 
 export function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs))
+  return twMerge(clsx(inputs));
 }
 
 export function formatMoney(amount?: number | string | undefined): string {
-  const [integerPart, decimalPart] =
-    amount ? amount.toString().split(".") : ""
-  const newIntegerPart = integerPart?.replace(/\B(?=(\d{3})+(?!\d))/g, " ")
+  const [integerPart, decimalPart] = amount ? amount.toString().split('.') : '';
+  const newIntegerPart = integerPart?.replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
   if (amount) {
     if (decimalPart && +decimalPart > 0) {
-      return `${newIntegerPart}.${decimalPart}`
+      return `${newIntegerPart}.${decimalPart}`;
     } else {
-      return `${newIntegerPart}.00`
+      return `${newIntegerPart}.00`;
     }
   } else {
-    return "0"
+    return '0';
   }
 }

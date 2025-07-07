@@ -112,7 +112,7 @@ export default function BookingForm() {
         type="number"
         methods={form}
         name="people_count"
-        className="mt-1 2xl:h-[50px] h-[40px]"
+        className="mt-1 2xl:h-[50px] h-[40px]  mb-4"
         label={'Ishtirokchilar sonini tanlang'}
         placeholder={'Ishtirokchilar sonini tanlang'}
         message={'Ishtirokchilar sonini kiriting'}
@@ -203,7 +203,7 @@ export default function BookingForm() {
             variant="clean"
             methods={form}
             name="full_name"
-            className="mt-1 2xl:h-[50px] h-[40px]"
+            className="mt-1 2xl:h-[50px] h-[40px] mb-4"
             label={'Ism'}
             placeholder={'Ismingiz'}
             message={'Ismingizni kiriting'}
@@ -218,7 +218,7 @@ export default function BookingForm() {
           <FormInput
             methods={form}
             name="email"
-            className="mt-1 2xl:h-[50px] h-[40px] "
+            className="mt-1 2xl:h-[50px] h-[40px] mb-4"
             label={'Email'}
             placeholder={'Email manzilingiz'}
             required={form.watch('phone') ? false : true}

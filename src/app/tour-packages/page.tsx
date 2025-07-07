@@ -14,7 +14,7 @@ const ToursPackages = async () => {
 
   return (
     <div className="container mx-auto lg:px-0 px-3">
-      <SectionDetailsHeading title="Dubayda avtomobil ijarasi" />
+      <SectionDetailsHeading title="Tour packages" />
       <SliderComponents images={banners || []} />
       <div className="my-5">
         <TourPackagesFilter />

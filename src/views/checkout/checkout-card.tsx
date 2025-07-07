@@ -1,16 +1,20 @@
 import { StarIcon, UserIcon } from 'components/icons';
 import { Checkbox } from 'components/ui/checkbox';
+import { useModal } from 'hooks/use-modal';
 import { cn, formatMoney } from 'lib/utils';
 import { Trash2 } from 'lucide-react';
 import Image from 'next/image';
 import React from 'react';
+import { useAtractionStore } from 'store/atraction';
 
-export default function CheckoutCard() {
+export default function CheckoutCard({ item }: { item: Atraction }) {
+  const { removeAtraction } = useAtractionStore();
+  const { openModal } = useModal('more-info');
   return (
     <div className="flex gap-3 bg-white rounded-md px-4 justify-between py-2">
-      <div className="min-h-full flex items-center">
+      {/* <div className="min-h-full flex items-center">
         <Checkbox className="size-7" defaultChecked />
-      </div>
+      </div> */}
       <Image
         src="https://s3-alpha-sig.figma.com/img/498f/3c16/0ac401abded78d7605a4908270b35998?Expires=1746403200&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=W4knZCf6OK1S62n6oX8KrGtj1YqH3Gp473tWlJme3TbY9BonyjlFFT-6JWsasCzpCUptj8SMhNr9KT8C8zGc3zI5r6W~gQl0h4XRKPxpV82kPOKMy-E-swtHAXKivaw7C9tTkpBmpTCeZo5XNqE~fXZNLWOc2JMzLFhpSyHrPzVquR0q7TCqQHLADw2HdYTmCpN5OgRNzeQupE6hBJ4c-3OlpNXZMSPP4kyWQnQhLKR6fAoND-0EwKn3vx33K46JNanoa4tWmPHCqbz82MzNNpy1S0-OZGJOZEqkM69~53tmxqUx8X84yEmpuzsa3zmMkn8ev4ok67wlikAkc-O9wg__"
         alt="logo"
@@ -19,9 +23,7 @@ export default function CheckoutCard() {
         height={100}
       />
       <div className="min-h-full flex flex-col gap-2 flex-[1]">
-        <h2 className="text-2xl font-semibold">
-          Desert Safari For UAE eresidents
-        </h2>
+        <h2 className="text-2xl font-semibold">{item.tour_options}</h2>
         <ul className="flex gap-3 py-1">
           <li className="flex items-center gap-2 text-primary">
             <UserIcon />
@@ -36,7 +38,7 @@ export default function CheckoutCard() {
         <ul className="grid grid-cols-5 gap-2 w-full">
           <li className="py-4 px-3 bg-secondary rounded-md">
             <h3 className="font-semibold">Transfer Option</h3>
-            <p className="text-sm">Sharing Transfers</p>
+            <p className="text-sm">{item.transfer_option}</p>
           </li>
           <li className="py-4 px-3 bg-secondary rounded-md">
             <h3 className="font-semibold">Tour Date</h3>
@@ -44,19 +46,24 @@ export default function CheckoutCard() {
           </li>
           <li className="py-4 px-3 bg-secondary rounded-md">
             <h3 className="font-semibold">Adult</h3>
-            <p className="text-sm">2</p>
+            <p className="text-sm">{item.adult}</p>
           </li>
           <li className="py-4 px-3 bg-secondary rounded-md">
             <h3 className="font-semibold">Child</h3>
-            <p className="text-sm">2</p>
+            <p className="text-sm">{item.child}</p>
           </li>
           <li className="py-4 px-3 bg-secondary rounded-md">
             <h3 className="font-semibold">Infant</h3>
-            <p className="text-sm">0</p>
+            <p className="text-sm">{item.infant}</p>
           </li>
         </ul>
 
-        <span className="underline text-blue-500">More info</span>
+        <span
+          onClick={openModal}
+          className="underline text-blue-500 cursor-pointer"
+        >
+          More info
+        </span>
         <span className="font-medium">Total amount</span>
         <div className={cn('relative pt-4')}>
           <h3
@@ -71,7 +78,13 @@ export default function CheckoutCard() {
           </h3>
         </div>
       </div>
-      <Trash2 className="text-rose-500 mt-3" size={20} />
+      <Trash2
+        onClick={() => {
+          removeAtraction(item.id);
+        }}
+        className="text-rose-500 mt-3"
+        size={20}
+      />
     </div>
   );
 }

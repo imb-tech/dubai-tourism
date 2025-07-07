@@ -4,10 +4,7 @@ import Services from 'views/home/services';
 import Tours from 'views/home/tours';
 import React from 'react';
 import Questions from 'components/questions/questions';
-import {
-  CARS,
-  POPULAR_QUESTIONS,
-} from 'constants/api-endpoints';
+import { CARS, POPULAR_QUESTIONS } from 'constants/api-endpoints';
 import { fetchData } from 'lib/fetchData';
 
 export default async function Home() {
@@ -38,7 +35,7 @@ export default async function Home() {
       <Products autoplayDelay={1800} data={cars} title="Shopping" />
       <Tours />
       <div className="container mx-auto lg:px-0 px-3">
-        <Questions title="Frequently asked questions" service='' />
+        <Questions title="Frequently asked questions" service="" />
       </div>
     </div>
   );

@@ -12,7 +12,6 @@ import VipInfo from 'views/vip-concierge/vip-info';
 import Modal from 'components/custom/modal';
 import ApplicationFormVIP from 'views/vip-concierge/application-form';
 
-
 export default async function RentId({ params }: PageProps) {
   const { id } = await params;
   const data = await fetchData<VipConicerge>(`${CONCIERGES}/${id}`);
