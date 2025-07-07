@@ -2,6 +2,7 @@ import { CartIcon, WhatsappIcon } from 'components/icons';
 import { Button } from 'components/ui/button';
 import React from 'react';
 import { useAtractionStore } from '../../store/atraction';
+import { toast } from 'sonner';
 
 const AddToCartAttraction = ({ data }: { data: Atraction[] }) => {
   const { addAtraction } = useAtractionStore();
@@ -11,6 +12,7 @@ const AddToCartAttraction = ({ data }: { data: Atraction[] }) => {
       <Button
         onClick={() => {
           addAtraction(data);
+          toast.success("Savatchaga qo'shildi!");
         }}
         size="lg"
       >

@@ -11,6 +11,7 @@ import React, { useState } from 'react';
 import AddToCartAttraction from './attraction-add';
 import Select from 'components/ui/select';
 import { useForm } from 'react-hook-form';
+import { useAtractionStore } from 'store/atraction';
 
 type RowData = Atraction & {
   checked: boolean;
@@ -21,6 +22,7 @@ type RowData = Atraction & {
 
 export default function WtpTable({ data }: { data: Atraction[] }) {
   const { openModal } = useModal('more-info');
+  const { atraction } = useAtractionStore();
 
   const methods = useForm<{
     name: number;
@@ -59,6 +61,9 @@ export default function WtpTable({ data }: { data: Atraction[] }) {
       prev.map((row) => (row.id === id ? { ...row, [key]: value } : row))
     );
   };
+
+   console.log(rows);
+   
 
   return (
     <div className="border lg:block hidden rounded-sm bg-white overflow-hidden p-3">
@@ -99,81 +104,85 @@ export default function WtpTable({ data }: { data: Atraction[] }) {
           </tr>
         </thead>
         <tbody>
-          {rows.map((row) => (
-            <tr key={row.id}>
-              <td>
-                <div className="flex items-center gap-2">
-                  <Checkbox
-                    checked={row.checked}
-                    onCheckedChange={(checked) => {
-                      if (typeof checked === 'boolean') {
-                        toggleChecked(row.id, checked);
-                      }
-                    }}
+          {rows.map((row) => {
+            return (
+              <tr key={row.id}>
+                <td>
+                  <div className="flex items-center gap-2">
+                    <Checkbox
+                      checked={row.checked}
+                      onCheckedChange={(checked) => {
+                        console.log(checked);
+
+                        if (typeof checked === 'boolean') {
+                          toggleChecked(row.id, checked);
+                        }
+                      }}
+                    />
+                    <span>{row.tour_options}</span>
+                    <span
+                      className="underline text-blue-500 ml-auto cursor-pointer"
+                      onClick={openModal}
+                    >
+                      More info
+                    </span>
+                  </div>
+                </td>
+                <td>
+                  <SelectField
+                    methods={methods}
+                    name="name"
+                    options={[{ id: 1, name: 'Doniyor' }]}
+                    className="w-auto"
+                    placeholder="Sharing Transfers"
                   />
-                  <span>{row.tour_options}</span>
-                  <span
-                    className="underline text-blue-500 ml-auto cursor-pointer"
-                    onClick={openModal}
-                  >
-                    More info
-                  </span>
-                </div>
-              </td>
-              <td>
-                <SelectField
-                  methods={methods}
-                  name="name"
-                  options={[{ id: 1, name: 'Doniyor' }]}
-                  className="w-auto"
-                  placeholder="Sharing Transfers"
-                />
-              </td>
-              <td>
-                <DatePicker />
-              </td>
-              <td>
-                <Select
-                  options={optionsValues}
-                  value={row.adult}
-                  setValue={(val) =>
-                    updateQuantity(row.id, 'adult', Number(val))
-                  }
-                  className="w-auto"
-                />
-              </td>
-              <td>
-                <Select
-                  options={optionsValues}
-                  value={row.child}
-                  setValue={(val) =>
-                    updateQuantity(row.id, 'child', Number(val))
-                  }
-                  className="w-auto"
-                />
-              </td>
-              <td>
-                <Select
-                  options={optionsValues}
-                  value={row.infant}
-                  setValue={(val) =>
-                    updateQuantity(row.id, 'infant', Number(val))
-                  }
-                  className="w-auto"
-                />
-              </td>
-              <td>
-                <div className={cn('relative pt-4')}>
-                  <h3 className="font-semibold text-black/45 line-through absolute top-0 text-sm">
-                    Price: {formatMoney(12000)}
-                  </h3>
-                  <h3 className="text-xl font-semibold text-primary">
-                    Price: {formatMoney(1200)}
-                  </h3>
-                </div>
-              </td>
-            </tr>
-          ))}
+                </td>
+                <td>
+                  <DatePicker />
+                </td>
+                <td>
+                  <Select
+                    options={optionsValues}
+                    value={row.adult}
+                    setValue={(val) =>
+                      updateQuantity(row.id, 'adult', Number(val))
+                    }
+                    className="w-auto"
+                  />
+                </td>
+                <td>
+                  <Select
+                    options={optionsValues}
+                    value={row.child}
+                    setValue={(val) =>
+                      updateQuantity(row.id, 'child', Number(val))
+                    }
+                    className="w-auto"
+                  />
+                </td>
+                <td>
+                  <Select
+                    options={optionsValues}
+                    value={row.infant}
+                    setValue={(val) =>
+                      updateQuantity(row.id, 'infant', Number(val))
+                    }
+                    className="w-auto"
+                  />
+                </td>
+                <td>
+                  <div className={cn('relative pt-4')}>
+                    <h3 className="font-semibold text-black/45 line-through absolute top-0 text-sm">
+                      Price: {formatMoney(12000)}
+                    </h3>
+                    <h3 className="text-xl font-semibold text-primary">
+                      Price: {formatMoney(1200)}
+                    </h3>
+                  </div>
+                </td>
+              </tr>
+            );
+          })}
         </tbody>
       </table>
 

@@ -1,6 +1,5 @@
 'use client';
 import SelectField from 'components/form/select';
-import { CartIcon, WhatsappIcon } from 'components/icons';
 import { Button } from 'components/ui/button';
 import { Card, CardContent, CardHeader } from 'components/ui/card';
 import { DatePicker } from 'components/ui/datepicker';
@@ -30,9 +29,9 @@ const AttractionCardMobile = ({ data }: { data: Atraction }) => {
   const { openModal } = useModal('more-info');
   const methods = useForm<{ name: number }>();
   const [agesQuantity, setAgesQuantity] = useState<{ [key: string]: number }>({
-    adult: 0,
-    child: 0,
-    infant: 0,
+    adult: data.adult,
+    child: data.child,
+    infant: data.infant,
   });
 
   const handleAdd = (value: string) => {
@@ -41,6 +40,7 @@ const AttractionCardMobile = ({ data }: { data: Atraction }) => {
       [value]: prev[value] + 1,
     }));
   };
+
   const handleDelete = (value: string) => {
     setAgesQuantity((prev) => {
       if (prev[value] > 0) {
@@ -114,7 +114,9 @@ const AttractionCardMobile = ({ data }: { data: Atraction }) => {
           <p className="">Total</p>
           <p className="text-end">AED {formatMoney(360)}</p>
         </div>
-        <AddToCartAttraction data={[{ ...data, ...agesQuantity }]} />
+        <AddToCartAttraction
+          data={[{ ...data, ...agesQuantity, checked: false }]}
+        />
       </CardContent>
     </Card>
   );

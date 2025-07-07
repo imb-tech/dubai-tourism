@@ -5,5 +5,6 @@ type Atraction = {
   date: string;
   adult: number;
   child: number;
+  checked?: boolean;
   infant: number;
 };

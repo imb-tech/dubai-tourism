@@ -7,11 +7,10 @@ import React from 'react';
 import { useTextStore } from 'store/auth';
 import { useAuthStore } from 'store/auth-store';
 
-export default function GoToPayment() {
+export default function GoToPayment({ totalAmount }: { totalAmount: number }) {
   const { openModal } = useModal('auth');
-  const { text } = useTextStore();
   const { token } = useAuthStore();
-  const { push } = useRouter(); 
+  const { push } = useRouter();
 
   const handleClick = () => {
     if (token) {
@@ -26,10 +25,9 @@ export default function GoToPayment() {
       <h2 className="font-semibold text-xl">Total</h2>
       <div className="flex items-center justify-between p-4 bg-secondary rounded-md my-3">
         <span className="font-semibold">Final Amount</span>
-        <span className="font-bold"> AED {formatMoney(360)}</span>
+        <span className="font-bold"> AED {formatMoney(totalAmount)}</span>
       </div>
       <Button onClick={handleClick}>Go to payment</Button>
-
     </div>
   );
 }

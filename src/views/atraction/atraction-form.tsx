@@ -1,16 +1,16 @@
+'use client';
+
 import {
-  CartIcon,
   CheckIcon,
   ClockIcon,
   UserIcon,
-  WhatsappIcon,
 } from 'components/icons';
-import { Button } from 'components/ui/button';
-import React from 'react';
+import React, { useState } from 'react';
 import WtpTable from './atraction-table';
 import Modal from 'components/custom/modal';
 import WtpInfo from './atraction-info';
 import AttractionCardMobile from './attraction-card';
+import { useAtractionStore } from 'store/atraction';
 
 const dataAtraction = [
   {
@@ -51,9 +51,26 @@ const dataAtraction = [
   },
 ];
 
-const onSubmit = () => {};
+type RowData = Atraction & {
+  checked: boolean;
+  adult: number;
+  child: number;
+  infant: number;
+};
 
 export default function WtpForm() {
+  const { atraction } = useAtractionStore();
+
+  const [rows, setRows] = useState<RowData[]>(
+    dataAtraction.map((item) => ({
+      ...item,
+      checked: false,
+      adult: 0,
+      child: 0,
+      infant: 0,
+    }))
+  );
+
   return (
     <div className="lg:px-6 py-6 px-3 rounded-lg bg-secondary mt-14">
       <h2 className="text-xl lg:text-2xl font-semibold">
@@ -95,12 +112,16 @@ export default function WtpForm() {
         Atlantis Aquaventure Waterpark offers
       </h2>
       <WtpTable data={dataAtraction} />
-      {dataAtraction.map((item, index) => (
-        <AttractionCardMobile key={index} data={item} />
-      ))}
+      {rows.map((row) => {
+        const matchedAtraction = {
+          ...row,
+          ...(atraction.find((item) => item.id === row.id) ?? {}),
+        };
+        return <AttractionCardMobile key={row.id} data={matchedAtraction} />;
+      })}
       <Modal modalKey="more-info" className="max-w-xl">
         <WtpInfo />
       </Modal>
     </div>
   );
-}
+} 

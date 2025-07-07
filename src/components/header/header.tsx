@@ -2,19 +2,12 @@ import Link from 'next/link';
 import Navbar from './navbar';
 import Image from 'next/image';
 import ServicesButton from './services-button';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { Button } from 'components/ui/button';
 import { cn } from 'lib/utils';
-import { CartIcon, LoginIcon } from 'components/icons';
-import Modal from 'components/custom/modal';
-import Register from 'views/auth/register';
+import { CartIcon } from 'components/icons';
 import { useModal } from 'hooks/use-modal';
-import { useTextStore } from 'store/auth';
-import Login from 'views/auth/login';
-import EmailVerification from 'views/auth/message-code';
-import { useOtpTimerStore } from 'store/useOtpTimerStore';
 import { useAuthStore } from 'store/auth-store';
-import { User } from 'lucide-react';
 import { useGet } from 'hooks/useGet';
 import { LOGIN, PROFILE } from 'constants/api-endpoints';
 import { useSession } from 'next-auth/react';
@@ -25,6 +18,7 @@ import UserMenu from './user-menu';
 
 export default function Header() {
   const pathname = usePathname();
+  const router = useRouter()
   const { closeModal } = useModal('auth');
   const { token, setToken } = useAuthStore();
   const hasCalledRef = useRef(false);
@@ -100,6 +94,9 @@ export default function Header() {
           <div className="flex items-end gap-3  h-[45px]">
             <UserMenu data={data} />
             <Button
+            onClick={()=>{
+              router.push("/checkout")
+            }}
               className={cn(
                 '  shadow-none ',
                 pathname === '/'
