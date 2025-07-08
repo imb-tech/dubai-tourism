@@ -1,4 +1,4 @@
-type IconProps = { size?: number };
+type IconProps = { size?: number; bg?: string };
 
 export const TouresIcon = () => (
   <svg
@@ -767,13 +767,13 @@ export const CartIcon = ({ size = 20 }: IconProps) => (
   </svg>
 );
 
-export const NotRateIcon = ({ size = 20 }: IconProps) => (
+export const NotRateIcon = ({ size = 20, bg }: IconProps) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width={size}
     height={size}
     viewBox="0 0 20 20"
-    fill="none"
+    fill={bg ? 'currentColor' : 'none'}
   >
     <path
       fillRule="evenodd"

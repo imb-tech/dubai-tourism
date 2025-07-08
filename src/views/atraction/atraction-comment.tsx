@@ -1,18 +1,32 @@
-import { NotRateIcon } from 'components/icons';
+import { NotRateIcon, RateIcon } from 'components/icons';
 import { Button } from 'components/ui/button';
-import React from 'react';
+import React, { useState } from 'react';
 
 export default function WriteComment() {
+  const [state, setState] = useState<number>(-1);
+
+  const handleClick = (i: number) => {
+    setState(i);
+  };
+
   return (
     <div>
       <div className="flex items-center gap-3">
         <p>Sizning reytingingiz:</p>
         <div className="flex items-center gap-2">
-          <NotRateIcon />
-          <NotRateIcon />
-          <NotRateIcon />
-          <NotRateIcon />
-          <NotRateIcon />
+          {Array(5)
+            .fill(0)
+            .map((_, i) => (
+              <span
+                className={state >= i ? 'text-[#FAAD14]' : ''}
+                key={i}
+                onClick={() => {
+                  handleClick(i);
+                }}
+              >
+                <NotRateIcon bg={state >= i ? 'text-[#FAAD14]' : ''} />
+              </span>
+            ))}
         </div>
       </div>
       <fieldset className="flex flex-col mt-3">

@@ -61,8 +61,6 @@ export default function WtpTable({ data }: { data: Atraction[] }) {
       prev.map((row) => (row.id === id ? { ...row, [key]: value } : row))
     );
   };
-
-   console.log(rows);
    
 
   return (

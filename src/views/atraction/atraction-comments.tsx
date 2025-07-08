@@ -1,4 +1,4 @@
-"use client"
+'use client';
 import Modal from 'components/custom/modal';
 import CommentCard from 'components/shared/comment-card';
 import { Button } from 'components/ui/button';
@@ -21,7 +21,7 @@ export default function WtpComments() {
           <Button variant="secondary" className="shadow-none w-full md:w-max">
             Ko’proq ko’rish
           </Button>
-          <Button onClick={openModal} className='shadow-none w-full md:w-max'>
+          <Button onClick={openModal} className="shadow-none w-full md:w-max">
             Izoh qoldirish
             <span className="text-transparent"></span>
           </Button>
