@@ -4,9 +4,8 @@ import SectionDetailsHeading from 'components/ui/page-heading';
 import { BANNERS } from 'constants/api-endpoints';
 import { fetchData } from 'lib/fetchData';
 import React from 'react';
-import { useTextApartmentStore } from 'store/rent-apartment';
 import ApartmentFilter from 'views/rent-apartment/apartment-filter';
-import FilterApartment from './filter-apartment';
+import ListAndMapApartment from './list-map-apartment';
 
 const RentApartment = async () => {
   const banners = await fetchData<Banner[]>(BANNERS, {
@@ -22,7 +21,7 @@ const RentApartment = async () => {
         <ApartmentFilter />
       </div>
 
-      <FilterApartment />
+      <ListAndMapApartment />
 
       <div className="mt-8">
         <Questions title="Renta Apartment Questions" service="apartments" />
@@ -32,4 +31,3 @@ const RentApartment = async () => {
 };
 
 export default RentApartment;
-

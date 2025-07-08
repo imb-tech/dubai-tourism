@@ -1,11 +1,10 @@
 'use client';
 
 import React, { Fragment } from 'react';
-
 import CarCard from 'components/shared/car-card';
 import { useTextApartmentStore } from 'store/rent-apartment';
 
-const FilterApartment = () => {
+const ListAndMapApartment = () => {
   const { text } = useTextApartmentStore();
   return (
     <Fragment>
@@ -40,7 +39,7 @@ const FilterApartment = () => {
   );
 };
 
-export default FilterApartment;
+export default ListAndMapApartment;
 
 const cars: Product[] = [
   {
