@@ -4,7 +4,6 @@ import SectionDetailsHeading from 'components/ui/page-heading';
 import { BANNERS } from 'constants/api-endpoints';
 import { fetchData } from 'lib/fetchData';
 import React from 'react';
-import { useTextApartmentStore } from 'store/rent-apartment';
 import ApartmentFilter from 'views/rent-apartment/apartment-filter';
 import FilterApartment from './filter-apartment';
 
