@@ -99,7 +99,7 @@ export default function CarFeatures({ cars }: { cars: RentCar | null }) {
 
   return (
     <div className="lg:p-6 p-3 rounded-lg border mt-5">
-      <h1 className="md:text-3xl text-2xl font-semibold m-0">Cart Features</h1>
+      <h1 className="md:text-3xl text-2xl font-semibold m-0">Car Features</h1>
       <ul className="grid lg:grid-cols-8 md:grid-cols-5 grid-cols-3 gap-2 mt-3">
         {data.map((el) => (
           <li
