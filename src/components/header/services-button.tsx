@@ -1,3 +1,4 @@
+'use client';
 import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from 'lib/utils';
 import React, { useState } from 'react';
@@ -58,7 +59,7 @@ function ServicesButton({ pathname }: { pathname: string | null }) {
     },
     {
       id: 7,
-      name: 'Renta car',
+      name: 'Rent a car',
       icon: RentaIcon,
       url: '/rent',
     },

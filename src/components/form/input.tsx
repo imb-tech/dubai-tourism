@@ -1,3 +1,4 @@
+'use client';
 import ErrorMessage from 'components/ui/error-message';
 import { Input, InputProps } from 'components/ui/input';
 import { Label } from 'components/ui/label';

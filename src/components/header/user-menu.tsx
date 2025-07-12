@@ -1,7 +1,8 @@
 'use client';
+
 import React from 'react';
 import { Button } from '../ui/button';
-import { LayoutList, LogIn, LogOut, User } from 'lucide-react';
+import { LogOut, User } from 'lucide-react';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -19,7 +20,7 @@ import { useModal } from 'hooks/use-modal';
 import { useOtpTimerStore } from 'store/useOtpTimerStore';
 import { useTextStore } from 'store/auth';
 import { cn } from 'lib/utils';
-import { usePathname, useRouter } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 import { LoginIcon } from 'components/icons';
 
 export default function UserMenu({ data }: { data: Profile | undefined }) {
@@ -28,7 +29,6 @@ export default function UserMenu({ data }: { data: Profile | undefined }) {
   const { timer, isActive } = useOtpTimerStore();
   const { text } = useTextStore();
   const { token, clearToken } = useAuthStore();
-  const { push } = useRouter();
 
   const functionLogOut = async () => {
     clearToken();

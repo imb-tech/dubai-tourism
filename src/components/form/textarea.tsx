@@ -1,3 +1,4 @@
+'use client';
 import ErrorMessage from "components/ui/error-message"
 import { Label } from "components/ui/label"
 import { Textarea } from "components/ui/textarea"

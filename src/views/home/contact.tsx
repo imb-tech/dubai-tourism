@@ -1,3 +1,4 @@
+'use client';
 import FormInput from 'components/form/input';
 import PhoneField from 'components/form/phone-field';
 import FormTextarea from 'components/form/textarea';
