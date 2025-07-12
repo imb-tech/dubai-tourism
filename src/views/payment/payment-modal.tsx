@@ -7,7 +7,7 @@ const PaymentModal = () => {
   return (
     <div className="flex flex-col items-center gap-6 text-primary">
       <SuccessIcon />
-      <p className="text-3xl text-center text-black">
+      <p className="text-2xl md:text-3xl text-center text-black">
         Payment approved successfully
       </p>
       <div className="bg-primary-foreground w-full rounded-lg p-4">
