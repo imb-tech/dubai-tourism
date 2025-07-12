@@ -6,7 +6,7 @@ export default function page() {
   return (
     <React.Fragment>
       <PaymentMain />
-      <div className="container mx-auto lg:px-0 px-3">
+      <div className="container mx-auto lg:px-0 px-6">
         <Questions title="Payment  questions" service="mice_services" />
       </div>
     </React.Fragment>

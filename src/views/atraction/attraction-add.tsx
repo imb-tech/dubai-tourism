@@ -10,6 +10,7 @@ const AddToCartAttraction = ({ data }: { data: Atraction[] }) => {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-2 mt-5">
       <Button
+        className="lg:bg-primary bg-accent hover:bg-accent lg:hover:bg-primary lg:text-white text-black"
         onClick={() => {
           addAtraction(data);
           toast.success("Savatchaga qo'shildi!");
@@ -22,10 +23,17 @@ const AddToCartAttraction = ({ data }: { data: Atraction[] }) => {
       <Button
         size="lg"
         variant="ghost"
-        className="bg-[#52C41A] hover:bg-white text-white  hover:text-primary gap-1"
+        className="bg-[#52C41A]  text-white hover:text-white hover:bg-[#52C41A] gap-1"
       >
         <WhatsappIcon size={25} />
         <span>Whatsapp</span>
+      </Button>
+      <Button
+        className="lg:hidden md:col-span-2 bg-primary"
+        variant="default"
+        size="lg"
+      >
+        Purchase now
       </Button>
     </div>
   );

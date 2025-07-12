@@ -10,7 +10,7 @@ export default function TransferPersonalForm() {
   const form = useForm();
 
   return (
-    <div className="bg-background rounded-md p-6">
+    <div className="bg-background rounded-md p-4 shadow">
       <h2 className="md:text-3xl text-2xl font-semibold m-0 mb-4">
         Lead pacssenger
       </h2>
@@ -54,14 +54,14 @@ export default function TransferPersonalForm() {
           required
         />
       </div>
-      <p className="text-sm py-0.5">
+      <p className="text-sm my-2">
         Meeting with a name sign. Enter the name you want written on the sign
       </p>
-      <div className="flex items-center justify-end gap-2 pt-3cou">
-        <Button variant="secondary" className="shadow-none">
+      <div className="flex items-center justify-between md:justify-end gap-2 pt-3">
+        <Button variant="secondary" className="shadow-none w-full md:w-auto">
           Back
         </Button>
-        <Button>Continue</Button>
+        <Button className='w-full md:w-auto'>Continue</Button>
       </div>
     </div>
   );

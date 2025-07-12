@@ -30,15 +30,17 @@ export default function AtractionFilter() {
         paramKey="filter1"
         options={filters}
         placeholder="filter1"
+        className="h-10"
       />
       <SelectParams
         paramKey="filter2"
         options={filters}
         placeholder="filter2"
+        className="h-10"
       />
       <ParamInput
         placeholder="Search"
-        className="bg-primary placeholder:text-white text-white"
+        className="bg-primary placeholder:text-white text-white h-10"
         fullWidth
         suffix={<SearchIcon className="text-white" size={20} />}
       />

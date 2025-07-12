@@ -34,26 +34,8 @@ export default function TransferForm() {
   const [isReturn, setIsReturn] = useState<boolean>(false);
 
   return (
-    <div className="md:p-5 my-8 p-3 border rounded-md shadow-[0px_4px_124px_0px_rgba(18,24,34,0.09)]">
-      <div className="flex md:gap-5 gap-3 md:items-center items-start flex-col md:flex-row">
-        <div className="flex  items-center bg-primary/20 rounded-lg py-2 px-1 pl-4 justify-center">
-          <span className="text-primary">
-            <Car2Icon size={22} />
-          </span>
-          <span className="text-primary/50">
-            <PlaneIcon size={42} />
-          </span>
-        </div>
-        <div>
-          <h1 className="md:text-2xl text-lg font-semibold">
-            Reliable Airport Transfers in Dubai – Comfort and Convenience
-          </h1>
-          <p className="text-black/50 font-semibold text-sm">
-            Choose Your Destination and Preferred Time
-          </p>
-        </div>
-      </div>
-      <form className="py-4 flex flex-col gap-3">
+    <div className="md:p-2 my-8 p-3 border rounded-md shadow-[0px_4px_124px_0px_rgba(18,24,34,0.09)]">
+      <form className="flex flex-col gap-3">
         <div className="grid md:grid-cols-2 grid-cols-1 gap-3">
           <SearchSelect
             methods={form}
@@ -89,7 +71,7 @@ export default function TransferForm() {
         <Button
           variant="outline"
           className={cn(
-            'border-dashed border-primary w-full text-primary font-semibold hover:text-primary',
+            'border-dashed border-primary w-full text-primary font-semibold hover:text-primary text-base py-2 h-12',
             isReturn ? 'hidden' : ''
           )}
           size="lg"
@@ -129,9 +111,9 @@ export default function TransferForm() {
           type="number"
           min={1}
         />
-        <Button>
-          Search
-          <Search size={18} />
+        <Button className='h-11'>
+         <span className='text-base'>Search</span>
+          <Search size={20} />
         </Button>
       </form>
     </div>

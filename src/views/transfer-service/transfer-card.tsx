@@ -1,13 +1,37 @@
+import React from 'react';
+import Image from 'next/image';
+import { Plus } from 'lucide-react';
 import { CalendarIcon, ClockIcon } from 'components/icons';
 import { Button } from 'components/ui/button';
-import { Plus } from 'lucide-react';
 import { BagIcon, UserIcon } from 'components/icons';
-import Image from 'next/image';
-import React from 'react';
+import { Badge } from 'components/ui/badge';
 
-export default function TransferCard() {
+export default function TransferCard({
+  image,
+  name,
+  location,
+  rating,
+  areaSqFt,
+  gear,
+  baths,
+  price,
+  discount,
+  reviewsCount,
+  km_per_day,
+  slug,
+  tag,
+  year,
+  beds,
+  best_seller,
+  suffix,
+}: Product) {
   return (
-    <div className="bg-background rounded-md p-5">
+    <div className="bg-background rounded-md p-4 relative  shadow">
+      {best_seller && (
+        <Badge className="absolute bg-[#FF5533] top-0 left-0 p-2 text-white text-xs font-medium rounded-none rounded-tl-lg rounded-br-lg">
+          Best seller
+        </Badge>
+      )}
       <Image
         src="/images/car.png"
         alt="camara"
@@ -40,10 +64,14 @@ export default function TransferCard() {
 
           <ul className="py-2">
             <li>
-              <p className="flex items-center gap-1 text-sm font-semibold">
+              <p className="flex items-center gap-2 text-sm font-semibold">
                 <span className="block size-3 bg-black/40 rounded-full"></span>
-                Rome Flumicino Airport(FCO),{' '}
-                <span className="font-light">Rome, Italy</span>
+                <span className="flex flex-col">
+                  <span className="text-base">
+                    Rome Flumicino Airport(FCO),
+                  </span>
+                  <span className="font-light">Rome, Italy</span>
+                </span>
               </p>
             </li>
             <li className="pl-[5px]">
@@ -52,8 +80,10 @@ export default function TransferCard() {
             <li>
               <p className="flex items-center gap-1 text-sm font-semibold">
                 <span className="block size-3 bg-primary/80 rounded-full"></span>
-                Dubai Airport(DBX), Dubai,{' '}
-                <span className="font-light">United Arab Emirates</span>
+                <span className="flex flex-col">
+                  <span className="text-base"> Dubai Airport(DBX), Dubai,</span>
+                  <span className="font-light">United Arab Emirates</span>
+                </span>
               </p>
             </li>
           </ul>
@@ -62,7 +92,7 @@ export default function TransferCard() {
             <span className="text-primary">
               <CalendarIcon size={16} />
             </span>
-            <span className="text-sm">O3 May 2025</span>
+            <span className="text-sm">03 May 2025</span>
           </p>
 
           <p className="flex items-center gap-3 font-semibold mt-3">
@@ -76,9 +106,32 @@ export default function TransferCard() {
         <span className="border-t h-1 w-full my-2"></span>
 
         <Button>
-          <Plus size={16} />
+          <Plus size={20} />
           Add return
         </Button>
+        <span className="border-t h-1 w-full my-2"></span>
+        <ul className="flex flex-col gap-4 ">
+          <li className="flex items-center gap-2 text-[#74AEF8]">
+            <UserIcon size={20} />
+            <span className="text-black font-semibold md:text-sm text-sm">
+              2 passengers
+            </span>
+          </li>
+          <li className="flex items-center gap-2 text-[#74AEF8]">
+            <UserIcon size={20} />
+            <span className="text-black font-semibold md:text-sm text-sm">
+              6113 km/3966 miles
+            </span>
+          </li>
+          <li className="flex items-center gap-2 text-[#74AEF8]">
+            <span className="text-primary">
+              <ClockIcon size={20} />
+            </span>
+            <span className="text-black font-semibold md:text-sm text-sm">
+              15h 20m
+            </span>
+          </li>
+        </ul>
       </div>
     </div>
   );

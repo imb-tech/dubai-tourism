@@ -8,7 +8,7 @@ import {
 
 export default function WtpInfo() {
   return (
-    <div>
+    <div className="w-full">
       <Accordion
         type="multiple"
         defaultValue={['item-1', 'item-2', 'item-3']}
@@ -62,34 +62,32 @@ export default function WtpInfo() {
             </div>
           </AccordionTrigger>
           <AccordionContent>
-            <div>
-              <div className="grid grid-cols-3 gap-2 mb-2">
-                <div className="font-medium text-sm">Transfer Type</div>
-                <div className="font-medium text-sm">Pickup Timings</div>
-                <div className="font-medium text-sm">Duration Approx</div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+              <div className="flex flex-col gap-1">
+                <p className="font-medium text-sm">Transfer Type</p>
+                <p className="text-sm text-gray-600">Without Transfers</p>
+                <p className="text-sm text-gray-600">Private Transfers</p>
               </div>
-
-              <div className="grid grid-cols-3 gap-2 mb-2">
-                <div className="text-sm text-gray-600">Without Transfers</div>
-                <div className="text-sm text-gray-600">
+              <div className="flex flex-col gap-1">
+                <p className="font-medium text-sm">Pickup Timings</p>
+                <p className="text-gray-600">Boarding starts at 05:00 PM</p>
+                <p className="text-sm text-gray-600">
                   Pick up will be done around 4:00 pm
-                </div>
-                <div className="text-sm text-gray-600">02:00 hours</div>
+                </p>
+                <p className="text-gray-600">
+                  Departure at 05:30 PM Return at 06:30 PM
+                </p>
               </div>
-
-              <div className="grid grid-cols-3 gap-2">
-                <div className="text-sm text-gray-600">Private Transfers</div>
-                <div className="text-sm text-gray-600">
-                  <p>Boarding starts at 05:00 PM</p>
-                  <p>Departure at 05:30 PM Return at 06:30 PM</p>
-                </div>
-                <div className="text-sm text-gray-600">01:00 hours</div>
+              <div className="flex flex-col gap-1">
+                <p className="font-medium text-sm">Duration Approx</p>
+                <p className="text-sm text-gray-600">01:00 hours</p>
+                <p className="text-sm text-gray-600">02:00 hours</p>
               </div>
             </div>
           </AccordionContent>
         </AccordionItem>
 
-        <AccordionItem value="item-4">
+        <AccordionItem value="item-4" className="border-none">
           <AccordionTrigger className="flex items-center py-4">
             <div className="flex items-center gap-3">
               <div className="bg-primary text-white rounded-full p-1.5">

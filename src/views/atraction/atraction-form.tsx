@@ -1,10 +1,6 @@
 'use client';
 
-import {
-  CheckIcon,
-  ClockIcon,
-  UserIcon,
-} from 'components/icons';
+import { CheckIcon, ClockIcon, UserIcon } from 'components/icons';
 import React, { useState } from 'react';
 import WtpTable from './atraction-table';
 import Modal from 'components/custom/modal';
@@ -118,10 +114,12 @@ export default function WtpForm() {
           ...(atraction.find((item) => item.id === row.id) ?? {}),
         };
         return <AttractionCardMobile key={row.id} data={matchedAtraction} />;
-      })}
-      <Modal modalKey="more-info" className="max-w-xl">
-        <WtpInfo />
+      })} 
+      <Modal size='max-w-4xl' modalKey="more-info" title>
+        <div className="max-h-[75vh] overflow-y-auto no-scrollbar ">
+          <WtpInfo />
+        </div>
       </Modal>
     </div>
   );
-} 
+}

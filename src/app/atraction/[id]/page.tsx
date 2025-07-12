@@ -76,7 +76,7 @@ export default async function wtp() {
     <React.Fragment>
       <div className="container mx-auto lg:px-0 px-3">
         <SectionDetailsHeading title="Atlantis Aquaventure Waterpark" />
-        <SliderComponents images={banners || []} />
+        <SliderComponents images={banners || []} showCout={true} />
         <WtpForm />
         <WtpMap />
         <WtpFeatures />

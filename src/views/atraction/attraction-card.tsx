@@ -53,13 +53,13 @@ const AttractionCardMobile = ({ data }: { data: Atraction }) => {
 
   return (
     <Card className="lg:hidden mb-4">
-      <CardHeader>
+      <CardHeader className="px-4">
         <span>{data.tour_options}</span>
         <span className="underline text-blue-500 mr-auto" onClick={openModal}>
           More info
         </span>
       </CardHeader>
-      <CardContent>
+      <CardContent className="px-4">
         <SelectField
           methods={methods}
           name="name"
@@ -82,7 +82,7 @@ const AttractionCardMobile = ({ data }: { data: Atraction }) => {
                     onClick={() => {
                       handleDelete(item.id);
                     }}
-                    className="w-8 h-8 rounded-full p-0 bg-white hover:bg-secondary"
+                    className="w-8 h-8 rounded-full p-0 bg-white hover:bg-secondary shadow-none"
                   >
                     <Minus className="w-4 p-0 text-black" />
                   </Button>
@@ -93,7 +93,7 @@ const AttractionCardMobile = ({ data }: { data: Atraction }) => {
                     onClick={() => {
                       handleAdd(item.id);
                     }}
-                    className="w-8 h-8 rounded-full p-0 bg-white hover:bg-secondary"
+                    className="w-8 h-8 rounded-full p-0 bg-white hover:bg-secondary shadow-none"
                   >
                     <Plus className="w-4 p-0 text-black" />
                   </Button>

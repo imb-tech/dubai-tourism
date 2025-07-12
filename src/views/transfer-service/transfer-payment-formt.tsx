@@ -1,18 +1,20 @@
 'use client';
 
 import { useForm } from 'react-hook-form';
-
 import FormInput from 'components/form/input';
-import PhoneField from 'components/form/phone-field';
 import { Button } from 'components/ui/button';
 import PaymentTypes from 'views/payment/payment-types';
 import { Checkbox } from 'components/ui/checkbox';
+import Modal from 'components/custom/modal';
+import { useModal } from 'hooks/use-modal';
+import PaymentModal from '../payment/payment-modal';
 
 export default function TransferPaymentForm() {
   const form = useForm();
+  const { openModal } = useModal('payment');
 
   return (
-    <div className="bg-background rounded-md p-6">
+    <div className="bg-background rounded-md p-4 shadow">
       <h2 className="md:text-3xl text-2xl font-semibold m-0 mb-4">Payment</h2>
       <div className="flex flex-col gap-5">
         <div className="flex items-end gap-1">
@@ -24,7 +26,7 @@ export default function TransferPaymentForm() {
             wrapperClassName="flex-1"
             label="Coupone code"
           />
-          <Button size="lg" type="button">
+          <Button size="lg" type="button" className="h-11">
             Apply
           </Button>
         </div>
@@ -44,15 +46,21 @@ export default function TransferPaymentForm() {
           <Checkbox defaultChecked />
           <p>By clicking Pay now you agree with Terms and Conditions</p>
         </div>
-        <div className="grid grid-cols-2 md:ml-auto">
-          <Button variant="secondary" className="shadow-none mr-2">
+        <div className="grid grid-cols-2  gap-2 md:ml-auto">
+          <Button variant="secondary" className="shadow-none ">
             Back
           </Button>
-          <Button size="lg" type="button">
+          <Button onClick={openModal} type="button">
             Pay now
           </Button>
         </div>
       </div>
+      <Modal
+        modalKey="payment"
+        titleClass="lg:text-3xl font-semibold text-2xl"
+      >
+        <PaymentModal />
+      </Modal>
     </div>
   );
 }

@@ -22,7 +22,6 @@ type RowData = Atraction & {
 
 export default function WtpTable({ data }: { data: Atraction[] }) {
   const { openModal } = useModal('more-info');
-  const { atraction } = useAtractionStore();
 
   const methods = useForm<{
     name: number;
@@ -173,8 +172,8 @@ export default function WtpTable({ data }: { data: Atraction[] }) {
                     <h3 className="font-semibold text-black/45 line-through absolute top-0 text-sm">
                       Price: {formatMoney(12000)}
                     </h3>
-                    <h3 className="text-xl font-semibold text-primary">
-                      Price: {formatMoney(1200)}
+                    <h3 className="text-xl font-semibold text-black">
+                      Price: {formatMoney(1200)} AED
                     </h3>
                   </div>
                 </td>
