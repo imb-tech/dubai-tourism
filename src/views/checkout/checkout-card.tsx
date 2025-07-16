@@ -3,16 +3,19 @@ import { useModal } from 'hooks/use-modal';
 import { cn, formatMoney } from 'lib/utils';
 import { Trash2 } from 'lucide-react';
 import Image from 'next/image';
-import { Fragment, useState } from 'react';
+import { Fragment } from 'react';
 import { format as formatter } from 'date-fns';
-import { BASKETDELETE } from 'constants/api-endpoints';
+import { BASKET, BASKETDELETE } from 'constants/api-endpoints';
 import { useDelete } from 'hooks/useDelete';
 import { toast } from 'sonner';
+import { useQueryClient } from '@tanstack/react-query';
 
 export default function CheckoutCard({ data }: { data: AtractionGetBasket }) {
   const { openModal } = useModal('more-info');
+  const querClinet = useQueryClient();
   const { mutate } = useDelete({
     onSuccess: () => {
+      querClinet.refetchQueries({ queryKey: [BASKET] });
       toast.success("Muvaffaqiyatli o'chirildi.");
     },
   });
@@ -20,7 +23,6 @@ export default function CheckoutCard({ data }: { data: AtractionGetBasket }) {
   return (
     <Fragment>
       <div className="hidden lg:flex gap-3 bg-white rounded-md px-4 justify-between py-2">
-       
         <Image
           src={data?.image}
           alt="logo"
