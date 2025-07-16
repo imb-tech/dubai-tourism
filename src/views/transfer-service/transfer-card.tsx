@@ -9,22 +9,16 @@ import { Badge } from 'components/ui/badge';
 export default function TransferCard({
   image,
   name,
-  location,
-  rating,
-  areaSqFt,
-  gear,
-  baths,
   price,
   discount,
-  reviewsCount,
-  km_per_day,
   slug,
-  tag,
-  year,
-  beds,
   best_seller,
-  suffix,
-}: Product) {
+  passengers,
+  type,
+  luggage,
+  images,
+  id
+}: Transfers) {
   return (
     <div className="bg-background rounded-md p-4 relative  shadow">
       {best_seller && (
@@ -33,26 +27,26 @@ export default function TransferCard({
         </Badge>
       )}
       <Image
-        src="/images/car.png"
+        src={image}
         alt="camara"
         width={450}
         height={450}
         priority
       />
       <div className="flex flex-col gap-1">
-        <h3 className="text-lg font-semibold">Scoda octavia</h3>
+        <h3 className="text-lg font-semibold">{name}</h3>
 
         <ul className="flex items-center gap-5 py-1 w-full">
           <li className="flex items-center gap-1 text-[#74AEF8]">
             <UserIcon size={18} />
             <span className="text-black font-semibold md:text-sm text-sm">
-              3 passengers
+             {passengers} passengers
             </span>
           </li>
           <li className="flex items-center gap-1 text-[#74AEF8]">
             <BagIcon size={18} />
             <span className="text-black font-semibold md:text-sm text-sm">
-              2 luggages
+             {luggage} luggages
             </span>
           </li>
         </ul>
@@ -114,7 +108,7 @@ export default function TransferCard({
           <li className="flex items-center gap-2 text-[#74AEF8]">
             <UserIcon size={20} />
             <span className="text-black font-semibold md:text-sm text-sm">
-              2 passengers
+              {passengers} passengers
             </span>
           </li>
           <li className="flex items-center gap-2 text-[#74AEF8]">
