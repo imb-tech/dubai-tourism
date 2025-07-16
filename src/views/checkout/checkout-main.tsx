@@ -8,19 +8,15 @@ import WtpInfo from 'views/atraction/atraction-info';
 import Modal from 'components/custom/modal';
 import CheckoutCardMobile from './checkout-card-mobile';
 import { useIsMobile } from 'hooks/use-mobile';
+import { fetchData } from 'lib/fetchData';
+import { BASKET } from 'constants/api-endpoints';
 
 export default function CheckoutMain() {
   const { atraction } = useAtractionStore();
   const isMobile = useIsMobile();
+  const data = fetchData(BASKET);
 
-  const totalAmount = atraction.reduce(
-    (accumulator, currentValue) =>
-      accumulator +
-      currentValue?.adult * 300 +
-      currentValue?.child * 230 +
-      currentValue?.infant * 230,
-    0
-  );
+  console.log(data);
 
   return (
     <div className="container mx-auto">
@@ -35,7 +31,7 @@ export default function CheckoutMain() {
             )}
           </Fragment>
         ))}
-        <GoToPayment totalAmount={totalAmount} />
+        <GoToPayment totalAmount={0} />
       </div>
       <Modal modalKey="more-info" className="max-w-xl">
         <WtpInfo />

@@ -40,7 +40,7 @@ export default function AtractionFilter() {
       />
       <ParamInput
         placeholder="Search"
-        className="bg-primary placeholder:text-white text-white h-10"
+        className="bg-primary placeholder:text-white text-white h-10 text-base"
         fullWidth
         suffix={<SearchIcon className="text-white" size={20} />}
       />

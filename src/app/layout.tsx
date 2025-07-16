@@ -1,7 +1,6 @@
 'use client';
 
 import { Geist, Geist_Mono } from 'next/font/google';
-import './globals.css';
 import { Toaster } from 'sonner';
 import Header from 'components/header/header';
 import Footer from 'components/footer/footer';
@@ -9,6 +8,7 @@ import { QueryClientProvider } from '@tanstack/react-query';
 import { queryClient } from 'lib/query-client';
 import Contact from 'views/home/contact';
 import { SessionProvider } from 'next-auth/react';
+import './globals.css';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',

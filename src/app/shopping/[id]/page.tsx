@@ -9,7 +9,7 @@ import { fetchData } from 'lib/fetchData';
 import React from 'react';
 import ApplicationFormShoppping from 'views/shopping/application-form';
 import ShoppingCard from 'views/shopping/shopping-card';
-import ShoppingInfo from 'views/shopping/shopping-info';
+import ShoppingInfo from 'views/shopping/shopping-info'; 
 
 export type PageProps = {
   params: Promise<{ id: string }>;

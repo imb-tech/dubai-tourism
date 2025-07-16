@@ -1,66 +1,115 @@
 'use client';
 
 import { Tooltip } from 'components/custom/tooltip';
-import SelectField from 'components/form/select';
 import { Checkbox } from 'components/ui/checkbox';
 import { DatePicker } from 'components/ui/datepicker';
 import { useModal } from 'hooks/use-modal';
 import { cn, formatMoney } from 'lib/utils';
 import { Info } from 'lucide-react';
-import React, { useState } from 'react';
+import React, { useMemo, useCallback, useEffect } from 'react';
 import AddToCartAttraction from './attraction-add';
 import Select from 'components/ui/select';
-import { useForm } from 'react-hook-form';
-import { useAtractionStore } from 'store/atraction';
+import { useFieldArray, useFormContext } from 'react-hook-form';
 
-type RowData = Atraction & {
-  checked: boolean;
-  adult: number;
-  child: number;
-  infant: number;
-};
-
-export default function WtpTable({ data }: { data: Atraction[] }) {
+export default function WtpTable() {
   const { openModal } = useModal('more-info');
+  const form = useFormContext<AtractionDetail>();
+  const { fields, update } = useFieldArray({
+    control: form.control,
+    name: 'offers',
+    keyName: 'key',
+  });
 
-  const methods = useForm<{
-    name: number;
-    infant: number;
-    child: number;
-    adult: number;
-  }>();
+  const watchedOffers = useMemo(() => form.watch('offers') ?? [], [form]);
 
-  const [rows, setRows] = useState<RowData[]>(
-    data.map((item) => ({
-      ...item,
-      checked: false,
-      adult: 0,
-      child: 0,
-      infant: 0,
-    }))
+  const optionsValues = useMemo(
+    () => Array.from({ length: 5 }, (_, i) => ({ id: i, name: i })),
+    []
   );
 
-  const optionsValues = Array.from({ length: 17 }, (_, i) => ({
-    id: i,
-    name: i.toString(),
-  }));
+  const updateRow = useCallback(
+    (index: number, data: Partial<AtractionOffers>) => {
+      update(index, { ...fields[index], ...data });
+    },
+    [fields, update]
+  );
 
-  const toggleChecked = (id: string, checked: boolean) => {
-    setRows((prev) =>
-      prev.map((row) => (row.id === id ? { ...row, checked } : row))
+  const renderSelect = (
+    value: number,
+    onChange: (val: number | string) => void
+  ) => (
+    <Select
+      options={optionsValues}
+      value={value}
+      setValue={(val) => onChange(Number(val))}
+      className="w-auto"
+    />
+  );
+
+  const renderPrice = (row: any) => {
+    const {
+      adult = 1,
+      child = 0,
+      infant = 0,
+      adult_price = 0,
+      child_price = 0,
+      infant_price = 0,
+      discount_adults = 0,
+      discount_child = 0,
+      discount_infant = 0,
+      selected_transfer,
+    } = row;
+
+    const transferPrice = Number(selected_transfer?.price ?? 0);
+    const isDiscount = selected_transfer?.is_discount;
+
+    const originalPrice =
+      adult * adult_price +
+      child * child_price +
+      infant * infant_price +
+      transferPrice;
+
+    const discountedPrice =
+      adult * discount_adults +
+      child * discount_child +
+      infant * discount_infant +
+      transferPrice;
+
+    return (
+      <div className={cn('relative pt-4')}>
+        {isDiscount && (
+          <h3 className="font-semibold text-black/45 line-through absolute top-0 text-sm">
+            Price: {formatMoney(originalPrice)}
+          </h3>
+        )}
+        <h3 className="text-xl font-semibold text-black">
+          Price: {formatMoney(isDiscount ? discountedPrice : originalPrice)} AED
+        </h3>
+      </div>
     );
   };
 
-  const updateQuantity = (
-    id: string,
-    key: 'adult' | 'child' | 'infant',
-    value: number
-  ) => {
-    setRows((prev) =>
-      prev.map((row) => (row.id === id ? { ...row, [key]: value } : row))
-    );
-  };
-   
+  useEffect(() => {
+    watchedOffers.forEach((row, index) => {
+      const transferOptions = fields[index]?.transfer_options;
+      const currentTransfer = row.selected_transfer;
+
+      if (!currentTransfer && transferOptions?.length > 0) {
+        const firstOption = transferOptions[0];
+
+        update(index, {
+          ...fields[index],
+          selected_transfer: {
+            id: firstOption.id,
+            price: firstOption.price,
+            is_discount: firstOption.is_discount,
+          },
+        });
+      }
+    });
+  }, [fields, watchedOffers, update]);
+
+  const today = new Date().toLocaleDateString('en-CA');
 
   return (
     <div className="border lg:block hidden rounded-sm bg-white overflow-hidden p-3">
@@ -101,22 +150,20 @@ export default function WtpTable({ data }: { data: Atraction[] }) {
           </tr>
         </thead>
         <tbody>
-          {rows.map((row) => {
+          {fields.map((row, index) => {
+            const watchedRow = watchedOffers[index] ?? {};
+
             return (
-              <tr key={row.id}>
+              <tr key={row.key}>
                 <td>
                   <div className="flex items-center gap-2">
                     <Checkbox
-                      checked={row.checked}
-                      onCheckedChange={(checked) => {
-                        console.log(checked);
-
-                        if (typeof checked === 'boolean') {
-                          toggleChecked(row.id, checked);
-                        }
-                      }}
+                      checked={watchedRow.checked ?? false}
+                      onCheckedChange={(checked) =>
+                        updateRow(index, { checked: checked === true })
+                      }
                     />
-                    <span>{row.tour_options}</span>
+                    <span>{row.name}</span>
                     <span
                       className="underline text-blue-500 ml-auto cursor-pointer"
                       onClick={openModal}
@@ -126,64 +173,69 @@ export default function WtpTable({ data }: { data: Atraction[] }) {
                   </div>
                 </td>
                 <td>
-                  <SelectField
-                    methods={methods}
-                    name="name"
-                    options={[{ id: 1, name: 'Doniyor' }]}
-                    className="w-auto"
-                    placeholder="Sharing Transfers"
-                  />
-                </td>
-                <td>
-                  <DatePicker />
-                </td>
-                <td>
                   <Select
-                    options={optionsValues}
-                    value={row.adult}
-                    setValue={(val) =>
-                      updateQuantity(row.id, 'adult', Number(val))
-                    }
+                    options={row.transfer_options ?? []}
+                    value={watchedRow.selected_transfer?.id?.toString() ?? '1'}
+                    returnVal="id"
                     className="w-auto"
+                    setValue={(val: string | number) => {
+                      const selected = row.transfer_options?.find(
+                        (opt) => opt.id.toString() === val.toString()
+                      );
+                      updateRow(index, {
+                        selected_transfer: {
+                          price: selected?.price ?? 0,
+                          is_discount: selected?.is_discount ?? false,
+                          id: selected?.id ?? 0,
+                        },
+                      });
+                    }}
                   />
                 </td>
                 <td>
-                  <Select
-                    options={optionsValues}
-                    value={row.child}
-                    setValue={(val) =>
-                      updateQuantity(row.id, 'child', Number(val))
+                  <DatePicker
+                    defaultValue={watchedRow.tour_date ?? today}
+                    onChange={(val) =>
+                      updateRow(index, {
+                        tour_date: val?.toLocaleDateString('en-CA') ?? '',
+                      })
                     }
-                    className="w-auto"
                   />
                 </td>
                 <td>
-                  <Select
-                    options={optionsValues}
-                    value={row.infant}
-                    setValue={(val) =>
-                      updateQuantity(row.id, 'infant', Number(val))
-                    }
-                    className="w-auto"
-                  />
+                  {renderSelect(watchedRow.adult ?? 1, (v) =>
+                    updateRow(index, { adult: Number(v ?? 1) })
+                  )}
                 </td>
                 <td>
-                  <div className={cn('relative pt-4')}>
-                    <h3 className="font-semibold text-black/45 line-through absolute top-0 text-sm">
-                      Price: {formatMoney(12000)}
-                    </h3>
-                    <h3 className="text-xl font-semibold text-black">
-                      Price: {formatMoney(1200)} AED
-                    </h3>
-                  </div>
+                  {renderSelect(watchedRow.child ?? 0, (v) =>
+                    updateRow(index, { child: Number(v ?? 0) })
+                  )}
                 </td>
+                <td>
+                  {renderSelect(watchedRow.infant ?? 0, (v) =>
+                    updateRow(index, { infant: Number(v ?? 0) })
+                  )}
+                </td>
+                <td>{renderPrice(watchedRow)}</td>
               </tr>
             );
           })}
         </tbody>
       </table>
 
-      <AddToCartAttraction data={rows.filter((row) => row.checked)} />
+      <AddToCartAttraction
+        data={watchedOffers
+          .filter((row) => row.checked)
+          .map((row) => ({
+            attraction_offer: row.id ?? 0,
+            tour_date: row.tour_date ?? today,
+            transfer_option: row.selected_transfer?.id ?? 0,
+            adult: row.adult ?? 1,
+            child: row.child ?? 0,
+            infant: row.infant ?? 0,
+          }))}
+      />
     </div>
   );
 }

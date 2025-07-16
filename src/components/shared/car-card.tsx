@@ -2,8 +2,8 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { cn } from 'lib/utils';
 import { buttonVariants } from 'components/ui/button';
-import Money from './money';
 import { Badge } from 'components/ui/badge';
+import Money from './money';
 import {
   BagIconCar,
   BathIcon,
@@ -26,7 +26,7 @@ export default function CustomCard({
   baths,
   price,
   discount,
-  reviewsCount,
+  comment_count,
   km_per_day,
   slug,
   tag,
@@ -34,7 +34,7 @@ export default function CustomCard({
   beds,
   best_seller,
   suffix,
-  url = '/',
+  url = '',
 }: Product) {
   return (
     <div className="relative bg-white rounded-lg border flex flex-col p-2 gap-2 min-w-[320px] lg:min-w-40">
@@ -49,7 +49,7 @@ export default function CustomCard({
           width={400}
           height={300}
           alt={name}
-          className="rounded-md object-contain w-full h-full"
+          className="rounded-md object-cover w-full h-full"
         />
       </div>
       <div className="flex flex-col gap-1">
@@ -96,13 +96,13 @@ export default function CustomCard({
           </ul>
         ) : null}
 
-        {reviewsCount || rating ? (
+        {comment_count || rating ? (
           <ul className="flex items-center py-1 w-full gap-3">
-            {reviewsCount ? (
+            {comment_count ? (
               <li className="flex items-center gap-1 text-[#74AEF8]">
                 <User2Icon size={20} />
                 <span className="text-black font-medium md:text-sm text-sm">
-                  {reviewsCount} sharhlar
+                  {comment_count} sharhlar
                 </span>
               </li>
             ) : null}
@@ -155,7 +155,11 @@ export default function CustomCard({
 
         <Link
           href={`${url}/${slug}`}
-          className={cn(buttonVariants({ size: 'lg' }), 'w-full', 'text-base')}
+          className={cn(
+            buttonVariants({ size: 'default' }),
+            'w-full',
+            'text-base'
+          )}
         >
           Select
         </Link>

@@ -19,7 +19,6 @@ export default function Money({
   discountClassName,
   suffix,
 }: Props) {
-
   return (
     <div className={cn('relative pt-6', className, !discount && 'pt-0')}>
       {discount && (
@@ -29,7 +28,7 @@ export default function Money({
             priceClassName
           )}
         >
-          From AED {formatMoney(price)}
+          From AED {formatMoney(discount)}
         </h3>
       )}
       <h3

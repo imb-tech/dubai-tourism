@@ -25,13 +25,13 @@ const agesTypes = [
   },
 ];
 
-const AttractionCardMobile = ({ data }: { data: Atraction }) => {
+const AttractionCardMobile = ({ data }: { data: AtractionOffers }) => {
   const { openModal } = useModal('more-info');
   const methods = useForm<{ name: number }>();
   const [agesQuantity, setAgesQuantity] = useState<{ [key: string]: number }>({
-    adult: data.adult,
-    child: data.child,
-    infant: data.infant,
+    adult: 0,
+    child: 0,
+    infant: 0,
   });
 
   const handleAdd = (value: string) => {
@@ -54,7 +54,7 @@ const AttractionCardMobile = ({ data }: { data: Atraction }) => {
   return (
     <Card className="lg:hidden mb-4">
       <CardHeader className="px-4">
-        <span>{data.tour_options}</span>
+        <span>{data.name}</span>
         <span className="underline text-blue-500 mr-auto" onClick={openModal}>
           More info
         </span>
@@ -63,7 +63,11 @@ const AttractionCardMobile = ({ data }: { data: Atraction }) => {
         <SelectField
           methods={methods}
           name="name"
-          options={[{ id: 1, name: 'Doniyor' }]}
+          options={[
+            { id: 1, name: 'Public' },
+            { id: 2, name: 'Sharing' },
+            { id: 3, name: 'Private' },
+          ]}
           wrapperClassName="w-auto"
           placeholder="Sharing Transfers"
           className="mb-2"
@@ -114,9 +118,9 @@ const AttractionCardMobile = ({ data }: { data: Atraction }) => {
           <p className="">Total</p>
           <p className="text-end">AED {formatMoney(360)}</p>
         </div>
-        <AddToCartAttraction
+        {/* <AddToCartAttraction
           data={[{ ...data, ...agesQuantity, checked: false }]}
-        />
+        /> */}
       </CardContent>
     </Card>
   );

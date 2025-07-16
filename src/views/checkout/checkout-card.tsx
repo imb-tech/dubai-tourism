@@ -1,14 +1,22 @@
 import { StarIcon, UserIcon } from 'components/icons';
+import { formatters } from 'date-fns';
 import { useModal } from 'hooks/use-modal';
 import { cn, formatMoney } from 'lib/utils';
 import { Trash2 } from 'lucide-react';
 import Image from 'next/image';
 import { Fragment } from 'react';
 import { useAtractionStore } from 'store/atraction';
+import { format as formatter } from 'date-fns';
+import { fetchData } from 'lib/fetchData';
+import { BASKET } from 'constants/api-endpoints';
 
-export default function CheckoutCard({ item }: { item: Atraction }) {
+export default function CheckoutCard({ item }: { item: AtractionStore }) {
   const { removeAtraction } = useAtractionStore();
   const { openModal } = useModal('more-info');
+
+  const data = fetchData(BASKET);
+
+  console.log(data);
 
   return (
     <Fragment>
@@ -24,7 +32,7 @@ export default function CheckoutCard({ item }: { item: Atraction }) {
           height={100}
         />
         <div className="min-h-full flex flex-col gap-2 flex-[1]">
-          <h2 className="text-2xl font-semibold">{item.tour_options}</h2>
+          <h2 className="text-2xl font-semibold">{item.name}</h2>
           <ul className="flex gap-3 py-1">
             <li className="flex items-center gap-2 text-primary">
               <UserIcon />
@@ -39,11 +47,13 @@ export default function CheckoutCard({ item }: { item: Atraction }) {
           <ul className="grid grid-cols-5 gap-2 w-full">
             <li className="py-4 px-3 bg-secondary rounded-md">
               <h3 className="font-semibold">Transfer Option</h3>
-              <p className="text-sm">{item.transfer_option}</p>
+              {/* <p className="text-sm">{item.transfer_option}</p> */}
             </li>
             <li className="py-4 px-3 bg-secondary rounded-md">
               <h3 className="font-semibold">Tour Date</h3>
-              <p className="text-sm">12/04/2025</p>
+              <p className="text-sm">
+                {formatter('dd/MM/yyyy', item.tour_date)}
+              </p>
             </li>
             <li className="py-4 px-3 bg-secondary rounded-md">
               <h3 className="font-semibold">Adult</h3>
