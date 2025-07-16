@@ -17,7 +17,7 @@ type Fields = {
 export default function TransferNotesForm() {
   const form = useForm<Fields>();
   return (
-    <div className="bg-background rounded-md p-5">
+    <div className="bg-background rounded-md p-4 shadow">
       <h2 className="text-2xl font-semibold mb-5">Extras and notes</h2>
       <form className="flex flex-col gap-8">
         <FormInput
@@ -44,7 +44,7 @@ export default function TransferNotesForm() {
           />
         </fieldset>
 
-        <ul>
+        <ul className="flex flex-col gap-6">
           <li className="flex flex-col md:flex-row md:items-center gap-5 px-1">
             <Image
               src="/images/seat.png"
@@ -56,12 +56,45 @@ export default function TransferNotesForm() {
             <div className="flex-1">
               <h3 className="font-semibold">
                 Child seat
-                <span className="text-green-400  border-[0.5px] border-green-400 px-1 py-1 rounded-xl text-xs">
+                <span className="text-green-400 ml-2 border-[0.5px] border-green-400 px-1 py-1 rounded-xl text-xs">
                   Free
                 </span>
               </h3>
               <p>
                 Suitable for toddlers weighing 0-18 kg (approx 0 to 4 years).
+              </p>
+            </div>
+
+            <SelectField
+              methods={form}
+              name="child_seat"
+              isSearchable={false}
+              isClearable={false}
+              options={[
+                { id: 1, name: 'No' },
+                { id: 2, name: 'Yes' },
+              ]}
+              wrapperClassName="w-auto"
+              placeholder="No"
+            />
+          </li>
+          <li className="flex flex-col md:flex-row md:items-center gap-5 px-1">
+            <Image
+              src="/images/seat.png"
+              alt="Image"
+              height={60}
+              width={60}
+              priority
+            />
+            <div className="flex-1">
+              <h3 className="font-semibold">
+                Booster seat
+                <span className="text-green-400 ml-2 border-[0.5px] border-green-400 px-1 py-1 rounded-xl text-xs">
+                  Free
+                </span>
+              </h3>
+              <p>
+                Suitable for children weighing 15-36 kg (approx 4 to 10 years).
               </p>
             </div>
 

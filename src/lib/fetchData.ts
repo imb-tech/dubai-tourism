@@ -1,9 +1,11 @@
-import { baseURL } from 'services/axios-instance';
+// import { baseURL } from 'services/axios-instance';
 interface FetchOptions {
   params?: Record<string, string | number | boolean>;
   revalidate?: number;
   headers?: Record<string, string>;
 }
+
+const baseURL = 'http://192.168.1.127:8001/api/v1/';
 
 export async function fetchData<T = any>(
   endpoint: string,

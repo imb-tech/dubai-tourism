@@ -25,7 +25,7 @@ const agesTypes = [
   },
 ];
 
-const CheckoutCardMobile = ({ item }: { item: Atraction }) => {
+const CheckoutCardMobile = ({ data }: { data: AtractionGetBasket }) => {
   const methods = useForm<{ name: number }>();
   const { openModal } = useModal('more-info');
   const { removeAtraction } = useAtractionStore();

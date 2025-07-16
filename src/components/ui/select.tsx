@@ -5,8 +5,7 @@ import {
   SelectContent,
   SelectGroup,
   SelectItem,
-  SelectTrigger,
-  SelectValue,
+  SelectTrigger
 } from './select2';
 const Select = ({
   value,
@@ -24,7 +23,11 @@ const Select = ({
       onValueChange={setValue}
     >
       <SelectTrigger className={`w-full ${className}`}>
-        <SelectValue className={`${className}`} placeholder={label} />
+        <span className={`${className}`}>
+          {options?.find(
+            (opt) => opt[returnVal]?.toString() === value?.toString()
+          )?.name ?? label}
+        </span>
       </SelectTrigger>
       <SelectContent>
         <SelectGroup>
@@ -43,7 +46,7 @@ export default Select;
 
 interface thisProps {
   value: string | number | null;
-  setValue: React.Dispatch<React.SetStateAction<string>>;
+  setValue: (val: string) => void;
   options?: { name: string | number; id: string | number }[];
   label?: string;
   className?: ClassNameValue;

@@ -9,17 +9,36 @@ import { Calendar } from 'components/ui/calendar';
 import { Popover, PopoverContent, PopoverTrigger } from 'components/ui/popover';
 import { CalendarIcon } from 'components/icons';
 import { ClassNameValue } from 'tailwind-merge';
-
 type DatePickerProps = {
+  defaultValue?: string;
   className?: ClassNameValue;
   format?: string;
+  onChange?: (val: Date | undefined) => void;
 };
 
 export function DatePicker({
+  defaultValue,
   className,
   format = 'dd/MM/yyyy',
+  onChange,
 }: DatePickerProps) {
   const [date, setDate] = React.useState<Date>();
+
+  React.useEffect(() => {
+    if (defaultValue) {
+      const parsedDate = new Date(defaultValue);
+      if (!isNaN(parsedDate.getTime())) {
+        setDate(parsedDate);
+      }
+    }
+  }, [defaultValue]);
+
+  const handleDateChange = (selected: Date | undefined) => {
+    setDate(selected);
+    if (onChange) {
+      onChange(selected);
+    }
+  };
 
   return (
     <Popover>
@@ -40,7 +59,7 @@ export function DatePicker({
         <Calendar
           mode="single"
           selected={date}
-          onSelect={setDate}
+          onSelect={handleDateChange}
           initialFocus
         />
       </PopoverContent>

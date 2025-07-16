@@ -11,6 +11,7 @@ import {
 import { useModal } from 'hooks/use-modal';
 import { Button } from 'components/ui/button';
 import { X } from 'lucide-react';
+import { cn } from 'lib/utils';
 
 type Props = {
   modalKey?: string;
@@ -18,9 +19,20 @@ type Props = {
   description?: ReactNode;
   children?: ReactNode;
   className?: string;
-  size?: string;
+  size?:
+    | 'max-w-lg'
+    | 'max-w-xl'
+    | 'max-w-2xl'
+    | 'max-w-3xl'
+    | 'max-w-4xl'
+    | 'max-w-5xl'
+    | 'max-w-6xl'
+    | 'max-w-7xl'
+    | 'max-w-full'
+    | 'max-w-sm'
+    | 'max-w-md';
   onClose?: () => void;
-  titleClass?:string
+  titleClass?: string;
 };
 
 // Modal component that uses the context to control visibility
@@ -31,7 +43,7 @@ const Modal = ({
   titleClass,
   modalKey = 'default',
   className = '',
-  size = 'lg',
+  size = 'max-w-lg',
   onClose,
 }: Props) => {
   const { isOpen, closeModal } = useModal(modalKey);
@@ -46,10 +58,7 @@ const Modal = ({
   return (
     <Dialog open={isOpen} onOpenChange={handleClose}>
       {isOpen && (
-        <DialogContent
-          className={`max-w-${size} ` + className}
-          aria-describedby=""
-        >
+        <DialogContent className={cn(size, className)} >
           <DialogClose asChild>
             <Button
               variant="ghost"

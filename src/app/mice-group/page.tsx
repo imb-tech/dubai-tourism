@@ -16,7 +16,7 @@ async function page() {
           <MiceGroupCard data={item} key={item.id} />
         ))}
       </div>
-      <Questions title="MICE Group  questions" service="mice_services" />
+      <Questions title="MICE Group questions" service="mice_services" />
     </div>
   );
 }

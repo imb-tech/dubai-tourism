@@ -1,18 +1,25 @@
 import { CartIcon, WhatsappIcon } from 'components/icons';
 import { Button } from 'components/ui/button';
 import React from 'react';
-import { useAtractionStore } from '../../store/atraction';
 import { toast } from 'sonner';
+import { usePost } from 'hooks/usePost';
+import { BASKETCREATE } from 'constants/api-endpoints';
 
-const AddToCartAttraction = ({ data }: { data: Atraction[] }) => {
-  const { addAtraction } = useAtractionStore();
-
+const AddToCartAttraction = ({ data }: { data: AtractionCreate[] }) => {
+  const { mutate } = usePost({
+    onSuccess: () => {
+      toast.success("Savatchaga qo'shildi!");
+      console.log('post ishladi');
+    },
+  });
+  console.log('basket create', data);
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-2 mt-5">
       <Button
+        className="lg:bg-primary bg-accent hover:bg-accent lg:hover:bg-primary lg:text-white text-black"
         onClick={() => {
-          addAtraction(data);
-          toast.success("Savatchaga qo'shildi!");
+          console.log(data);
+          mutate(BASKETCREATE, { attractions: [...data] });
         }}
         size="lg"
       >
@@ -22,10 +29,17 @@ const AddToCartAttraction = ({ data }: { data: Atraction[] }) => {
       <Button
         size="lg"
         variant="ghost"
-        className="bg-[#52C41A] hover:bg-white text-white  hover:text-primary gap-1"
+        className="bg-[#52C41A]  text-white hover:text-white hover:bg-[#52C41A] gap-1"
       >
         <WhatsappIcon size={25} />
         <span>Whatsapp</span>
+      </Button>
+      <Button
+        className="lg:hidden md:col-span-2 bg-primary"
+        variant="default"
+        size="lg"
+      >
+        Purchase now
       </Button>
     </div>
   );

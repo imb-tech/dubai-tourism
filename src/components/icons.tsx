@@ -1,4 +1,4 @@
-type IconProps = { size?: number };
+type IconProps = { size?: number; bg?: string };
 
 export const TouresIcon = () => (
   <svg
@@ -767,13 +767,13 @@ export const CartIcon = ({ size = 20 }: IconProps) => (
   </svg>
 );
 
-export const NotRateIcon = ({ size = 20 }: IconProps) => (
+export const NotRateIcon = ({ size = 20, bg }: IconProps) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width={size}
     height={size}
     viewBox="0 0 20 20"
-    fill="none"
+    fill={bg ? 'currentColor' : 'none'}
   >
     <path
       fillRule="evenodd"
@@ -1058,6 +1058,21 @@ export const PriceVIpIcon = ({ size = 32 }: IconProps) => (
     />
     <path
       d="M24.668 20.3337C24.1213 20.3337 23.668 19.8803 23.668 19.3337V12.667C23.668 12.1203 24.1213 11.667 24.668 11.667C25.2146 11.667 25.668 12.1203 25.668 12.667V19.3337C25.668 19.8803 25.2146 20.3337 24.668 20.3337Z"
+      fill="currentColor"
+    />
+  </svg>
+);
+
+export const SuccessIcon = ({ size = 54 }: IconProps) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width={size}
+    height={size}
+    viewBox="0 0 54 54"
+    fill="currentColor"
+  >
+    <path
+      d="M26.9987 0.333008C12.3054 0.333008 0.332031 12.3063 0.332031 26.9997C0.332031 41.693 12.3054 53.6663 26.9987 53.6663C41.692 53.6663 53.6654 41.693 53.6654 26.9997C53.6654 12.3063 41.692 0.333008 26.9987 0.333008ZM39.7454 20.8663L24.6254 35.9863C24.252 36.3597 23.7454 36.573 23.212 36.573C22.6787 36.573 22.172 36.3597 21.7987 35.9863L14.252 28.4397C13.4787 27.6663 13.4787 26.3863 14.252 25.613C15.0254 24.8397 16.3054 24.8397 17.0787 25.613L23.212 31.7463L36.9187 18.0397C37.692 17.2663 38.972 17.2663 39.7454 18.0397C40.5187 18.813 40.5187 20.0663 39.7454 20.8663Z"
       fill="currentColor"
     />
   </svg>

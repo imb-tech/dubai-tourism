@@ -1,16 +1,16 @@
 type Product = {
-  id: string | number;
+  id?: string | number;
   name: string;
-  price?: number | string;
+  price?: number;
   location?: string;
   tag?: string;
-  image: string;
+  image?: string;
   url?: string;
   km_per_day?: number;
   transmission?: string;
   year?: number;
   gear?: string;
-  reviewsCount?: number;
+  comment_count?: string;
   horsepower?: number;
   rating?: number;
   areaSqFt?: number;
@@ -21,5 +21,5 @@ type Product = {
   distance?: number;
   best_seller?: boolean;
   suffix?: string;
-  sale?:boolean
+  sale?: boolean;
 };

@@ -1,20 +1,10 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
-type FormType = {
-  id: string;
-  tour_options: string;
-  transfer_option: string;
-  date: string;
-  adult: number;
-  child: number;
-  infant: number;
-};
-
 type Atraction = {
-  atraction: FormType[];
-  addAtraction: (newAtraction: FormType[]) => void;
-  removeAtraction: (id: string) => void;
+  atraction: AtractionOffers[];
+  addAtraction: (newAtraction: AtractionOffers[]) => void;
+  removeAtraction: (id: number) => void;
   clearAtraction: () => void;
 };
 

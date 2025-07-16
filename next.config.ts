@@ -8,6 +8,10 @@ const nextConfig: NextConfig = {
         protocol: 'http',
         hostname: 'api-dubai.imbtech.uz',
       },
+      {
+        protocol: 'http',
+        hostname: '192.168.1.127',
+      },
     ],
   },
 };

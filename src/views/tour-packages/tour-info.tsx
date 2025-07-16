@@ -4,9 +4,9 @@ import { Button } from 'components/ui/button';
 import { useModal } from 'hooks/use-modal';
 import React from 'react';
 
-type Props = {};
 
-function TourFnfo({}: Props) {
+
+function TourFnfo() {
   const { openModal } = useModal('tour_packages');
   return (
     <div className="w-full">
