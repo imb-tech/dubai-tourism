@@ -15,6 +15,8 @@ export const getToken = () => {
   return null;
 };
 
+console.log('token: ', getToken());
+
 axiosInstance.interceptors.request.use(
   (config) => {
     const token = getToken();

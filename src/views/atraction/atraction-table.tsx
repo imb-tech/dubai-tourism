@@ -70,9 +70,9 @@ export default function WtpTable() {
       transferPrice;
 
     const discountedPrice =
-      adult * discount_adults +
-      child * discount_child +
-      infant * discount_infant +
+      adult * (adult_price - discount_adults) +
+      child * (child_price - discount_child) +
+      infant * (infant_price - discount_infant) +
       transferPrice;
 
     return (

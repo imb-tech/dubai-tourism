@@ -30,7 +30,7 @@ type AtractionOffers = {
   selected_transfer: {
     price: number | string;
     is_discount: boolean;
-    id: number
+    id: number;
   };
   transfer_options: {
     id: number;
@@ -76,6 +76,29 @@ type AtractionCreate = {
   adult: number;
   child: number;
   infant: number;
+};
+
+type AtractionGetBasket = {
+  id: number;
+  name: string;
+  image: string;
+  transfer_option: {
+    id: number;
+    name: string;
+    price: string;
+    is_discount: boolean;
+  };
+  tour_date: string;
+  adult: number;
+  child: number;
+  infant: number;
+  total_price: string;
+  comment_count: number;
+  rating: number;
+  attraction_id: number;
+  attraction_offer_id: number;
+  description: string;
+  discount: string;
 };
 
 type AtractionData = {
