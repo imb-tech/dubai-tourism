@@ -24,7 +24,6 @@ export default async function wtp({ params }: PageProps) {
   const { id } = await params;
 
   const data = await fetchData<AtractionDetail>(`${ATRACTIONS}/${id}`);
-  console.log(data);
 
   const atractions = await fetchData<AtractionData>(
     `${ATRACTIONSSIMILAR}/${id}`

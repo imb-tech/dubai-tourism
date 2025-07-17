@@ -6,57 +6,130 @@ import IconFormDatePicker from 'components/ui/prefixy-date-picker';
 import IconFormInput from 'components/ui/prefixy-input';
 import IconFormTimePicker from 'components/ui/prefixy-time-picker';
 import SearchSelect from 'components/ui/search-select';
-import { cn } from 'lib/utils';
 import { Plus, Search, Users, X } from 'lucide-react';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { useGet } from '../../hooks/useGet';
+import { AIRPORTS } from 'constants/api-endpoints';
+import { formatDate, getTime30MinLater, normalizeDate } from 'lib/utils';
+import { usePost } from 'hooks/usePost';
+
+type Airport = {
+  id: number;
+  name: string;
+};
+
+type PageProps = {
+  hasTransfers: boolean;
+};
 
 type Fields = {
   pick: {
-    from: string;
-    to: string;
-    date: string;
+    from: Airport;
+    to: Airport;
+    date: string | Date;
     time: string;
   };
   return: {
-    date: string;
-    time: string;
+    date?: string;
+    time?: string;
   };
   passagers: string;
 };
 
-export default function TransferForm() {
+export default function TransferForm({ hasTransfers }: PageProps) {
+  const [isReturn, setIsReturn] = useState(false);
+  const [fromSearch, setFromSearch] = useState('');
+  const [toSearch, setToSearch] = useState('');
+  const {} = usePost();
+
   const form = useForm<Fields>({
     defaultValues: {
       passagers: '2',
+      pick: {
+        date: new Date(),
+        time: getTime30MinLater(),
+      },
     },
   });
-  const [isReturn, setIsReturn] = useState<boolean>(false);
+
+  const { data: fromAirports = [] } = useGet<Airport[]>(AIRPORTS, {
+    params: { search: fromSearch },
+  });
+
+  const { data: toAirports = [] } = useGet<Airport[]>(AIRPORTS, {
+    params: { search: toSearch },
+  });
+
+  const { handleSubmit } = form;
+
+  const onSubmit = (data: Fields) => {
+    const { date, time, from, to } = data?.pick;
+    const formData = {
+      from_airport: from,
+      to_airport: to,
+      pickup_date: formatDate(normalizeDate(date), time),
+      return_date: data?.return,
+      passengers: data?.passagers,
+    };
+
+    console.log(formData);
+  };
 
   return (
     <div className="md:p-2 my-8 p-3 border rounded-md shadow-[0px_4px_124px_0px_rgba(18,24,34,0.09)]">
-      <form className="flex flex-col gap-3">
+      {!hasTransfers && (
+        <div className="flex flex-col gap-3 items-start mb-3">
+          <div className="flex md:hidden items-center bg-primary/20 rounded-lg py-2 px-1 pl-4 justify-center">
+            <span className="text-primary">
+              <Car2Icon size={22} />
+            </span>
+            <span className="text-primary/50">
+              <PlaneIcon size={42} />
+            </span>
+          </div>
+          <div>
+            <h1 className="md:text-2xl text-lg font-semibold">
+              Reliable Airport Transfers in Dubai – Comfort and Convenience
+            </h1>
+            <p className="text-black/50 font-semibold text-sm">
+              Choose Your Destination and Preferred Time
+            </p>
+          </div>
+        </div>
+      )}
+      <form className="flex flex-col gap-3" onSubmit={handleSubmit(onSubmit)}>
         <div className="grid md:grid-cols-2 grid-cols-1 gap-3">
           <SearchSelect
+            required
             methods={form}
-            options={[
-              {
-                id: 1,
-                name: 'Doniyor',
-              },
-            ]}
             name="pick.from"
             label="From"
+            options={fromAirports ?? []}
+            placeholder="Address, Airport, hotel,..."
             className="w-full"
-            placeholder="Adress, Airport, hotel,..."
+            getOptionLabel={(opt) => opt.name}
+            getOptionValue={(opt) => String(opt.id)}
+            onInputChange={(input) => {
+              setFromSearch(input);
+            }}
           />
+
           <SearchSelect
+            required
             methods={form}
-            name="pick.from"
+            name="pick.to"
             label="To"
+            options={toAirports ?? []}
+            placeholder="Address, Airport, hotel,..."
             className="w-full"
-            placeholder="Adress, Airport, hotel,..."
+            getOptionLabel={(opt) => opt.name}
+            getOptionValue={(opt) => String(opt.id)}
+            onInputChange={(input) => {
+              setToSearch(input);
+            }}
           />
+
           <IconFormDatePicker
             label="Pickup date"
             methods={form}
@@ -68,41 +141,39 @@ export default function TransferForm() {
             name="pick.time"
           />
         </div>
-        <Button
-          variant="outline"
-          className={cn(
-            'border-dashed border-primary w-full text-primary font-semibold hover:text-primary text-base py-2 h-12',
-            isReturn ? 'hidden' : ''
-          )}
-          size="lg"
-          onClick={() => setIsReturn(true)}
-        >
-          <Plus size={18} />
-          Add return
-        </Button>
-        <div
-          className={cn(
-            'grid grid-cols-2 gap-3 relative',
-            isReturn ? '' : 'hidden'
-          )}
-        >
-          <IconFormDatePicker
-            label="Return date"
-            methods={form}
-            name="return.date"
-          />
-          <IconFormTimePicker
-            label="Return time"
-            methods={form}
-            name="return.time"
-          />
-          <span
-            className="absolute -right-1 -top-1 bg-background text-primary border border-primary rounded-full p-1 cursor-pointer"
-            onClick={() => setIsReturn(false)}
+
+        {!isReturn && (
+          <Button
+            variant="outline"
+            size="lg"
+            className="border-dashed border-primary w-full text-primary font-semibold hover:text-primary text-base py-2 h-12"
+            onClick={() => setIsReturn(true)}
           >
-            <X size={12} />
-          </span>
-        </div>
+            <Plus size={18} /> Add return
+          </Button>
+        )}
+
+        {isReturn && (
+          <div className="grid grid-cols-2 gap-3 relative">
+            <IconFormDatePicker
+              label="Return date"
+              methods={form}
+              name="return.date"
+            />
+            <IconFormTimePicker
+              label="Return time"
+              methods={form}
+              name="return.time"
+            />
+            <span
+              className="absolute -right-1 -top-1 bg-background text-primary border border-primary rounded-full p-1 cursor-pointer"
+              onClick={() => setIsReturn(false)}
+            >
+              <X size={12} />
+            </span>
+          </div>
+        )}
+
         <IconFormInput
           methods={form}
           name="passagers"
@@ -111,8 +182,9 @@ export default function TransferForm() {
           type="number"
           min={1}
         />
-        <Button className='h-11'>
-         <span className='text-base'>Search</span>
+
+        <Button type="submit" className="h-11">
+          <span className="text-base">Search</span>
           <Search size={20} />
         </Button>
       </form>

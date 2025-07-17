@@ -17,7 +17,8 @@ export const MICE_SERVICES_APPLICATIONS = 'services/mice-services/applications';
 export const SHOPPING_GOLDS = 'services/shopping/golds';
 export const SHOPPING_GOLDS_APPLICATIONS =
   'services/shopping/golds/applications';
-export const TRANSFERS = 'services/transfers';
+export const AIRPORTS = 'services/airporsts';
+export const TRANSFERS = 'services/transfer';
 export const POPULAR_QUESTIONS = 'common/popular-questions';
 export const BASKET = 'payment/basket';
 export const BASKETCREATE = `${BASKET}/create`;

@@ -73,9 +73,12 @@ export default function IconFormTimePicker<IForm extends FieldValues>({
         <Controller
           name={name}
           control={methods.control}
-          render={() => (
+          render={({ field }) => (
             <Input
               type="time"
+              {...field}
+              value={field.value || ''} 
+              onChange={(e) => field.onChange(e.target.value)}
               variant="clean"
               placeholder={placeholder || label}
               disabled={field.disabled || disabled}
