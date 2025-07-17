@@ -9,6 +9,7 @@ import { useAtractionCustom } from 'views/atraction/use-atraction-custom';
 import Image from 'next/image';
 import { StarIcon, UserIcon } from 'components/icons';
 import { agesTypes } from 'views/atraction/attraction-card';
+import { usePost } from 'hooks/usePost';
 
 const CheckoutCardMobile = ({
   data,
@@ -17,6 +18,7 @@ const CheckoutCardMobile = ({
   data: AtractionOffers;
   index: number;
 }) => {
+  const { mutate } = usePost();
   const { updateRow, renderPrice, offers, today } = useAtractionCustom();
 
   const watchedRow = offers?.[index] ?? {};
@@ -25,19 +27,29 @@ const CheckoutCardMobile = ({
     const currentValue = watchedRow[type] ?? 0;
     const maxCount = data[`max_${type}`];
     if (currentValue < maxCount) {
-      updateRow(index, { [type]: currentValue + 1 });
+      const updated = { [type]: currentValue + 1 };
+      updateRow(index, updated);
+      mutate('payment/basket/update', {
+        ...updated,
+        basket_attraction_id: watchedRow.basket_attraction_id,
+      });
     }
   };
 
   const handleDelete = (type: 'adult' | 'child' | 'infant') => {
     const currentValue = watchedRow[type] ?? 0;
     if (currentValue > 0) {
-      updateRow(index, { [type]: currentValue - 1 });
+      const updated = { [type]: currentValue - 1 };
+      updateRow(index, updated);
+      mutate('payment/basket/update', {
+        ...updated,
+        basket_attraction_id: watchedRow.basket_attraction_id,
+      });
     }
   };
 
-  console.log(offers);
-  
+  console.log(watchedRow);
+
   return (
     <Card className="mb-4 max-w-3xl">
       <CardContent className="px-4">
@@ -70,12 +82,17 @@ const CheckoutCardMobile = ({
               const selected = data.transfer_options?.find(
                 (opt) => opt.id.toString() === val.toString()
               );
-              updateRow(index, {
+              const updated = {
                 selected_transfer: {
                   id: selected?.id ?? 0,
                   price: selected?.price ?? 0,
                   is_discount: selected?.is_discount ?? false,
                 },
+              };
+              updateRow(index, updated);
+              mutate('payment/basket/update', {
+                attraction_offer_id:updated.selected_transfer.id,
+                basket_attraction_id: watchedRow.basket_attraction_id,
               });
             }}
             className="w-full bg-secondary"
@@ -85,11 +102,16 @@ const CheckoutCardMobile = ({
         <DatePicker
           className="w-full mb-2"
           defaultValue={watchedRow.tour_date ?? today}
-          onChange={(val) =>
-            updateRow(index, {
+          onChange={(val) => {
+            const updated = {
               tour_date: val ? format(val, 'yyyy-MM-dd') : '',
-            })
-          }
+            };
+            updateRow(index, updated);
+            mutate('payment/basket/update', {
+              ...updated,
+              basket_attraction_id: watchedRow.basket_attraction_id,
+            });
+          }}
         />
         <div className="space-y-3">
           {agesTypes.map((item) => (

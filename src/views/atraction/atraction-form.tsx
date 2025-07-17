@@ -21,6 +21,8 @@ export default function WtpForm({ data }: { data: AtractionDetail }) {
     },
   });
 
+  
+
 
 
   return (

@@ -1,6 +1,6 @@
 'use client';
 
-import React, { Fragment } from 'react';
+import React, { Fragment, useEffect } from 'react';
 import CheckoutCard from './checkout-card';
 import GoToPayment from './go-to-payment';
 import WtpInfo from 'views/atraction/atraction-info';
@@ -16,18 +16,20 @@ export default function CheckoutMain() {
   const { data } = useGet<{ id: number; attractions: AtractionOffers[] }>(
     BASKET
   );
-  const form = useForm<{ offers: AtractionOffers[] }>({
-    defaultValues: {
-      offers: data?.attractions?.map((offer) => ({
-        ...offer,
-        adult: offer?.adult ?? 1,
-        child: offer?.child ?? 0,
-        infant: offer?.infant ?? 0,
-      })),
-    },
-  });
+  const form = useForm<{ offers: AtractionOffers[] }>();
 
-  console.log(data);
+  useEffect(() => {
+    if (data?.attractions) {
+      form.reset({
+        offers: data.attractions.map((offer) => ({
+          ...offer,
+          adult: offer.adult ?? 1,
+          child: offer.child ?? 0,
+          infant: offer.infant ?? 0,
+        })),
+      });
+    }
+  }, [data, form]);
 
   return (
     <FormProvider {...form}>
@@ -36,8 +38,8 @@ export default function CheckoutMain() {
         <div className="flex flex-col gap-3 p-2 rounded-md bg-secondary">
           {data?.attractions?.map((item, index) => (
             <Fragment key={item.id}>
-              {!isMobile ? (
-                <div className="w-full">
+              {isMobile ? (
+                <div className="w-full lg:hidden">
                   <CheckoutCardMobile key={index} data={item} index={index} />
                 </div>
               ) : (

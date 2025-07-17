@@ -12,6 +12,7 @@ type Atraction = {
 type AtractionOffers = {
   id: number;
   checked?: boolean | undefined;
+  basket_attraction_id:number
   adult: number;
   max_adult: number;
   max_child: number;
