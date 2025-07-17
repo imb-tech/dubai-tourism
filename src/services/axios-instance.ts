@@ -3,8 +3,7 @@ import { useAuthStore } from 'store/auth-store';
 export const baseURL = process.env.NEXT_PUBLIC_BASE_URL;
 
 export const axiosInstance = axios.create({
-  baseURL: 'http://192.168.1.127:8001/api/v1',
-  // baseURL: baseURL,
+  baseURL: baseURL,
   timeout: 30000,
 });
 
@@ -15,7 +14,6 @@ export const getToken = () => {
   return null;
 };
 
-console.log('token: ', getToken());
 
 axiosInstance.interceptors.request.use(
   (config) => {

@@ -10,15 +10,20 @@ type Atraction = {
 };
 
 type AtractionOffers = {
-  id?: number;
+  id: number;
   checked?: boolean | undefined;
-  adult?: number;
-  child?: number;
-  infant?: number;
-  total?: number;
+  adult: number;
+  max_adult: number;
+  max_child: number;
+  max_infant: number;
+  child: number;
+  infant: number;
+  total: number;
   name: string;
   description: string;
   tour_date: string;
+  rating: number
+  image: string
   discount: number;
   price: number;
   discount_child: number;
@@ -27,6 +32,7 @@ type AtractionOffers = {
   adult_price: number;
   discount_infant: number;
   infant_price: number;
+  attraction_offer: number;
   selected_transfer: {
     price: number | string;
     is_discount: boolean;
@@ -38,6 +44,12 @@ type AtractionOffers = {
     price: number;
     is_discount: boolean;
   }[];
+  transfer_option: {
+    id: number;
+    name: string;
+    price: number;
+    is_discount: boolean;
+  }
   is_refundable: boolean;
   refound_date: string;
 };
@@ -51,8 +63,7 @@ type AtractionDetail = {
   name: string;
   opening_hours: string;
   children: boolean;
-  lat: number;
-  lon: number;
+  location: string
   description: string;
   insurance: string;
   offers: AtractionOffers[];
@@ -76,30 +87,10 @@ type AtractionCreate = {
   adult: number;
   child: number;
   infant: number;
+
 };
 
-type AtractionGetBasket = {
-  id: number;
-  name: string;
-  image: string;
-  transfer_option: {
-    id: number;
-    name: string;
-    price: string;
-    is_discount: boolean;
-  };
-  tour_date: string;
-  adult: number;
-  child: number;
-  infant: number;
-  total_price: string;
-  comment_count: number;
-  rating: number;
-  attraction_id: number;
-  attraction_offer_id: number;
-  description: string;
-  discount: string;
-};
+
 
 type AtractionData = {
   total_pages: number;

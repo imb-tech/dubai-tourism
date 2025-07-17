@@ -10,7 +10,7 @@ import { useDelete } from 'hooks/useDelete';
 import { toast } from 'sonner';
 import { useQueryClient } from '@tanstack/react-query';
 
-export default function CheckoutCard({ data }: { data: AtractionGetBasket }) {
+export default function CheckoutCard({ data }: { data: AtractionOffers }) {
   const { openModal } = useModal('more-info');
   const querClinet = useQueryClient();
   const { mutate } = useDelete({
@@ -22,7 +22,7 @@ export default function CheckoutCard({ data }: { data: AtractionGetBasket }) {
 
   return (
     <Fragment>
-      <div className="hidden lg:flex gap-3 bg-white rounded-md px-4 justify-between py-2">
+      <div className="gap-3 bg-white rounded-md px-4 justify-between py-2 w-full">
         <Image
           src={data?.image}
           alt="logo"
@@ -85,17 +85,17 @@ export default function CheckoutCard({ data }: { data: AtractionGetBasket }) {
                 >
                   Price:{' '}
                   {formatMoney(
-                    Number(data?.total_price) + Number(data?.discount)
+                    Number(data?.price) + Number(data?.discount)
                   )}{' '}
                   AED
                 </h3>
                 <h3 className={cn('text-xl font-semibold text-primary')}>
-                  Price: {formatMoney(data?.total_price)} AED
+                  Price: {formatMoney(data?.price)} AED
                 </h3>
               </>
             ) : (
               <h3 className={cn('text-xl font-semibold text-primary')}>
-                Price: {formatMoney(data?.total_price)} AED
+                Price: {formatMoney(data?.price)} AED
               </h3>
             )}
           </div>

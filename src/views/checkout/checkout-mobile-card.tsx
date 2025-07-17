@@ -1,43 +1,25 @@
 'use client';
 import { Button } from 'components/ui/button';
-import { Card, CardContent, CardHeader } from 'components/ui/card';
+import { Card, CardContent } from 'components/ui/card';
 import { DatePicker } from 'components/ui/datepicker';
 import Select from 'components/ui/select';
-import { useModal } from 'hooks/use-modal';
-import { Minus, Plus, User } from 'lucide-react';
-import AddToCartAttraction from './attraction-add';
-import { formatMoney } from 'lib/utils';
-import { useAtractionCustom } from './use-atraction-custom';
+import { Minus, Plus } from 'lucide-react';
 import { format } from 'date-fns';
+import { useAtractionCustom } from 'views/atraction/use-atraction-custom';
+import Image from 'next/image';
+import { StarIcon, UserIcon } from 'components/icons';
+import { agesTypes } from 'views/atraction/attraction-card';
 
-export const agesTypes = [
-  {
-    id: 'adult',
-    name: 'Adult',
-  },
-  {
-    id: 'child',
-    name: 'Child',
-  },
-  {
-    id: 'infant',
-    name: 'Infant',
-  },
-];
-
-const AttractionCardMobile = ({
+const CheckoutCardMobile = ({
   data,
   index,
 }: {
   data: AtractionOffers;
   index: number;
 }) => {
-  const { openModal } = useModal('more-info');
   const { updateRow, renderPrice, offers, today } = useAtractionCustom();
 
   const watchedRow = offers?.[index] ?? {};
-
-
 
   const handleAdd = (type: 'adult' | 'child' | 'infant') => {
     const currentValue = watchedRow[type] ?? 0;
@@ -54,38 +36,50 @@ const AttractionCardMobile = ({
     }
   };
 
-
+  console.log(offers);
+  
   return (
-    <Card className="mb-4">
-      <CardHeader className="px-4">
-        <span>{data.name}</span>
-        <span
-          className="underline text-blue-500 mr-auto cursor-pointer"
-          onClick={openModal}
-        >
-          More info
-        </span>
-      </CardHeader>
+    <Card className="mb-4 max-w-3xl">
       <CardContent className="px-4">
-        <div className='mb-2'>
+        <div className="mb-4">
+          <Image
+            src={data?.image}
+            alt="logo"
+            className="w-full h-full rounded-md"
+            width={100}
+            height={100}
+          />
+        </div>
+        <h2 className="text-2xl font-semibold">{data.name}</h2>
+        <ul className="flex gap-3 py-1 mb-2">
+          <li className="flex items-center gap-2 text-primary">
+            <UserIcon />
+            <span className="text-black font-medium">Sharhlar</span>
+          </li>
+          <li className="flex items-center gap-2 text-primary">
+            <StarIcon />
+            <span className="text-black font-medium">{data?.rating}</span>
+          </li>
+        </ul>
+        <div className="mb-2">
           <Select
-          options={data.transfer_options ?? []}
-          value={watchedRow.selected_transfer?.id?.toString() ?? '1'}
-          returnVal="id"
-          setValue={(val) => {
-            const selected = data.transfer_options?.find(
-              (opt) => opt.id.toString() === val.toString()
-            );
-            updateRow(index, {
-              selected_transfer: {
-                id: selected?.id ?? 0,
-                price: selected?.price ?? 0,
-                is_discount: selected?.is_discount ?? false,
-              },
-            });
-          }}
-          className="w-full bg-secondary"
-        />
+            options={data.transfer_options ?? []}
+            value={watchedRow.selected_transfer?.id?.toString() ?? '1'}
+            returnVal="id"
+            setValue={(val) => {
+              const selected = data.transfer_options?.find(
+                (opt) => opt.id.toString() === val.toString()
+              );
+              updateRow(index, {
+                selected_transfer: {
+                  id: selected?.id ?? 0,
+                  price: selected?.price ?? 0,
+                  is_discount: selected?.is_discount ?? false,
+                },
+              });
+            }}
+            className="w-full bg-secondary"
+          />
         </div>
 
         <DatePicker
@@ -127,35 +121,14 @@ const AttractionCardMobile = ({
                   </Button>
                 </div>
               </div>
-              <div className="flex items-center gap-1 mt-2 text-[12px] text-primary">
-                <span>
-                  <User className="w-4 h-4" />
-                </span>
-                <span className="">
-                  {' '}
-                  +{formatMoney(data.price ?? 0)} per {item.id}
-                </span>{' '}
-              </div>
             </div>
           ))}
         </div>
-        <hr className="my-4 h-0.5" />
+        <hr className="mt-3 h-0.5" />
         {renderPrice(watchedRow)}
-        <AddToCartAttraction
-          data={[
-            {
-              attraction_offer: watchedRow.attraction_offer ?? 0,
-              tour_date: watchedRow.tour_date ?? today,
-              transfer_option: watchedRow.selected_transfer?.id ?? 0,
-              adult: watchedRow.adult ?? 1,
-              child: watchedRow.child ?? 0,
-              infant: watchedRow.infant ?? 0,
-            },
-          ]}
-        />
       </CardContent>
     </Card>
   );
 };
 
-export default AttractionCardMobile;
+export default CheckoutCardMobile;

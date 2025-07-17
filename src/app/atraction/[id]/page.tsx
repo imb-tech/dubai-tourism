@@ -24,11 +24,11 @@ export default async function wtp({ params }: PageProps) {
   const { id } = await params;
 
   const data = await fetchData<AtractionDetail>(`${ATRACTIONS}/${id}`);
-  console.log(data);
 
   const atractions = await fetchData<AtractionData>(
-    `${ATRACTIONSSIMILAR}/${id}`
+    `${ATRACTIONSSIMILAR}/${id}?page_size=4`
   );
+
 
   const banners = await fetchData<Banner[]>(BANNERS, {
     params: { service: 'attractions' },
@@ -44,7 +44,7 @@ export default async function wtp({ params }: PageProps) {
         <SectionDetailsHeading title={data?.name || ''} />
         <SliderComponents images={banners || []} showCout={true} />
         {data && <WtpForm data={data} />}
-        <WtpMap />
+        <WtpMap location={data?.location || ''} name={data?.name || ''} />
         {data && <WtpFeatures features={data?.feature} />}
 
         <div className="space-y-4 border rounded-md p-4 mt-5 mb-12">
@@ -56,15 +56,17 @@ export default async function wtp({ params }: PageProps) {
           </div>
         </div>
 
-        <WtpComments />
+        <WtpComments slug={id} />
       </div>
 
-      <div className="bg-[#F5F8FC] lg:py-10 py-4 my-5">
+      <div className="bg-[#F5F8FC] lg:py-10 py-4">
         <div className="container mx-auto lg:px-0 px-3">
           <h1 className="lg:text-3xl mb-5 text-2xl font-semibold">See more</h1>
-          <div className="sm:grid grid-cols-1 hidden  sm:grid-cols-2 lg:grid-cols-4 gap-4"></div>
+          <div className="sm:grid grid-cols-1 hidden  sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            {slides}
+          </div>
           <div className="sm:hidden">
-            {<CustomCarousel items={slides || []} />}
+            <CustomCarousel items={slides || []} />
           </div>
         </div>
       </div>
