@@ -21,13 +21,11 @@ const TransferService = async ({ searchParams }: Props) => {
     params: {
       from_airport: 1,
       to_airport: 2,
-      pickup_date: '2025-07-18T08:07:50Z',
+      pickup_date: '2025-07-19T08:07:50Z',
       // return_date: '',
       passengers: 2,
     },
   });
-
-  console.log(transfers);
 
   const hasTransfers = transfers !== null && Array.isArray(transfers);
 

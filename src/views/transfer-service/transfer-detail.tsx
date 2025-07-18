@@ -8,20 +8,51 @@ import TransferPaymentForm from './transfer-payment-formt';
 
 export default function TransferDetail({ data }: { data: Transfer }) {
   const [step, setStep] = useState<number>(1);
+  const [allData, setAllData] = useState<TransferOrderCreate>({
+    payment_type: '',
+    first_name: '',
+    last_name: '',
+    email: '',
+    phone: '',
+    meet_sign: '',
+    promo_code: '',
+    transfer: {
+      transfer_rate: 0,
+      pickup_date: '',
+      return_date: '',
+      passengers: 0,
+      child_seat: 0,
+      booster_seat: 0,
+      driver_notes: '',
+      flight_number: '',
+    },
+  });
 
-  const content = (st: string, data: Transfer) => {
+  const getContent = (
+    st: string,
+    data: Transfer,
+    allData: TransferOrderCreate
+  ) => {
     const cnt: Record<string, ReactNode> = {
-      '1': <TransferNotesForm data={data} />,
-      '2': <TransferPersonalForm />,
-      '3': <TransferPaymentForm />,
+      '1': (
+        <TransferNotesForm
+          transfer={data}
+          setAllData={setAllData}
+          allData={allData}
+        />
+      ),
+      '2': <TransferPersonalForm setAllData={setAllData} allData={allData} />,
+      '3': <TransferPaymentForm setAllData={setAllData} allData={allData} />,
     };
 
     return cnt[st];
   };
 
+  console.log(allData);
+
   const memoizedContent = useMemo(
-    () => content(step.toString(), data),
-    [step, data]
+    () => getContent(step.toString(), data, allData),
+    [step, data, allData]
   );
 
   return (

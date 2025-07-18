@@ -6,7 +6,12 @@ import FormInput from 'components/form/input';
 import PhoneField from 'components/form/phone-field';
 import { Button } from 'components/ui/button';
 
-export default function TransferPersonalForm() {
+type Props = {
+  allData: TransferOrderCreate;
+  setAllData: React.Dispatch<React.SetStateAction<TransferOrderCreate>>;
+};
+
+export default function TransferPersonalForm({ allData, setAllData }: Props) {
   const form = useForm();
 
   return (
@@ -61,7 +66,7 @@ export default function TransferPersonalForm() {
         <Button variant="secondary" className="shadow-none w-full md:w-auto">
           Back
         </Button>
-        <Button className='w-full md:w-auto'>Continue</Button>
+        <Button className="w-full md:w-auto">Continue</Button>
       </div>
     </div>
   );

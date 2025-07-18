@@ -9,38 +9,55 @@ import React, { useMemo } from 'react';
 import { useForm } from 'react-hook-form';
 
 type Fields = {
-  code: string;
-  comment: string;
+  flight_number: string;
+  driver_notes: string;
   child_seat: number;
+  booster_seat: number;
 };
 
-export default function TransferNotesForm({ data }: { data: Transfer }) {
+type Props = {
+  transfer: Transfer;
+  allData: TransferOrderCreate;
+  setAllData: React.Dispatch<React.SetStateAction<TransferOrderCreate>>;
+};
+
+export default function TransferNotesForm({
+  transfer,
+  allData,
+  setAllData,
+}: Props) {
   const form = useForm<Fields>();
 
   const childSeatOptions = useMemo(
     () =>
-      Array.from({ length: data?.available_child_seat }, (_, i) => ({
+      Array.from({ length: transfer?.available_child_seat }, (_, i) => ({
         id: i + 1,
         name: `${i + 1}`,
       })),
-    [data]
+    [transfer]
   );
   const boasterSeatOptions = useMemo(
     () =>
-      Array.from({ length: data?.available_booster_seat }, (_, i) => ({
+      Array.from({ length: transfer?.available_booster_seat }, (_, i) => ({
         id: i + 1,
         name: `${i + 1}`,
       })),
-    [data]
+    [transfer]
   );
+
+  const { handleSubmit } = form;
+
+  const onSubmit = (data: Fields) => {
+    setAllData({ ...allData, transfer={...data} });
+  };
 
   return (
     <div className="bg-background rounded-md p-4 shadow">
       <h2 className="text-2xl font-semibold mb-5">Extras and notes</h2>
-      <form className="flex flex-col gap-8">
+      <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-8">
         <FormInput
           methods={form}
-          name="code"
+          name="flight_number"
           variant="clean"
           label="Flight & Train number"
           required
@@ -90,7 +107,7 @@ export default function TransferNotesForm({ data }: { data: Transfer }) {
               isSearchable={false}
               isClearable={false}
               options={
-                data?.available_child_seat
+                transfer?.available_child_seat
                   ? childSeatOptions
                   : [{ id: 0, name: 'No' }]
               }
@@ -120,11 +137,11 @@ export default function TransferNotesForm({ data }: { data: Transfer }) {
 
             <SelectField
               methods={form}
-              name="child_seat"
+              name="booster_seat"
               isSearchable={false}
               isClearable={false}
               options={
-                data?.available_booster_seat
+                transfer?.available_booster_seat
                   ? boasterSeatOptions
                   : [{ id: 0, name: 'No' }]
               }
@@ -136,13 +153,15 @@ export default function TransferNotesForm({ data }: { data: Transfer }) {
 
         <FormTextarea
           methods={form}
-          name="comment"
+          name="driver_notes"
           label="Notes for the chauffeur (Outward)"
           placeholder="Sizning xabaringiz"
           className="bg-secondary border-none focus-visible:ring-0"
         />
         <div className="flex items-center md:justify-end gap-2 pt-3cou">
-          <Button className="w-full md:w-auto">Continue</Button>
+          <Button type="submit" className="w-full md:w-auto">
+            Continue
+          </Button>
         </div>
       </form>
     </div>

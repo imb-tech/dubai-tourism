@@ -35,9 +35,9 @@ type TransferList = {
   id: number;
   price: string;
   to_airport: string;
+  slug: string;
   transfer: {
     id: number;
-    slug: string;
     type: string;
     image: string;
     passengers: number;

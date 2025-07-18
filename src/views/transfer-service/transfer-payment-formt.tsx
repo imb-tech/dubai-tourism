@@ -9,7 +9,12 @@ import Modal from 'components/custom/modal';
 import { useModal } from 'hooks/use-modal';
 import PaymentModal from '../payment/payment-modal';
 
-export default function TransferPaymentForm() {
+type Props = {
+  allData: TransferOrderCreate;
+  setAllData: React.Dispatch<React.SetStateAction<TransferOrderCreate>>;
+};
+
+export default function TransferPaymentForm({ allData, setAllData }: Props) {
   const form = useForm();
   const { openModal } = useModal('payment');
 
@@ -55,10 +60,7 @@ export default function TransferPaymentForm() {
           </Button>
         </div>
       </div>
-      <Modal
-        modalKey="payment"
-        titleClass="lg:text-3xl font-semibold text-2xl"
-      >
+      <Modal modalKey="payment" titleClass="lg:text-3xl font-semibold text-2xl">
         <PaymentModal />
       </Modal>
     </div>

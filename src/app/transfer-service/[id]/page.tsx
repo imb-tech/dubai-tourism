@@ -14,7 +14,7 @@ export default async function RentId({ params }: PageProps) {
   const { id } = await params;
 
   const data = await fetchData<Transfer>(`${TRANSFERS}/${id}`);
-console.log(data);
+  console.log(data);
 
   return (
     <React.Fragment>
