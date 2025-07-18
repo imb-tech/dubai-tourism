@@ -1,5 +1,8 @@
 'use client';
 
+import React, { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { useRouter } from 'next/navigation'; // app router
 import { Car2Icon, PlaneIcon } from 'components/icons';
 import { Button } from 'components/ui/button';
 import IconFormDatePicker from 'components/ui/prefixy-date-picker';
@@ -7,12 +10,11 @@ import IconFormInput from 'components/ui/prefixy-input';
 import IconFormTimePicker from 'components/ui/prefixy-time-picker';
 import SearchSelect from 'components/ui/search-select';
 import { Plus, Search, Users, X } from 'lucide-react';
-import React, { useEffect, useState } from 'react';
-import { useForm } from 'react-hook-form';
-import { useGet } from '../../hooks/useGet';
+import { useGet } from 'hooks/useGet';
+import { usePost } from 'hooks/usePost';
 import { AIRPORTS } from 'constants/api-endpoints';
 import { formatDate, getTime30MinLater, normalizeDate } from 'lib/utils';
-import { usePost } from 'hooks/usePost';
+import { format } from 'date-fns';
 
 type Airport = {
   id: number;
@@ -25,8 +27,8 @@ type PageProps = {
 
 type Fields = {
   pick: {
-    from: Airport;
-    to: Airport;
+    from: number;
+    to: number;
     date: string | Date;
     time: string;
   };
@@ -38,9 +40,12 @@ type Fields = {
 };
 
 export default function TransferForm({ hasTransfers }: PageProps) {
+  const router = useRouter();
+
   const [isReturn, setIsReturn] = useState(false);
   const [fromSearch, setFromSearch] = useState('');
   const [toSearch, setToSearch] = useState('');
+
   const {} = usePost();
 
   const form = useForm<Fields>({
@@ -64,16 +69,25 @@ export default function TransferForm({ hasTransfers }: PageProps) {
   const { handleSubmit } = form;
 
   const onSubmit = (data: Fields) => {
-    const { date, time, from, to } = data?.pick;
-    const formData = {
-      from_airport: from,
-      to_airport: to,
-      pickup_date: formatDate(normalizeDate(date), time),
-      return_date: data?.return,
-      passengers: data?.passagers,
-    };
+    const { date, time, from, to } = data.pick;
+    console.log(date);
 
-    console.log(formData);
+    const queryParams = new URLSearchParams();
+
+    queryParams.set('from_id', String(from));
+    queryParams.set('to_id', String(to));
+    queryParams.set('pickup_date', String(normalizeDate(date)));
+    queryParams.set('pickup_time', String(time));
+    queryParams.set('passengers', data.passagers);
+
+    if (isReturn && data.return?.date && data.return?.time) {
+      queryParams.set(
+        'return_date',
+        formatDate(normalizeDate(data.return.date), data.return.time)
+      );
+    }
+
+    router.push(`/transfer-service?${queryParams.toString()}`);
   };
 
   return (
@@ -105,14 +119,12 @@ export default function TransferForm({ hasTransfers }: PageProps) {
             methods={form}
             name="pick.from"
             label="From"
-            options={fromAirports ?? []}
+            options={fromAirports}
             placeholder="Address, Airport, hotel,..."
             className="w-full"
             getOptionLabel={(opt) => opt.name}
             getOptionValue={(opt) => String(opt.id)}
-            onInputChange={(input) => {
-              setFromSearch(input);
-            }}
+            onInputChange={(input) => setFromSearch(input)}
           />
 
           <SearchSelect
@@ -120,14 +132,12 @@ export default function TransferForm({ hasTransfers }: PageProps) {
             methods={form}
             name="pick.to"
             label="To"
-            options={toAirports ?? []}
+            options={toAirports}
             placeholder="Address, Airport, hotel,..."
             className="w-full"
             getOptionLabel={(opt) => opt.name}
             getOptionValue={(opt) => String(opt.id)}
-            onInputChange={(input) => {
-              setToSearch(input);
-            }}
+            onInputChange={(input) => setToSearch(input)}
           />
 
           <IconFormDatePicker
@@ -147,7 +157,10 @@ export default function TransferForm({ hasTransfers }: PageProps) {
             variant="outline"
             size="lg"
             className="border-dashed border-primary w-full text-primary font-semibold hover:text-primary text-base py-2 h-12"
-            onClick={() => setIsReturn(true)}
+            onClick={(e) => {
+              e.preventDefault();
+              setIsReturn(true);
+            }}
           >
             <Plus size={18} /> Add return
           </Button>

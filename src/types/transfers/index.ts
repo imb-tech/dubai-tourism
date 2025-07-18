@@ -1,23 +1,47 @@
-type Transfers = {
+type Transfer = {
   id: number;
-  created_at: string;
-  updated_at: string;
-  best_seller: boolean;
-  name: string;
-  luggage: number;
-  discount: string;
-  price: string;
-  passengers: number;
-  image: string;
-  slug: string;
-  images?: {
+  transfer: {
     id: number;
+    slug: string;
+    type: string;
     image: string;
-  }[];
-  type: string;
+    passengers: number;
+    name: string;
+    luggage: number;
+  };
+  from_airport: {
+    id: number;
+    name: string;
+    country: number | null;
+  };
+  to_airport: {
+    id: number;
+    name: string;
+    country: number | null;
+  };
+  price: string;
+  discount: string;
+  distance_km: number;
+  distance_mile: number;
+  distance_hour: string;
+  available_child_seat: number;
+  available_booster_seat: number;
+  best_seller: boolean;
 };
 
-type TransfersData = {
-  total_pages: number;
-  results: Transfers[];
+type TransferList = {
+  discount: string;
+  from_airport: string;
+  id: number;
+  price: string;
+  to_airport: string;
+  transfer: {
+    id: number;
+    slug: string;
+    type: string;
+    image: string;
+    passengers: number;
+    name: string;
+    luggage: number;
+  };
 };

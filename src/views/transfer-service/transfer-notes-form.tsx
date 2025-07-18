@@ -5,7 +5,7 @@ import { Button } from 'components/ui/button';
 import { Checkbox } from 'components/ui/checkbox';
 import { Label } from 'components/ui/label';
 import Image from 'next/image';
-import React from 'react';
+import React, { useMemo } from 'react';
 import { useForm } from 'react-hook-form';
 
 type Fields = {
@@ -14,8 +14,26 @@ type Fields = {
   child_seat: number;
 };
 
-export default function TransferNotesForm() {
+export default function TransferNotesForm({ data }: { data: Transfer }) {
   const form = useForm<Fields>();
+
+  const childSeatOptions = useMemo(
+    () =>
+      Array.from({ length: data?.available_child_seat }, (_, i) => ({
+        id: i + 1,
+        name: `${i + 1}`,
+      })),
+    [data]
+  );
+  const boasterSeatOptions = useMemo(
+    () =>
+      Array.from({ length: data?.available_booster_seat }, (_, i) => ({
+        id: i + 1,
+        name: `${i + 1}`,
+      })),
+    [data]
+  );
+
   return (
     <div className="bg-background rounded-md p-4 shadow">
       <h2 className="text-2xl font-semibold mb-5">Extras and notes</h2>
@@ -28,6 +46,7 @@ export default function TransferNotesForm() {
           required
           placeholder="Example: L9673"
           size="lg"
+          wrapperClassName="gap-3"
         />
 
         <fieldset className="flex items-center flex-row-reverse justify-end gap-2">
@@ -47,7 +66,7 @@ export default function TransferNotesForm() {
         <ul className="flex flex-col gap-6">
           <li className="flex flex-col md:flex-row md:items-center gap-5 px-1">
             <Image
-              src="/images/seat.png"
+              src="/child-seat.png"
               alt="Image"
               height={60}
               width={60}
@@ -70,17 +89,18 @@ export default function TransferNotesForm() {
               name="child_seat"
               isSearchable={false}
               isClearable={false}
-              options={[
-                { id: 1, name: 'No' },
-                { id: 2, name: 'Yes' },
-              ]}
+              options={
+                data?.available_child_seat
+                  ? childSeatOptions
+                  : [{ id: 0, name: 'No' }]
+              }
               wrapperClassName="w-auto"
               placeholder="No"
             />
           </li>
           <li className="flex flex-col md:flex-row md:items-center gap-5 px-1">
             <Image
-              src="/images/seat.png"
+              src="/boaster-seat.png"
               alt="Image"
               height={60}
               width={60}
@@ -103,10 +123,11 @@ export default function TransferNotesForm() {
               name="child_seat"
               isSearchable={false}
               isClearable={false}
-              options={[
-                { id: 1, name: 'No' },
-                { id: 2, name: 'Yes' },
-              ]}
+              options={
+                data?.available_booster_seat
+                  ? boasterSeatOptions
+                  : [{ id: 0, name: 'No' }]
+              }
               wrapperClassName="w-auto"
               placeholder="No"
             />

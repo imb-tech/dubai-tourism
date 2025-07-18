@@ -6,12 +6,12 @@ import TransferCard from './transfer-card';
 import TransferPersonalForm from './tranfer-personal-form';
 import TransferPaymentForm from './transfer-payment-formt';
 
-export default function TransferDetail({ data }: { data: Transfers }) {
+export default function TransferDetail({ data }: { data: Transfer }) {
   const [step, setStep] = useState<number>(1);
 
-  const content = (st: string) => {
+  const content = (st: string, data: Transfer) => {
     const cnt: Record<string, ReactNode> = {
-      '1': <TransferNotesForm />,
+      '1': <TransferNotesForm data={data} />,
       '2': <TransferPersonalForm />,
       '3': <TransferPaymentForm />,
     };
@@ -19,7 +19,10 @@ export default function TransferDetail({ data }: { data: Transfers }) {
     return cnt[st];
   };
 
-  const memoizedContent = useMemo(() => content(step.toString()), [step]);
+  const memoizedContent = useMemo(
+    () => content(step.toString(), data),
+    [step, data]
+  );
 
   return (
     <div>

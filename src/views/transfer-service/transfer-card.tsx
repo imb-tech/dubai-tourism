@@ -6,47 +6,36 @@ import { Button } from 'components/ui/button';
 import { BagIcon, UserIcon } from 'components/icons';
 import { Badge } from 'components/ui/badge';
 
-export default function TransferCard({
-  image,
-  name,
-  price,
-  discount,
-  slug,
-  best_seller,
-  passengers,
-  type,
-  luggage,
-  images,
-  id
-}: Transfers) {
+export default function TransferCard(data: Transfer) {
   return (
     <div className="bg-background rounded-md p-4 relative  shadow">
-      {best_seller && (
+      {data?.best_seller && (
         <Badge className="absolute bg-[#FF5533] top-0 left-0 p-2 text-white text-xs font-medium rounded-none rounded-tl-lg rounded-br-lg">
           Best seller
         </Badge>
       )}
       <Image
-        src={image}
+        src={data?.transfer?.image}
         alt="camara"
         width={450}
         height={450}
         priority
+        style={{ height: 'auto' }}
       />
       <div className="flex flex-col gap-1">
-        <h3 className="text-lg font-semibold">{name}</h3>
+        <h3 className="text-lg font-semibold">{data?.transfer?.name}</h3>
 
         <ul className="flex items-center gap-5 py-1 w-full">
           <li className="flex items-center gap-1 text-[#74AEF8]">
             <UserIcon size={18} />
             <span className="text-black font-semibold md:text-sm text-sm">
-             {passengers} passengers
+              {data?.transfer?.passengers} passengers
             </span>
           </li>
           <li className="flex items-center gap-1 text-[#74AEF8]">
             <BagIcon size={18} />
             <span className="text-black font-semibold md:text-sm text-sm">
-             {luggage} luggages
+              {data?.transfer?.luggage} luggages
             </span>
           </li>
         </ul>
@@ -61,10 +50,10 @@ export default function TransferCard({
               <p className="flex items-center gap-2 text-sm font-semibold">
                 <span className="block size-3 bg-black/40 rounded-full"></span>
                 <span className="flex flex-col">
-                  <span className="text-base">
-                    Rome Flumicino Airport(FCO),
+                  <span className="text-base">{data?.from_airport?.name}</span>
+                  <span className="font-light">
+                    {data?.from_airport?.country}
                   </span>
-                  <span className="font-light">Rome, Italy</span>
                 </span>
               </p>
             </li>
@@ -75,8 +64,10 @@ export default function TransferCard({
               <p className="flex items-center gap-1 text-sm font-semibold">
                 <span className="block size-3 bg-primary/80 rounded-full"></span>
                 <span className="flex flex-col">
-                  <span className="text-base"> Dubai Airport(DBX), Dubai,</span>
-                  <span className="font-light">United Arab Emirates</span>
+                  <span className="text-base">{data?.to_airport?.name}</span>
+                  <span className="font-light">
+                    {data?.to_airport?.country}
+                  </span>
                 </span>
               </p>
             </li>
@@ -108,13 +99,13 @@ export default function TransferCard({
           <li className="flex items-center gap-2 text-[#74AEF8]">
             <UserIcon size={20} />
             <span className="text-black font-semibold md:text-sm text-sm">
-              {passengers} passengers
+              {data?.transfer?.passengers} passengers
             </span>
           </li>
           <li className="flex items-center gap-2 text-[#74AEF8]">
             <UserIcon size={20} />
             <span className="text-black font-semibold md:text-sm text-sm">
-              6113 km/3966 miles
+              {data?.distance_km} km/{data?.distance_mile} miles
             </span>
           </li>
           <li className="flex items-center gap-2 text-[#74AEF8]">
@@ -122,7 +113,7 @@ export default function TransferCard({
               <ClockIcon size={20} />
             </span>
             <span className="text-black font-semibold md:text-sm text-sm">
-              15h 20m
+              {data?.distance_hour}
             </span>
           </li>
         </ul>

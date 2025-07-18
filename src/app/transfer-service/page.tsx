@@ -5,18 +5,31 @@ import SectionDetailsHeading from 'components/ui/page-heading';
 import { BANNERS, TRANSFERS } from 'constants/api-endpoints';
 import { fetchData } from 'lib/fetchData';
 import Image from 'next/image';
-import React from 'react';
 import TransferForm from 'views/transfer-service/transfer-form';
 import TransferInfo from 'views/transfer-service/transfer-info';
 
-const TransferService = async () => {
+type Props = {
+  searchParams: Record<string, string>;
+};
+
+const TransferService = async ({ searchParams }: Props) => {
   const banners = await fetchData<Banner[]>(BANNERS, {
     params: { service: 'transfers' },
   });
 
-  const transfers = await fetchData<TransfersData>(TRANSFERS);
+  const transfers = await fetchData<TransferList[]>(TRANSFERS, {
+    params: {
+      from_airport: 1,
+      to_airport: 2,
+      pickup_date: '2025-07-18T08:07:50Z',
+      // return_date: '',
+      passengers: 2,
+    },
+  });
 
-  const hasTransfers = transfers !== null && Array.isArray(transfers.results);
+  console.log(transfers);
+
+  const hasTransfers = transfers !== null && Array.isArray(transfers);
 
   return (
     <div className="container mx-auto px-3 lg:px-0">
@@ -43,8 +56,13 @@ const TransferService = async () => {
 
       {hasTransfers ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-          {transfers.results.map((transfer) => (
-            <CarCard key={transfer.id} {...transfer} url="transfer-service" />
+          {transfers?.map((transfer) => (
+            <CarCard
+              key={transfer.id}
+              {...transfer}
+              {...transfer.transfer}
+              url="transfer-service"
+            />
           ))}
         </div>
       ) : (
