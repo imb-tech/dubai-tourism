@@ -3,13 +3,18 @@ import { Button } from 'components/ui/button';
 import { Card, CardContent } from 'components/ui/card';
 import { DatePicker } from 'components/ui/datepicker';
 import Select from 'components/ui/select';
-import { Minus, Plus } from 'lucide-react';
+import { Minus, Plus, Trash2 } from 'lucide-react';
 import { format } from 'date-fns';
 import { useAtractionCustom } from 'views/atraction/use-atraction-custom';
 import Image from 'next/image';
 import { StarIcon, UserIcon } from 'components/icons';
 import { agesTypes } from 'views/atraction/attraction-card';
 import { usePost } from 'hooks/usePost';
+import { useDelete } from 'hooks/useDelete';
+import { useModal } from 'hooks/use-modal';
+import { useQueryClient } from '@tanstack/react-query';
+import { BASKET, BASKETDELETE } from 'constants/api-endpoints';
+import { toast } from 'sonner';
 
 const CheckoutCardMobile = ({
   data,
@@ -20,6 +25,15 @@ const CheckoutCardMobile = ({
 }) => {
   const { mutate } = usePost();
   const { updateRow, renderPrice, offers, today } = useAtractionCustom();
+  const { openModal } = useModal('more-info');
+  const querClinet = useQueryClient();
+
+  const { mutate: mutateDelete } = useDelete({
+    onSuccess: () => {
+      querClinet.refetchQueries({ queryKey: [BASKET] });
+      toast.success("Muvaffaqiyatli o'chirildi.");
+    },
+  });
 
   const watchedRow = offers?.[index] ?? {};
 
@@ -48,11 +62,19 @@ const CheckoutCardMobile = ({
     }
   };
 
-  console.log(watchedRow);
-
   return (
-    <Card className="mb-4 max-w-3xl">
-      <CardContent className="px-4">
+    <Card className="mb-2 max-w-3xl pt-4">
+      <CardContent className="px-4 ">
+        <div className="flex items-center  gap-2 mb-2">
+          <Trash2
+            onClick={() => {
+              mutateDelete(`${BASKETDELETE}/${data?.id}`);
+            }}
+            className="text-rose-500 cursor-pointer"
+            size={20}
+          />
+          <span className="text-rose-500">Remove from cart</span>
+        </div>
         <div className="mb-4">
           <Image
             src={data?.image}
@@ -63,16 +85,25 @@ const CheckoutCardMobile = ({
           />
         </div>
         <h2 className="text-2xl font-semibold">{data.name}</h2>
-        <ul className="flex gap-3 py-1 mb-2">
-          <li className="flex items-center gap-2 text-primary">
-            <UserIcon />
-            <span className="text-black font-medium">Sharhlar</span>
-          </li>
-          <li className="flex items-center gap-2 text-primary">
-            <StarIcon />
-            <span className="text-black font-medium">{data?.rating}</span>
-          </li>
-        </ul>
+        <div className="w-full flex mb-2 items-center gap-3 justify-between">
+          <ul className="flex gap-3 py-1 ">
+            <li className="flex items-center gap-2 text-primary">
+             <UserIcon />
+             <span className='text-black font-medium'>{data?.comment_count}</span> 
+              <span className="text-black font-medium">Sharhlar</span>
+            </li>
+            <li className="flex items-center gap-2 text-primary">
+              <StarIcon />
+              <span className="text-black font-medium">{data?.rating}</span>
+            </li>
+          </ul>
+          <span
+            onClick={openModal}
+            className="underline text-blue-500 cursor-pointer"
+          >
+            More info
+          </span>
+        </div>
         <div className="mb-2">
           <Select
             options={data.transfer_options ?? []}
@@ -91,11 +122,11 @@ const CheckoutCardMobile = ({
               };
               updateRow(index, updated);
               mutate('payment/basket/update', {
-                attraction_offer_id:updated.selected_transfer.id,
+                transfer_option_id: updated.selected_transfer.id,
                 basket_attraction_id: watchedRow.basket_attraction_id,
               });
             }}
-            className="w-full bg-secondary"
+            className="w-full bg-secondary border-none"
           />
         </div>
 
@@ -108,7 +139,7 @@ const CheckoutCardMobile = ({
             };
             updateRow(index, updated);
             mutate('payment/basket/update', {
-              ...updated,
+              tour_date: updated.tour_date,
               basket_attraction_id: watchedRow.basket_attraction_id,
             });
           }}
@@ -126,7 +157,7 @@ const CheckoutCardMobile = ({
                     onClick={() => {
                       handleDelete(item.id as 'adult' | 'child' | 'infant');
                     }}
-                    className="w-8 h-8 rounded-full p-0 bg-white hover:bg-secondary shadow-none"
+                    className="w-8 h-8 rounded-full p-0 bg-white hover:bg-primary/10 shadow-none"
                   >
                     <Minus className="w-4 p-0 text-black" />
                   </Button>
@@ -137,7 +168,7 @@ const CheckoutCardMobile = ({
                     onClick={() => {
                       handleAdd(item.id as 'adult' | 'child' | 'infant');
                     }}
-                    className="w-8 h-8 rounded-full p-0 bg-white hover:bg-secondary shadow-none"
+                    className="w-8 h-8 rounded-full p-0 bg-white hover:bg-primary/10 shadow-none"
                   >
                     <Plus className="w-4 p-0 text-black" />
                   </Button>

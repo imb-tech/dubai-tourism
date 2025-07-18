@@ -1,276 +1,189 @@
 'use client';
-import React, { useCallback, useMemo, useState } from 'react';
-import PaymentForm from './payment-form';
-import PaymentTypes from './payment-types';
-import { FormProvider, useForm } from 'react-hook-form';
-import OrderSteps from './order-steps';
-import FormInput from 'components/form/input';
+
+import React, { useState, useMemo } from 'react';
+import { useForm, FormProvider, UseFormReturn } from 'react-hook-form';
 import { Button } from 'components/ui/button';
 import { Checkbox } from 'components/ui/checkbox';
 import { DownloadIcon } from 'lucide-react';
-import { Check } from 'lucide-react';
 import { useModal } from 'hooks/use-modal';
+import { useGet } from 'hooks/useGet';
+import { BASKET } from 'constants/api-endpoints';
+import {
+  Accordion,
+  AccordionItem,
+  AccordionTrigger,
+  AccordionContent,
+} from 'components/ui/accordion';
+import FormInput from 'components/form/input';
 import Modal from 'components/custom/modal';
 import PaymentModal from './payment-modal';
+import PaymentForm from './payment-form';
+import PaymentTypes from './payment-types';
+import OrderSteps from './order-steps';
 
-type FormFields = {
-  name: string;
+type FormFields = { name: string; coupone: string };
+
+type CouponeFormProps<T extends Record<string, any>> = {
+  methods: UseFormReturn<T>;
+};
+
+type FormApple = {
   coupone: string;
+};
+
+type AtractionOffers = {
+  name: string;
+  transfer_option: any;
+  tour_date: string;
+  adult: number;
+  price: string;
+};
+
+const renderAttractionDetails = (items: AtractionOffers[]) => (
+  <Accordion type="single" collapsible defaultValue="0">
+    {items.map((item, index) => (
+      <AccordionItem
+        key={index}
+        value={index.toString()}
+        className="bg-[#F5F8FC] px-4 rounded-lg"
+      >
+        <AccordionTrigger className="font-semibold text-lg">
+          {item.name}
+        </AccordionTrigger>
+        <AccordionContent>
+          <ul className="flex flex-col gap-4 pt-4 text-sm">
+            <li className="flex justify-between">
+              <span>Tour Option</span>
+              <span>{item.transfer_option.name}</span>
+            </li>
+            <li className="flex justify-between">
+              <span>Date</span>
+              <span>{item.tour_date}</span>
+            </li>
+            <li className="flex justify-between">
+              <span>Transfer Type</span>
+              <span>{item.transfer_option.name}</span>
+            </li>
+            <li className="flex justify-between">
+              <span>Transfer Timings</span>
+              <span>{item.adult} Adult</span>
+            </li>
+            <li className="flex justify-between text-red-500 font-bold">
+              <span>Last Date to Cancel</span>
+              <span>Non Refundable</span>
+            </li>
+            <li className="flex justify-between">
+              <span>Availability</span>
+              <span>Available</span>
+            </li>
+            <li className="flex justify-between">
+              <span>Amount Incl. VAT</span>
+              <span>AED {item.price}</span>
+            </li>
+          </ul>
+        </AccordionContent>
+      </AccordionItem>
+    ))}
+  </Accordion>
+);
+
+function CouponeForm() {
+  const form = useForm();
+  const { handleSubmit, reset } = form;
+  return (
+    <div className="my-4">
+      <p className="text-primary text-sm mb-2">Enter Coupon Code</p>
+      <form className="flex items-end gap-2">
+        <FormInput
+          methods={form}
+          name="coupone"
+          label="Coupon code"
+          variant="clean"
+          placeholder="Enter your coupon"
+        />
+        <Button type="button">Apply</Button>
+      </form>
+    </div>
+  );
+}
+
+const FinalPaymentCard = () => (
+  <div className="bg-background p-6 rounded-md">
+    <h2 className="text-xl font-semibold mb-4">Final Payment</h2>
+    <div className="flex justify-between bg-secondary p-3 rounded-md font-semibold">
+      <span>Final Amount</span>
+      <span>AED 360.00</span>
+    </div>
+  </div>
+);
+
+const StepContent = ({ step, isMobile, data, openModal, setStep }: any) => {
+  switch (step) {
+    case 2:
+    case 3:
+      return (
+        <div className="flex flex-col gap-4">
+          <PaymentForm />
+          <PaymentTypes />
+          <div className="bg-background p-4 rounded-md flex flex-col sm:flex-row items-center justify-between gap-4">
+            <Checkbox defaultChecked />
+            <p className="text-sm">
+              By clicking Pay now you agree with Terms and Conditions
+            </p>
+            <Button onClick={openModal}>Pay now</Button>
+          </div>
+        </div>
+      );
+    case 4:
+      return (
+        <div className="bg-secondary p-4 rounded-md text-center">
+          <h2 className="text-xl mb-4">Print Voucher</h2>
+          <Button>
+            <DownloadIcon className="mr-2" /> Click here to download
+          </Button>
+        </div>
+      );
+    default:
+      return (
+        <div
+          className={`grid ${
+            isMobile ? '' : 'grid-cols-3 gap-4'
+          } p-4 bg-primary/5 rounded-md`}
+        >
+          <div
+            className={`${isMobile ? '' : 'col-span-2'} flex flex-col gap-4`}
+          >
+            {renderAttractionDetails(data?.attractions || [])}
+            <CouponeForm />
+            <FinalPaymentCard />
+            <Button onClick={() => setStep(2)}>Next</Button>
+          </div>
+        </div>
+      );
+  }
 };
 
 export default function PaymentMain() {
   const methods = useForm<FormFields>();
-  const [step, setStep] = useState<number>(1);
+  const [step, setStep] = useState(1);
   const { openModal } = useModal('payment');
-
-  const componentMobile = useCallback(
-    (v: number) => {
-      switch (v) {
-        case 2:
-          return (
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 md:bg-primary/5 rounded-md gap-2">
-              <div className="flex flex-col gap-3 col-span-1 md:col-span-2">
-                <PaymentForm />
-                <PaymentTypes />
-                <div className="flex flex-col items-center bg-background p-6 rounded-md gap-4">
-                  <div className="flex items-center gap-3">
-                    <Checkbox defaultChecked />
-                    <p>
-                      By clicking Pay now you agree with Terms and Conditions
-                    </p>
-                  </div>
-                  <Button
-                    onClick={openModal}
-                    size="lg"
-                    type="button"
-                    className="ml-auto w-full md:w-auto"
-                  >
-                    Pay now
-                  </Button>
-                </div>
-              </div>
-            </div>
-          );
-        case 4:
-          return (
-            <div className="bg-secondary p-3 rounded-md">
-              <div className="flex flex-col sm:flex-row items-center justify-center sm:justify-between bg-background p-6 rounded-md gap-4">
-                <p className="text-xl text-center">Print Vaucher</p>
-                <Button size="lg" type="button">
-                  <DownloadIcon />
-                  Click here to download
-                </Button>
-              </div>
-            </div>
-          );
-
-        default:
-          return (
-            <div className="flex flex-col gap-3 md:p-3 md:bg-primary/5">
-              <div className="p-6 bg-background rounded-md">
-                <h1 className="text-center text-2xl font-semibold">
-                  Atlantis Aquaventure Waterpark
-                </h1>
-
-                <span className="w-full border-b block mt-4"></span>
-
-                <ul className="flex flex-col gap-5 pt-5">
-                  <li className="text-sm flex items-center justify-between">
-                    <span>Tour Option</span>
-                    <span>Atlantis day pass - (21st April - 4th June)</span>
-                  </li>
-                  <li className="text-sm flex items-center justify-between">
-                    <span>Date</span>
-                    <span>21/4/2025</span>
-                  </li>
-                  <li className="text-sm flex items-center justify-between">
-                    <span>Transfer Type</span>
-                    <span>Without Transfers</span>
-                  </li>
-                  <li className="text-sm flex items-center justify-between">
-                    <span>Transfer Timings</span>
-                    <span>1 Adult</span>
-                  </li>
-                  <li className="text-sm flex items-center justify-between font-bold text-red-500">
-                    <span>Last Date to Cancel:</span>
-                    <span>Non Refundable</span>
-                  </li>
-                  <li className="text-sm flex items-center justify-between">
-                    <span>Availability</span>
-                    <span>Available</span>
-                  </li>
-                  <li className="text-sm flex items-center justify-between">
-                    <span>Amount Incl. VAT</span>
-                    <span>AED 360.00</span>
-                  </li>
-                </ul>
-
-                <span className="w-full border-b block my-5"></span>
-
-                <p className="text-primary text-sm mb-4">Enter Coupone code</p>
-
-                <div className="flex items-end gap-1 ">
-                  <FormInput
-                    methods={methods}
-                    name="coupone"
-                    label="Coupon code"
-                    variant="clean"
-                    placeholder="Enter your coupone"
-                    wrapperClassName="flex-1 h-[58px]"
-                    size="lg"
-                  />
-                  <Button size="lg" className="" type="button">
-                    Apply
-                  </Button>
-                </div>
-              </div>
-
-              <div className="bg-background p-6 rounded-md">
-                <h1 className="text-2xl font-semibold">Final Payment</h1>
-                <div className="flex items-center justify-between mt-4 bg-secondary rounded-md p-3 font-semibold">
-                  <p>Final Amount</p>
-                  <p> AED 360.00</p>
-                </div>
-              </div>
-
-              <Button className="mx-6" size="lg" onClick={() => setStep(2)}>
-                Next
-              </Button>
-            </div>
-          );
-      }
-    },
-    [methods, openModal]
+  const { data } = useGet<{ id: number; attractions: AtractionOffers[] }>(
+    BASKET
   );
 
-  const component = useCallback(
-    (v: number) => {
-      switch (v) {
-        case 3:
-          return (
-            <div className="flex items-center bg-background p-6 rounded-md gap-4">
-              <Checkbox defaultChecked />
-              <p>By clicking Pay now you agree with Terms and Conditions</p>
-              <Button
-                onClick={openModal}
-                size="lg"
-                type="button"
-                className="ml-auto"
-              >
-                Pay now
-              </Button>
-            </div>
-          );
-        case 4:
-          return (
-            <div className="bg-secondary p-3 rounded-md">
-              <div className="flex flex-col sm:flex-row items-center justify-center sm:justify-between bg-background p-6 rounded-md gap-4">
-                <p className="text-xl text-center">Print Vaucher</p>
-                <Button size="lg" type="button">
-                  <DownloadIcon />
-                  Click here to download
-                </Button>
-              </div>
-            </div>
-          );
-
-        default:
-          return (
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 p-3 bg-primary/5 rounded-md gap-2">
-              <div className="flex flex-col gap-3 col-span-1 md:col-span-2">
-                <PaymentForm />
-                <PaymentTypes />
-                <div className="flex items-center bg-background p-6 rounded-md gap-4">
-                  <Checkbox defaultChecked />
-                  <p>By clicking Pay now you agree with Terms and Conditions</p>
-                  <Button
-                    onClick={openModal}
-                    size="lg"
-                    type="button"
-                    className="ml-auto"
-                  >
-                    Pay now
-                  </Button>
-                </div>
-              </div>
-              <div className="flex flex-col gap-3">
-                <div className="p-6 bg-background rounded-md">
-                  <h1 className="text-center text-2xl font-semibold">
-                    Atlantis Aquaventure Waterpark
-                  </h1>
-
-                  <span className="w-full border-b block mt-4"></span>
-
-                  <ul className="flex flex-col gap-5 pt-5">
-                    <li className="text-sm flex items-center justify-between">
-                      <span>Tour Option</span>
-                      <span>Atlantis day pass - (21st April - 4th June)</span>
-                    </li>
-                    <li className="text-sm flex items-center justify-between">
-                      <span>Date</span>
-                      <span>21/4/2025</span>
-                    </li>
-                    <li className="text-sm flex items-center justify-between">
-                      <span>Transfer Type</span>
-                      <span>Without Transfers</span>
-                    </li>
-                    <li className="text-sm flex items-center justify-between">
-                      <span>Transfer Timings</span>
-                      <span>1 Adult</span>
-                    </li>
-                    <li className="text-sm flex items-center justify-between font-bold text-red-500">
-                      <span>Last Date to Cancel:</span>
-                      <span>Non Refundable</span>
-                    </li>
-                    <li className="text-sm flex items-center justify-between">
-                      <span>Availability</span>
-                      <span>Available</span>
-                    </li>
-                    <li className="text-sm flex items-center justify-between">
-                      <span>Amount Incl. VAT</span>
-                      <span>AED 360.00</span>
-                    </li>
-                  </ul>
-
-                  <span className="w-full border-b block my-5"></span>
-
-                  <p className="text-primary text-sm">Enter Coupone code</p>
-
-                  <div className="flex items-center gap-1">
-                    <FormInput
-                      methods={methods}
-                      name="coupone"
-                      variant="clean"
-                      placeholder="Enter your coupone"
-                      wrapperClassName="flex-1"
-                      size="lg"
-                    />
-                    <Button size="lg" type="button">
-                      Apply
-                    </Button>
-                  </div>
-                </div>
-
-                <div className="bg-background p-6 rounded-md">
-                  <h1 className="text-2xl font-semibold">Final Payment</h1>
-                  <div className="flex items-center justify-between mt-4 bg-secondary rounded-md p-3 font-semibold">
-                    <p>Final Amount</p>
-                    <p> AED 360.00</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          );
-      }
-    },
-    [methods, openModal]
-  );
-
-  const mobileContent = useMemo(
-    () => componentMobile(step),
-    [step, componentMobile]
-  );
-  const desktopContent = useMemo(() => component(step), [step, component]);
+  const content = useMemo(() => {
+    const isMobile = typeof window !== 'undefined' && window.innerWidth < 640;
+    return (
+      <StepContent
+        step={step}
+        isMobile={isMobile}
+        data={data}
+        methods={methods}
+        openModal={openModal}
+        setStep={setStep}
+      />
+    );
+  }, [step, data]);
 
   return (
     <FormProvider {...methods}>
@@ -278,9 +191,8 @@ export default function PaymentMain() {
         <h1 className="text-center text-3xl mb-6">
           Atlantis Aquaventure Waterpark
         </h1>
-        <OrderSteps setStep={(v) => setStep(v)} />
-        <div className="hidden sm:block">{desktopContent}</div>
-        <div className="visible sm:hidden">{mobileContent}</div>
+        <OrderSteps setStep={setStep} />
+        {content}
         <Modal
           modalKey="payment"
           titleClass="lg:text-3xl font-semibold text-2xl"

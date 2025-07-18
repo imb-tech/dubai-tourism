@@ -34,13 +34,6 @@ const AddToCartAttraction = ({ data }: { data: AtractionCreate[] }) => {
         <WhatsappIcon size={25} />
         <span>Whatsapp</span>
       </Button>
-      <Button
-        className="lg:hidden md:col-span-2 bg-primary"
-        variant="default"
-        size="lg"
-      >
-        Purchase now
-      </Button>
     </div>
   );
 };

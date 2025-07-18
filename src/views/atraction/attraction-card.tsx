@@ -37,8 +37,6 @@ const AttractionCardMobile = ({
 
   const watchedRow = offers?.[index] ?? {};
 
-
-
   const handleAdd = (type: 'adult' | 'child' | 'infant') => {
     const currentValue = watchedRow[type] ?? 0;
     const maxCount = data[`max_${type}`];
@@ -54,7 +52,6 @@ const AttractionCardMobile = ({
     }
   };
 
-
   return (
     <Card className="mb-4">
       <CardHeader className="px-4">
@@ -67,25 +64,25 @@ const AttractionCardMobile = ({
         </span>
       </CardHeader>
       <CardContent className="px-4">
-        <div className='mb-2'>
+        <div className="mb-2">
           <Select
-          options={data.transfer_options ?? []}
-          value={watchedRow.selected_transfer?.id?.toString() ?? '1'}
-          returnVal="id"
-          setValue={(val) => {
-            const selected = data.transfer_options?.find(
-              (opt) => opt.id.toString() === val.toString()
-            );
-            updateRow(index, {
-              selected_transfer: {
-                id: selected?.id ?? 0,
-                price: selected?.price ?? 0,
-                is_discount: selected?.is_discount ?? false,
-              },
-            });
-          }}
-          className="w-full bg-secondary"
-        />
+            options={data.transfer_options ?? []}
+            value={watchedRow.selected_transfer?.id?.toString() ?? '1'}
+            returnVal="id"
+            setValue={(val) => {
+              const selected = data.transfer_options?.find(
+                (opt) => opt.id.toString() === val.toString()
+              );
+              updateRow(index, {
+                selected_transfer: {
+                  id: selected?.id ?? 0,
+                  price: selected?.price ?? 0,
+                  is_discount: selected?.is_discount ?? false,
+                },
+              });
+            }}
+            className="w-full bg-secondary"
+          />
         </div>
 
         <DatePicker

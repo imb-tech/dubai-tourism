@@ -1,4 +1,4 @@
-import { ReactNode, useCallback, useEffect } from 'react';
+import { ReactNode, useCallback, useEffect, useMemo } from 'react';
 import {
   UseFieldArrayReturn,
   useFieldArray,
@@ -34,6 +34,7 @@ type UseAtractionCustomReturn = {
   offers: AtractionOffers[];
   renderPrice: (row: AtractionOffers) => ReactNode;
   today: string;
+  totalAmount:number
 };
 
 export function usePriceCalculator() {
@@ -132,6 +133,25 @@ export function useAtractionCustom(): UseAtractionCustomReturn {
   const getOptions = (max = 5) =>
     Array.from({ length: max + 1 }, (_, i) => ({ id: i, name: i }));
 
+  const totalAmount = useMemo(() => {
+    return offers.reduce((sum, row) => {
+      const { discounted, original } = calculate({
+        adult: row.adult ?? 1,
+        child: row.child ?? 0,
+        infant: row.infant ?? 0,
+        adult_price: row.adult_price ?? 0,
+        child_price: row.child_price ?? 0,
+        infant_price: row.infant_price ?? 0,
+        discount_adults: row.discount_adults,
+        discount_child: row.discount_child,
+        discount_infant: row.discount_infant,
+        transfer_price: Number(row.selected_transfer?.price ?? 0),
+        is_discount: row.selected_transfer?.is_discount ?? false,
+      });
+      return sum + (row.selected_transfer?.is_discount ? discounted : original);
+    }, 0);
+  }, [offers, calculate]);
+
   useEffect(() => {
     offers.forEach((row, index) => {
       const currentTransfer = row.selected_transfer;
@@ -151,5 +171,5 @@ export function useAtractionCustom(): UseAtractionCustomReturn {
     });
   }, [fields, offers, update]);
 
-  return { updateRow, getOptions, fields, offers, renderPrice, today };
+  return { updateRow, getOptions, fields, offers, renderPrice, today,totalAmount};
 }

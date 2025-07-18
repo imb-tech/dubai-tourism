@@ -23,6 +23,11 @@ export default function CheckoutMain() {
       form.reset({
         offers: data.attractions.map((offer) => ({
           ...offer,
+          selected_transfer: {
+            id: offer.transfer_option.id,
+            is_discount: offer.transfer_option.is_discount,
+            price: offer.transfer_option.price,
+          },
           adult: offer.adult ?? 1,
           child: offer.child ?? 0,
           infant: offer.infant ?? 0,
@@ -44,12 +49,12 @@ export default function CheckoutMain() {
                 </div>
               ) : (
                 <div className="hidden lg:flex w-full">
-                  <CheckoutCard data={item} />
+                  <CheckoutCard key={index} data={item} index={index} />
                 </div>
               )}
             </Fragment>
           ))}
-          <GoToPayment totalAmount={0} />
+          <GoToPayment />
         </div>
         <Modal modalKey="more-info" className="max-w-xl">
           <WtpInfo />

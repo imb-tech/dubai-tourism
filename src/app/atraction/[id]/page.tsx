@@ -1,6 +1,6 @@
 import WtpComments from 'views/atraction/atraction-comments';
 import WtpFeatures from 'views/atraction/atraction-features';
-import WtpForm from 'views/atraction/atraction-form';
+import WtpForm from 'views/atraction';
 import WtpMap from 'views/atraction/atraction-map';
 import React from 'react';
 import { SliderComponents } from 'components/slider/page';

@@ -12,7 +12,7 @@ export function formatMoney(amount?: number | string | undefined): string {
     if (decimalPart && +decimalPart > 0) {
       return `${newIntegerPart}.${decimalPart}`;
     } else {
-      return `${newIntegerPart}.00`;
+      return `${newIntegerPart}`;
     }
   } else {
     return '0';
