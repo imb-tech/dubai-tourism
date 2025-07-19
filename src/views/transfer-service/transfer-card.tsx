@@ -182,7 +182,7 @@ export default function TransferCard({ data, allData, setAllData }: Props) {
                   <X size={12} />
                 </span>
               </div>
-              <Button type="submit" className="h-11">
+              <Button type="submit" className="h-10 w-full mt-3">
                 <span className="text-base">Search</span>
                 <Search size={20} />
               </Button>

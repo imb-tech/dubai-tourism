@@ -10,6 +10,9 @@ import { useModal } from 'hooks/use-modal';
 import PaymentModal from '../payment/payment-modal';
 import { useState } from 'react';
 import { paymentTypes } from 'constants/payment-types';
+import { usePost } from 'hooks/usePost';
+import { toast } from 'sonner';
+import { TRANSFERORDER } from 'constants/api-endpoints';
 
 type Props = {
   allData: TransferOrderCreate;
@@ -34,6 +37,13 @@ export default function TransferPaymentForm({
   const { handleSubmit } = form;
   const [active, setActive] = useState<number>(1);
 
+  const { mutate } = usePost({
+    onSuccess: (data) => {
+      toast.success('Muvaffaqiyatli yaratildi!');
+      toast.info("'To'lov pagega otilishi kerak!'");
+    },
+  });
+
   const paymentType = paymentTypes?.find((item) => item?.id === active)?.name;
 
   const onSubmit = (data: Fields) => {
@@ -41,6 +51,14 @@ export default function TransferPaymentForm({
       ...allData,
       ...data,
       payment_type: paymentType || 'click',
+    });
+    mutate(TRANSFERORDER, {
+      ...allData,
+      transfer: {
+        ...allData.transfer,
+        driver_notes: null,
+        flight_number: null,
+      },
     });
   };
 
