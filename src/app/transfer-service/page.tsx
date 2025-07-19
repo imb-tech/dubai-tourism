@@ -17,15 +17,22 @@ const TransferService = async ({ searchParams }: Props) => {
     params: { service: 'transfers' },
   });
 
-  const transfers = await fetchData<TransferList[]>(TRANSFERS, {
-    params: {
-      from_airport: 1,
-      to_airport: 2,
-      pickup_date: '2025-07-19T08:07:50Z',
-      // return_date: '',
-      passengers: 2,
-    },
-  });
+  const { to_airport, from_airport, pickup_date, passengers, return_date } =
+    searchParams;
+
+  const isReady = from_airport && to_airport && pickup_date && passengers;
+
+  const transfers = isReady
+    ? await fetchData<TransferList[]>(TRANSFERS, {
+        params: {
+          from_airport,
+          to_airport,
+          pickup_date,
+          passengers,
+          ...(return_date && { return_date }),
+        },
+      })
+    : null;
 
   const hasTransfers = transfers !== null && Array.isArray(transfers);
 
@@ -35,14 +42,13 @@ const TransferService = async ({ searchParams }: Props) => {
 
       {hasTransfers && <SliderComponents images={banners || []} />}
 
-      <div className="flex flex-col-reverse md:flex-row items-center justify-center gap-3 md:gap-6">
-        <div className={`${hasTransfers && 'w-full'}`}>
-          <TransferForm hasTransfers={hasTransfers} />
-        </div>
+      <div className="grid grid-cols-1 md:grid-cols-2 mx-auto gap-3 md:gap-6 items-center">
+        <TransferForm />
 
         {!hasTransfers && (
           <div className="rounded-2xl overflow-hidden">
             <Image
+              className="w-full"
               src="/transfer-form.png"
               width={570}
               height={570}

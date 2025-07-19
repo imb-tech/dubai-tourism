@@ -7,7 +7,21 @@ import TransferCard from './transfer-card';
 import TransferPersonalForm from './tranfer-personal-form';
 import TransferPaymentForm from './transfer-payment-formt';
 
-export default function TransferDetail({ data }: { data: Transfer }) {
+type QueryParams = {
+  from_id?: string;
+  to_id?: string;
+  pickup_date: string;
+  passengers?: string;
+  return_date?: string;
+};
+
+export default function TransferDetail({
+  data,
+  initialQuery,
+}: {
+  data: Transfer;
+  initialQuery: QueryParams;
+}) {
   const [step, setStep] = useState<number>(1);
   const [active, _setActive] = useState<number>(1);
 
@@ -18,12 +32,12 @@ export default function TransferDetail({ data }: { data: Transfer }) {
     email: '',
     phone: '',
     meet_sign: '',
-    promo_code: "",
+    promo_code: '',
     transfer: {
       transfer_rate: data?.id,
-      pickup_date: '2025-12-19T08:07:50Z',
-      return_date: null,
-      passengers: 2,
+      pickup_date: initialQuery?.pickup_date,
+      return_date: initialQuery?.return_date ? initialQuery?.return_date : null,
+      passengers: Number(initialQuery.passengers ?? 1),
       child_seat: 0,
       booster_seat: 0,
       driver_notes: null,
@@ -67,8 +81,6 @@ export default function TransferDetail({ data }: { data: Transfer }) {
     return cnt[st];
   };
 
-  console.log(allData);
-
   const memoizedContent = useMemo(
     () => getContent(step.toString(), data, allData),
     [step, data, allData]
@@ -77,7 +89,7 @@ export default function TransferDetail({ data }: { data: Transfer }) {
   return (
     <div>
       <TransferSteps
-        setStep={(v) => setStep(v)}
+        setStep={setStep}
         active={active}
         _setActive={_setActive}
       />

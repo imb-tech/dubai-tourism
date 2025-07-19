@@ -19,7 +19,7 @@ export const SHOPPING_GOLDS_APPLICATIONS =
   'services/shopping/golds/applications';
 export const AIRPORTS = 'services/airporsts';
 export const TRANSFERS = 'services/transfers';
-export const POPULAR_QUESTIONS = 'common/popular-questions';
+export const POPULAR_QUESTIONS = 'home/popular-questions';
 export const BASKET = 'payment/basket';
 export const BASKETCREATE = `${BASKET}/create`;
 export const BASKETDELETE = `${BASKET}/delete`;
