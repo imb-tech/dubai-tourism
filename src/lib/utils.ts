@@ -1,5 +1,7 @@
 import { clsx, type ClassValue } from 'clsx';
+import { format, formatISO, parse } from 'date-fns';
 import { twMerge } from 'tailwind-merge';
+import { string } from 'zod';
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -29,36 +31,15 @@ export function getTime30MinLater(): string {
   return `${hours}:${minutes}`; // HH:mm format
 }
 
-export function normalizeDate(input: string | Date): Date {
-  if (input instanceof Date) {
+export function normalizeDate(input: string | Date): string {
+  if (typeof input === 'string') {
     return input;
+  } else {
+    return format(input, 'dd/MM/yyyy');
   }
-
-  // input string bo‘lsa: "23/07/2025"
-  const [day, month, year] = input.split('/');
-  return new Date(Number(year), Number(month) - 1, Number(day));
 }
 
-export function formatDate(date: Date, time: string): string {
-  const [hours, minutes] = time.split(':').map(Number);
-  const merged = new Date(date); // yangi nusxa
-  merged.setHours(hours);
-  merged.setMinutes(minutes);
-
-  const pad = (n: number, len: number = 2) => String(n).padStart(len, '0');
-
-  const year = merged.getFullYear();
-  const month = pad(merged.getMonth() + 1); // 0-based
-  const day = pad(merged.getDate());
-  const hour = pad(merged.getHours());
-  const minute = pad(merged.getMinutes());
-  const second = pad(merged.getSeconds());
-  const millisecond = pad(merged.getMilliseconds(), 3);
-
-  const tzOffset = -merged.getTimezoneOffset();
-  const sign = tzOffset >= 0 ? '+' : '-';
-  const tzHours = pad(Math.floor(Math.abs(tzOffset) / 60));
-  const tzMinutes = pad(Math.abs(tzOffset) % 60);
-
-  return `${year}-${month}-${day} ${hour}:${minute}:${second}.${millisecond}000${sign}${tzHours}:${tzMinutes}`;
-}
+export const dateForBackend = (date: string, time: string) => {
+  const parsedDate = parse(`${date} ${time}`, 'dd/MM/yyyy HH:mm', new Date());
+  return formatISO(parsedDate, { representation: 'complete' });
+};

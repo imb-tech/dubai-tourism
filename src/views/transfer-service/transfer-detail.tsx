@@ -1,4 +1,5 @@
 'use client';
+
 import React, { ReactNode, useMemo, useState } from 'react';
 import TransferSteps from './transfer-steps';
 import TransferNotesForm from './transfer-notes-form';
@@ -8,6 +9,7 @@ import TransferPaymentForm from './transfer-payment-formt';
 
 export default function TransferDetail({ data }: { data: Transfer }) {
   const [step, setStep] = useState<number>(1);
+  const [active, _setActive] = useState<number>(1);
   const [allData, setAllData] = useState<TransferOrderCreate>({
     payment_type: '',
     first_name: '',
@@ -17,7 +19,7 @@ export default function TransferDetail({ data }: { data: Transfer }) {
     meet_sign: '',
     promo_code: '',
     transfer: {
-      transfer_rate: 0,
+      transfer_rate: data?.id,
       pickup_date: '',
       return_date: '',
       passengers: 0,
@@ -37,12 +39,28 @@ export default function TransferDetail({ data }: { data: Transfer }) {
       '1': (
         <TransferNotesForm
           transfer={data}
+          allData={allData}
+          setStep={setStep}
+          _setActive={_setActive}
+          setAllData={setAllData}
+        />
+      ),
+      '2': (
+        <TransferPersonalForm
+          setAllData={setAllData}
+          allData={allData}
+          setStep={setStep}
+          _setActive={_setActive}
+        />
+      ),
+      '3': (
+        <TransferPaymentForm
+          setStep={setStep}
+          _setActive={_setActive}
           setAllData={setAllData}
           allData={allData}
         />
       ),
-      '2': <TransferPersonalForm setAllData={setAllData} allData={allData} />,
-      '3': <TransferPaymentForm setAllData={setAllData} allData={allData} />,
     };
 
     return cnt[st];
@@ -57,11 +75,15 @@ export default function TransferDetail({ data }: { data: Transfer }) {
 
   return (
     <div>
-      <TransferSteps setStep={(v) => setStep(v)} />
+      <TransferSteps
+        setStep={(v) => setStep(v)}
+        active={active}
+        _setActive={_setActive}
+      />
       <div className="sm:p-4 sm:bg-primary/5 rounded-md grid grid-cols-1 md:grid-cols-3 gap-4">
         <div className="md:col-span-2">{memoizedContent}</div>
         <aside>
-          <TransferCard {...data} />
+          <TransferCard data={data} allData={allData} setAllData={setAllData} />
         </aside>
       </div>
     </div>

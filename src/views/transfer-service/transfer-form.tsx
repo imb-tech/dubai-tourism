@@ -13,7 +13,7 @@ import { Plus, Search, Users, X } from 'lucide-react';
 import { useGet } from 'hooks/useGet';
 import { usePost } from 'hooks/usePost';
 import { AIRPORTS } from 'constants/api-endpoints';
-import { formatDate, getTime30MinLater, normalizeDate } from 'lib/utils';
+import { dateForBackend, getTime30MinLater, normalizeDate } from 'lib/utils';
 import { format } from 'date-fns';
 
 type Airport = {
@@ -83,7 +83,7 @@ export default function TransferForm({ hasTransfers }: PageProps) {
     if (isReturn && data.return?.date && data.return?.time) {
       queryParams.set(
         'return_date',
-        formatDate(normalizeDate(data.return.date), data.return.time)
+        dateForBackend(normalizeDate(data.return.date), data.return.time)
       );
     }
 

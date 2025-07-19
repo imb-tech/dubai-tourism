@@ -18,12 +18,16 @@ type Fields = {
 type Props = {
   transfer: Transfer;
   allData: TransferOrderCreate;
+  setStep: (v: number) => void;
+  _setActive: React.Dispatch<React.SetStateAction<number>>;
   setAllData: React.Dispatch<React.SetStateAction<TransferOrderCreate>>;
 };
 
 export default function TransferNotesForm({
   transfer,
   allData,
+  setStep,
+  _setActive,
   setAllData,
 }: Props) {
   const form = useForm<Fields>();
@@ -48,7 +52,9 @@ export default function TransferNotesForm({
   const { handleSubmit } = form;
 
   const onSubmit = (data: Fields) => {
-    setAllData({ ...allData, transfer={...data} });
+    setAllData({ ...allData, transfer: { ...allData.transfer, ...data } });
+    setStep(2);
+    _setActive(2);
   };
 
   return (
@@ -60,7 +66,6 @@ export default function TransferNotesForm({
           name="flight_number"
           variant="clean"
           label="Flight & Train number"
-          required
           placeholder="Example: L9673"
           size="lg"
           wrapperClassName="gap-3"

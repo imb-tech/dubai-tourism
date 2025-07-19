@@ -1,12 +1,41 @@
-import React from 'react';
+'use client';
+
+import React, { useState } from 'react';
 import Image from 'next/image';
-import { Plus } from 'lucide-react';
+import { Plus, Search, X } from 'lucide-react';
 import { CalendarIcon, ClockIcon } from 'components/icons';
 import { Button } from 'components/ui/button';
 import { BagIcon, UserIcon } from 'components/icons';
 import { Badge } from 'components/ui/badge';
+import IconFormDatePicker from 'components/ui/prefixy-date-picker';
+import IconFormTimePicker from 'components/ui/prefixy-time-picker';
+import { useForm } from 'react-hook-form';
+import { dateForBackend } from 'lib/utils';
 
-export default function TransferCard(data: Transfer) {
+type Props = {
+  data: Transfer;
+  allData: TransferOrderCreate;
+  setAllData: React.Dispatch<React.SetStateAction<TransferOrderCreate>>;
+};
+
+type Fields = {
+  returnDate: string;
+  returnTime: string;
+};
+
+export default function TransferCard({ data, allData, setAllData }: Props) {
+  const [isReturn, setIsReturn] = useState(false);
+  const form = useForm<Fields>();
+  const { handleSubmit } = form;
+
+  const onSubmit = (data: Fields) => {
+    const return_date = dateForBackend(data?.returnDate, data?.returnTime);
+    setAllData({
+      ...allData,
+      transfer: { ...allData.transfer, return_date },
+    });
+  };
+
   return (
     <div className="bg-background rounded-md p-4 relative  shadow">
       {data?.best_seller && (
@@ -90,10 +119,76 @@ export default function TransferCard(data: Transfer) {
 
         <span className="border-t h-1 w-full my-2"></span>
 
-        <Button>
-          <Plus size={20} />
-          Add return
-        </Button>
+        {!isReturn && (
+          <Button
+            size="default"
+            className="border-primary w-full text-white font-semibold text-base py-2 h-12"
+            onClick={(e) => {
+              e.preventDefault();
+              setIsReturn(true);
+            }}
+          >
+            <Plus size={18} /> Add return
+          </Button>
+        )}
+
+        {isReturn && (
+          <>
+            <ul className="py-2">
+              <li>
+                <p className="flex items-center gap-1 text-sm font-semibold">
+                  <span className="block size-3 bg-primary/80 rounded-full"></span>
+                  <span className="flex flex-col">
+                    <span className="text-base">{data?.to_airport?.name}</span>
+                    <span className="font-light">
+                      {data?.to_airport?.country}
+                    </span>
+                  </span>
+                </p>
+              </li>
+              <li className="pl-[5px]">
+                <span className="block h-3 border-l border-l-primary/80"></span>
+              </li>
+              <li>
+                <p className="flex items-center gap-2 text-sm font-semibold">
+                  <span className="block size-3 bg-black/40 rounded-full"></span>
+                  <span className="flex flex-col">
+                    <span className="text-base">
+                      {data?.from_airport?.name}
+                    </span>
+                    <span className="font-light">
+                      {data?.from_airport?.country}
+                    </span>
+                  </span>
+                </p>
+              </li>
+            </ul>
+            <form onSubmit={handleSubmit(onSubmit)}>
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 relative">
+                <IconFormDatePicker
+                  label="Return date"
+                  methods={form}
+                  name="returnDate"
+                />
+                <IconFormTimePicker
+                  label="Return time"
+                  methods={form}
+                  name="returnTime"
+                />
+                <span
+                  className="absolute -right-1 -top-1 bg-background text-primary border border-primary rounded-full p-1 cursor-pointer"
+                  onClick={() => setIsReturn(false)}
+                >
+                  <X size={12} />
+                </span>
+              </div>
+              <Button type="submit" className="h-11">
+                <span className="text-base">Search</span>
+                <Search size={20} />
+              </Button>
+            </form>
+          </>
+        )}
         <span className="border-t h-1 w-full my-2"></span>
         <ul className="flex flex-col gap-4 ">
           <li className="flex items-center gap-2 text-[#74AEF8]">
