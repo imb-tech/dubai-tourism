@@ -5,29 +5,70 @@ import { Button } from 'components/ui/button';
 import { Checkbox } from 'components/ui/checkbox';
 import { Label } from 'components/ui/label';
 import Image from 'next/image';
-import React from 'react';
+import React, { useMemo } from 'react';
 import { useForm } from 'react-hook-form';
 
 type Fields = {
-  code: string;
-  comment: string;
+  flight_number: string;
+  driver_notes: string;
   child_seat: number;
+  booster_seat: number;
 };
 
-export default function TransferNotesForm() {
+type Props = {
+  transfer: Transfer;
+  allData: TransferOrderCreate;
+  setStep: (v: number) => void;
+  _setActive: React.Dispatch<React.SetStateAction<number>>;
+  setAllData: React.Dispatch<React.SetStateAction<TransferOrderCreate>>;
+};
+
+export default function TransferNotesForm({
+  transfer,
+  allData,
+  setStep,
+  _setActive,
+  setAllData,
+}: Props) {
   const form = useForm<Fields>();
+
+  const childSeatOptions = useMemo(
+    () =>
+      Array.from({ length: transfer?.available_child_seat }, (_, i) => ({
+        id: i + 1,
+        name: `${i + 1}`,
+      })),
+    [transfer]
+  );
+  const boasterSeatOptions = useMemo(
+    () =>
+      Array.from({ length: transfer?.available_booster_seat }, (_, i) => ({
+        id: i + 1,
+        name: `${i + 1}`,
+      })),
+    [transfer]
+  );
+
+  const { handleSubmit } = form;
+
+  const onSubmit = (data: Fields) => {
+    setAllData({ ...allData, transfer: { ...allData.transfer, ...data } });
+    setStep(2);
+    _setActive(2);
+  };
+
   return (
     <div className="bg-background rounded-md p-4 shadow">
       <h2 className="text-2xl font-semibold mb-5">Extras and notes</h2>
-      <form className="flex flex-col gap-8">
+      <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-8">
         <FormInput
           methods={form}
-          name="code"
+          name="flight_number"
           variant="clean"
           label="Flight & Train number"
-          required
           placeholder="Example: L9673"
           size="lg"
+          wrapperClassName="gap-3"
         />
 
         <fieldset className="flex items-center flex-row-reverse justify-end gap-2">
@@ -47,7 +88,7 @@ export default function TransferNotesForm() {
         <ul className="flex flex-col gap-6">
           <li className="flex flex-col md:flex-row md:items-center gap-5 px-1">
             <Image
-              src="/images/seat.png"
+              src="/child-seat.png"
               alt="Image"
               height={60}
               width={60}
@@ -70,17 +111,18 @@ export default function TransferNotesForm() {
               name="child_seat"
               isSearchable={false}
               isClearable={false}
-              options={[
-                { id: 1, name: 'No' },
-                { id: 2, name: 'Yes' },
-              ]}
+              options={
+                transfer?.available_child_seat
+                  ? childSeatOptions
+                  : [{ id: 0, name: 'No' }]
+              }
               wrapperClassName="w-auto"
               placeholder="No"
             />
           </li>
           <li className="flex flex-col md:flex-row md:items-center gap-5 px-1">
             <Image
-              src="/images/seat.png"
+              src="/boaster-seat.png"
               alt="Image"
               height={60}
               width={60}
@@ -100,13 +142,14 @@ export default function TransferNotesForm() {
 
             <SelectField
               methods={form}
-              name="child_seat"
+              name="booster_seat"
               isSearchable={false}
               isClearable={false}
-              options={[
-                { id: 1, name: 'No' },
-                { id: 2, name: 'Yes' },
-              ]}
+              options={
+                transfer?.available_booster_seat
+                  ? boasterSeatOptions
+                  : [{ id: 0, name: 'No' }]
+              }
               wrapperClassName="w-auto"
               placeholder="No"
             />
@@ -115,13 +158,15 @@ export default function TransferNotesForm() {
 
         <FormTextarea
           methods={form}
-          name="comment"
+          name="driver_notes"
           label="Notes for the chauffeur (Outward)"
           placeholder="Sizning xabaringiz"
           className="bg-secondary border-none focus-visible:ring-0"
         />
         <div className="flex items-center md:justify-end gap-2 pt-3cou">
-          <Button className="w-full md:w-auto">Continue</Button>
+          <Button type="submit" className="w-full md:w-auto">
+            Continue
+          </Button>
         </div>
       </form>
     </div>

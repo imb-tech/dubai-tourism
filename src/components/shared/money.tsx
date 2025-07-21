@@ -4,7 +4,7 @@ import { ClassNameValue } from 'tailwind-merge';
 
 type Props = {
   price: number | string | undefined;
-  discount?: number;
+  discount?: number | string;
   suffix?: ReactNode;
   className?: ClassNameValue;
   priceClassName?: ClassNameValue;

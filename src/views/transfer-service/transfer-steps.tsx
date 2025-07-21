@@ -3,12 +3,12 @@ import { cn } from 'lib/utils';
 import React, { useMemo, useState } from 'react';
 
 type Props = {
+  active: number;
+  _setActive: React.Dispatch<React.SetStateAction<number>>;
   setStep?: (v: number) => void;
 };
 
-export default function TransferSteps({ setStep }: Props) {
-  const [active, _setActive] = useState<number>(1);
-
+export default function TransferSteps({ setStep, active, _setActive }: Props) {
   const images = useMemo(
     () => steps?.filter((c) => c.id >= active || active - c.id === 1),
     [active]

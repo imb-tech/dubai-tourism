@@ -1,10 +1,10 @@
 type Product = {
   id?: string | number;
   name: string;
-  price?: number;
+  price?: number | string;
   location?: string;
   tag?: string;
-  image?: string;
+  image: string;
   url?: string;
   km_per_day?: number;
   transmission?: string;
@@ -16,10 +16,15 @@ type Product = {
   areaSqFt?: number;
   beds?: number;
   baths?: number;
-  discount?: number;
+  discount?: number | string;
   slug?: string;
   distance?: number;
   best_seller?: boolean;
   suffix?: string;
   sale?: boolean;
+  created_at?: string;
+  updated_at?: string;
+  type?: string;
+  passengers?: number;
+  luggage?: number;
 };
