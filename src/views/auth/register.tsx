@@ -20,7 +20,7 @@ const Register = () => {
   const { setText, clearText, setUser, user } = useTextStore();
   const form = useForm<Formtype>();
   const { startTimer } = useOtpTimerStore();
-  const { mutate } = usePost({
+  const { mutate, isPending } = usePost({
     onSuccess: () => {
       toast.success('Successful');
       startTimer();
@@ -77,7 +77,7 @@ const Register = () => {
           type="email"
           message={'Email manzilingiz'}
         />
-        <Button type="submit" className="w-full">
+        <Button disabled={isPending} loading={isPending} type="submit" className="w-full">
           Register
         </Button>
       </form>

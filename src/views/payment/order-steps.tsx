@@ -1,18 +1,17 @@
-import { UserIcon } from 'components/icons';
 import { cn } from 'lib/utils';
-import React, { useMemo, useState } from 'react';
+import React, { useState } from 'react';
 
 type Props = {
   setStep?: (v: number) => void;
+  steps: {
+    id: number;
+    label: string;
+    icon: any;
+  }[];
 };
 
-export default function OrderSteps({ setStep }: Props) {
+export default function OrderSteps({ setStep, steps }: Props) {
   const [active, _setActive] = useState<number>(1);
-
-  const images = useMemo(
-    () => steps?.filter((c) => c.id >= active || active - c.id === 1),
-    [active]
-  );
 
   function setActive(v: number) {
     _setActive(v);
@@ -21,8 +20,8 @@ export default function OrderSteps({ setStep }: Props) {
 
   return (
     <div className="max-w-full overflow-x-hidden">
-      <div className="grid grid-cols-4 sm:grid-cols-3 py-3 gap-3 px-2 sm:px-0 min-w-[600px] md:hidden">
-        {images?.map((st) => {
+      <div className="grid grid-cols-4 sm:grid-cols-3 py-3 gap-3 px-2 sm:px-0 min-w-[600px] ">
+        {steps?.map((st) => {
           const Ic = st.icon;
           return (
             <div
@@ -46,40 +45,11 @@ export default function OrderSteps({ setStep }: Props) {
           );
         })}
       </div>
-      <div className="hidden md:grid grid-cols-4 sm:grid-cols-3 py-3 gap-3 px-2 sm:px-0 min-w-[600px]">
-        {steps
-          ?.filter((p) => p.id !== 2)
-          ?.map((st, i) => {
-            const Ic = st.icon;
-            return (
-              <div
-                key={st.id}
-                className={cn(
-                  'flex flex-col gap-2 items-center text-primary py-5 rounded-md cursor-pointer relative',
-                  st.id === active ? 'bg-primary text-white' : 'bg-primary/5'
-                )}
-                onClick={() => setActive(st.id)}
-              >
-                <span className="absolute bg-background size-8 rounded-full text-primary flex items-center justify-center left-2 top-2">
-                  {i + 1}
-                </span>
-                <span>
-                  <Ic size={32} />
-                </span>
-                <span
-                  className={st.id === active ? 'text-white' : 'text-black'}
-                >
-                  {st.label}
-                </span>
-              </div>
-            );
-          })}
-      </div>
     </div>
   );
 }
 
-const CartIcon = ({ size = 32 }: { size?: number }) => (
+export const CartIcon = ({ size = 32 }: { size?: number }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width={size}
@@ -107,7 +77,7 @@ const CartIcon = ({ size = 32 }: { size?: number }) => (
   </svg>
 );
 
-const InvoiceIcon = ({ size = 32 }: { size?: number }) => (
+export const InvoiceIcon = ({ size = 32 }: { size?: number }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width={size}
@@ -143,7 +113,7 @@ const InvoiceIcon = ({ size = 32 }: { size?: number }) => (
   </svg>
 );
 
-const PrintIcon = ({ size = 32 }: { size?: number }) => (
+export const PrintIcon = ({ size = 32 }: { size?: number }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width={size}
@@ -174,26 +144,3 @@ const PrintIcon = ({ size = 32 }: { size?: number }) => (
     />
   </svg>
 );
-
-const steps = [
-  {
-    id: 1,
-    label: 'Add to cart',
-    icon: CartIcon,
-  },
-  {
-    id: 2,
-    label: 'Personal info',
-    icon: UserIcon,
-  },
-  {
-    id: 3,
-    label: 'Payment',
-    icon: InvoiceIcon,
-  },
-  {
-    id: 4,
-    label: 'Print Vaucher',
-    icon: PrintIcon,
-  },
-];

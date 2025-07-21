@@ -29,7 +29,6 @@ export default async function wtp({ params }: PageProps) {
     `${ATRACTIONSSIMILAR}/${id}?page_size=4`
   );
 
-
   const banners = await fetchData<Banner[]>(BANNERS, {
     params: { service: 'attractions' },
   });
@@ -45,14 +44,14 @@ export default async function wtp({ params }: PageProps) {
         <SliderComponents images={banners || []} showCout={true} />
         {data && <WtpForm data={data} />}
         <WtpMap location={data?.location || ''} name={data?.name || ''} />
-        {data && <WtpFeatures features={data?.feature} />}
+        {/* {data && <WtpFeatures features={data?.feature} />} */}
 
         <div className="space-y-4 border rounded-md p-4 mt-5 mb-12">
           <h1 className=" lg:text-3xl  font-semibold text-2xl">About</h1>
           <div>
-            <div className="flex flex-col lg:flex-row items-center gap-6">
-              <p>{data?.description}</p>
-            </div>
+            <div
+              dangerouslySetInnerHTML={{ __html: data?.description as string }}
+            />
           </div>
         </div>
 

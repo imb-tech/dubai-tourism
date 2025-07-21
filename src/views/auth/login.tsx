@@ -19,11 +19,11 @@ const Login = () => {
   const { setText, clearText, setUser, user } = useTextStore();
   const form = useForm<Formtype>();
   const { startTimer } = useOtpTimerStore();
-  const { mutate } = usePost({
+  const { mutate, isPending } = usePost({
     onSuccess: () => {
+      setText('code');
       toast.success('Successful');
       startTimer();
-      setText('code');
     },
   });
 
@@ -56,7 +56,12 @@ const Login = () => {
           required
           message={'Ismingizni kiriting'}
         />
-        <Button type="submit" className="w-full">
+        <Button
+          loading={isPending}
+          disabled={isPending}
+          type="submit"
+          className="w-full"
+        >
           Login
         </Button>
       </form>

@@ -15,7 +15,7 @@ export default function PaymentForm() {
       <div className="space-y-4">
         <FormInput
           methods={form}
-          name="name"
+          name="first_name"
           placeholder="Kiriting"
           variant="clean"
           label="Ism"
@@ -23,7 +23,7 @@ export default function PaymentForm() {
         />
         <FormInput
           methods={form}
-          name="name"
+          name="last_name"
           placeholder="Kiriting"
           variant="clean"
           label="Familiya"
@@ -31,7 +31,7 @@ export default function PaymentForm() {
         />
         <FormInput
           methods={form}
-          name="name"
+          name="email"
           placeholder="your_email@example.com"
           variant="clean"
           label="Email"
