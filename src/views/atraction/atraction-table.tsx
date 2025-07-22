@@ -10,6 +10,7 @@ import AddToCartAttraction from './attraction-add';
 import Select from 'components/ui/select';
 import { format } from 'date-fns';
 import { useAtractionCustom } from './use-atraction-custom';
+import { formatMoney } from 'lib/utils';
 
 export default function WtpTable() {
   const { openModal } = useModal('more-info');
@@ -140,7 +141,18 @@ export default function WtpTable() {
                     row.max_infant
                   )}
                 </td>
-                <td>{renderPrice(watchedRow)}</td>
+                <td>
+                  <div className="relative pt-4">
+                    {row.selected_transfer?.is_discount && (
+                      <h3 className="absolute top-0 text-sm font-semibold text-black/45 line-through">
+                        Price: {formatMoney(renderPrice(watchedRow).original)}
+                      </h3>
+                    )}
+                    <h3 className="text-lg font-semibold text-black">
+                      Price: {renderPrice(watchedRow).display} AED
+                    </h3>
+                  </div>
+                </td>
               </tr>
             );
           })}

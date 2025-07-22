@@ -137,7 +137,16 @@ const AttractionCardMobile = ({
           ))}
         </div>
         <hr className="my-4 h-0.5" />
-        {renderPrice(watchedRow)}
+        <div className="relative pt-4">
+          {data.selected_transfer?.is_discount && (
+            <h3 className="absolute top-0 text-sm font-semibold text-black/45 line-through">
+              Price: {formatMoney(renderPrice(watchedRow).original)}
+            </h3>
+          )}
+          <h3 className="text-lg font-semibold text-black">
+            Price: {renderPrice(watchedRow).display} AED
+          </h3>
+        </div>
         <AddToCartAttraction
           data={[
             {

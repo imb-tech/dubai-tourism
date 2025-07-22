@@ -15,6 +15,7 @@ import { useModal } from 'hooks/use-modal';
 import { useQueryClient } from '@tanstack/react-query';
 import { BASKET, BASKETDELETE } from 'constants/api-endpoints';
 import { toast } from 'sonner';
+import { formatMoney } from 'lib/utils';
 
 const CheckoutCardMobile = ({
   data,
@@ -88,8 +89,10 @@ const CheckoutCardMobile = ({
         <div className="w-full flex mb-2 items-center gap-3 justify-between">
           <ul className="flex gap-3 py-1 ">
             <li className="flex items-center gap-2 text-primary">
-             <UserIcon />
-             <span className='text-black font-medium'>{data?.comment_count}</span> 
+              <UserIcon />
+              <span className="text-black font-medium">
+                {data?.comment_count}
+              </span>
               <span className="text-black font-medium">Sharhlar</span>
             </li>
             <li className="flex items-center gap-2 text-primary">
@@ -178,7 +181,16 @@ const CheckoutCardMobile = ({
           ))}
         </div>
         <hr className="mt-3 h-0.5" />
-        {renderPrice(watchedRow)}
+        <div className="relative pt-4">
+          {data.selected_transfer?.is_discount && (
+            <h3 className="absolute top-0 text-sm font-semibold text-black/45 line-through">
+              Price: {formatMoney(renderPrice(watchedRow).original)}
+            </h3>
+          )}
+          <h3 className="text-lg font-semibold text-black">
+            Price: {renderPrice(watchedRow).display} AED
+          </h3>
+        </div>
       </CardContent>
     </Card>
   );

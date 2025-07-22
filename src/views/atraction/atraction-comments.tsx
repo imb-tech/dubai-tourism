@@ -23,7 +23,7 @@ export default function WtpComments({ slug }: Props) {
   });
 
   return (
-    <div className="lg:px-6 px-3 py-6 rounded-lg border mt-5">
+    <div className="lg:px-6 px-3 py-6 rounded-lg border">
       <h2 className="text-3xl font-semibold mb-5">Reviews</h2>
       <ul className="grid md:grid-cols-2 grid-cols-1 gap-2 mt-3">
         {isSuccess &&
