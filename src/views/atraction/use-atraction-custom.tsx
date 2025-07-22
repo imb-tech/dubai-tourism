@@ -32,9 +32,9 @@ type UseAtractionCustomReturn = {
   getOptions: (max?: number) => OptionType[];
   fields: UseFieldArrayReturn<AtractionDetail, 'offers'>['fields'];
   offers: AtractionOffers[];
-  renderPrice: (row: AtractionOffers) => ReactNode;
+  renderPrice: any;
   today: string;
-  totalAmount:number
+  totalAmount: number;
 };
 
 export function usePriceCalculator() {
@@ -100,7 +100,7 @@ export function useAtractionCustom(): UseAtractionCustomReturn {
 
   const renderPrice = useCallback(
     (row: AtractionOffers) => {
-      const priceInfo = calculate({
+      return calculate({
         adult: row.adult ?? 1,
         child: row.child ?? 0,
         infant: row.infant ?? 0,
@@ -113,19 +113,6 @@ export function useAtractionCustom(): UseAtractionCustomReturn {
         transfer_price: Number(row.selected_transfer?.price ?? 0),
         is_discount: row.selected_transfer?.is_discount ?? false,
       });
-
-      return (
-        <div className="relative pt-4">
-          {row.selected_transfer?.is_discount && (
-            <h3 className="absolute top-0 text-sm font-semibold text-black/45 line-through">
-              Price: {formatMoney(priceInfo.original)}
-            </h3>
-          )}
-          <h3 className="text-xl font-semibold text-black">
-            Price: {priceInfo.display} AED
-          </h3>
-        </div>
-      );
     },
     [calculate]
   );
@@ -171,5 +158,13 @@ export function useAtractionCustom(): UseAtractionCustomReturn {
     });
   }, [fields, offers, update]);
 
-  return { updateRow, getOptions, fields, offers, renderPrice, today,totalAmount};
+  return {
+    updateRow,
+    getOptions,
+    fields,
+    offers,
+    renderPrice,
+    today,
+    totalAmount,
+  };
 }

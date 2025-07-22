@@ -15,6 +15,7 @@ import { DatePicker } from 'components/ui/datepicker';
 import { agesTypes } from 'views/atraction/attraction-card';
 import { Button } from 'components/ui/button';
 import { format } from 'date-fns';
+import { formatMoney } from 'lib/utils';
 
 export default function CheckoutCard({
   data,
@@ -90,7 +91,9 @@ export default function CheckoutCard({
           <ul className="flex gap-3 py-1">
             <li className="flex items-center gap-2 text-primary">
               <UserIcon />
-              <span className="text-black font-medium">{data.comment_count}</span>
+              <span className="text-black font-medium">
+                {data.comment_count}
+              </span>
               <span className="text-black font-medium">Sharhlar</span>
             </li>
             <li className="flex items-center gap-2 text-primary">
@@ -177,7 +180,16 @@ export default function CheckoutCard({
           <div className="w-full flex justify-between items-end gap-3">
             <div className="flex flex-col gap-1">
               <span className="font-medium">Total amount</span>
-              {renderPrice(watchedRow)}
+              <div className="relative pt-4">
+                {data.selected_transfer?.is_discount && (
+                  <h3 className="absolute top-0 text-sm font-semibold text-black/45 line-through">
+                    Price: {formatMoney(renderPrice(watchedRow).original)}
+                  </h3>
+                )}
+                <h3 className="text-lg font-semibold text-black">
+                  Price: {renderPrice(watchedRow).display} AED
+                </h3>
+              </div>
             </div>
             <span
               onClick={openModal}

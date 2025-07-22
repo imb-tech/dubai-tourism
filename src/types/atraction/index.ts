@@ -12,8 +12,8 @@ type Atraction = {
 type AtractionOffers = {
   id: number;
   checked?: boolean | undefined;
-  basket_attraction_id:number
-  comment_count:number
+  basket_attraction_id: number
+  comment_count: number
   adult: number;
   max_adult: number;
   max_child: number;
@@ -71,6 +71,17 @@ type AtractionDetail = {
   offers: AtractionOffers[];
   whatsapp: string;
   feature: AtractionFeatures[];
+  imp_info:string
+  inclusion:string
+  itenarary:string
+  terms:string
+  useful_info:string
+  child_cancellation:string
+  cancellation_policy_description:string
+  images: {
+    id: number
+    image: string
+  }[]
 };
 
 type AtractionStore = AtractionOffers & {

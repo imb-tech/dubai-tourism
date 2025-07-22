@@ -21,6 +21,7 @@ export default function WtpMap({
         referrerPolicy="no-referrer-when-downgrade"
         className="rounded-md"
       ></iframe>
+
     </div>
   );
 }
