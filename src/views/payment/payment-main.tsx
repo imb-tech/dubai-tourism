@@ -21,6 +21,8 @@ import OrderSteps, { CartIcon, PrintIcon } from './order-steps';
 import { usePost } from 'hooks/usePost';
 import { Input } from 'components/ui/input';
 import { useQueryClient } from '@tanstack/react-query';
+import { useAtractionCustom } from 'views/atraction/use-atraction-custom';
+import { formatMoney } from 'lib/utils';
 
 type FormFields = { name: string; coupone: string };
 
@@ -110,15 +112,20 @@ function CouponeForm() {
   );
 }
 
-const FinalPaymentCard = () => (
-  <div className="bg-white p-6 rounded-md">
-    <h2 className="text-xl font-semibold mb-4">Final Payment</h2>
-    <div className="flex justify-between bg-secondary p-3 rounded-md font-semibold">
-      <span>Final Amount</span>
-      <span>AED 360.00</span>
+const FinalPaymentCard = () => {
+  const { totalAmount } = useAtractionCustom();
+
+
+  return (
+    <div className="bg-white p-6 rounded-md">
+      <h2 className="text-xl font-semibold mb-4">Final Payment</h2>
+      <div className="flex justify-between bg-secondary p-3 rounded-md font-semibold">
+        <span>Final Amount</span>
+        <span>AED {formatMoney(totalAmount)}</span>
+      </div>
     </div>
-  </div>
-);
+  );
+};
 
 export default function PaymentMain() {
   const queryClient = useQueryClient();

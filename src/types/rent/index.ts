@@ -7,13 +7,14 @@ type RentCar = {
     similar: RentCar[];
     name: string;
     slug: string;
-    price: string;
+    price: number;
     image: string;
     color: string;
     luggage: number;
     gcc: boolean;
     safety: boolean;
     gear: string;
+    discount:number
     seats: number;
     sensors: boolean;
     camera: boolean;
