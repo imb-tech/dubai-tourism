@@ -110,24 +110,19 @@ const CheckoutCardMobile = ({
         <div className="mb-2">
           <Select
             options={data.transfer_options ?? []}
-            value={watchedRow.selected_transfer?.id?.toString() ?? '1'}
+            value={watchedRow.transfer_option?.id?.toString() ?? '1'}
             returnVal="id"
             setValue={(val) => {
               const selected = data.transfer_options?.find(
                 (opt) => opt.id.toString() === val.toString()
               );
-              const updated = {
-                selected_transfer: {
-                  id: selected?.id ?? 0,
-                  price: selected?.price ?? 0,
-                  is_discount: selected?.is_discount ?? false,
-                },
-              };
-              updateRow(index, updated);
-              mutate('payment/basket/update', {
-                transfer_option_id: updated.selected_transfer.id,
-                basket_attraction_id: watchedRow.basket_attraction_id,
-              });
+              if (selected?.id) {
+                updateRow(index, { transfer_option: selected });
+                mutate('payment/basket/update', {
+                  transfer_option_id: selected.id,
+                  basket_attraction_id: watchedRow.basket_attraction_id,
+                });
+              }
             }}
             className="w-full bg-secondary border-none"
           />
@@ -182,7 +177,7 @@ const CheckoutCardMobile = ({
         </div>
         <hr className="mt-3 h-0.5" />
         <div className="relative pt-4">
-          {data.selected_transfer?.is_discount && (
+          {data.transfer_option?.is_discount && (
             <h3 className="absolute top-0 text-sm font-semibold text-black/45 line-through">
               Price: {formatMoney(renderPrice(watchedRow).original)}
             </h3>

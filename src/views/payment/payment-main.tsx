@@ -20,6 +20,9 @@ import PaymentTypes from './payment-types';
 import OrderSteps, { CartIcon, PrintIcon } from './order-steps';
 import { usePost } from 'hooks/usePost';
 import { Input } from 'components/ui/input';
+import { useQueryClient } from '@tanstack/react-query';
+import { useAtractionCustom } from 'views/atraction/use-atraction-custom';
+import { formatMoney } from 'lib/utils';
 
 type FormFields = { name: string; coupone: string };
 
@@ -29,7 +32,7 @@ const renderAttractionDetails = (items: AtractionOffers[]) => (
       <AccordionItem
         key={index}
         value={index.toString()}
-        className="bg-[#F5F8FC] px-4 rounded-lg"
+        className="bg-white px-4 border-none rounded-lg mb-2"
       >
         <AccordionTrigger className="font-semibold text-lg">
           {item.name}
@@ -38,7 +41,7 @@ const renderAttractionDetails = (items: AtractionOffers[]) => (
           <ul className="flex flex-col gap-4 pt-4 text-sm">
             <li className="flex justify-between">
               <span>Tour Option</span>
-              <span>{item.transfer_option.name}</span>
+              <span>{item.name}</span>
             </li>
             <li className="flex justify-between">
               <span>Date</span>
@@ -54,15 +57,15 @@ const renderAttractionDetails = (items: AtractionOffers[]) => (
             </li>
             <li className="flex justify-between text-red-500 font-bold">
               <span>Last Date to Cancel</span>
-              <span>Non Refundable</span>
+              <span>{item.is_refundable}</span>
             </li>
             <li className="flex justify-between">
               <span>Availability</span>
-              <span>Available</span>
+              <span>{item.available}</span>
             </li>
             <li className="flex justify-between">
               <span>Amount Incl. VAT</span>
-              <span>AED {item.price}</span>
+              <span>AED {item.vat}</span>
             </li>
           </ul>
         </AccordionContent>
@@ -109,17 +112,23 @@ function CouponeForm() {
   );
 }
 
-const FinalPaymentCard = () => (
-  <div className="bg-white p-6 rounded-md">
-    <h2 className="text-xl font-semibold mb-4">Final Payment</h2>
-    <div className="flex justify-between bg-secondary p-3 rounded-md font-semibold">
-      <span>Final Amount</span>
-      <span>AED 360.00</span>
+const FinalPaymentCard = () => {
+  const { totalAmount } = useAtractionCustom();
+
+
+  return (
+    <div className="bg-white p-6 rounded-md">
+      <h2 className="text-xl font-semibold mb-4">Final Payment</h2>
+      <div className="flex justify-between bg-secondary p-3 rounded-md font-semibold">
+        <span>Final Amount</span>
+        <span>AED {formatMoney(totalAmount)}</span>
+      </div>
     </div>
-  </div>
-);
+  );
+};
 
 export default function PaymentMain() {
+  const queryClient = useQueryClient();
   const isMobile = typeof window !== 'undefined' && window.innerWidth < 640;
   const methods = useForm<
     FormFields & {
@@ -135,7 +144,12 @@ export default function PaymentMain() {
   const { data } = useGet<{ id: number; attractions: AtractionOffers[] }>(
     BASKET
   );
-  const { mutate, isPending } = usePost();
+  const { mutate, isPending } = usePost({
+    onSuccess: (data) => {
+      queryClient.invalidateQueries({ queryKey: [BASKET] });
+      window.location.href = data.payment_url;
+    },
+  });
 
   const onSubmit = (values: FormFields) => {
     const formatData = {

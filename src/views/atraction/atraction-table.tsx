@@ -93,7 +93,7 @@ export default function WtpTable() {
                 <td>
                   <Select
                     options={row.transfer_options ?? []}
-                    value={watchedRow.selected_transfer?.id?.toString() ?? '1'}
+                    value={watchedRow.transfer_option?.id?.toString() ?? '1'}
                     returnVal="id"
                     className="w-auto"
                     setValue={(val) => {
@@ -101,11 +101,7 @@ export default function WtpTable() {
                         (opt) => opt.id.toString() === val.toString()
                       );
                       updateRow(index, {
-                        selected_transfer: {
-                          id: selected?.id ?? 0,
-                          price: selected?.price ?? 0,
-                          is_discount: selected?.is_discount ?? false,
-                        },
+                        transfer_option: selected,
                       });
                     }}
                   />
@@ -143,7 +139,7 @@ export default function WtpTable() {
                 </td>
                 <td>
                   <div className="relative pt-4">
-                    {row.selected_transfer?.is_discount && (
+                    {row.transfer_option?.is_discount && (
                       <h3 className="absolute top-0 text-sm font-semibold text-black/45 line-through">
                         Price: {formatMoney(renderPrice(watchedRow).original)}
                       </h3>
@@ -165,7 +161,7 @@ export default function WtpTable() {
           .map((row) => ({
             attraction_offer: row.attraction_offer ?? 0,
             tour_date: row.tour_date ?? today,
-            transfer_option: row.selected_transfer?.id ?? 0,
+            transfer_option: row.transfer_option?.id ?? 0,
             adult: row.adult ?? 1,
             child: row.child ?? 0,
             infant: row.infant ?? 0,

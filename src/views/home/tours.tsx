@@ -4,7 +4,7 @@ import { ChevronRight } from 'lucide-react';
 import React from 'react';
 
 export default function Tours({tours}: {
-  tours: Tour[]
+  tours: {name:string, image:string}[]
 }) {
   return (
     <div className="container mx-auto lg:px-0 px-3">

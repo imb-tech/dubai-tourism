@@ -4,11 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
 
-export default function TourCard({
-  image,
-  name,
-  index,
-}: Tour & { index: number }) {
+export default function TourCard({ image, index,name }: { index: number, image:string ,name:string }) {
   const isColTwo = index == 2 || index == 4 || index == 6;
 
   return (

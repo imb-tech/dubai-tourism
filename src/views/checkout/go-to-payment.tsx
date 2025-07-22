@@ -21,6 +21,7 @@ export default function GoToPayment() {
     }
   };
 
+
   return (
     <div className="bg-white rounded-md p-4">
       <h2 className="font-semibold text-xl">Total</h2>

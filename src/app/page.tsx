@@ -18,7 +18,7 @@ import { fetchData } from 'lib/fetchData';
 export default async function Home() {
   const atractions = await fetchData<AtractionData>(ATRACTIONS_HOME);
   const shopping = await fetchData<ShoppingData>(SHOPPING_GOLD_HOME);
-  const tours = await fetchData<ToursResult>(TOURS_HOME);
+  const tours = await fetchData<{results:{name:string, image:string}[]}>(TOURS_HOME);
   const rentACars = await fetchData(RENT_A_CAR_HOME);
   const best_seller = await fetchData(BESTSELLER_HOME);
   console.log(atractions);

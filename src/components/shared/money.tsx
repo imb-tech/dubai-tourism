@@ -33,7 +33,7 @@ export default function Money({
       ) : null}
       <h3
         className={cn(
-          'md:text-xl text-sm font-semibold text-[#FF5533]',
+          'md:text-xl text-sm font-semibold text-[#FF5533] flex items-center gap-1',
           discountClassName
         )}
       >

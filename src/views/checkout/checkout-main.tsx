@@ -54,7 +54,7 @@ export default function CheckoutMain() {
               )}
             </Fragment>
           ))}
-          <GoToPayment />
+          <GoToPayment /> 
         </div>
         <Modal modalKey="more-info" className="max-w-xl">
           <WtpInfo />
