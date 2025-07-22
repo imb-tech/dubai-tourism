@@ -1,3 +1,4 @@
+'use client';
 import Image from 'next/image';
 import Link from 'next/link';
 import { cn } from 'lib/utils';
@@ -15,6 +16,7 @@ import {
   RoomIcon,
   User2Icon,
 } from 'components/icons';
+import { useSearchParams } from 'next/navigation';
 
 export default function CustomCard({
   image,
@@ -36,6 +38,8 @@ export default function CustomCard({
   suffix,
   url = '',
 }: Product) {
+  const search = useSearchParams();
+
   return (
     <div className="relative bg-white rounded-lg border flex flex-col justify-between p-2 gap-2 min-w-[320px] lg:min-w-40">
       {best_seller && (
@@ -154,7 +158,19 @@ export default function CustomCard({
         />
 
         <Link
-          href={`${url}/${slug}`}
+          href={
+            url === 'transfer-service'
+              ? `${url}/${slug}?from_airport=${search.get(
+                  'from_airport'
+                )}&to_airport=${search.get(
+                  'to_airport'
+                )}&pickup_date=${search.get(
+                  'pickup_date'
+                )}&passengers=${search.get(
+                  'passengers'
+                )}&return_date=${search.get('return_date')}`
+              : `${url}/${slug}`
+          }
           className={cn(
             buttonVariants({ size: 'default' }),
             'w-full',

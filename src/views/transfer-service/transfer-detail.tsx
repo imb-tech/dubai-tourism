@@ -6,13 +6,17 @@ import TransferNotesForm from './transfer-notes-form';
 import TransferCard from './transfer-card';
 import TransferPersonalForm from './tranfer-personal-form';
 import TransferPaymentForm from './transfer-payment-formt';
+import { FormProvider, useForm } from 'react-hook-form';
+import { usePost } from 'hooks/usePost';
+import { toast } from 'sonner';
+import { TRANSFERORDER } from 'constants/api-endpoints';
 
 type QueryParams = {
-  from_id?: string;
-  to_id?: string;
-  pickup_date: string;
-  passengers?: string;
-  return_date?: string;
+  from_airport?: string | undefined;
+  to_airport?: string | undefined;
+  pickup_date: string | undefined;
+  passengers?: string | undefined;
+  return_date?: string | undefined;
 };
 
 export default function TransferDetail({
@@ -22,58 +26,61 @@ export default function TransferDetail({
   data: Transfer;
   initialQuery: QueryParams;
 }) {
+  const { mutate, isPending } = usePost({
+    onSuccess: (data) => {
+      toast.success('Muvaffaqiyatli yaratildi!');
+      window.location.href = data?.payment_url;
+    },
+  });
   const [step, setStep] = useState<number>(1);
   const [active, _setActive] = useState<number>(1);
 
-  const [allData, setAllData] = useState<TransferOrderCreate>({
-    payment_type: '',
-    first_name: '',
-    last_name: '',
-    email: '',
-    phone: '',
-    meet_sign: '',
-    promo_code: '',
-    transfer: {
-      transfer_rate: data?.id,
-      pickup_date: initialQuery?.pickup_date,
-      return_date: initialQuery?.return_date ? initialQuery?.return_date : null,
-      passengers: Number(initialQuery.passengers ?? 1),
-      child_seat: 0,
-      booster_seat: 0,
-      driver_notes: null,
-      flight_number: null,
+  const methods = useForm<TransferOrderCreate>({
+    defaultValues: {
+      payment_type: '',
+      first_name: '',
+      last_name: '',
+      email: '',
+      phone: '',
+      meet_sign: '',
+      promo_code: '',
+      transfer: {
+        transfer_rate: data?.id,
+        pickup_date: initialQuery?.pickup_date ? initialQuery?.pickup_date : '',
+        return_date: initialQuery?.return_date
+          ? initialQuery?.return_date
+          : null,
+        passengers: Number(initialQuery.passengers ?? 1),
+        child_seat: 0,
+        booster_seat: 0,
+        driver_notes: null,
+        flight_number: null,
+      },
     },
   });
 
-  const getContent = (
-    st: string,
-    data: Transfer,
-    allData: TransferOrderCreate
-  ) => {
+  const { handleSubmit } = methods;
+
+  const onSubmit = (values: any) => {
+    console.log('all values => ', values);
+    mutate(TRANSFERORDER, values);
+  };
+
+  const getContent = (st: string, data: Transfer, isPending: boolean) => {
     const cnt: Record<string, ReactNode> = {
       '1': (
         <TransferNotesForm
           transfer={data}
-          allData={allData}
-          setStep={setStep}
-          _setActive={_setActive}
-          setAllData={setAllData}
-        />
-      ),
-      '2': (
-        <TransferPersonalForm
-          setAllData={setAllData}
-          allData={allData}
           setStep={setStep}
           _setActive={_setActive}
         />
       ),
+      '2': <TransferPersonalForm setStep={setStep} _setActive={_setActive} />,
       '3': (
         <TransferPaymentForm
           setStep={setStep}
           _setActive={_setActive}
-          setAllData={setAllData}
-          allData={allData}
+          isPending={isPending}
         />
       ),
     };
@@ -82,8 +89,8 @@ export default function TransferDetail({
   };
 
   const memoizedContent = useMemo(
-    () => getContent(step.toString(), data, allData),
-    [step, data, allData]
+    () => getContent(step.toString(), data, isPending),
+    [data, step, isPending]
   );
 
   return (
@@ -93,12 +100,16 @@ export default function TransferDetail({
         active={active}
         _setActive={_setActive}
       />
-      <div className="sm:p-4 sm:bg-primary/5 rounded-md grid grid-cols-1 md:grid-cols-3 gap-4">
-        <div className="md:col-span-2">{memoizedContent}</div>
-        <aside>
-          <TransferCard data={data} allData={allData} setAllData={setAllData} />
-        </aside>
-      </div>
+      <FormProvider {...methods}>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <div className="sm:p-4 sm:bg-primary/5 rounded-md grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="md:col-span-2">{memoizedContent}</div>
+            <aside>
+              <TransferCard data={data} />
+            </aside>
+          </div>
+        </form>
+      </FormProvider>
     </div>
   );
 }

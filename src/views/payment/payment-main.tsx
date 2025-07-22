@@ -174,7 +174,7 @@ export default function PaymentMain() {
   );
 }
 
-function StepContent({ step, isMobile, data,isPending }: any) {
+function StepContent({ step, isMobile, data, isPending }: any) {
   if (step === 2) {
     return (
       <div className="bg-secondary p-4 rounded-md text-center">
@@ -200,7 +200,9 @@ function StepContent({ step, isMobile, data,isPending }: any) {
           <p className="text-sm">
             By clicking Pay now you agree with Terms and Conditions
           </p>
-          <Button disabled={isPending} loading={isPending} type="submit">Pay now</Button>
+          <Button disabled={isPending} loading={isPending} type="submit">
+            Pay now
+          </Button>
         </div>
       </div>
       <div className="flex flex-col gap-4">

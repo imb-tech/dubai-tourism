@@ -9,13 +9,11 @@ import { BagIcon, UserIcon } from 'components/icons';
 import { Badge } from 'components/ui/badge';
 import IconFormDatePicker from 'components/ui/prefixy-date-picker';
 import IconFormTimePicker from 'components/ui/prefixy-time-picker';
-import { useForm } from 'react-hook-form';
-import { dateForBackend } from 'lib/utils';
+import { fromUtcToDateAndTime } from 'lib/utils';
+import { useFormContext } from 'react-hook-form';
 
 type Props = {
   data: Transfer;
-  allData: TransferOrderCreate;
-  setAllData: React.Dispatch<React.SetStateAction<TransferOrderCreate>>;
 };
 
 type Fields = {
@@ -23,18 +21,11 @@ type Fields = {
   returnTime: string;
 };
 
-export default function TransferCard({ data, allData, setAllData }: Props) {
+export default function TransferCard({ data }: Props) {
   const [isReturn, setIsReturn] = useState(false);
-  const form = useForm<Fields>();
-  const { handleSubmit } = form;
+  const result = fromUtcToDateAndTime('2025-07-22T11:44:53Z');
 
-  const onSubmit = (data: Fields) => {
-    const return_date = dateForBackend(data?.returnDate, data?.returnTime);
-    setAllData({
-      ...allData,
-      transfer: { ...allData.transfer, return_date },
-    });
-  };
+  const form = useFormContext();
 
   return (
     <div className="bg-background rounded-md p-4 relative  shadow">
@@ -106,14 +97,14 @@ export default function TransferCard({ data, allData, setAllData }: Props) {
             <span className="text-primary">
               <CalendarIcon size={16} />
             </span>
-            <span className="text-sm">03 May 2025</span>
+            <span className="text-sm">{result?.date}</span>
           </p>
 
           <p className="flex items-center gap-3 font-semibold mt-3">
             <span className="text-primary">
               <ClockIcon size={16} />
             </span>
-            <span className="text-sm">12:35(1:35 pm)</span>
+            <span className="text-sm">{result?.time}</span>
           </p>
         </div>
 
@@ -163,30 +154,28 @@ export default function TransferCard({ data, allData, setAllData }: Props) {
                 </p>
               </li>
             </ul>
-            <form onSubmit={handleSubmit(onSubmit)}>
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 relative">
-                <IconFormDatePicker
-                  label="Return date"
-                  methods={form}
-                  name="returnDate"
-                />
-                <IconFormTimePicker
-                  label="Return time"
-                  methods={form}
-                  name="returnTime"
-                />
-                <span
-                  className="absolute -right-1 -top-1 bg-background text-primary border border-primary rounded-full p-1 cursor-pointer"
-                  onClick={() => setIsReturn(false)}
-                >
-                  <X size={12} />
-                </span>
-              </div>
-              <Button type="submit" className="h-10 w-full mt-3">
-                <span className="text-base">Search</span>
-                <Search size={20} />
-              </Button>
-            </form>
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 relative">
+              <IconFormDatePicker
+                label="Return date"
+                methods={form}
+                name="returnDate"
+              />
+              <IconFormTimePicker
+                label="Return time"
+                methods={form}
+                name="returnTime"
+              />
+              <span
+                className="absolute -right-1 -top-1 bg-background text-primary border border-primary rounded-full p-1 cursor-pointer"
+                onClick={() => setIsReturn(false)}
+              >
+                <X size={12} />
+              </span>
+            </div>
+            <Button type="button" className="h-10 w-full mt-3">
+              <span className="text-base">Search</span>
+              <Search size={20} />
+            </Button>
           </>
         )}
         <span className="border-t h-1 w-full my-2"></span>

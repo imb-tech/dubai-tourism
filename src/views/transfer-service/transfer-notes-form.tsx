@@ -6,7 +6,7 @@ import { Checkbox } from 'components/ui/checkbox';
 import { Label } from 'components/ui/label';
 import Image from 'next/image';
 import React, { useMemo } from 'react';
-import { useForm } from 'react-hook-form';
+import { useFormContext } from 'react-hook-form';
 
 type Fields = {
   flight_number: string;
@@ -17,21 +17,16 @@ type Fields = {
 
 type Props = {
   transfer: Transfer;
-  allData: TransferOrderCreate;
   setStep: (v: number) => void;
   _setActive: React.Dispatch<React.SetStateAction<number>>;
-  setAllData: React.Dispatch<React.SetStateAction<TransferOrderCreate>>;
 };
 
 export default function TransferNotesForm({
   transfer,
-  allData,
   setStep,
   _setActive,
-  setAllData,
 }: Props) {
-  const form = useForm<Fields>();
-
+  const form = useFormContext();
   const childSeatOptions = useMemo(
     () =>
       Array.from({ length: transfer?.available_child_seat }, (_, i) => ({
@@ -49,21 +44,13 @@ export default function TransferNotesForm({
     [transfer]
   );
 
-  const { handleSubmit } = form;
-
-  const onSubmit = (data: Fields) => {
-    setAllData({ ...allData, transfer: { ...allData.transfer, ...data } });
-    setStep(2);
-    _setActive(2);
-  };
-
   return (
     <div className="bg-background rounded-md p-4 shadow">
       <h2 className="text-2xl font-semibold mb-5">Extras and notes</h2>
-      <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-8">
+      <div className="flex flex-col gap-8">
         <FormInput
           methods={form}
-          name="flight_number"
+          name="transfer.flight_number"
           variant="clean"
           label="Flight & Train number"
           placeholder="Example: L9673"
@@ -108,7 +95,7 @@ export default function TransferNotesForm({
 
             <SelectField
               methods={form}
-              name="child_seat"
+              name="transfer.child_seat"
               isSearchable={false}
               isClearable={false}
               options={
@@ -142,7 +129,7 @@ export default function TransferNotesForm({
 
             <SelectField
               methods={form}
-              name="booster_seat"
+              name="transfer.booster_seat"
               isSearchable={false}
               isClearable={false}
               options={
@@ -158,17 +145,23 @@ export default function TransferNotesForm({
 
         <FormTextarea
           methods={form}
-          name="driver_notes"
+          name="transfer.driver_notes"
           label="Notes for the chauffeur (Outward)"
           placeholder="Sizning xabaringiz"
           className="bg-secondary border-none focus-visible:ring-0"
         />
         <div className="flex items-center md:justify-end gap-2 pt-3cou">
-          <Button type="submit" className="w-full md:w-auto">
+          <Button
+            className="w-full md:w-auto"
+            onClick={() => {
+              _setActive(2);
+              setStep(2);
+            }}
+          >
             Continue
           </Button>
         </div>
-      </form>
+      </div>
     </div>
   );
 }

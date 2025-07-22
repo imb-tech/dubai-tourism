@@ -7,17 +7,17 @@ import { TRANSFERS } from 'constants/api-endpoints';
 
 export type PageProps = {
   params: { id: string };
-  searchParams: { [key: string]: string | string[] | undefined };
+  searchParams: Promise<{ [key: string]: string | undefined }>;
 };
 
 export default async function RentId({ params, searchParams }: PageProps) {
   const { id } = params;
 
+  const { from_airport, to_airport, pickup_date, passengers, return_date } =
+    await searchParams;
+
   const data = await fetchData<Transfer>(`${TRANSFERS}/${id}`);
   if (!data) return null;
-
-  const { from_airport, to_airport, pickup_date, passengers, return_date } =
-    searchParams;
 
   return (
     <React.Fragment>
@@ -28,6 +28,9 @@ export default async function RentId({ params, searchParams }: PageProps) {
           initialQuery={{
             from_airport,
             to_airport,
+            pickup_date,
+            passengers,
+            return_date,
           }}
         />
       </div>

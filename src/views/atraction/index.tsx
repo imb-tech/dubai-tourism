@@ -21,10 +21,6 @@ export default function WtpForm({ data }: { data: AtractionDetail }) {
     },
   });
 
-  
-
-
-
   return (
     <div className="lg:px-6 py-6 px-3 rounded-lg bg-secondary mt-14">
       <FormProvider {...form}>
@@ -60,7 +56,6 @@ export default function WtpForm({ data }: { data: AtractionDetail }) {
             </div>
           </li>
         </ul>
-
         <h2 className="text-xl lg:text-2xl font-semibold mt-10 mb-3">Offers</h2>
         <div className="hidden lg:block">
           <WtpTable />
