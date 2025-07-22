@@ -20,6 +20,7 @@ import PaymentTypes from './payment-types';
 import OrderSteps, { CartIcon, PrintIcon } from './order-steps';
 import { usePost } from 'hooks/usePost';
 import { Input } from 'components/ui/input';
+import { useQueryClient } from '@tanstack/react-query';
 
 type FormFields = { name: string; coupone: string };
 
@@ -29,7 +30,7 @@ const renderAttractionDetails = (items: AtractionOffers[]) => (
       <AccordionItem
         key={index}
         value={index.toString()}
-        className="bg-[#F5F8FC] px-4 rounded-lg"
+        className="bg-white px-4 border-none rounded-lg mb-2"
       >
         <AccordionTrigger className="font-semibold text-lg">
           {item.name}
@@ -38,7 +39,7 @@ const renderAttractionDetails = (items: AtractionOffers[]) => (
           <ul className="flex flex-col gap-4 pt-4 text-sm">
             <li className="flex justify-between">
               <span>Tour Option</span>
-              <span>{item.transfer_option.name}</span>
+              <span>{item.name}</span>
             </li>
             <li className="flex justify-between">
               <span>Date</span>
@@ -54,15 +55,15 @@ const renderAttractionDetails = (items: AtractionOffers[]) => (
             </li>
             <li className="flex justify-between text-red-500 font-bold">
               <span>Last Date to Cancel</span>
-              <span>Non Refundable</span>
+              <span>{item.is_refundable}</span>
             </li>
             <li className="flex justify-between">
               <span>Availability</span>
-              <span>Available</span>
+              <span>{item.available}</span>
             </li>
             <li className="flex justify-between">
               <span>Amount Incl. VAT</span>
-              <span>AED {item.price}</span>
+              <span>AED {item.vat}</span>
             </li>
           </ul>
         </AccordionContent>
@@ -120,6 +121,7 @@ const FinalPaymentCard = () => (
 );
 
 export default function PaymentMain() {
+  const queryClient = useQueryClient();
   const isMobile = typeof window !== 'undefined' && window.innerWidth < 640;
   const methods = useForm<
     FormFields & {
@@ -135,7 +137,12 @@ export default function PaymentMain() {
   const { data } = useGet<{ id: number; attractions: AtractionOffers[] }>(
     BASKET
   );
-  const { mutate, isPending } = usePost();
+  const { mutate, isPending } = usePost({
+    onSuccess: (data) => {
+      queryClient.invalidateQueries({ queryKey: [BASKET] });
+      window.location.href = data.payment_url;
+    },
+  });
 
   const onSubmit = (values: FormFields) => {
     const formatData = {
@@ -174,7 +181,7 @@ export default function PaymentMain() {
   );
 }
 
-function StepContent({ step, isMobile, data,isPending }: any) {
+function StepContent({ step, isMobile, data, isPending }: any) {
   if (step === 2) {
     return (
       <div className="bg-secondary p-4 rounded-md text-center">
@@ -200,7 +207,9 @@ function StepContent({ step, isMobile, data,isPending }: any) {
           <p className="text-sm">
             By clicking Pay now you agree with Terms and Conditions
           </p>
-          <Button disabled={isPending} loading={isPending} type="submit">Pay now</Button>
+          <Button disabled={isPending} loading={isPending} type="submit">
+            Pay now
+          </Button>
         </div>
       </div>
       <div className="flex flex-col gap-4">
