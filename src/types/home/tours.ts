@@ -1,5 +1,9 @@
 type Tour = {
-    id: number
-    image: string
-    location: string
+  image: string;
+  name: string;
+};
+
+type ToursResult = {
+    total_pages: number
+    results: Tour[]
 }

@@ -52,7 +52,7 @@ export default function CustomCard({
           src={image || '/image.jpg'}
           width={400}
           height={300}
-          alt={name}
+          alt={name ?? ""}
           className="rounded-md object-cover w-full h-full"
         />
       </div>

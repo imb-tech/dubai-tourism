@@ -6,7 +6,7 @@ import React from 'react';
 
 export default function TourCard({
   image,
-  location,
+  name,
   index,
 }: Tour & { index: number }) {
   const isColTwo = index == 2 || index == 4 || index == 6;
@@ -20,7 +20,7 @@ export default function TourCard({
     >
       <Image
         className="md:rounded-3xl rounded-xl w-full object-cover   h-full object-center"
-        src={'/image.jpg'}
+        src={image ?? '/image.jpg'}
         width={800}
         height={800}
         alt={'name'}
@@ -31,7 +31,7 @@ export default function TourCard({
       >
         <div className="flex items-center gap-2">
           <LocationIcon />
-          <span>{location}</span>
+          <span>{name}</span>
         </div>
       </Link>
     </div>

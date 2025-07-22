@@ -10,13 +10,15 @@ export default function Products({
   title = '',
   className,
   autoplayDelay,
+  url,
 }: {
   data: Product[];
   title: string;
   className?: string;
   autoplayDelay?: number;
+  url?: string;
 }) {
-  const slides = data.map((s) => <CarCard key={s.id} {...s} />);
+  const slides = data.map((s) => <CarCard key={s.id} {...s} url={url} />);
   return (
     <div className={cn(className)}>
       <div className="container mx-auto lg:px-0 px-3 ">
