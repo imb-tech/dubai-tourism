@@ -1,16 +1,16 @@
 'use client';
-import SelectField from 'components/form/select';
 import { Button } from 'components/ui/button';
 import { Card, CardContent, CardHeader } from 'components/ui/card';
 import { DatePicker } from 'components/ui/datepicker';
+import Select from 'components/ui/select';
 import { useModal } from 'hooks/use-modal';
-import { formatMoney } from 'lib/utils';
 import { Minus, Plus, User } from 'lucide-react';
-import React, { useState } from 'react';
-import { useForm } from 'react-hook-form';
 import AddToCartAttraction from './attraction-add';
+import { formatMoney } from 'lib/utils';
+import { useAtractionCustom } from './use-atraction-custom';
+import { format } from 'date-fns';
 
-const agesTypes = [
+export const agesTypes = [
   {
     id: 'adult',
     name: 'Adult',
@@ -25,58 +25,79 @@ const agesTypes = [
   },
 ];
 
-const AttractionCardMobile = ({ data }: { data: AtractionOffers }) => {
+const AttractionCardMobile = ({
+  data,
+  index,
+}: {
+  data: AtractionOffers;
+  index: number;
+}) => {
   const { openModal } = useModal('more-info');
-  const methods = useForm<{ name: number }>();
-  const [agesQuantity, setAgesQuantity] = useState<{ [key: string]: number }>({
-    adult: 0,
-    child: 0,
-    infant: 0,
-  });
+  const { updateRow, renderPrice, offers, today } = useAtractionCustom();
 
-  const handleAdd = (value: string) => {
-    setAgesQuantity((prev) => ({
-      ...prev,
-      [value]: prev[value] + 1,
-    }));
+  const watchedRow = offers?.[index] ?? {};
+
+  const handleAdd = (type: 'adult' | 'child' | 'infant') => {
+    const currentValue = watchedRow[type] ?? 0;
+    const maxCount = data[`max_${type}`];
+    if (currentValue < maxCount) {
+      updateRow(index, { [type]: currentValue + 1 });
+    }
   };
 
-  const handleDelete = (value: string) => {
-    setAgesQuantity((prev) => {
-      if (prev[value] > 0) {
-        return { ...prev, [value]: prev[value] - 1 };
-      } else {
-        return prev;
-      }
-    });
+  const handleDelete = (type: 'adult' | 'child' | 'infant') => {
+    const currentValue = watchedRow[type] ?? 0;
+    if (currentValue > 0) {
+      updateRow(index, { [type]: currentValue - 1 });
+    }
   };
 
   return (
-    <Card className="lg:hidden mb-4">
+    <Card className="mb-4">
       <CardHeader className="px-4">
         <span>{data.name}</span>
-        <span className="underline text-blue-500 mr-auto" onClick={openModal}>
+        <span
+          className="underline text-blue-500 mr-auto cursor-pointer"
+          onClick={openModal}
+        >
           More info
         </span>
       </CardHeader>
       <CardContent className="px-4">
-        <SelectField
-          methods={methods}
-          name="name"
-          options={[
-            { id: 1, name: 'Public' },
-            { id: 2, name: 'Sharing' },
-            { id: 3, name: 'Private' },
-          ]}
-          wrapperClassName="w-auto"
-          placeholder="Sharing Transfers"
-          className="mb-2"
+        <div className="mb-2">
+          <Select
+            options={data.transfer_options ?? []}
+            value={watchedRow.selected_transfer?.id?.toString() ?? '1'}
+            returnVal="id"
+            setValue={(val) => {
+              const selected = data.transfer_options?.find(
+                (opt) => opt.id.toString() === val.toString()
+              );
+              updateRow(index, {
+                selected_transfer: {
+                  id: selected?.id ?? 0,
+                  price: selected?.price ?? 0,
+                  is_discount: selected?.is_discount ?? false,
+                },
+              });
+            }}
+            className="w-full bg-secondary"
+          />
+        </div>
+
+        <DatePicker
+          className="w-full mb-2"
+          defaultValue={watchedRow.tour_date ?? today}
+          onChange={(val) =>
+            updateRow(index, {
+              tour_date: val ? format(val, 'yyyy-MM-dd') : '',
+            })
+          }
         />
-        <DatePicker className="w-full mb-2" />
         <div className="space-y-3">
-          {agesTypes.map((item, index) => (
+          {agesTypes.map((item) => (
             <div
-              key={index}
+              key={item.id}
               className="p-2 mb-2 bg-secondary rounded-sm text-sm"
             >
               <div className="grid grid-cols-2 items-center">
@@ -84,18 +105,18 @@ const AttractionCardMobile = ({ data }: { data: AtractionOffers }) => {
                 <div className="grid grid-cols-3 gap-1 items-center ml-auto">
                   <Button
                     onClick={() => {
-                      handleDelete(item.id);
+                      handleDelete(item.id as 'adult' | 'child' | 'infant');
                     }}
                     className="w-8 h-8 rounded-full p-0 bg-white hover:bg-secondary shadow-none"
                   >
                     <Minus className="w-4 p-0 text-black" />
                   </Button>
                   <p className="text-center font-normal">
-                    {agesQuantity[item.id]}
+                    {String(watchedRow[item.id as keyof AtractionOffers] ?? 0)}
                   </p>
                   <Button
                     onClick={() => {
-                      handleAdd(item.id);
+                      handleAdd(item.id as 'adult' | 'child' | 'infant');
                     }}
                     className="w-8 h-8 rounded-full p-0 bg-white hover:bg-secondary shadow-none"
                   >
@@ -107,20 +128,28 @@ const AttractionCardMobile = ({ data }: { data: AtractionOffers }) => {
                 <span>
                   <User className="w-4 h-4" />
                 </span>
-                <span className=""> +300 AED per {item.id}</span>
+                <span className="">
+                  {' '}
+                  +{formatMoney(data.price ?? 0)} per {item.id}
+                </span>{' '}
               </div>
             </div>
           ))}
         </div>
-
         <hr className="my-4 h-0.5" />
-        <div className="grid grid-cols-2 mx-auto content-between text-sm font-bold">
-          <p className="">Total</p>
-          <p className="text-end">AED {formatMoney(360)}</p>
-        </div>
-        {/* <AddToCartAttraction
-          data={[{ ...data, ...agesQuantity, checked: false }]}
-        /> */}
+        {renderPrice(watchedRow)}
+        <AddToCartAttraction
+          data={[
+            {
+              attraction_offer: watchedRow.attraction_offer ?? 0,
+              tour_date: watchedRow.tour_date ?? today,
+              transfer_option: watchedRow.selected_transfer?.id ?? 0,
+              adult: watchedRow.adult ?? 1,
+              child: watchedRow.child ?? 0,
+              infant: watchedRow.infant ?? 0,
+            },
+          ]}
+        />
       </CardContent>
     </Card>
   );

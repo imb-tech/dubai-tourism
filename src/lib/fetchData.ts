@@ -1,4 +1,4 @@
-import { baseURL } from 'services/axios-instance';
+import { baseURL } from "services/axios-instance";
 interface FetchOptions {
   params?: Record<string, string | number | boolean>;
   revalidate?: number;

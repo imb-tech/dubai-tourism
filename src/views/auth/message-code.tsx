@@ -12,6 +12,7 @@ import { usePost } from 'hooks/usePost';
 import { toast } from 'sonner';
 import { useAuthStore } from 'store/auth-store';
 import { useModal } from 'hooks/use-modal';
+import { useEffect } from 'react';
 
 const formatTime = (seconds: number) => {
   const mins = Math.floor(seconds / 60);
@@ -29,19 +30,13 @@ const formSchema = z.object({
 
 type FormValues = z.infer<typeof formSchema>;
 
-export default function EmailVerification({
-  isActive,
-  timer,
-}: {
-  timer: number;
-  isActive: boolean;
-}) {
-  const { resetTimer } = useOtpTimerStore();
+export default function EmailVerification() {
   const { setToken } = useAuthStore();
   const { closeModal } = useModal('auth');
   const { user, setText, clearUser, clearText } = useTextStore();
+  const { timer, isActive, startTimer } = useOtpTimerStore();
 
-  const { mutate } = usePost({
+  const { mutate, isPending } = usePost({
     onSuccess: (data) => {
       if (data?.access) {
         setToken(data?.access);
@@ -49,9 +44,11 @@ export default function EmailVerification({
       closeModal();
       clearText();
       clearUser();
-      toast.success('Successful');
+      toast.success('Successfull');
     },
   });
+
+  const { mutate: mutateReset, isPending: isPendingReset } = usePost();
 
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
@@ -65,10 +62,8 @@ export default function EmailVerification({
   };
 
   const resetCode = () => {
-    if (isActive) {
-      resetTimer();
-      mutate(NEW_CODE, user);
-    }
+    mutateReset(NEW_CODE, user);
+    startTimer();
   };
 
   return (
@@ -96,7 +91,12 @@ export default function EmailVerification({
           )}
         </div>
 
-        <Button type="submit" className="w-full ">
+        <Button
+          disabled={isPending || isPendingReset || !isActive}
+          loading={isPending}
+          type="submit"
+          className="w-full "
+        >
           Confirm
         </Button>
 

@@ -21,7 +21,7 @@ export default function Money({
 }: Props) {
   return (
     <div className={cn('relative pt-6', className, !discount && 'pt-0')}>
-      {discount && (
+      {discount ? (
         <h3
           className={cn(
             'font-semibold text-black/45 text-sm line-through absolute top-0',
@@ -30,7 +30,7 @@ export default function Money({
         >
           From AED {formatMoney(discount)}
         </h3>
-      )}
+      ) : null}
       <h3
         className={cn(
           'md:text-xl text-sm font-semibold text-[#FF5533]',

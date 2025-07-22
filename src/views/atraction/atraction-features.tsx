@@ -8,7 +8,7 @@ export default function WtpFeatures({
 }) {
   return (
     <div className="lg:px-6 px-3 py-6 rounded-lg border mt-5">
-      <h2 className="md:text-3xl text-2xl font-semibold m-0">Features</h2>
+      <h2 className="md:text-3xl text-2xl font-semibold m-0">Xususiyatlari</h2>
       <ul className="grid lg:grid-cols-5 md:grid-cols-3 grid-cols-2 gap-2 mt-3">
         {features.map((row, i) => (
           <li

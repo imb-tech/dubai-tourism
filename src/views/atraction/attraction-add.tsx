@@ -6,7 +6,7 @@ import { usePost } from 'hooks/usePost';
 import { BASKETCREATE } from 'constants/api-endpoints';
 
 const AddToCartAttraction = ({ data }: { data: AtractionCreate[] }) => {
-  const { mutate } = usePost({
+  const { mutate, isPending } = usePost({
     onSuccess: () => {
       toast.success("Savatchaga qo'shildi!");
     },
@@ -15,6 +15,8 @@ const AddToCartAttraction = ({ data }: { data: AtractionCreate[] }) => {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-2 mt-5">
       <Button
+        disabled={isPending}
+        loading={isPending}
         className="lg:bg-primary bg-accent hover:bg-accent lg:hover:bg-primary lg:text-white text-black"
         onClick={() => {
           mutate(BASKETCREATE, { attractions: [...data] });
@@ -31,13 +33,6 @@ const AddToCartAttraction = ({ data }: { data: AtractionCreate[] }) => {
       >
         <WhatsappIcon size={25} />
         <span>Whatsapp</span>
-      </Button>
-      <Button
-        className="lg:hidden md:col-span-2 bg-primary"
-        variant="default"
-        size="lg"
-      >
-        Purchase now
       </Button>
     </div>
   );

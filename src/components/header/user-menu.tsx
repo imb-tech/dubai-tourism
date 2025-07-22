@@ -17,7 +17,6 @@ import EmailVerification from 'views/auth/message-code';
 import Register from 'views/auth/register';
 import Login from 'views/auth/login';
 import { useModal } from 'hooks/use-modal';
-import { useOtpTimerStore } from 'store/useOtpTimerStore';
 import { useTextStore } from 'store/auth';
 import { cn } from 'lib/utils';
 import { usePathname } from 'next/navigation';
@@ -26,7 +25,6 @@ import { LoginIcon } from 'components/icons';
 export default function UserMenu({ data }: { data: Profile | undefined }) {
   const { openModal } = useModal('auth');
   const pathname = usePathname();
-  const { timer, isActive } = useOtpTimerStore();
   const { text } = useTextStore();
   const { token, clearToken } = useAuthStore();
 
@@ -103,7 +101,7 @@ export default function UserMenu({ data }: { data: Profile | undefined }) {
         ) : text === 'register' ? (
           <Register />
         ) : (
-          <EmailVerification isActive={isActive} timer={timer} />
+          <EmailVerification/>
         )}
       </Modal>
     </div>
