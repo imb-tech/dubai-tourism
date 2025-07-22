@@ -67,18 +67,14 @@ const AttractionCardMobile = ({
         <div className="mb-2">
           <Select
             options={data.transfer_options ?? []}
-            value={watchedRow.selected_transfer?.id?.toString() ?? '1'}
+            value={watchedRow.transfer_option?.id?.toString() ?? '1'}
             returnVal="id"
             setValue={(val) => {
               const selected = data.transfer_options?.find(
                 (opt) => opt.id.toString() === val.toString()
               );
               updateRow(index, {
-                selected_transfer: {
-                  id: selected?.id ?? 0,
-                  price: selected?.price ?? 0,
-                  is_discount: selected?.is_discount ?? false,
-                },
+                transfer_option: selected,
               });
             }}
             className="w-full bg-secondary"
@@ -138,7 +134,7 @@ const AttractionCardMobile = ({
         </div>
         <hr className="my-4 h-0.5" />
         <div className="relative pt-4">
-          {data.selected_transfer?.is_discount && (
+          {data.transfer_option?.is_discount && (
             <h3 className="absolute top-0 text-sm font-semibold text-black/45 line-through">
               Price: {formatMoney(renderPrice(watchedRow).original)}
             </h3>
@@ -152,7 +148,7 @@ const AttractionCardMobile = ({
             {
               attraction_offer: watchedRow.attraction_offer ?? 0,
               tour_date: watchedRow.tour_date ?? today,
-              transfer_option: watchedRow.selected_transfer?.id ?? 0,
+              transfer_option: watchedRow.transfer_option?.id ?? 0,
               adult: watchedRow.adult ?? 1,
               child: watchedRow.child ?? 0,
               infant: watchedRow.infant ?? 0,

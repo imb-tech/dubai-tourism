@@ -21,9 +21,6 @@ export default function WtpForm({ data }: { data: AtractionDetail }) {
     },
   });
 
-  
-
-
 
   return (
     <div className="lg:px-6 py-6 px-3 rounded-lg bg-secondary mt-14">

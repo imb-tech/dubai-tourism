@@ -9,12 +9,27 @@ type Atraction = {
   discount: number;
 };
 
+
+type Options = {
+  discount_child: number;
+  discount_adults: number;
+  discount_infant: number;
+  child_price: number;
+  adult_price: number;
+  infant_price: number;
+  id: number;
+  name: string;
+  price: number;
+  is_discount: boolean;
+}
+
+
 type AtractionOffers = {
   id: number;
   checked?: boolean | undefined;
   basket_attraction_id: number
-  available:string
-  vat:string
+  available: string
+  vat: string
   comment_count: number
   adult: number;
   max_adult: number;
@@ -30,30 +45,9 @@ type AtractionOffers = {
   image: string
   discount: number;
   price: number;
-  discount_child: number;
-  child_price: number;
-  discount_adults: number;
-  adult_price: number;
-  discount_infant: number;
-  infant_price: number;
   attraction_offer: number;
-  selected_transfer: {
-    price: number | string;
-    is_discount: boolean;
-    id: number;
-  };
-  transfer_options: {
-    id: number;
-    name: string;
-    price: number;
-    is_discount: boolean;
-  }[];
-  transfer_option: {
-    id: number;
-    name: string;
-    price: number;
-    is_discount: boolean;
-  }
+  transfer_options: Options[];
+  transfer_option: Options
   is_refundable: boolean;
   refound_date: string;
 };
@@ -73,13 +67,13 @@ type AtractionDetail = {
   offers: AtractionOffers[];
   whatsapp: string;
   feature: AtractionFeatures[];
-  imp_info:string
-  inclusion:string
-  itenarary:string
-  terms:string
-  useful_info:string
-  child_cancellation:string
-  cancellation_policy_description:string
+  imp_info: string
+  inclusion: string
+  itenarary: string
+  terms: string
+  useful_info: string
+  child_cancellation: string
+  cancellation_policy_description: string
   images: {
     id: number
     image: string

@@ -1,4 +1,4 @@
-import { ReactNode, useCallback, useEffect, useMemo } from 'react';
+import { useCallback, useEffect, useMemo } from 'react';
 import {
   UseFieldArrayReturn,
   useFieldArray,
@@ -100,18 +100,22 @@ export function useAtractionCustom(): UseAtractionCustomReturn {
 
   const renderPrice = useCallback(
     (row: AtractionOffers) => {
+      const transfer = row.transfer_option;
+      if (!transfer)
+        return { original: 0, discounted: 0, display: formatMoney(0) };
+
       return calculate({
         adult: row.adult ?? 1,
         child: row.child ?? 0,
         infant: row.infant ?? 0,
-        adult_price: row.adult_price ?? 0,
-        child_price: row.child_price ?? 0,
-        infant_price: row.infant_price ?? 0,
-        discount_adults: row.discount_adults,
-        discount_child: row.discount_child,
-        discount_infant: row.discount_infant,
-        transfer_price: Number(row.selected_transfer?.price ?? 0),
-        is_discount: row.selected_transfer?.is_discount ?? false,
+        adult_price: transfer.adult_price ?? 0,
+        child_price: transfer.child_price ?? 0,
+        infant_price: transfer.infant_price ?? 0,
+        discount_adults: transfer.discount_adults,
+        discount_child: transfer.discount_child,
+        discount_infant: transfer.discount_infant,
+        transfer_price: Number(transfer?.price ?? 0),
+        is_discount: transfer?.is_discount ?? false,
       });
     },
     [calculate]
@@ -122,37 +126,36 @@ export function useAtractionCustom(): UseAtractionCustomReturn {
 
   const totalAmount = useMemo(() => {
     return offers.reduce((sum, row) => {
+      if (!row.transfer_option) return sum;
+
       const { discounted, original } = calculate({
         adult: row.adult ?? 1,
         child: row.child ?? 0,
         infant: row.infant ?? 0,
-        adult_price: row.adult_price ?? 0,
-        child_price: row.child_price ?? 0,
-        infant_price: row.infant_price ?? 0,
-        discount_adults: row.discount_adults,
-        discount_child: row.discount_child,
-        discount_infant: row.discount_infant,
-        transfer_price: Number(row.selected_transfer?.price ?? 0),
-        is_discount: row.selected_transfer?.is_discount ?? false,
+        adult_price: row.transfer_option.adult_price ?? 0,
+        child_price: row.transfer_option.child_price ?? 0,
+        infant_price: row.transfer_option.infant_price ?? 0,
+        discount_adults: row.transfer_option.discount_adults,
+        discount_child: row.transfer_option.discount_child,
+        discount_infant: row.transfer_option.discount_infant,
+        transfer_price: Number(row.transfer_option?.price ?? 0),
+        is_discount: row.transfer_option?.is_discount ?? false,
       });
-      return sum + (row.selected_transfer?.is_discount ? discounted : original);
+      return sum + (row.transfer_option?.is_discount ? discounted : original);
     }, 0);
   }, [offers, calculate]);
 
   useEffect(() => {
     offers.forEach((row, index) => {
-      const currentTransfer = row.selected_transfer;
+      const currentTransfer = row.transfer_option;
       const options = row.transfer_options;
 
-      if (!currentTransfer && !!options?.length) {
+      if (!currentTransfer && Array.isArray(options) && options.length > 0) {
         const [first] = options;
+
         update(index, {
           ...fields[index],
-          selected_transfer: {
-            id: first.id,
-            price: first.price,
-            is_discount: first.is_discount,
-          },
+          transfer_option: first,
         });
       }
     });
