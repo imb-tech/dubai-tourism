@@ -20,6 +20,7 @@ import { useSearchParams } from 'next/navigation';
 
 export default function CustomCard({
   image,
+  poster,
   name,
   location,
   rating,
@@ -36,7 +37,7 @@ export default function CustomCard({
   beds,
   best_seller,
   suffix,
-  url = '',
+  other,
 }: Product) {
   const search = useSearchParams();
 
@@ -49,10 +50,10 @@ export default function CustomCard({
       )}
       <div className="w-full h-48">
         <Image
-          src={image || '/image.jpg'}
+          src={(poster ?? image) || '/image.jpg'}
           width={400}
           height={300}
-          alt={name ?? ""}
+          alt={name ?? ''}
           className="rounded-md object-cover w-full h-full"
         />
       </div>
@@ -159,8 +160,8 @@ export default function CustomCard({
 
         <Link
           href={
-            url === 'transfer-service'
-              ? `${url}/${slug}?from_airport=${search.get(
+            other === 'transfer-service'
+              ? `${other}/${slug}?from_airport=${search.get(
                   'from_airport'
                 )}&to_airport=${search.get(
                   'to_airport'
@@ -169,7 +170,7 @@ export default function CustomCard({
                 )}&passengers=${search.get(
                   'passengers'
                 )}&return_date=${search.get('return_date')}`
-              : `${url}/${slug}`
+              : `${other}/${slug}`
           }
           className={cn(
             buttonVariants({ size: 'default' }),

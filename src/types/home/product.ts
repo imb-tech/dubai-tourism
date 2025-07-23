@@ -27,4 +27,6 @@ type Product = {
   type?: string;
   passengers?: number;
   luggage?: number;
+  poster?: string;
+  other?: string
 };
