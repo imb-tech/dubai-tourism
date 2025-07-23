@@ -27,13 +27,13 @@ export default function AtractionFilter() {
   return (
     <div className="grid lg:grid-cols-3 grid-cols-1 gap-2 py-3 border rounded-[12px] p-2">
       <SelectParams
-        paramKey="filter1"
+        paramKey="children"
         options={filters}
         placeholder="filter1"
         className="h-10"
       />
       <SelectParams
-        paramKey="filter2"
+        paramKey="country"
         options={filters}
         placeholder="filter2"
         className="h-10"
