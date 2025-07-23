@@ -65,7 +65,7 @@ const TransferService = async ({ searchParams }: any) => {
               key={transfer.id}
               {...transfer}
               {...transfer.transfer}
-              url="transfer-service"
+               searchParams={searchParams}
             />
           ))}
         </div>

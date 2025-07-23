@@ -1,4 +1,3 @@
-'use client';
 import Image from 'next/image';
 import Link from 'next/link';
 import { cn } from 'lib/utils';
@@ -16,7 +15,16 @@ import {
   RoomIcon,
   User2Icon,
 } from 'components/icons';
-import { useSearchParams } from 'next/navigation';
+
+type CustomCardProps = Product & {
+  searchParams?: {
+    from_airport?: string | null;
+    to_airport?: string | null;
+    pickup_date?: string | null;
+    return_date?: string | null;
+    passengers?: string | null;
+  };
+};
 
 export default function CustomCard({
   image,
@@ -38,8 +46,11 @@ export default function CustomCard({
   best_seller,
   suffix,
   other,
-}: Product) {
-  const search = useSearchParams();
+  searchParams,
+}: CustomCardProps) {
+  const query = searchParams
+    ? `?from_airport=${searchParams.from_airport}&to_airport=${searchParams.to_airport}&pickup_date=${searchParams.pickup_date}&passengers=${searchParams.passengers}&return_date=${searchParams.return_date}`
+    : '';
 
   return (
     <div className="relative bg-white rounded-lg border flex flex-col justify-between p-2 gap-2 min-w-[320px] lg:min-w-40">
@@ -161,15 +172,7 @@ export default function CustomCard({
         <Link
           href={
             other === 'transfer-service'
-              ? `${other}/${slug}?from_airport=${search.get(
-                  'from_airport'
-                )}&to_airport=${search.get(
-                  'to_airport'
-                )}&pickup_date=${search.get(
-                  'pickup_date'
-                )}&passengers=${search.get(
-                  'passengers'
-                )}&return_date=${search.get('return_date')}`
+              ? `${other}/${slug}${query}`
               : `${other}/${slug}`
           }
           className={cn(
