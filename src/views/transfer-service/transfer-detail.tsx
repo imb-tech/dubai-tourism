@@ -11,21 +11,16 @@ import { usePost } from 'hooks/usePost';
 import { toast } from 'sonner';
 import { TRANSFERORDER } from 'constants/api-endpoints';
 
-type QueryParams = {
-  from_airport?: string | undefined;
-  to_airport?: string | undefined;
-  pickup_date: string | undefined;
-  passengers?: string | undefined;
-  return_date?: string | undefined;
-};
-
 export default function TransferDetail({
   data,
-  initialQuery,
+  searchParams,
 }: {
   data: Transfer;
-  initialQuery: any;
+  searchParams: Record<string, string>;
 }) {
+  const { from_date, from_time, return_date, return_time, passengers } =
+    searchParams;
+
   const { mutate, isPending } = usePost({
     onSuccess: (data) => {
       toast.success('Muvaffaqiyatli yaratildi!');
@@ -37,32 +32,19 @@ export default function TransferDetail({
 
   const methods = useForm<TransferOrderCreate>({
     defaultValues: {
-      payment_type: '',
-      first_name: '',
-      last_name: '',
-      email: '',
-      phone: '',
-      meet_sign: '',
-      promo_code: '',
       transfer: {
-        transfer_rate: data?.id,
-        pickup_date: initialQuery?.pickup_date ? initialQuery?.pickup_date : '',
-        return_date: initialQuery?.return_date
-          ? initialQuery?.return_date
-          : null,
-        passengers: Number(initialQuery.passengers ?? 1),
-        child_seat: 0,
-        booster_seat: 0,
-        driver_notes: null,
-        flight_number: null,
+        transfer_rate: data.id,
+        pickup_date: `${from_date}T${from_time}Z`,
+        return_date: `${return_date}T${return_time}Z`,
+        passengers: Number(passengers),
       },
     },
   });
 
+
   const { handleSubmit } = methods;
 
   const onSubmit = (values: any) => {
-    console.log('all values => ', values);
     mutate(TRANSFERORDER, values);
   };
 

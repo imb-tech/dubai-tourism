@@ -21,6 +21,7 @@ import {
 
 const Select = dynamic<any>(() => import('react-select'), {
   ssr: false,
+  loading: () => <div className="h-13 bg-muted animate-pulse rounded-md" />,
 });
 
 import ErrorMessage from '../ui/error-message';
@@ -109,7 +110,8 @@ export default function SearchSelect<
     <fieldset
       className={cn(
         'flex flex-col w-full bg-secondary rounded-lg pt-3',
-        wrapperClassName
+        wrapperClassName,
+        !!error && 'border border-destructive'
       )}
     >
       {label && (

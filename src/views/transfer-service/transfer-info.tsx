@@ -7,8 +7,7 @@ import {
   CardTitle,
 } from 'components/ui/card';
 import Image from 'next/image';
-import React, { Fragment } from 'react';
-import SectionDetailsHeading from 'components/ui/page-heading';
+import React from 'react';
 
 const data = [
   {
@@ -36,34 +35,36 @@ const data = [
 
 const TransferInfo = () => {
   return (
-    <Fragment>
-      <h1 className="md:text-3xl text-2xl my-5 font-semibold">
-        Why M tours transfer service?
-      </h1>
+    <div className="w-full bg-[#F5F8FC] py-10 my-12">
+      <div className="container mx-auto px-3 lg:px-0">
+        <h1 className="md:text-3xl text-2xl mb-5  font-semibold">
+          Why M tours transfer service?
+        </h1>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2  lg:grid-cols-4 items-center justify-between gap-3 md:gap-6">
-        {data?.map((item, index) => (
-          <Card key={item?.id} className="">
-            <CardHeader className=" justify-center">
-              <Image
-                src={`/transfer-info-${index + 1}.png`}
-                width={64}
-                height={64}
-                alt={item?.name}
-              />
-            </CardHeader>
-            <CardContent className="text-center">
-              <CardTitle>
-                <h3 className="text-xl">{item.name}</h3>
-              </CardTitle>
-              <CardDescription className="text-black">
-                {item?.description}
-              </CardDescription>
-            </CardContent>
-          </Card>
-        ))}
+        <div className="grid grid-cols-1 sm:grid-cols-2  lg:grid-cols-4 items-center justify-between gap-3 md:gap-6">
+          {data.map((item, index) => (
+            <Card key={item.id} className="shadow-none border-none">
+              <CardHeader className=" justify-center">
+                <Image
+                  src={`/transfer-info-${index + 1}.png`}
+                  width={64}
+                  height={64}
+                  alt={item.name}
+                />
+              </CardHeader>
+              <CardContent className="text-center">
+                <CardTitle>
+                  <h3 className="text-xl">{item.name}</h3>
+                </CardTitle>
+                <CardDescription className="text-black">
+                  {item.description}
+                </CardDescription>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
       </div>
-    </Fragment>
+    </div>
   );
 };
 

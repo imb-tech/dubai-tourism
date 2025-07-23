@@ -9,8 +9,7 @@ import {
 import { ClassNameValue } from 'tailwind-merge';
 import ErrorMessage from '../ui/error-message';
 import { Label } from '../ui/label';
-import { Input, InputProps } from './input';
-import { ElementType } from 'react';
+import { InputProps } from './input';
 import FormInput from 'components/form/input';
 
 interface IProps<IForm extends FieldValues> {
@@ -58,7 +57,8 @@ export default function IconFormInput<IForm extends FieldValues>({
     <fieldset
       className={cn(
         'flex flex-col gap-1 bg-secondary p-3 pb-2 rounded-md',
-        wrapperClassName
+        wrapperClassName,
+        !!error && 'border border-destructive'
       )}
     >
       {label && (
@@ -73,8 +73,11 @@ export default function IconFormInput<IForm extends FieldValues>({
       <div className="w-full flex items-center relative">
         <span className="text-primary absolute left-2 z-10">{icon}</span>
         <FormInput
+          {...field}
+          required={required}
           methods={methods}
           name={name}
+          hideError={true}
           type="text"
           variant="clean"
           placeholder={placeholder || label}
@@ -87,9 +90,6 @@ export default function IconFormInput<IForm extends FieldValues>({
           {...props}
         />
       </div>
-      {!!error && !hideError && (
-        <ErrorMessage>{error.message || error.root?.message}</ErrorMessage>
-      )}
     </fieldset>
   );
 }

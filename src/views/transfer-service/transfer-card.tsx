@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { Plus, Search, X } from 'lucide-react';
 import { CalendarIcon, ClockIcon } from 'components/icons';
@@ -9,23 +9,49 @@ import { BagIcon, UserIcon } from 'components/icons';
 import { Badge } from 'components/ui/badge';
 import IconFormDatePicker from 'components/ui/prefixy-date-picker';
 import IconFormTimePicker from 'components/ui/prefixy-time-picker';
-import { fromUtcToDateAndTime } from 'lib/utils';
 import { useFormContext } from 'react-hook-form';
+import { useRouter, useSearchParams } from 'next/navigation';
 
 type Props = {
   data: Transfer;
 };
 
-type Fields = {
-  returnDate: string;
-  returnTime: string;
-};
-
 export default function TransferCard({ data }: Props) {
-  const [isReturn, setIsReturn] = useState(false);
-  const result = fromUtcToDateAndTime('2025-07-22T11:44:53Z');
+  const { push, refresh } = useRouter();
+  const params = useSearchParams();
+  const to_airport = params.get('to_airport');
+  const from_airport = params.get('from_airport');
+  const from_date = params.get('from_date');
+  const from_time = params.get('from_time');
+  const return_date = params.get('return_date');
+  const return_time = params.get('return_time');
+  const passengers = params.get('passengers');
 
-  const form = useFormContext();
+  const form = useFormContext<{ return_date: string; return_time: string }>();
+
+  const handleSearch = () => {
+    const query = new URLSearchParams({
+      from_airport: from_airport || '',
+      to_airport: to_airport || '',
+      from_date: from_date || '',
+      from_time: from_time || '',
+      return_date: form.watch('return_date') || '',
+      return_time: form.watch('return_time') || '',
+      passengers: passengers || '1',
+    }).toString();
+
+    push(`/transfer-service?${query}`);
+  };
+
+  const [isReturn, setIsReturn] = useState(false);
+
+  useEffect(() => {
+    if (return_date && return_time) {
+      form.setValue('return_date', return_date);
+      form.setValue('return_time', return_time);
+      setIsReturn(true);
+    }
+  }, [return_time, return_date]);
 
   return (
     <div className="bg-background rounded-md p-4 relative  shadow">
@@ -97,14 +123,14 @@ export default function TransferCard({ data }: Props) {
             <span className="text-primary">
               <CalendarIcon size={16} />
             </span>
-            <span className="text-sm">{result?.date}</span>
+            <span className="text-sm">{from_date}</span>
           </p>
 
           <p className="flex items-center gap-3 font-semibold mt-3">
             <span className="text-primary">
               <ClockIcon size={16} />
             </span>
-            <span className="text-sm">{result?.time}</span>
+            <span className="text-sm">{from_time}</span>
           </p>
         </div>
 
@@ -158,12 +184,13 @@ export default function TransferCard({ data }: Props) {
               <IconFormDatePicker
                 label="Return date"
                 methods={form}
-                name="returnDate"
+                name="return_date"
+                fromDate={new Date()}
               />
               <IconFormTimePicker
                 label="Return time"
                 methods={form}
-                name="returnTime"
+                name="return_time"
               />
               <span
                 className="absolute -right-1 -top-1 bg-background text-primary border border-primary rounded-full p-1 cursor-pointer"
@@ -172,7 +199,11 @@ export default function TransferCard({ data }: Props) {
                 <X size={12} />
               </span>
             </div>
-            <Button type="button" className="h-10 w-full mt-3">
+            <Button
+              onClick={handleSearch}
+              type="button"
+              className="h-10 w-full mt-3"
+            >
               <span className="text-base">Search</span>
               <Search size={20} />
             </Button>
