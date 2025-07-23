@@ -14,7 +14,7 @@ import IconFormTimePicker from 'components/ui/prefixy-time-picker';
 
 import { useGet } from 'hooks/useGet';
 import { AIRPORTS } from 'constants/api-endpoints';
-import { dateForBackend, getTime30MinLater, normalizeDate } from 'lib/utils';
+import { getTime30MinLater, toUtcISOString } from 'lib/utils';
 
 type Airport = { id: number; name: string };
 
@@ -58,18 +58,21 @@ export default function TransferForm() {
 
   const onSubmit = (data: Fields) => {
     const { from, to, date, time } = data.pick;
+    console.log(toUtcISOString(date, time));
+    if (isReturn && data.return?.date && data.return?.time)
+      console.log(toUtcISOString(data?.return?.date, data?.return?.time));
 
     const query = new URLSearchParams({
       from_airport: String(from),
       to_airport: String(to),
-      pickup_date: dateForBackend(normalizeDate(date), time),
+      pickup_date: toUtcISOString(date, time),
       passengers: data.passagers,
     });
 
     if (isReturn && data.return?.date && data.return?.time) {
       query.set(
         'return_date',
-        dateForBackend(normalizeDate(data.return.date), data.return.time)
+        toUtcISOString(data?.return?.date, data?.return?.time)
       );
     }
 

@@ -1,3 +1,4 @@
+'use client';
 import Image from 'next/image';
 import Link from 'next/link';
 import { cn } from 'lib/utils';
@@ -15,9 +16,11 @@ import {
   RoomIcon,
   User2Icon,
 } from 'components/icons';
+import { useSearchParams } from 'next/navigation';
 
 export default function CustomCard({
   image,
+  poster,
   name,
   location,
   rating,
@@ -34,8 +37,10 @@ export default function CustomCard({
   beds,
   best_seller,
   suffix,
-  url = '',
+  other,
 }: Product) {
+  const search = useSearchParams();
+
   return (
     <div className="relative bg-white rounded-lg border flex flex-col justify-between p-2 gap-2 min-w-[320px] lg:min-w-40">
       {best_seller && (
@@ -45,10 +50,10 @@ export default function CustomCard({
       )}
       <div className="w-full h-48">
         <Image
-          src={image || '/image.jpg'}
+          src={(poster ?? image) || '/image.jpg'}
           width={400}
           height={300}
-          alt={name}
+          alt={name ?? ''}
           className="rounded-md object-cover w-full h-full"
         />
       </div>
@@ -154,7 +159,19 @@ export default function CustomCard({
         />
 
         <Link
-          href={`${url}/${slug}`}
+          href={
+            other === 'transfer-service'
+              ? `${other}/${slug}?from_airport=${search.get(
+                  'from_airport'
+                )}&to_airport=${search.get(
+                  'to_airport'
+                )}&pickup_date=${search.get(
+                  'pickup_date'
+                )}&passengers=${search.get(
+                  'passengers'
+                )}&return_date=${search.get('return_date')}`
+              : `${other}/${slug}`
+          }
           className={cn(
             buttonVariants({ size: 'default' }),
             'w-full',

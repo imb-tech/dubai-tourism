@@ -1,5 +1,12 @@
 import { clsx, type ClassValue } from 'clsx';
-import { format, formatISO, parse } from 'date-fns';
+import {
+  format,
+  formatISO,
+  isDate,
+  parse,
+  setHours,
+  setMinutes,
+} from 'date-fns';
 import { twMerge } from 'tailwind-merge';
 
 export function cn(...inputs: ClassValue[]) {
@@ -27,18 +34,37 @@ export function getTime30MinLater(): string {
   const hours = now.getHours().toString().padStart(2, '0');
   const minutes = now.getMinutes().toString().padStart(2, '0');
 
-  return `${hours}:${minutes}`; // HH:mm format
+  return `${hours}:${minutes}`;
 }
 
-export function normalizeDate(input: string | Date): string {
-  if (typeof input === 'string') {
-    return input;
+export function toUtcISOString(dateInput: Date | string, time: string): string {
+  let dateObj: Date;
+
+  if (typeof dateInput === 'string') {
+    dateObj = parse(dateInput, 'dd/MM/yyyy', new Date());
+  } else if (isDate(dateInput)) {
+    dateObj = dateInput;
   } else {
-    return format(input, 'dd/MM/yyyy');
+    throw new Error('Noto‘g‘ri sana formati');
   }
+
+  const [hourStr, minuteStr] = time.split(':');
+  const hour = parseInt(hourStr, 10);
+  const minute = parseInt(minuteStr, 10);
+
+  const withHour = setHours(dateObj, hour);
+  const withMinute = setMinutes(withHour, minute);
+  return withMinute.toISOString().slice(0, 19) + 'Z';
 }
 
-export const dateForBackend = (date: string, time: string) => {
-  const parsedDate = parse(`${date} ${time}`, 'dd/MM/yyyy HH:mm', new Date());
-  return formatISO(parsedDate, { representation: 'complete' });
-};
+export function fromUtcToDateAndTime(isoUtcString: string): {
+  date: string;
+  time: string;
+} {
+  const dateObj = new Date(isoUtcString);
+
+  const date = format(dateObj, 'dd MMM yyyy');
+  const time = format(dateObj, 'HH:mm');
+
+  return { date, time };
+}

@@ -1,6 +1,6 @@
 import { User3Icon } from 'components/icons';
 import { cn } from 'lib/utils';
-import React, { useMemo, useState } from 'react';
+import React, { useMemo } from 'react';
 
 type Props = {
   active: number;

@@ -16,7 +16,7 @@ export default function Products({
   className?: string;
   autoplayDelay?: number;
 }) {
-  const slides = data.map((s) => <CarCard key={s.id} {...s} />);
+  const slides = data.map((s, index) => <CarCard key={index} {...s} />);
   return (
     <div className={cn(className)}>
       <div className="container mx-auto lg:px-0 px-3 ">
