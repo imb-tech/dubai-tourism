@@ -7,11 +7,7 @@ import { fetchData } from 'lib/fetchData';
 import React from 'react';
 import AtractionFilter from 'views/atraction/atraction-filter';
 
-type AtractionPageProps = {
-  searchParams?: { [key: string]: string | string[] | undefined };
-};
-
-const AtractionPage = async ({ searchParams }: AtractionPageProps) => {
+const AtractionPage = async () => {
   const banners = await fetchData<Banner[]>(BANNERS, {
     params: { service: 'attractions' },
   });
@@ -28,7 +24,7 @@ const AtractionPage = async ({ searchParams }: AtractionPageProps) => {
 
       <div className="grid sm:grid-cols-2 grid-cols-1  lg:grid-cols-4 gap-4">
         {data?.results.map((s) => (
-          <CarCard key={s.slug} {...s} url="atraction/" />
+          <CarCard key={s.slug} {...s} />
         ))}
       </div>
       <Questions title="Atraction Questions" service="attractions" />

@@ -21,7 +21,7 @@ export default async function page() {
       <RentFilter />
       <div className="grid grid-cols-1 lg:px-0 px-3 md:grid-cols-3 lg:grid-cols-4 gap-4">
         {cars?.results?.map((s) => (
-          <CarCard key={s.id} {...s} suffix="day" url="/rent" />
+          <CarCard key={s.id} {...s} suffix="day" />
         ))}
       </div>
       <Questions title="Renta a Car Questions" service="cars" />

@@ -17,7 +17,7 @@ import {
 } from 'components/icons';
 
 type CustomCardProps = Product & {
-  searchParams: Record<string, string>;
+  searchParams?: Record<string, string>;
 };
 
 export default function CustomCard({

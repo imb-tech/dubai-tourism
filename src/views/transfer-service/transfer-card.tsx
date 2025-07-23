@@ -51,7 +51,7 @@ export default function TransferCard({ data }: Props) {
       form.setValue('return_time', return_time);
       setIsReturn(true);
     }
-  }, [return_time, return_date]);
+  }, [return_time, return_date, form]);
 
   return (
     <div className="bg-background rounded-md p-4 relative  shadow">

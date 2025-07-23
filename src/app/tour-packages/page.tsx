@@ -25,7 +25,7 @@ const ToursPackages = async () => {
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         {tour?.results?.map((s) => (
-          <CarCard key={s.id} {...s} url="/tour-packages"  suffix={<span className='flex items-center'>1 <User2Icon size={24} /></span>} />
+          <CarCard key={s.id} {...s}  suffix={<span className='flex items-center'>1 <User2Icon size={24} /></span>} />
         ))}
       </div>
       <Questions title="Tour Packages Questions" service="tour_packages" />
