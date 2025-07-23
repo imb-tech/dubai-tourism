@@ -7,14 +7,14 @@ import { TRANSFERS } from 'constants/api-endpoints';
 
  type PageProps = {
   params: { id: string };
-  searchParams: Promise<{ [key: string]: string | undefined }>;
+  searchParams: Record<string, string>;
 };
 
-export default async function RentId({ params, searchParams }: any) {
+export default async function RentId({ params, searchParams }: PageProps) {
   const { id } = params;
 
   const { from_airport, to_airport, pickup_date, passengers, return_date } =
-    await searchParams;
+     searchParams;
 
   const data = await fetchData<Transfer>(`${TRANSFERS}/${id}`);
   if (!data) return null;

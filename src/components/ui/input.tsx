@@ -14,7 +14,7 @@ export type InputProps = {
 const inputVariants: Record<string, ClassNameValue> = {
   default: '',
   clean:
-    'border-none shadow-none bg-secondary/80 focus-visible:ring-2 focus-visible:ring-2 focus-visible:shadow-xs',
+    'border-none shadow-none bg-secondary/80 focus-visible:ring-0 focus-visible:ring-0 focus-visible:shadow-xs',
 };
 
 const inputSizes: Record<string, ClassNameValue> = {

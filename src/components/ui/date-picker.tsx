@@ -19,7 +19,7 @@ export function DatePicker({
     fullWidth,
     disabled,
     defaultValue,
-    format = "dd/MM/yyyy",
+    format = "yyyy-MM-dd",
     className,
     ...calendarProps
 }: {
@@ -29,7 +29,7 @@ export function DatePicker({
     placeholder?: string
     fullWidth?: boolean
     disabled?: boolean
-    defaultValue?: Date
+    defaultValue?: string
     format?: string
     cassName?: ClassNameValue
 } & CalendarProps) {
@@ -42,7 +42,7 @@ export function DatePicker({
         : typeof defaultValue === "string" ?
             parse(defaultValue, format, new Date())
         :   defaultValue
-    const displayedDate = value ? formatter(value, "dd/MM/yyyy") : placeholder
+    const displayedDate = value ? formatter(value, "yyyy-MM-dd") : placeholder
     return (
         <Popover open={open} onOpenChange={setOpen}>
             <PopoverTrigger asChild onClick={() => setOpen(true)}>

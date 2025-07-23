@@ -17,13 +17,7 @@ import {
 } from 'components/icons';
 
 type CustomCardProps = Product & {
-  searchParams?: {
-    from_airport?: string | null;
-    to_airport?: string | null;
-    pickup_date?: string | null;
-    return_date?: string | null;
-    passengers?: string | null;
-  };
+  searchParams: Record<string, string>;
 };
 
 export default function CustomCard({
@@ -49,7 +43,7 @@ export default function CustomCard({
   searchParams,
 }: CustomCardProps) {
   const query = searchParams
-    ? `?from_airport=${searchParams.from_airport}&to_airport=${searchParams.to_airport}&pickup_date=${searchParams.pickup_date}&passengers=${searchParams.passengers}&return_date=${searchParams.return_date}`
+    ? `?from_airport=${searchParams.from_airport}&to_airport=${searchParams.to_airport}&from_date=${searchParams.from_date}&from_time=${searchParams.from_time}&passengers=${searchParams.passengers}&return_date=${searchParams.return_date}&return_time=${searchParams.return_time}`
     : '';
 
   return (

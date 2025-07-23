@@ -1,48 +1,39 @@
 'use client';
 
 import { useForm } from 'react-hook-form';
-import { useRouter } from 'next/navigation';
-import { useState } from 'react';
-
+import { useRouter, useSearchParams } from 'next/navigation';
+import { useEffect, useState } from 'react';
 import { Plus, Search, Users, X } from 'lucide-react';
-
 import { Button } from 'components/ui/button';
 import SearchSelect from 'components/ui/search-select';
 import IconFormInput from 'components/ui/prefixy-input';
 import IconFormDatePicker from 'components/ui/prefixy-date-picker';
 import IconFormTimePicker from 'components/ui/prefixy-time-picker';
-
 import { useGet } from 'hooks/useGet';
 import { AIRPORTS } from 'constants/api-endpoints';
-import { getTime30MinLater, toUtcISOString } from 'lib/utils';
+import { getTimeMinLater } from 'lib/utils';
+import { format } from 'date-fns';
+
+
 
 type Airport = { id: number; name: string };
 
 type Fields = {
-  pick: {
-    from: number;
-    to: number;
-    date: Date;
-    time: string;
-  };
-  return?: {
-    date?: Date;
-    time?: string;
-  };
-  passagers: string;
+  from_airport: string | number;
+  to_airport: string | number;
+  from_date: string;
+  from_time: string;
+  return_date?: string;
+  return_time?: string;
+  passengers: string;
 };
 
 export default function TransferForm() {
+  const params = useSearchParams();
+
   const router = useRouter();
-  const form = useForm<Fields>({
-    defaultValues: {
-      passagers: '2',
-      pick: {
-        date: new Date(),
-        time: getTime30MinLater(),
-      },
-    },
-  });
+  const form = useForm<Fields>();
+  const { setValue, reset } = form;
 
   const [isReturn, setIsReturn] = useState(false);
   const [fromSearch, setFromSearch] = useState('');
@@ -57,27 +48,56 @@ export default function TransferForm() {
   });
 
   const onSubmit = (data: Fields) => {
-    const { from, to, date, time } = data.pick;
-    console.log(toUtcISOString(date, time));
-    if (isReturn && data.return?.date && data.return?.time)
-      console.log(toUtcISOString(data?.return?.date, data?.return?.time));
+    const {
+      from_airport,
+      from_date,
+      from_time,
+      passengers,
+      to_airport,
+      return_date,
+      return_time,
+    } = data;
 
     const query = new URLSearchParams({
-      from_airport: String(from),
-      to_airport: String(to),
-      pickup_date: toUtcISOString(date, time),
-      passengers: data.passagers,
+      from_airport: String(from_airport),
+      to_airport: String(to_airport),
+      from_date: format(from_date, 'yyyy-MM-dd'),
+      from_time,
+      passengers: passengers,
     });
 
-    if (isReturn && data.return?.date && data.return?.time) {
-      query.set(
-        'return_date',
-        toUtcISOString(data?.return?.date, data?.return?.time)
-      );
+    if (isReturn && return_date && return_time) {
+      query.set('return_date', format(String(return_date), 'yyyy-MM-dd'));
+      query.set('return_time', return_time);
     }
 
-    router.push(`/transfer-service?${query.toString()}`);
+    router.push(`/transfer-service?${query}`);
   };
+
+  useEffect(() => {
+    const from_airport = Number(params.get('from_airport')) || '';
+    const to_airport = Number(params.get('to_airport')) || '';
+    const from_date = params.get('from_date') || format(new Date(), 'yyyy-MM-dd');
+    const from_time = params.get('from_time') || getTimeMinLater();
+    const return_date = params.get('return_date') || '';
+    const return_time = params.get('return_time') || '';
+    const passengers = params.get('passengers') || '1';
+
+    reset({
+      from_airport,
+      to_airport,
+      from_date,
+      from_time,
+      ...(return_date && { return_date }),
+      ...(return_time && { return_time }),
+      passengers,
+    });
+
+    if (return_date && return_time) {
+      setIsReturn(true);
+    }
+  }, [params]);
+
 
   return (
     <form
@@ -87,8 +107,9 @@ export default function TransferForm() {
       <div className="grid md:grid-cols-2 gap-3">
         <SearchSelect
           required
+          hideError={true}
           methods={form}
-          name="pick.from"
+          name="from_airport"
           label="From"
           options={fromAirports}
           placeholder="Address, Airport, hotel..."
@@ -99,8 +120,9 @@ export default function TransferForm() {
 
         <SearchSelect
           required
+          hideError={true}
           methods={form}
-          name="pick.to"
+          name="to_airport"
           label="To"
           options={toAirports}
           placeholder="Address, Airport, hotel..."
@@ -112,27 +134,31 @@ export default function TransferForm() {
         <IconFormDatePicker
           label="Pickup date"
           methods={form}
-          name="pick.date"
+          name="from_date"
+          fromDate={new Date()}
         />
 
         <IconFormTimePicker
           label="Pickup time"
           methods={form}
-          name="pick.time"
+          name="from_time"
         />
       </div>
 
       {isReturn ? (
         <div className="grid grid-cols-2 gap-3 relative">
           <IconFormDatePicker
+            required
             label="Return date"
             methods={form}
-            name="return.date"
+            name="return_date"
+            fromDate={new Date()}
           />
           <IconFormTimePicker
+            required
             label="Return time"
             methods={form}
-            name="return.time"
+            name="return_time"
           />
           <span
             className="absolute -right-1 -top-1 cursor-pointer border border-primary text-primary p-1 rounded-full"
@@ -145,16 +171,21 @@ export default function TransferForm() {
         <Button
           type="button"
           variant="outline"
-          className="w-full border-dashed text-primary"
-          onClick={() => setIsReturn(true)}
+          className="w-full h-11 border-dashed text-primary shadow-none"
+          onClick={() => {
+            setIsReturn(true);
+            setValue('return_time', getTimeMinLater());
+          }}
         >
-          <Plus size={18} className="mr-1" /> Add return
+          <Plus size={18} />
+          Add return
         </Button>
       )}
 
       <IconFormInput
+        required={true}
         methods={form}
-        name="passagers"
+        name="passengers"
         label="Passengers"
         icon={<Users size={16} />}
         type="number"

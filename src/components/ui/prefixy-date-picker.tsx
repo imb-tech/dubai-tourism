@@ -84,11 +84,7 @@ export default function IconFormDatePicker<IForm extends FieldValues>({
               disabled={field.disabled || disabled}
               fullWidth
               {...calendarProps}
-              defaultMonth={
-                field.value
-                  ? new Date(field.value?.toString()?.replace('/', '-'))
-                  : new Date()
-              }
+              defaultMonth={field.value}
               style={{
                 pointerEvents: field.disabled || disabled ? 'none' : 'auto',
               }}
