@@ -58,7 +58,6 @@ export default function TransferForm() {
 
   const onSubmit = (data: Fields) => {
     const { from, to, date, time } = data.pick;
-    console.log(toUtcISOString(date, time));
     if (isReturn && data.return?.date && data.return?.time)
       console.log(toUtcISOString(data?.return?.date, data?.return?.time));
 

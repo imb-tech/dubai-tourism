@@ -22,9 +22,6 @@ export default async function Home() {
   const rentACars = await fetchData(RENT_A_CAR_HOME);
   const best_seller = await fetchData(BESTSELLER_HOME);
 
-  console.log(atractions);
-  console.log(best_seller);
-
   return (
     <div className="space-y-12 mb-12">
       <HeroPages />
