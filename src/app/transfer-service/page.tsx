@@ -12,7 +12,7 @@ type Props = {
   searchParams: Record<string, string>;
 };
 
-const TransferService = async ({ searchParams }: Props) => {
+const TransferService = async ({ searchParams }: any) => {
   const banners = await fetchData<Banner[]>(BANNERS, {
     params: { service: 'transfers' },
   });

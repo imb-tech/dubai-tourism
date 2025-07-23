@@ -8,7 +8,7 @@ export default function TourCard({
   image,
   location,
   index,
-}: Tour & { index: number }) {
+}: any) {
   const isColTwo = index == 2 || index == 4 || index == 6;
 
   return (

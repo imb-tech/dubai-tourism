@@ -80,7 +80,7 @@ export default function TransferPaymentForm({
               Apply
             </Button>
           </div>
-          <PaymentTypes className="p-0" active={active} setActive={setActive} />
+          <PaymentTypes className="p-0"  />
         </div>
 
         <div className="bg-background py-3 rounded-md">

@@ -20,7 +20,7 @@ export default function TransferDetail({
   initialQuery,
 }: {
   data: Transfer;
-  initialQuery: QueryParams;
+  initialQuery: any;
 }) {
   const [step, setStep] = useState<number>(1);
   const [active, _setActive] = useState<number>(1);

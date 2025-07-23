@@ -70,9 +70,9 @@ export default function CheckoutCard({
         <Image
           src={data?.image}
           alt="logo"
-          className="size-[300px] rounded-md"
-          width={100}
-          height={100}
+          className="size-[300px]  rounded-md"
+          width={500}
+          height={500}
         />
         <div className="min-h-full flex flex-col justify-between gap-2 flex-[1]">
           <div className="flex justify-between items-center gap-3 w-full">

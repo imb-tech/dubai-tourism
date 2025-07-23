@@ -14,6 +14,7 @@ export default function WtpForm({ data }: { data: AtractionDetail }) {
       ...data,
       offers: data?.offers?.map((offer) => ({
         ...offer,
+        transfer_option: offer.transfer_options[0],
         adult: offer?.adult ?? 1,
         child: offer?.child ?? 0,
         infant: offer?.infant ?? 0,
@@ -60,7 +61,7 @@ export default function WtpForm({ data }: { data: AtractionDetail }) {
 
         <h2 className="text-xl lg:text-2xl font-semibold mt-10 mb-3">Offers</h2>
         <div className="hidden lg:block">
-          <WtpTable />
+          <WtpTable  />
         </div>
         <div className="lg:hidden">
           {data.offers?.map((row, index) => (

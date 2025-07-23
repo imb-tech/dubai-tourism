@@ -3,7 +3,7 @@ import SectionHeading from 'components/ui/section-heading';
 import { ChevronRight } from 'lucide-react';
 import React from 'react';
 
-const tours: Tour[] = [
+const tours: any[] = [
   {
     id: 1,
     image: '/tour-1.png',
