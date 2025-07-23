@@ -24,7 +24,7 @@ export default function TransferDetail({
   initialQuery,
 }: {
   data: Transfer;
-  initialQuery: QueryParams;
+  initialQuery: any;
 }) {
   const { mutate, isPending } = usePost({
     onSuccess: (data) => {

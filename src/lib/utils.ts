@@ -8,7 +8,6 @@ import {
   setMinutes,
 } from 'date-fns';
 import { twMerge } from 'tailwind-merge';
-import { string } from 'zod';
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -19,7 +18,7 @@ export function formatMoney(amount?: number | string | undefined): string {
   const newIntegerPart = integerPart?.replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
   if (amount) {
     if (decimalPart && +decimalPart > 0) {
-      return `${newIntegerPart}.${decimalPart}`;
+      return `${newIntegerPart}`;
     } else {
       return `${newIntegerPart}`;
     }

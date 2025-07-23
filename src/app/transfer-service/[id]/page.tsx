@@ -5,12 +5,12 @@ import TransferDetail from 'views/transfer-service/transfer-detail';
 import { fetchData } from 'lib/fetchData';
 import { TRANSFERS } from 'constants/api-endpoints';
 
-export type PageProps = {
+ type PageProps = {
   params: { id: string };
   searchParams: Promise<{ [key: string]: string | undefined }>;
 };
 
-export default async function RentId({ params, searchParams }: PageProps) {
+export default async function RentId({ params, searchParams }: any) {
   const { id } = params;
 
   const { from_airport, to_airport, pickup_date, passengers, return_date } =

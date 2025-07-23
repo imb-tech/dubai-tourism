@@ -1,14 +1,10 @@
-'use client';
-
 import React, { Fragment } from 'react';
 import CarCard from 'components/shared/car-card';
-import { useTextApartmentStore } from 'store/rent-apartment';
 
 const ListAndMapApartment = () => {
-  const { text } = useTextApartmentStore();
   return (
     <Fragment>
-      {text === 'list' ? (
+      {'list' === 'list' ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 ">
           {cars.map((s) => (
             <CarCard key={s.id} {...s} />

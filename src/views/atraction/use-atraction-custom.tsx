@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo } from 'react';
+import { useCallback, useMemo } from 'react';
 import {
   UseFieldArrayReturn,
   useFieldArray,
@@ -79,23 +79,30 @@ export function useAtractionCustom(): UseAtractionCustomReturn {
   const today = format(new Date(), 'yyyy-MM-dd');
 
   const form = useFormContext<AtractionDetail>();
-  const { fields, update } = useFieldArray<AtractionDetail, 'offers'>({
+
+  const { fields } = useFieldArray<AtractionDetail, 'offers'>({
     control: form.control,
     name: 'offers',
   });
+
   const { calculate } = usePriceCalculator();
 
-  const offers =
-    useWatch({
-      control: form.control,
-      name: 'offers',
-    }) ?? [];
+  const watchedOffers = useWatch({
+    control: form.control,
+    name: 'offers',
+  });
+  const offers = useMemo(() => watchedOffers ?? [], [watchedOffers]);
 
   const updateRow = useCallback(
     (index: number, data: Partial<AtractionOffers>) => {
-      update(index, { ...fields[index], ...data });
+      const existing = form.getValues(`offers.${index}`);
+      form.setValue(
+        `offers.${index}`,
+        { ...existing, ...data },
+        { shouldDirty: true, shouldValidate: true, shouldTouch: true }
+      );
     },
-    [fields, update]
+    [form]
   );
 
   const renderPrice = useCallback(
@@ -144,22 +151,6 @@ export function useAtractionCustom(): UseAtractionCustomReturn {
       return sum + (row.transfer_option?.is_discount ? discounted : original);
     }, 0);
   }, [offers, calculate]);
-
-  useEffect(() => {
-    offers.forEach((row, index) => {
-      const currentTransfer = row.transfer_option;
-      const options = row.transfer_options;
-
-      if (!currentTransfer && Array.isArray(options) && options.length > 0) {
-        const [first] = options;
-
-        update(index, {
-          ...fields[index],
-          transfer_option: first,
-        });
-      }
-    });
-  }, [fields, offers, update]);
 
   return {
     updateRow,

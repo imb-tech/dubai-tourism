@@ -5,7 +5,7 @@ import { Checkbox } from 'components/ui/checkbox';
 import { DatePicker } from 'components/ui/datepicker';
 import { useModal } from 'hooks/use-modal';
 import { Info } from 'lucide-react';
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import AddToCartAttraction from './attraction-add';
 import Select from 'components/ui/select';
 import { format } from 'date-fns';
@@ -18,16 +18,28 @@ export default function WtpTable() {
     useAtractionCustom();
 
   const renderSelect = useCallback(
-    (value: number, onChange: (val: number) => void, max_count: number = 5) => (
-      <Select
-        options={getOptions(max_count)}
-        value={value}
-        setValue={(val) => onChange(Number(val))}
-        className="w-auto"
-      />
-    ),
+    (value: number, onChange: (val: number) => void, max_count: number = 5) => {
+      const safeMax =
+        Number.isFinite(max_count) && max_count > 0 ? max_count : 1;
+      const options = getOptions(safeMax);
+
+      return (
+        <Select
+          options={options}
+          value={value}
+          setValue={(val) => onChange(Number(val))}
+          className="w-auto"
+        />
+      );
+    },
     [getOptions]
   );
+
+  useEffect(() => {
+    if (offers.length > 0 && !offers[0]?.checked) {
+      updateRow(0, { checked: true });
+    }
+  }, [offers, updateRow]);
 
   return (
     <div className=" border rounded-sm bg-white p-3 overflow-hidden">
@@ -76,7 +88,7 @@ export default function WtpTable() {
                 <td>
                   <div className="flex items-center gap-2">
                     <Checkbox
-                      checked={watchedRow.checked ?? false}
+                      checked={index === 0 ? true : watchedRow.checked ?? false}
                       onCheckedChange={(checked) =>
                         updateRow(index, { checked: checked === true })
                       }
