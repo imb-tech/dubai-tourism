@@ -26,7 +26,7 @@ type Fields = {
   return_date?: string;
   return_time?: string;
   passengers: string;
-};
+}; 
 
 export default function TransferForm() {
   const params = useSearchParams();

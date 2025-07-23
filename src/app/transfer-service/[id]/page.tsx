@@ -13,9 +13,6 @@ import { TRANSFERS } from 'constants/api-endpoints';
 export default async function RentId({ params, searchParams }: PageProps) {
   const { id } = params;
 
-  const { from_airport, to_airport, pickup_date, passengers, return_date } =
-     searchParams;
-
   const data = await fetchData<Transfer>(`${TRANSFERS}/${id}`);
   if (!data) return null;
 
@@ -25,13 +22,7 @@ export default async function RentId({ params, searchParams }: PageProps) {
         <SectionDetailsHeading title="Transfer service purchase details" />
         <TransferDetail
           data={data}
-          initialQuery={{
-            from_airport,
-            to_airport,
-            pickup_date,
-            passengers,
-            return_date,
-          }}
+          searchParams={searchParams}
         />
       </div>
       <div className="container mx-auto lg:px-0 px-3">
