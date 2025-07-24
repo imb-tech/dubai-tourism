@@ -129,6 +129,7 @@ const CheckoutCardMobile = ({
         </div>
 
         <DatePicker
+        fromDate={new Date()}
           className="w-full mb-2"
           defaultValue={watchedRow.tour_date ?? today}
           onChange={(val) => {

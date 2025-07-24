@@ -26,7 +26,7 @@ type Fields = {
   return_date?: string;
   return_time?: string;
   passengers: string;
-}; 
+};
 
 export default function TransferForm() {
   const params = useSearchParams();
@@ -75,12 +75,12 @@ export default function TransferForm() {
   };
 
   useEffect(() => {
-    const from_airport = Number(params.get('from_airport')) || '';
-    const to_airport = Number(params.get('to_airport')) || '';
+    const from_airport = Number(params.get('from_airport')) || undefined;
+    const to_airport = Number(params.get('to_airport')) || undefined;
     const from_date = params.get('from_date') || format(new Date(), 'yyyy-MM-dd');
     const from_time = params.get('from_time') || getTimeMinLater();
-    const return_date = params.get('return_date') || '';
-    const return_time = params.get('return_time') || '';
+    const return_date = params.get('return_date') || undefined;
+    const return_time = params.get('return_time') || undefined;
     const passengers = params.get('passengers') || '1';
 
     reset({

@@ -1,9 +1,6 @@
 type RentCar = {
     id: number;
-    images: {
-        id: number;
-        image: string;
-    }[];
+    images:Banner[];
     similar: RentCar[];
     name: string;
     slug: string;

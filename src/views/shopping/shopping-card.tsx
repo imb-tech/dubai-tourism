@@ -3,19 +3,23 @@ import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
 
+
+
 function ShoppingCard({ item }: { item: Shopping }) {
   return (
     <div
       key={item.id}
       className="relative flex w-full p-2 gap-3 items-start flex-col rounded-xl bg-white border border-[#E1E1E1]"
     >
-      <Image
-        src={item.poster || '/image.jpg'}
-        height={220}
-        width={290}
-        alt={item.name}
-        priority
-      />
+      <div className="w-full h-48">
+        <Image
+          src={item.poster || '/image.jpg'}
+          width={400}
+          height={300}
+          alt={item.name ?? ''}
+          className="rounded-md object-cover w-full h-full"
+        />
+      </div>
       {item.best_seller ? (
         <div className="absolute top-0 left-0 p-2 text-white text-xs font-medium rounded-tl-lg rounded-br-lg bg-[#FF7043]">
           Best seller

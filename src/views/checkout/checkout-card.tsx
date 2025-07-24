@@ -127,6 +127,7 @@ export default function CheckoutCard({
             <li className="py-4 px-3 bg-secondary rounded-md space-y-2">
               <h3 className="font-semibold">Tour Date</h3>
               <DatePicker
+              fromDate={new Date()}
                 className="w-full mb-2"
                 defaultValue={watchedRow.tour_date ?? today}
                 onChange={(val) => {

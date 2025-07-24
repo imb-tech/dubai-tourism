@@ -1,13 +1,11 @@
 import { cn } from 'lib/utils';
 import {
-  Controller,
   FieldValues,
   Path,
   useController,
   UseFormReturn,
 } from 'react-hook-form';
 import { ClassNameValue } from 'tailwind-merge';
-import ErrorMessage from '../ui/error-message';
 import { Label } from '../ui/label';
 import { InputProps } from './input';
 import FormInput from 'components/form/input';
@@ -73,7 +71,6 @@ export default function IconFormInput<IForm extends FieldValues>({
       <div className="w-full flex items-center relative">
         <span className="text-primary absolute left-2 z-10">{icon}</span>
         <FormInput
-          {...field}
           required={required}
           methods={methods}
           name={name}

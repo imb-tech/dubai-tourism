@@ -5,7 +5,7 @@ import { format as formatter } from 'date-fns';
 
 import { cn } from 'lib/utils';
 import { Button } from 'components/ui/button';
-import { Calendar } from 'components/ui/calendar';
+import { Calendar, CalendarProps } from 'components/ui/calendar';
 import { Popover, PopoverContent, PopoverTrigger } from 'components/ui/popover';
 import { CalendarIcon } from 'components/icons';
 import { ClassNameValue } from 'tailwind-merge';
@@ -19,9 +19,10 @@ type DatePickerProps = {
 export function DatePicker({
   defaultValue,
   className,
-  format = 'dd/MM/yyyy',
+  format = 'yyyy-MM-dd',
   onChange,
-}: DatePickerProps) {
+  ...calendarProps
+}: DatePickerProps & CalendarProps) {
   const [date, setDate] = React.useState<Date>();
 
   React.useEffect(() => {
@@ -57,6 +58,17 @@ export function DatePicker({
       </PopoverTrigger>
       <PopoverContent className="w-auto p-0" align="start">
         <Calendar
+          {...calendarProps}
+          fromYear={
+            calendarProps?.captionLayout === 'dropdown-buttons'
+              ? 1960
+              : undefined
+          }
+          toYear={
+            calendarProps?.captionLayout === 'dropdown-buttons'
+              ? new Date().getFullYear()
+              : undefined
+          }
           mode="single"
           selected={date}
           onSelect={handleDateChange}

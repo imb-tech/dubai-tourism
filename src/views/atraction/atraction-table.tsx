@@ -120,6 +120,7 @@ export default function WtpTable() {
                 </td>
                 <td>
                   <DatePicker
+                    fromDate={new Date()}
                     defaultValue={watchedRow.tour_date ?? today}
                     onChange={(val) =>
                       updateRow(index, {

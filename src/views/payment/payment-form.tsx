@@ -20,6 +20,7 @@ export default function PaymentForm() {
           variant="clean"
           label="Ism"
           required
+          hideError={true}
         />
         <FormInput
           methods={form}
@@ -28,6 +29,7 @@ export default function PaymentForm() {
           variant="clean"
           label="Familiya"
           required
+          hideError={true}
         />
         <FormInput
           methods={form}
@@ -36,6 +38,7 @@ export default function PaymentForm() {
           variant="clean"
           label="Email"
           required
+          hideError={true}
         />
       </div>
     </div>

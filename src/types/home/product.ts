@@ -2,7 +2,8 @@ type Product = {
   id?: string | number;
   name?: string;
   price?: number | string;
-  location?: string;
+  bedrooms?: string;
+  address?: string;
   tag?: string;
   image?: string;
   url?: string;
@@ -13,9 +14,8 @@ type Product = {
   comment_count?: string;
   horsepower?: number;
   rating?: number;
-  areaSqFt?: number;
-  beds?: number;
-  baths?: number;
+  area?: number;
+  bathrooms?: number;
   discount?: number | string;
   slug?: string;
   distance?: number;

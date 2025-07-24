@@ -17,18 +17,18 @@ import {
 } from 'components/icons';
 
 type CustomCardProps = Product & {
-  searchParams: Record<string, string>;
+  searchParams?: Record<string, string>;
 };
 
 export default function CustomCard({
   image,
   poster,
   name,
-  location,
+  address,
   rating,
-  areaSqFt,
+  area,
   gear,
-  baths,
+  bathrooms,
   price,
   discount,
   comment_count,
@@ -36,12 +36,14 @@ export default function CustomCard({
   slug,
   tag,
   year,
-  beds,
+  bedrooms,
   best_seller,
   suffix,
   other,
   searchParams,
 }: CustomCardProps) {
+
+
   const query = searchParams
     ? `?from_airport=${searchParams.from_airport}&to_airport=${searchParams.to_airport}&from_date=${searchParams.from_date}&from_time=${searchParams.from_time}&passengers=${searchParams.passengers}&return_date=${searchParams.return_date}&return_time=${searchParams.return_time}`
     : '';
@@ -65,10 +67,10 @@ export default function CustomCard({
       <div className="flex flex-col gap-1">
         <h3 className="text-lg font-semibold">{name}</h3>
 
-        {location ? (
+        {address ? (
           <Badge className="bg-[#FFDDD6] text-[#FF5533] mb-2 py-1 px-2 rounded-2xl">
             <LocationIcon size={30} />
-            {location}
+            {address}
           </Badge>
         ) : null}
         {tag ? (
@@ -127,29 +129,29 @@ export default function CustomCard({
           </ul>
         ) : null}
 
-        {areaSqFt || beds || baths ? (
+        {area || bedrooms || bathrooms ? (
           <ul className="flex items-center py-1 w-full gap-5">
-            {areaSqFt ? (
+            {area ? (
               <li className="flex items-center gap-1 text-primary">
                 <BagIconCar size={20} />
                 <span className="text-black font-medium md:text-sm text-sm">
-                  {areaSqFt} sqFt
+                  {area} sqFt
                 </span>
               </li>
             ) : null}
-            {beds ? (
+            {bedrooms ? (
               <li className="flex items-center gap-1 text-primary">
                 <RoomIcon size={20} />
                 <span className="text-black font-medium md:text-sm text-sm">
-                  {beds}
+                  {bedrooms}
                 </span>
               </li>
             ) : null}
-            {baths ? (
+            {bathrooms ? (
               <li className="flex items-center gap-1 text-primary">
                 <BathIcon size={20} />
                 <span className="text-black font-medium md:text-sm text-sm">
-                  {baths}
+                  {bathrooms}
                 </span>
               </li>
             ) : null}
@@ -160,7 +162,7 @@ export default function CustomCard({
           price={price}
           discount={discount}
           suffix={suffix}
-          className="my-3"
+          className="mb-3"
         />
 
         <Link

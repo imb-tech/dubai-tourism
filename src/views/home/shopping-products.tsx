@@ -4,23 +4,20 @@ import CarCard from 'components/shared/car-card';
 import { cn } from 'lib/utils';
 import SectionHeading from 'components/ui/section-heading';
 import { CustomCarousel } from 'components/custom/carousel';
+import ShoppingCard from 'views/shopping/shopping-card';
 
-export default function Products({
+export default function ShoppingProducts({
   data = [],
   title = '',
   className,
   autoplayDelay,
-  suffix,
 }: {
-  data: Product[];
+  data: Shopping[];
   title: string;
   className?: string;
   autoplayDelay?: number;
-  suffix?: string | ReactNode;
 }) {
-  const slides = data.map((s, index) => (
-    <CarCard key={index} {...s} suffix={suffix} />
-  ));
+  const slides = data.map((s, index) => <ShoppingCard key={index} item={s} />);
   return (
     <div className={cn(className)}>
       <div className="container mx-auto lg:px-0 px-3 ">
