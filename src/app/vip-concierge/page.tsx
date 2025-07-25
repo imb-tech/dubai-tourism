@@ -23,7 +23,7 @@ const VipConcierge = async () => {
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         {data?.results?.map((s) => (
-          <CarCard key={s.id} {...s} suffix="hr" url="/vip-concierge" />
+          <CarCard key={s.id} {...s} />
         ))}
       </div>
       <Questions title="VIP Concierge Questions" service="concierges" />

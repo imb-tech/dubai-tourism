@@ -16,7 +16,7 @@ export default async function RentId({ params }: PageProps) {
   const cars = await fetchData<RentCar>(`${CARS}/${id}`);
 
   const slides = cars?.similar?.map((s) => (
-    <CarCard suffix="day" url="/rent" key={s.id} {...s} />
+    <CarCard key={s.id} {...s} />
   ));
 
   return (

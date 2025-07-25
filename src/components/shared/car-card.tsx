@@ -38,15 +38,33 @@ export default function CustomCard({
   year,
   bedrooms,
   best_seller,
-  suffix,
   other,
   searchParams,
 }: CustomCardProps) {
-
-
   const query = searchParams
     ? `?from_airport=${searchParams.from_airport}&to_airport=${searchParams.to_airport}&from_date=${searchParams.from_date}&from_time=${searchParams.from_time}&passengers=${searchParams.passengers}&return_date=${searchParams.return_date}&return_time=${searchParams.return_time}`
     : '';
+
+  const personSuffix = (
+    <span className="flex items-center">
+      1 <User2Icon size={24} />
+    </span>
+  );
+
+  const suffixMap: Record<string, React.ReactNode> = {
+    atraction: personSuffix,
+    'tour-packages': personSuffix,
+    'transfer-service': 'one way',
+    rent: 'day',
+    'vip-concierge': 'hr',
+  };
+
+  const buttonText: Record<string, string> = {
+    'transfer-service': 'Select',
+    rent: 'Make an order',
+  };
+
+  const suffix: React.ReactNode = other ? suffixMap[other] || '' : '';
 
   return (
     <div className="relative bg-white rounded-lg border flex flex-col justify-between p-2 gap-2 min-w-[320px] lg:min-w-40">
@@ -177,7 +195,7 @@ export default function CustomCard({
             'text-base'
           )}
         >
-          Select
+          {other ? buttonText[other] || 'More' : 'More'}
         </Link>
       </div>
     </div>

@@ -10,16 +10,14 @@ export default function Products({
   title = '',
   className,
   autoplayDelay,
-  suffix,
 }: {
   data: Product[];
   title: string;
   className?: string;
   autoplayDelay?: number;
-  suffix?: string | ReactNode;
 }) {
   const slides = data.map((s, index) => (
-    <CarCard key={index} {...s} suffix={suffix} />
+    <CarCard key={index} {...s}  />
   ));
   return (
     <div className={cn(className)}>

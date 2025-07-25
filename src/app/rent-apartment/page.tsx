@@ -13,7 +13,6 @@ const RentApartment = async () => {
   });
   const apartments = await fetchData<RentCarResults>(APARTMENTS);
 
-
   return (
     <div className="container mx-auto lg:px-0 px-3">
       <SectionDetailsHeading title="Rent an apartment" />
@@ -23,7 +22,7 @@ const RentApartment = async () => {
         <ApartmentFilter />
       </div>
 
-      <ListAndMapApartment  apartments={apartments} />
+      <ListAndMapApartment apartments={apartments} />
 
       <div className="mt-8">
         <Questions title="Renta Apartment Questions" service="apartments" />

@@ -8,6 +8,7 @@ import MiceGroupCard from 'views/mice-group/card';
 async function page() {
   const data = await fetchData<MiceGroupResults>(MICE_SERVICES);
 
+
   return (
     <div className="container mx-auto lg:px-0 px-3">
       <SectionDetailsHeading title="MICE group services" />

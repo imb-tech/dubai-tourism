@@ -18,6 +18,9 @@ const AtractionPage = async ({ searchParams }: AtractionPageProps) => {
 
   const data = await fetchData<AtractionData>(ATRACTIONS);
 
+   
+   
+
   return (
     <div className="container mx-auto lg:px-0 px-3">
       <SectionDetailsHeading title="Atraction tickets" />
@@ -28,7 +31,7 @@ const AtractionPage = async ({ searchParams }: AtractionPageProps) => {
 
       <div className="grid sm:grid-cols-2 grid-cols-1  lg:grid-cols-4 gap-4">
         {data?.results.map((s) => (
-          <CarCard key={s.slug} {...s} url="atraction/" />
+          <CarCard key={s.slug} {...s} />
         ))}
       </div>
       <Questions title="Atraction Questions" service="attractions" />

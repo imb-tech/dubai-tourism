@@ -16,7 +16,7 @@ export default async function RentId({ params }: PageProps) {
   const { id } = await params;
   const data = await fetchData<VipConicerge>(`${CONCIERGES}/${id}`);
   const slides = data?.similar?.map((s) => (
-    <CarCard suffix="hr" url="/vip-concierge" key={s.id} {...s} />
+    <CarCard  key={s.id} {...s} />
   ));
 
   return (

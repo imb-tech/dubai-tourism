@@ -20,7 +20,6 @@ type Product = {
   slug?: string;
   distance?: number;
   best_seller?: boolean;
-  suffix?: any;
   sale?: boolean;
   created_at?: string;
   updated_at?: string;

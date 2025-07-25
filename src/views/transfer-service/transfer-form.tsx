@@ -171,7 +171,7 @@ export default function TransferForm() {
         <Button
           type="button"
           variant="outline"
-          className="w-full h-11 border-dashed text-primary shadow-none"
+          className="w-full h-11 border-dashed hover:text-primary text-primary bg-secondary shadow-none"
           onClick={() => {
             setIsReturn(true);
             setValue('return_time', getTimeMinLater());

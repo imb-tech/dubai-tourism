@@ -17,7 +17,7 @@ const TransferService = async ({ searchParams }: Props) => {
   const banners = await fetchData<Banner[]>(BANNERS, {
     params: { service: 'transfers' },
   });
- 
+
   const {
     to_airport,
     from_airport,
