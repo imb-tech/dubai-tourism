@@ -36,7 +36,7 @@ export default function SHoppingFilter() {
       />
       <ParamInput
         placeholder="Search"
-        className="bg-primary placeholder:text-white text-white"
+        className="bg-primary placeholder:text-white text-white h-[50px]"
         fullWidth
         suffix={<SearchIcon className="text-white" size={20} />}
       />

@@ -9,11 +9,9 @@ import Image from 'next/image';
 import TransferForm from 'views/transfer-service/transfer-form';
 import TransferInfo from 'views/transfer-service/transfer-info';
 
-type Props = {
-  searchParams: Record<string, string>;
-};
 
-const TransferService = async ({ searchParams }: Props) => {
+
+const TransferService = async ({ searchParams }: PageProps) => {
   const banners = await fetchData<Banner[]>(BANNERS, {
     params: { service: 'transfers' },
   });
@@ -44,6 +42,8 @@ const TransferService = async ({ searchParams }: Props) => {
     : [];
 
   const hasTransfers = !!transfers?.length;
+
+   
 
   return (
     <>

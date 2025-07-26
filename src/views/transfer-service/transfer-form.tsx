@@ -96,7 +96,7 @@ export default function TransferForm() {
     if (return_date && return_time) {
       setIsReturn(true);
     }
-  }, [params]);
+  }, [params, reset]);
 
 
   return (

@@ -52,7 +52,7 @@ export function SliderComponents({
                     alt={`Slide ${index + 1}`}
                     width={1500}
                     height={500}
-                    className="object-cover object-center lg:!h-[460px] sm:!h-[300px] !h-[260px] md:!h-[340px] lg:!max-h-[460px] sm:!max-h-[300px] !max-h-[260px] md:!max-h-[340px]"
+                    className="object-cover object-center w-full lg:!h-[460px] sm:!h-[300px] !h-[260px] md:!h-[340px] lg:!max-h-[460px] sm:!max-h-[300px] !max-h-[260px] md:!max-h-[340px]"
                   />
                 }
                 <div className="lg:w-1/3 sm:w-1/2 w-full  h-full absolute flex items-center pl-4 md:pl-0 sm:justify-center">

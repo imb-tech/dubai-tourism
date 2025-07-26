@@ -7,13 +7,12 @@ import SectionDetailsHeading from 'components/ui/page-heading';
 import { SliderComponents } from 'components/slider/page';
 import { CONCIERGES } from 'constants/api-endpoints';
 import { fetchData } from 'lib/fetchData';
-import { PageProps } from 'app/shopping/[id]/page';
 import VipInfo from 'views/vip-concierge/vip-info';
 import Modal from 'components/custom/modal';
 import ApplicationFormVIP from 'views/vip-concierge/application-form';
 
 export default async function RentId({ params }: PageProps) {
-  const { id } = await params;
+  const { id } =  params;
   const data = await fetchData<VipConicerge>(`${CONCIERGES}/${id}`);
   const slides = data?.similar?.map((s) => (
     <CarCard  key={s.id} {...s} />

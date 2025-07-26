@@ -7,10 +7,9 @@ import BookingForm from 'views/mice-group/bron-form';
 import { SliderComponents } from 'components/slider/page';
 import { MICE_SERVICES } from 'constants/api-endpoints';
 import { fetchData } from 'lib/fetchData';
-import { PageProps } from 'app/shopping/[id]/page';
 
 export default async function RentId({ params }: PageProps) {
-  const { id } = await params;
+  const { id } =  params;
   const data = await fetchData<MiceGroup>(`${MICE_SERVICES}/${id}`);
 
   return (

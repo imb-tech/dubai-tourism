@@ -8,10 +8,9 @@ import { fetchData } from 'lib/fetchData';
 import Modal from 'components/custom/modal';
 import TourFnfo from 'views/tour-packages/tour-info';
 import ApplicationFormTourPackages from 'views/tour-packages/application-form';
-import { PageProps } from 'app/atraction/[id]/page';
 
 export default async function RentId({ params }: PageProps) {
-  const { id } = await params;
+  const { id } =  params;
   const tour = await fetchData<TourResults>(`services/tour/similar/${id}`);
   const tourInfo = await fetchData<Tour>(`services/tour/${id}`);
 

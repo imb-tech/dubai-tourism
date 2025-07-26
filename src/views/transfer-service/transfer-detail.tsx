@@ -16,7 +16,7 @@ export default function TransferDetail({
   searchParams,
 }: {
   data: Transfer;
-  searchParams: Record<string, string>;
+  searchParams: any
 }) {
   const { from_date, from_time, return_date, return_time, passengers } =
     searchParams;

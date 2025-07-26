@@ -1,15 +1,19 @@
 'use client';
+import { BagIconCar, BathIcon, LocationIcon, RoomIcon } from 'components/icons';
 import { Button } from 'components/ui/button';
 import { useModal } from 'hooks/use-modal';
-import { Bed, Home } from 'lucide-react';
 
-export default function BedroomOptions() {
+type Props={
+  apartments:Product | null
+}
+
+export default function BedroomOptions({apartments}:Props) {
   const { openModal } = useModal('apartments');
   const options = [
-    { icon: <Bed className="h-5 w-5" />, title: '2 bedrooms' },
-    { icon: <Bed className="h-5 w-5" />, title: '3 bedrooms' },
-    { icon: <Home className="h-5 w-5" />, title: '10,123 sq.ft' },
-    { icon: <Home className="h-5 w-5" />, title: '10,123 sq.ft' },
+    { icon: <LocationIcon size={30} />, title: `${apartments?.address} bedrooms` },
+    { icon: <RoomIcon size={24} />, title: `${apartments?.bedrooms} bedrooms` },
+    { icon:  <BathIcon size={24} />, title: `${apartments?.bathrooms} bathroom` },
+    { icon: <BagIconCar size={24} />, title: `${apartments?.area} sqFt` },
   ];
 
   return (

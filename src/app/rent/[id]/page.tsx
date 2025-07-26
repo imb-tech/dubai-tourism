@@ -9,10 +9,9 @@ import SectionDetailsHeading from 'components/ui/page-heading';
 import { SliderComponents } from 'components/slider/page';
 import { CARS } from 'constants/api-endpoints';
 import { fetchData } from 'lib/fetchData';
-import { PageProps } from 'app/shopping/[id]/page';
 
 export default async function RentId({ params }: PageProps) {
-  const { id } = await params;
+  const { id } =  params;
   const cars = await fetchData<RentCar>(`${CARS}/${id}`);
 
   const slides = cars?.similar?.map((s) => (

@@ -7,20 +7,11 @@ import Questions from 'components/questions/questions';
 import CarCard from 'components/shared/car-card';
 import { CustomCarousel } from 'components/custom/carousel';
 import SectionDetailsHeading from 'components/ui/page-heading';
-import {
-  ATRACTIONS,
-  ATRACTIONSSIMILAR,
-  BANNERS,
-} from 'constants/api-endpoints';
+import { ATRACTIONS, ATRACTIONSSIMILAR } from 'constants/api-endpoints';
 import { fetchData } from 'lib/fetchData';
 
-export type PageProps = {
-  params: Promise<{ id: string }>;
-  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
-};
-
 export default async function wtp({ params }: PageProps) {
-  const { id } = await params;
+  const { id } = params;
 
   const data = await fetchData<AtractionDetail>(`${ATRACTIONS}/${id}`);
 
@@ -32,7 +23,6 @@ export default async function wtp({ params }: PageProps) {
     <CarCard key={i.slug} {...i} />
   ));
 
-
   return (
     <React.Fragment>
       <div className="container mx-auto lg:px-0 px-3 space-y-4 mb-12">
@@ -41,12 +31,11 @@ export default async function wtp({ params }: PageProps) {
         {data && <WtpForm data={data} />}
         <WtpMap location={data?.location || ''} name={data?.name || ''} />
 
-
         {data?.description && (
           <div className="space-y-4 border rounded-md p-4 ">
             <h1 className=" font-semibold text-2xl">{data.name} Overview</h1>
             <div
-              className='!list-disc'
+              className="!list-disc"
               dangerouslySetInnerHTML={{ __html: data?.description as string }}
             />
           </div>
@@ -56,7 +45,7 @@ export default async function wtp({ params }: PageProps) {
           <div className="space-y-4 border rounded-md p-4 ">
             <h1 className=" font-semibold text-2xl">{data.name} Highlights</h1>
             <div
-              className='!list-disc'
+              className="!list-disc"
               dangerouslySetInnerHTML={{ __html: data?.useful_info as string }}
             />
           </div>
@@ -66,7 +55,7 @@ export default async function wtp({ params }: PageProps) {
           <div className="space-y-4 border rounded-md p-4 ">
             <h1 className=" font-semibold text-2xl">{data.name} Inclusions</h1>
             <div
-              className='!list-disc'
+              className="!list-disc"
               dangerouslySetInnerHTML={{ __html: data?.inclusion as string }}
             />
           </div>
@@ -78,7 +67,7 @@ export default async function wtp({ params }: PageProps) {
               {data.name} Important Information
             </h1>
             <div
-              className='!list-disc'
+              className="!list-disc"
               dangerouslySetInnerHTML={{ __html: data?.imp_info as string }}
             />
           </div>
@@ -87,9 +76,10 @@ export default async function wtp({ params }: PageProps) {
         {data?.terms && (
           <div className="space-y-4 border rounded-md p-4 ">
             <h1 className=" font-semibold text-2xl">{data.name} Terms</h1>
-            <div 
-            className='!list-disc'
-            dangerouslySetInnerHTML={{ __html: data?.terms as string }} />
+            <div
+              className="!list-disc"
+              dangerouslySetInnerHTML={{ __html: data?.terms as string }}
+            />
           </div>
         )}
 
@@ -99,7 +89,7 @@ export default async function wtp({ params }: PageProps) {
               {data.name} Cancellation Policy Description
             </h1>
             <div
-              className='!list-disc'
+              className="!list-disc"
               dangerouslySetInnerHTML={{
                 __html: data?.cancellation_policy_description as string,
               }}
@@ -113,7 +103,7 @@ export default async function wtp({ params }: PageProps) {
               {data.name} Child Cancellation
             </h1>
             <div
-              className='!list-disc'
+              className="!list-disc"
               dangerouslySetInnerHTML={{
                 __html: data?.child_cancellation as string,
               }}
@@ -125,7 +115,7 @@ export default async function wtp({ params }: PageProps) {
           <div className="space-y-4 border rounded-md p-4 ">
             <h1 className=" font-semibold text-2xl">{data.name} Itenarary</h1>
             <div
-              className='!list-disc'
+              className="!list-disc"
               dangerouslySetInnerHTML={{
                 __html: data?.itenarary as string,
               }}

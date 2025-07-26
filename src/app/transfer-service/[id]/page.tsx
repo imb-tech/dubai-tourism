@@ -5,13 +5,9 @@ import TransferDetail from 'views/transfer-service/transfer-detail';
 import { fetchData } from 'lib/fetchData';
 import { TRANSFERS } from 'constants/api-endpoints';
 
- type PageProps = {
-  params: { id: string };
-  searchParams: Record<string, string>;
-};
 
 export default async function RentId({ params, searchParams }: PageProps) {
-  const { id } = params;
+  const { id } =  params;
 
   const data = await fetchData<Transfer>(`${TRANSFERS}/${id}`);
   if (!data) return null;

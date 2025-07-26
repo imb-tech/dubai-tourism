@@ -7,19 +7,16 @@ import { fetchData } from 'lib/fetchData';
 import React from 'react';
 import AtractionFilter from 'views/atraction/atraction-filter';
 
-type AtractionPageProps = {
-  searchParams?: { [key: string]: string | string[] | undefined };
-};
 
-const AtractionPage = async ({ searchParams }: AtractionPageProps) => {
+
+const AtractionPage = async ({ searchParams }: PageProps) => {
   const banners = await fetchData<Banner[]>(BANNERS, {
     params: { service: 'attractions' },
   });
 
   const data = await fetchData<AtractionData>(ATRACTIONS);
 
-   
-   
+  
 
   return (
     <div className="container mx-auto lg:px-0 px-3">

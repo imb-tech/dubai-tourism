@@ -11,13 +11,9 @@ import ApplicationFormShoppping from 'views/shopping/application-form';
 import ShoppingCard from 'views/shopping/shopping-card';
 import ShoppingInfo from 'views/shopping/shopping-info'; 
 
-export type PageProps = {
-  params: Promise<{ id: string }>;
-  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
-};
 
 export default async function ShoppingId({ params }: PageProps) {
-  const { id } = await params;
+  const { id } =  params;
   const shopping = await fetchData<Shopping>(`${SHOPPING_GOLDS}/${id}`);
 
   const slides = shopping?.similar?.map((item) => (

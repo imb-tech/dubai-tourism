@@ -12,7 +12,6 @@ import {
   TOURS_HOME,
 } from 'constants/api-endpoints';
 import { fetchData } from 'lib/fetchData';
-import { User } from 'lucide-react';
 import ShoppingProducts from 'views/home/shopping-products';
 
 export default async function Home() {
@@ -24,7 +23,6 @@ export default async function Home() {
   const rentACars = await fetchData(RENT_A_CAR_HOME);
   const best_seller = await fetchData(BESTSELLER_HOME);
 
-   console.log(shopping);
    
 
   return (
@@ -41,14 +39,12 @@ export default async function Home() {
         autoplayDelay={1500}
         data={atractions?.results ?? []}
         title="Atraction tickets"
-        suffix={<span className='flex items-center'>1 <User size={20} /> </span>}
       />
       <Products
         autoplayDelay={2000}
         data={rentACars.results ?? []}
         title="Rent a car"
         className="bg-[#F5F8FC] py-14"
-        suffix={"day"}
       />
       <ShoppingProducts
         autoplayDelay={1800}

@@ -13,20 +13,19 @@ import BedroomOptions from 'views/rent-apartment/bedroom-options';
 import PropertyDetails from 'views/rent-apartment/property-details';
 import AboutProject from 'views/rent-apartment/about';
 import PropertyHeader from 'views/rent-apartment/property-header';
-import { APARTMENTS, BANNERS } from 'constants/api-endpoints';
+import { APARTMENTS } from 'constants/api-endpoints';
 import { fetchData } from 'lib/fetchData';
 import Modal from 'components/custom/modal';
 import ApplicationFormApartment from 'views/rent-apartment/application-form';
-import { PageProps } from 'app/atraction/[id]/page';
-
 
 export default async function RentId({ params }: PageProps) {
-  const { id } = await params;
+  const { id } =  params;
   const cars = await fetchData<RentCarResults>(APARTMENTS);
   const slides = cars?.results?.map((s) => <CarCard key={s.id} {...s} />);
 
   const apartments = await fetchData<RentCar>(`${APARTMENTS}/${id}`);
 
+  console.log(apartments);
 
   return (
     <React.Fragment>
@@ -38,7 +37,7 @@ export default async function RentId({ params }: PageProps) {
         <div className="lg:hidden">
           <SliderComponents images={apartments?.images || []} showCout={true} />
         </div>
-
+        
         <div className="space-y-5 mb-8">
           <PropertyHeader
             price="23,270,000 AED"
@@ -47,7 +46,7 @@ export default async function RentId({ params }: PageProps) {
             handover="Q2 2027"
           />
           <div className="bg-[#F5F8FC] p-4 border rounded-md grid lg:grid-cols-2 grid-cols-1 gap-6">
-            <AboutProject  />
+            <AboutProject />
             <PropertyDetails
               developer="H&H"
               propertyType="Villa"
@@ -56,7 +55,7 @@ export default async function RentId({ params }: PageProps) {
               areaName="Dubai Hills"
             />
             <div className="lg:col-span-2 col-span-1">
-              <BedroomOptions />
+              <BedroomOptions apartments={apartments} />
             </div>
           </div>
 
