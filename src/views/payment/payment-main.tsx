@@ -1,5 +1,5 @@
 'use client';
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { useForm, FormProvider } from 'react-hook-form';
 import { Button } from 'components/ui/button';
 import { Checkbox } from 'components/ui/checkbox';
@@ -156,12 +156,21 @@ function StepContent({
 function CouponeForm({
   basket_attraction_id,
   disabled,
+  codeItem,
 }: {
   basket_attraction_id: number;
-  disabled:boolean
+  disabled: boolean;
+  codeItem: string;
 }) {
   const queryClient = useQueryClient();
   const [code, setCode] = useState('');
+
+    useEffect(() => {
+    if (codeItem) {
+      setCode(codeItem);
+    }
+  }, [codeItem]);
+
   const { mutate, isPending } = usePost({
     onSuccess: (data) => {
       const resPrice: number = data.total_price;
@@ -181,7 +190,12 @@ function CouponeForm({
         ...onlyData,
         attractions: onlyData?.attractions.map((item) =>
           item.id === basket_attraction_id
-            ? { ...item, price: item.price - resPrice, disabled: true }
+            ? {
+                ...item,
+                price: item.price - resPrice,
+                disabled: true,
+                code: code,
+              }
             : item
         ),
       };
@@ -198,12 +212,14 @@ function CouponeForm({
       <p className="text-primary text-sm mb-2">Enter Coupon Code</p>
       <div className="flex items-end gap-2 w-full">
         <Input
-        value={code}
+          value={code}
           fullWidth
           variant="clean"
           placeholder="Enter your coupon"
           size="sm"
-          onChange={(e:  React.ChangeEvent<HTMLInputElement>) => setCode(e.target.value)}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+            setCode(e.target.value)
+          }
         />
         <Button
           className="h-10"
@@ -261,7 +277,11 @@ const renderAttractionDetails = (items: AtractionOffers[]) => (
               <span>AED {item.vat}</span>
             </li>
           </ul>
-          <CouponeForm basket_attraction_id={item.id} disabled={item.disabled} />
+          <CouponeForm
+            basket_attraction_id={item.id}
+            disabled={item.disabled}
+            codeItem={item.code}
+          />
           <div className="w-full mt-2 font-semibold flex  justify-between items-center gap-3">
             <h1>Total</h1>
             <h1>AED {formatMoney(item.price)}</h1>

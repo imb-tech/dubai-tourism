@@ -51,6 +51,7 @@ type AtractionOffers = {
   disabled: boolean;
   is_refundable: boolean;
   refound_date: string;
+  code:string
 };
 
 type AtractionFeatures = {
