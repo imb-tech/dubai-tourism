@@ -17,9 +17,13 @@ function generatePriceDistribution(
   segments = 24
 ): number[] {
   const distribution: number[] = [];
-  const step = (maxPrice - minPrice) / segments;
-
   const range = maxPrice - minPrice;
+
+  if (range === 0) {
+    return Array(segments).fill(1);
+  }
+
+  const step = range / segments;
 
   for (let i = 0; i < segments; i++) {
     const midpoint = minPrice + i * step + step / 2;
@@ -139,6 +143,8 @@ export default function PriceFilter({
       };
     }
   }, [isDragging, handleMouseMove, handleMouseUp]);
+
+  console.log(priceDistribution);
 
   return (
     <div className="w-full relative select-none">
