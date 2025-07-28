@@ -1,3 +1,4 @@
+export const dynamic = 'force-dynamic';
 import Questions from 'components/questions/questions';
 import { SliderComponents } from 'components/slider/page';
 import SectionDetailsHeading from 'components/ui/page-heading';

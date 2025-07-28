@@ -1,3 +1,4 @@
+export const dynamic = 'force-dynamic';
 import EmptyBox from 'components/custom/empty-box';
 import Questions from 'components/questions/questions';
 import { SliderComponents } from 'components/slider/page';

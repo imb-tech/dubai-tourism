@@ -1,3 +1,4 @@
+export const dynamic = 'force-dynamic';
 import CarCard from 'components/shared/car-card';
 import RentFilter from 'views/rent/rent-filter';
 import React from 'react';
@@ -8,11 +9,12 @@ import { fetchData } from 'lib/fetchData';
 import { BANNERS, CARS } from 'constants/api-endpoints';
 import EmptyBox from 'components/custom/empty-box';
 
-export default async function page({ searchParams }: PageProps) {
+
+const Rent = async ({ searchParams }: PageProps) => {
   const banners = await fetchData<Banner[]>(BANNERS, {
     params: { service: 'cars' },
-  }); 
-  const cars = await fetchData<RentCarResults>(CARS,{params:searchParams});
+  });
+  const cars = await fetchData<RentCarResults>(CARS, { params: searchParams });
 
   return (
     <div className="container mx-auto lg:px-0 px-3">
@@ -22,11 +24,12 @@ export default async function page({ searchParams }: PageProps) {
       <RentFilter />
       <div className="grid grid-cols-1 lg:px-0 px-3 md:grid-cols-3 lg:grid-cols-4 gap-4">
         {cars?.results?.map((s) => (
-          <CarCard key={s.id} {...s}/>
+          <CarCard key={s.id} {...s} />
         ))}
       </div>
-        {cars?.results.length === 0 && <EmptyBox />}
+      {cars?.results.length === 0 && <EmptyBox />}
       <Questions title="Renta a Car Questions" service="cars" />
     </div>
   );
-}
+};
+export default Rent;

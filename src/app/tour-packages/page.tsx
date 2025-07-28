@@ -1,5 +1,5 @@
+export const dynamic = 'force-dynamic';
 import EmptyBox from 'components/custom/empty-box';
-import { User2Icon } from 'components/icons';
 import Questions from 'components/questions/questions';
 import CarCard from 'components/shared/car-card';
 import { SliderComponents } from 'components/slider/page';
