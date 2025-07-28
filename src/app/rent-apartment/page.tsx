@@ -7,11 +7,13 @@ import React from 'react';
 import ApartmentFilter from 'views/rent-apartment/apartment-filter';
 import ListAndMapApartment from 'views/rent-apartment/list-map-apartment';
 
-const RentApartment = async () => {
+const RentApartment = async ({ searchParams }: PageProps) => {
   const banners = await fetchData<Banner[]>(BANNERS, {
     params: { service: 'apartments' },
   });
-  const apartments = await fetchData<RentCarResults>(APARTMENTS);
+  const apartments = await fetchData<RentCarResults>(APARTMENTS, {
+    params: searchParams,
+  });
 
   return (
     <div className="container mx-auto lg:px-0 px-3">

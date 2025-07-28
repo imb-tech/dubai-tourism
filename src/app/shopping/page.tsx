@@ -1,3 +1,4 @@
+import EmptyBox from 'components/custom/empty-box';
 import Questions from 'components/questions/questions';
 import { SliderComponents } from 'components/slider/page';
 import SectionDetailsHeading from 'components/ui/page-heading';
@@ -7,12 +8,14 @@ import React from 'react';
 import ShoppingCard from 'views/shopping/shopping-card';
 import SHoppingFilter from 'views/shopping/shopping-filter';
 
-const Shopping = async () => {
+const Shopping = async ({ searchParams }: PageProps) => {
   const banners = await fetchData<Banner[]>(BANNERS, {
     params: { service: 'shopping' },
   });
-  
-  const shopping = await fetchData<ShoppingData>(SHOPPING_GOLDS);
+
+  const shopping = await fetchData<ShoppingData>(SHOPPING_GOLDS, {
+    params: searchParams,
+  });
 
   return (
     <div className="container mx-auto lg:px-0 px-3">
@@ -28,6 +31,7 @@ const Shopping = async () => {
           <ShoppingCard key={item.id} item={item} />
         ))}
       </div>
+        {shopping?.results.length === 0 && <EmptyBox />}
       <Questions title="Shopping Questions" service="shopping" />
     </div>
   );

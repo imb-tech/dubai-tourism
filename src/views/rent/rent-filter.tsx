@@ -1,48 +1,26 @@
 'use client';
 import ParamInput from 'components/params/input';
+import PriceFilter from 'components/params/price-filter';
 import SelectParams from 'components/params/select';
+import { CARS_BRANDS, CARS_FILTERS } from 'constants/api-endpoints';
 import { useGet } from 'hooks/useGet';
-
 import { SearchIcon } from 'lucide-react';
 import React from 'react';
-
-const filters = [
-  {
-    id: 1,
-    name: 'Filter 1',
-  },
-  {
-    id: 2,
-    name: 'Filter 2',
-  },
-  {
-    id: 3,
-    name: 'Filter 3',
-  },
-];
-
-const sortBy = [
-  {
-    id: 'price',
-    name: 'Eng yuqori',
-  },
-  {
-    id: '-price',
-    name: 'Eng past',
-  },
-];
+import { sortBy } from 'views/atraction/atraction-filter';
 
 export default function RentFilter() {
+  const { data: dataPrice } = useGet<{ price_min: number; price_max: number }>(
+    CARS_FILTERS
+  );
   const { data: dataBrand } = useGet<{
     results: { id: number; name: string }[];
-  }>('services/cars/brands');
+  }>(CARS_BRANDS);
 
   return (
     <div className="grid lg:grid-cols-4 grid-cols-1 gap-2 py-3 border rounded-[12px] p-2 mb-5">
-      <SelectParams
-        paramKey="filter2"
-        options={filters}
-        placeholder="filter2"
+      <PriceFilter
+        maxPrice={dataPrice?.price_max}
+        minPrice={dataPrice?.price_min}
       />
       <SelectParams
         paramKey="brand"

@@ -1,37 +1,27 @@
 'use client';
 import { MapIcon } from 'components/icons';
 import ParamInput from 'components/params/input';
+import PriceFilter from 'components/params/price-filter';
 import SelectParams from 'components/params/select';
 import { Button } from 'components/ui/button';
-import { Label } from 'components/ui/label';
-import { RadioGroup, RadioGroupItem } from 'components/ui/radio-group';
+import { APARTMENTS_FILTERS } from 'constants/api-endpoints';
+import { useGet } from 'hooks/useGet';
 import { cn } from 'lib/utils';
 import { List, SearchIcon } from 'lucide-react';
-import React, { useState } from 'react';
+import React from 'react';
 import { useTextApartmentStore } from 'store/rent-apartment';
 
-const filters = [
-  {
-    id: 1,
-    name: 'Category',
-  },
-  {
-    id: 2,
-    name: 'Material',
-  },
-  {
-    id: 3,
-    name: 'Price',
-  },
-  {
-    id: 4,
-    name: 'Sort By',
-  },
-];
+type Filter = {
+  area_names: string[];
+  developers: string[];
+  price_max: number;
+  price_min: number;
+  property_types: string[];
+};
 
 export default function ApartmentFilter() {
   const { text, setText } = useTextApartmentStore();
-  const [propertyStatus, setPropertyStatus] = useState('off-plan');
+  const { data } = useGet<Filter>(APARTMENTS_FILTERS);
 
   return (
     <div>
@@ -62,28 +52,33 @@ export default function ApartmentFilter() {
         </Button>
       </div>
 
-      <div className="grid lg:grid-cols-7 grid-cols-1 gap-2 py-3 border rounded-[12px] p-2">
+      <div className="grid lg:grid-cols-5 md:grid-cols-3 grid-cols-1 gap-2 py-3 border rounded-[12px] p-2">
         <SelectParams
-          paramKey="filter1"
-          options={filters}
-          placeholder="filter1"
+          paramKey="property_type"
+          options={data?.property_types.map?.((item) => ({
+            name: item,
+            id: item,
+          }))}
+          placeholder="All property types"
+        />
+        <PriceFilter maxPrice={data?.price_max} minPrice={data?.price_min} />
+        <SelectParams
+          paramKey="area_name"
+          options={data?.area_names.map?.((item) => ({
+            name: item,
+            id: item,
+          }))}
+          placeholder="All areas"
         />
         <SelectParams
-          paramKey="filter2"
-          options={filters}
-          placeholder="filter2"
+          paramKey="developer"
+          options={data?.developers.map?.((item) => ({
+            name: item,
+            id: item,
+          }))}
+          placeholder="All developpers"
         />
-        <SelectParams
-          paramKey="filter1"
-          options={filters}
-          placeholder="filter1"
-        />
-        <SelectParams
-          paramKey="filter1"
-          options={filters}
-          placeholder="filter1"
-        />
-        <div className="flex items-center lg:col-span-2 bg-[#F5F5F5] rounded-md py-2 px-4 h-12 w-full">
+        {/* <div className="flex items-center lg:col-span-2 bg-[#F5F5F5] rounded-md py-2 px-4 h-12 w-full">
           <RadioGroup
             value={propertyStatus}
             onValueChange={setPropertyStatus}
@@ -103,7 +98,7 @@ export default function ApartmentFilter() {
               </Label>
             </div>
           </RadioGroup>
-        </div>
+        </div> */}
         <ParamInput
           placeholder="Search"
           className="bg-primary placeholder:text-white text-white"

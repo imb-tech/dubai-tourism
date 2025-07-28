@@ -8,11 +8,12 @@ import { fetchData } from 'lib/fetchData';
 import Modal from 'components/custom/modal';
 import TourFnfo from 'views/tour-packages/tour-info';
 import ApplicationFormTourPackages from 'views/tour-packages/application-form';
+import { TOUR } from 'constants/api-endpoints';
 
 export default async function RentId({ params }: PageProps) {
   const { id } =  params;
   const tour = await fetchData<TourResults>(`services/tour/similar/${id}`);
-  const tourInfo = await fetchData<Tour>(`services/tour/${id}`);
+  const tourInfo = await fetchData<Tour>(`${TOUR}/${id}`);
 
   const slides = tour?.results?.map((s) => <CarCard key={s.id} {...s} />);
 

@@ -1,3 +1,4 @@
+import EmptyBox from 'components/custom/empty-box';
 import Questions from 'components/questions/questions';
 import CarCard from 'components/shared/car-card';
 import { SliderComponents } from 'components/slider/page';
@@ -7,16 +8,14 @@ import { fetchData } from 'lib/fetchData';
 import React from 'react';
 import AtractionFilter from 'views/atraction/atraction-filter';
 
-
-
 const AtractionPage = async ({ searchParams }: PageProps) => {
   const banners = await fetchData<Banner[]>(BANNERS, {
     params: { service: 'attractions' },
   });
 
-  const data = await fetchData<AtractionData>(ATRACTIONS);
-
-  
+  const data = await fetchData<AtractionData>(ATRACTIONS, {
+    params: searchParams,
+  });
 
   return (
     <div className="container mx-auto lg:px-0 px-3">
@@ -30,7 +29,9 @@ const AtractionPage = async ({ searchParams }: PageProps) => {
         {data?.results.map((s) => (
           <CarCard key={s.slug} {...s} />
         ))}
+
       </div>
+        {data?.results.length === 0 && <EmptyBox />}
       <Questions title="Atraction Questions" service="attractions" />
     </div>
   );

@@ -1,40 +1,29 @@
 'use client';
 import ParamInput from 'components/params/input';
+import PriceFilter from 'components/params/price-filter';
 import SelectParams from 'components/params/select';
+import { TOUR_FILTERS } from 'constants/api-endpoints';
+import { useGet } from 'hooks/useGet';
 import { SearchIcon } from 'lucide-react';
 import React from 'react';
+import { sortBy } from 'views/atraction/atraction-filter';
 
-const filters = [
-  {
-    id: 1,
-    name: 'Category',
-  },
-  {
-    id: 2,
-    name: 'Material',
-  },
-  {
-    id: 3,
-    name: 'Price',
-  },
-  {
-    id: 4,
-    name: 'Sort By',
-  },
-];
 
 export default function TourPackagesFilter() {
+  const { data: dataPrice } = useGet<{ price_min: number; price_max: number }>(
+    TOUR_FILTERS
+  );
+
   return (
     <div className="grid lg:grid-cols-3 items-center grid-cols-1 gap-2 py-3 border rounded-[12px] p-2">
-      <SelectParams
-        paramKey="filter1"
-        options={filters}
-        placeholder="filter1"
+      <PriceFilter
+        maxPrice={dataPrice?.price_max}
+        minPrice={dataPrice?.price_min}
       />
       <SelectParams
-        paramKey="filter2"
-        options={filters}
-        placeholder="filter2"
+        paramKey="ordering"
+        options={sortBy}
+        placeholder="Sort By"
       />
       <ParamInput
         placeholder="Search"

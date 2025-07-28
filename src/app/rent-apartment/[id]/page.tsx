@@ -25,7 +25,6 @@ export default async function RentId({ params }: PageProps) {
 
   const apartments = await fetchData<RentCar>(`${APARTMENTS}/${id}`);
 
-  console.log(apartments);
 
   return (
     <React.Fragment>

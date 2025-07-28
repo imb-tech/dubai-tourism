@@ -1,41 +1,38 @@
 'use client';
 import ParamInput from 'components/params/input';
+import PriceFilter from 'components/params/price-filter';
 import SelectParams from 'components/params/select';
+import { ATRACTIONS_FILTERS } from 'constants/api-endpoints';
+import { useGet } from 'hooks/useGet';
 import { SearchIcon } from 'lucide-react';
 import React from 'react';
 
-const filters = [
+export const sortBy = [
   {
-    id: 1,
-    name: 'Category',
+    id: 'price',
+    name: 'Eng yuqori',
   },
   {
-    id: 2,
-    name: 'Material',
-  },
-  {
-    id: 3,
-    name: 'Price',
-  },
-  {
-    id: 4,
-    name: 'Sort By',
+    id: '-price',
+    name: 'Eng past',
   },
 ];
 
 export default function AtractionFilter() {
+  const { data: dataPrice } = useGet<{ price_min: number; price_max: number }>(
+    ATRACTIONS_FILTERS
+  );
+
   return (
     <div className="grid lg:grid-cols-3 grid-cols-1 gap-2 py-3 border rounded-[12px] p-2">
-      <SelectParams
-        paramKey="children"
-        options={filters}
-        placeholder="filter1"
-        className="h-10"
+      <PriceFilter
+        maxPrice={dataPrice?.price_max}
+        minPrice={dataPrice?.price_min}
       />
       <SelectParams
-        paramKey="country"
-        options={filters}
-        placeholder="filter2"
+        paramKey="ordering"
+        options={sortBy}
+        placeholder="Sort by"
         className="h-10"
       />
       <ParamInput

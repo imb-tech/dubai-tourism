@@ -1,45 +1,28 @@
 'use client';
 import ParamInput from 'components/params/input';
+import PriceFilter from 'components/params/price-filter';
 import SelectParams from 'components/params/select';
+import { CONCIERGES_FILTERS } from 'constants/api-endpoints';
+import { useGet } from 'hooks/useGet';
 import { SearchIcon } from 'lucide-react';
 import React from 'react';
-
-const filters = [
-  {
-    id: 1,
-    name: 'Category',
-  },
-  {
-    id: 2,
-    name: 'Material',
-  },
-  {
-    id: 3,
-    name: 'Price',
-  },
-  {
-    id: 4,
-    name: 'Sort By',
-  },
-];
+import { sortBy } from 'views/atraction/atraction-filter';
 
 export default function VipConciergeFilter() {
+  const { data: dataPrice } = useGet<{ price_min: number; price_max: number }>(
+    CONCIERGES_FILTERS
+  );
+
   return (
-    <div className="grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 gap-2 py-3 border rounded-[12px] p-2">
-      <SelectParams
-        paramKey="filter1"
-        options={filters}
-        placeholder="filter1"
+    <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-2 py-3 border rounded-[12px] p-2">
+      <PriceFilter
+        maxPrice={dataPrice?.price_max}
+        minPrice={dataPrice?.price_min}
       />
       <SelectParams
-        paramKey="filter2"
-        options={filters}
-        placeholder="filter2"
-      />
-       <SelectParams
-        paramKey="filter2"
-        options={filters}
-        placeholder="filter2"
+        paramKey="ordering"
+        options={sortBy}
+        placeholder="Sort By"
       />
       <ParamInput
         placeholder="Search"

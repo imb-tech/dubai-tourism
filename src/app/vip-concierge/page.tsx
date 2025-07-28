@@ -1,3 +1,4 @@
+import EmptyBox from 'components/custom/empty-box';
 import Questions from 'components/questions/questions';
 import CarCard from 'components/shared/car-card';
 import { SliderComponents } from 'components/slider/page';
@@ -7,11 +8,13 @@ import { fetchData } from 'lib/fetchData';
 import React from 'react';
 import VipConciergeFilter from 'views/vip-concierge/vip-concierge';
 
-const VipConcierge = async () => {
+const VipConcierge = async ({ searchParams }: PageProps) => {
   const banners = await fetchData<Banner[]>(BANNERS, {
     params: { service: 'concierges' },
   });
-  const data = await fetchData<VipConicergeResults>(CONCIERGES);
+  const data = await fetchData<VipConicergeResults>(CONCIERGES, {
+    params: searchParams,
+  });
 
   return (
     <div className="container mx-auto lg:px-0 px-3">
@@ -26,6 +29,7 @@ const VipConcierge = async () => {
           <CarCard key={s.id} {...s} />
         ))}
       </div>
+      {data?.results.length === 0 && <EmptyBox />}
       <Questions title="VIP Concierge Questions" service="concierges" />
     </div>
   );

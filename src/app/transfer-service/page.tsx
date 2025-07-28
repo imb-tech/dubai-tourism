@@ -1,3 +1,4 @@
+import EmptyBox from 'components/custom/empty-box';
 import Questions from 'components/questions/questions';
 import CarCard from 'components/shared/car-card';
 import { SliderComponents } from 'components/slider/page';
@@ -97,6 +98,7 @@ const TransferService = async ({ searchParams }: PageProps) => {
               />
             ))}
           </div>
+            {transfers?.length === 0 && <EmptyBox />}
         </div>
       ) : (
         <TransferInfo />

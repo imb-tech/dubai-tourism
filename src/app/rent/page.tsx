@@ -6,6 +6,7 @@ import Questions from 'components/questions/questions';
 import SectionDetailsHeading from 'components/ui/page-heading';
 import { fetchData } from 'lib/fetchData';
 import { BANNERS, CARS } from 'constants/api-endpoints';
+import EmptyBox from 'components/custom/empty-box';
 
 export default async function page({ searchParams }: PageProps) {
   const banners = await fetchData<Banner[]>(BANNERS, {
@@ -24,6 +25,7 @@ export default async function page({ searchParams }: PageProps) {
           <CarCard key={s.id} {...s}/>
         ))}
       </div>
+        {cars?.results.length === 0 && <EmptyBox />}
       <Questions title="Renta a Car Questions" service="cars" />
     </div>
   );

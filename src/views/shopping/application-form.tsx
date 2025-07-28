@@ -12,7 +12,6 @@ import { Clock, Loader, MapPinHouse } from 'lucide-react';
 import FormDatePicker from 'components/form/date-picker';
 import { formatDate } from 'views/mice-group/bron-form';
 
-
 type FormType = {
   full_name: string;
   phone: string;
@@ -36,11 +35,7 @@ const ApplicationFormShoppping = () => {
 
   const onSubmit = (data: FormType) => {
     if (data) {
-      const formatterData = {
-        ...data,
-        date: `${formatDate(data.date)} ${data.time}`,
-      };
-      mutate(SHOPPING_GOLDS_APPLICATIONS, formatterData);
+      mutate(SHOPPING_GOLDS_APPLICATIONS, data);
     } else {
       toast.error('The data was not entered correctly.');
     }

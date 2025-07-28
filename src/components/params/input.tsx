@@ -16,7 +16,7 @@ type Props = {
 
 export default function ParamInput({
   paramName = 'search',
-  placeholder = 'Qidirish..',
+  placeholder = 'Search..',
   clearOther,
   redirectPath,
   ...props
