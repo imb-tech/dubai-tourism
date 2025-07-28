@@ -12,7 +12,7 @@ import { fetchData } from 'lib/fetchData';
 
 export default async function wtp({ params }: PageProps) {
   const { id } = params;
-
+  const t=''
   const data = await fetchData<AtractionDetail>(`${ATRACTIONS}/${id}`);
 
   const atractions = await fetchData<AtractionData>(
@@ -43,7 +43,7 @@ export default async function wtp({ params }: PageProps) {
 
         {data?.useful_info && (
           <div className="space-y-4 border rounded-md p-4 ">
-            <h1 className=" font-semibold text-2xl">{data.name} Highlights</h1>
+            <h1 className=" font-semibold text-2xl">{data.name} {"Highlights"}</h1>
             <div
               className="!list-disc"
               dangerouslySetInnerHTML={{ __html: data?.useful_info as string }}

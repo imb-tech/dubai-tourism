@@ -17,7 +17,7 @@ export default async function RentId({ params }: PageProps) {
   const slides = cars?.similar?.map((s) => (
     <CarCard key={s.id} {...s} />
   ));
-
+ 
   return (
     <React.Fragment>
       <div className="container mx-auto lg:px-0 px-3">

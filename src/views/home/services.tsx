@@ -4,17 +4,17 @@ import React from 'react';
 
 const services: Service[] = [
   {
-    name: 'Atraction ticketlar',
+    name: 'Tours and Activities',
     image: '/atroksion.png',
     link: '/atraction',
   },
   {
-    name: 'Transfers xizmati',
+    name: 'Transfers',
     image: '/atroksion.png',
     link: '/transfer-service',
   },
   {
-    name: 'Mice group',
+    name: 'Mice Groups',
     image: '/atroksion.png',
     link: '/mice-group',
   },
@@ -24,22 +24,22 @@ const services: Service[] = [
     link: '/vip-concierge',
   },
   {
-    name: 'Real estate',
+    name: 'Real Estate',
     image: '/atroksion.png',
     link: '/rent-apartment',
   },
   {
-    name: 'Dubayda avtomobil ijarasi',
+    name: 'Ranet a car',
     image: '/atroksion.png',
     link: '/rent',
   },
   {
-    name: 'Shopping xizmati',
+    name: 'Shopping',
     image: '/atroksion.png',
     link: '/shopping',
   },
   {
-    name: 'Tur paketlar',
+    name: 'Tour Packages',
     image: '/atroksion.png',
     link: '/tour-packages',
   },
@@ -48,7 +48,7 @@ const services: Service[] = [
 export default function Services() {
   return (
     <div className="container mx-auto lg:px-0 px-3">
-      <SectionHeading title={'Bizning xizmatlarimiz'} className="mb-5" />
+      <SectionHeading title={'Our services'} className="mb-5" />
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
         {services.map((s, i) => (
           <ServicesCard key={i} {...s} />

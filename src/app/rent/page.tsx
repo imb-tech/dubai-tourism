@@ -7,11 +7,11 @@ import SectionDetailsHeading from 'components/ui/page-heading';
 import { fetchData } from 'lib/fetchData';
 import { BANNERS, CARS } from 'constants/api-endpoints';
 
-export default async function page() {
+export default async function page({ searchParams }: PageProps) {
   const banners = await fetchData<Banner[]>(BANNERS, {
     params: { service: 'cars' },
-  });
-  const cars = await fetchData<RentCarResults>(CARS);
+  }); 
+  const cars = await fetchData<RentCarResults>(CARS,{params:searchParams});
 
   return (
     <div className="container mx-auto lg:px-0 px-3">

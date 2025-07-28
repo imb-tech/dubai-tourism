@@ -16,7 +16,7 @@ const Contact = () => {
       <div className="container mx-auto lg:p-10 p-6 mb-6 lg:bg-[url(/images/contact-info.png)] bg-[#FF5533] lg:h-[400px] rounded-2xl w-full bg-cover bg-center">
         <div className="lg:w-1/2 w-full flex flex-col lg:gap-6 gap-5">
           <h1 className="font-semibold lg:text-3xl text-2xl text-white">
-            Savolingiz bormi?
+            Do you have a question?
           </h1>
           <p className="text-white">
             Dorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc

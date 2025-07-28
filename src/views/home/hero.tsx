@@ -52,7 +52,7 @@ const HeroPages = () => {
             <div className="h-full flex items-center lg:justify-start justify-center text-white container mx-auto lg:px-0 px-3">
               <div className="lg:w-1/2 space-y-4 lg:text-start text-center">
                 <h1 className="font-bold lg:text-5xl text-3xl  leading-[120%]">
-                  Dubaydagi Shaxsiy VIP Xizmatlar
+                  Personal VIP Services in Dubai
                 </h1>
                 <p>
                   Experience the luxury and elegance of Dubai like never before
