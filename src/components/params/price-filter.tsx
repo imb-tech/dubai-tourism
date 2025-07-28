@@ -65,9 +65,17 @@ export default function PriceFilter({
   );
   const maxDistribution = Math.max(...priceDistribution);
 
-  const getPercent = (value: number) => {
-    return ((value - minPrice) / (maxPrice - minPrice)) * 100;
-  };
+  function getPercent(
+    value: number,
+    minPrice: number,
+    maxPrice: number
+  ): number {
+    const percent = ((value - minPrice) / (maxPrice - minPrice)) * 100;
+    return Math.max(0, Math.min(100, percent));
+  }
+
+  const minPercent = getPercent(values.min, minPrice, maxPrice);
+  const maxPercent = getPercent(values.max, minPrice, maxPrice);
 
   const updateURL = useCallback(
     (min: number, max: number) => {
@@ -132,8 +140,6 @@ export default function PriceFilter({
     }
   }, [isDragging, handleMouseMove, handleMouseUp]);
 
-
-   
   return (
     <div className="w-full relative select-none">
       <div
@@ -181,31 +187,31 @@ export default function PriceFilter({
           </div>
 
           {/* Range Slider */}
-          <div className="relative mt-8 mb-6 w-full">
+          <div className="relative mt-8 mb-6">
             <div
               id="price-slider"
-              className="relative h-2 bg-gray-200 rounded-full cursor-pointer w-full"
+              className="relative h-2 bg-gray-200 rounded-full cursor-pointer"
             >
               {/* Active Range */}
               <div
                 className="absolute h-2 bg-blue-500 rounded-full"
                 style={{
-                  left: `${getPercent(values.min)}%`,
-                  width: `${getPercent(values.max) - getPercent(values.min)}%`,
+                  left: `${minPercent}%`,
+                  width: `${Math.max(maxPercent - minPercent, 0)}%`,
                 }}
               />
 
               {/* Min Handle */}
               <div
                 className="absolute w-6 h-6 bg-white border-3 border-blue-500 rounded-full shadow-lg cursor-grab active:cursor-grabbing transform -translate-y-2 hover:scale-110 transition-transform"
-                style={{ left: `calc(${getPercent(values.min)}% - 14px)` }}
+                style={{ left: `calc(${minPercent}% - 14px)` }}
                 onMouseDown={() => handleMouseDown('min')}
               />
 
               {/* Max Handle */}
               <div
                 className="absolute w-6 h-6 bg-white border-3 border-blue-500 rounded-full shadow-lg cursor-grab active:cursor-grabbing transform -translate-y-2 hover:scale-110 transition-transform"
-                style={{ left: `calc(${getPercent(values.max)}% - 14px)` }}
+                style={{ left: `calc(${maxPercent}% - 14px)` }}
                 onMouseDown={() => handleMouseDown('max')}
               />
             </div>

@@ -49,7 +49,8 @@ export default function ParamInput({
     }
 
     router.push(
-      `${redirectPath || window.location.pathname}?${params.toString()}`
+      `${redirectPath || window.location.pathname}?${params.toString()}`,
+      { scroll: false }
     );
   }
 

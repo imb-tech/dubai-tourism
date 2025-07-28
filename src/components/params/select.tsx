@@ -55,7 +55,7 @@ const SelectParams = ({
       params.set(paramKey, newValue);
     }
 
-    router.push(`?${params.toString()}`);
+    router.push(`?${params.toString()}`, { scroll: false });
     setCurrentValue(newValue);
   };
 
