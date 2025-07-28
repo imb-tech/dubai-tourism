@@ -48,6 +48,7 @@ type AtractionOffers = {
   attraction_offer: number;
   transfer_options: Options[];
   transfer_option: Options
+  disabled: boolean;
   is_refundable: boolean;
   refound_date: string;
 };

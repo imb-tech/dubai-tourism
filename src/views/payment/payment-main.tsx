@@ -155,8 +155,10 @@ function StepContent({
 
 function CouponeForm({
   basket_attraction_id,
+  disabled,
 }: {
   basket_attraction_id: number;
+  disabled:boolean
 }) {
   const queryClient = useQueryClient();
   const [code, setCode] = useState();
@@ -179,7 +181,7 @@ function CouponeForm({
         ...onlyData,
         attractions: onlyData?.attractions.map((item) =>
           item.id === basket_attraction_id
-            ? { ...item, price: item.price - resPrice }
+            ? { ...item, price: item.price - resPrice, disabled: true }
             : item
         ),
       };
@@ -204,7 +206,7 @@ function CouponeForm({
         />
         <Button
           className="h-10"
-          disabled={!code || isPending}
+          disabled={!code || isPending || disabled}
           loading={isPending}
           type="button"
           onClick={onSubmit}
@@ -258,7 +260,7 @@ const renderAttractionDetails = (items: AtractionOffers[]) => (
               <span>AED {item.vat}</span>
             </li>
           </ul>
-          <CouponeForm basket_attraction_id={item.id} />
+          <CouponeForm basket_attraction_id={item.id} disabled={item.disabled} />
           <div className="w-full mt-2 font-semibold flex  justify-between items-center gap-3">
             <h1>Total</h1>
             <h1>AED {formatMoney(item.price)}</h1>
