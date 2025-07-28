@@ -71,7 +71,7 @@ export default function TransferForm() {
       query.set('return_time', return_time);
     }
 
-    router.push(`/transfer-service?${query}`);
+    router.push(`/transfer-service?${query}`, {scroll:false});
   };
 
   useEffect(() => {
