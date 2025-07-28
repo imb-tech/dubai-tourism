@@ -161,7 +161,7 @@ function CouponeForm({
   disabled:boolean
 }) {
   const queryClient = useQueryClient();
-  const [code, setCode] = useState();
+  const [code, setCode] = useState('');
   const { mutate, isPending } = usePost({
     onSuccess: (data) => {
       const resPrice: number = data.total_price;
@@ -198,11 +198,12 @@ function CouponeForm({
       <p className="text-primary text-sm mb-2">Enter Coupon Code</p>
       <div className="flex items-end gap-2 w-full">
         <Input
+        value={code}
           fullWidth
           variant="clean"
           placeholder="Enter your coupon"
           size="sm"
-          onChange={(e: any) => setCode(e.target.value)}
+          onChange={(e:  React.ChangeEvent<HTMLInputElement>) => setCode(e.target.value)}
         />
         <Button
           className="h-10"
