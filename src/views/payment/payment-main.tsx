@@ -110,7 +110,7 @@ function StepContent({
 }) {
   const totalPrice = useMemo(() => {
     return data?.attractions?.reduce(
-      (sum, item) => sum - Number(item.price || 0),
+      (sum, item) => sum + Number(item.price || 0),
       0
     );
   }, [data]);
@@ -186,7 +186,6 @@ function CouponeForm({
       queryClient.setQueryData([BASKET], updateData);
     },
   });
-
 
   const onSubmit = () => {
     mutate('payment/check-discount', { code, basket_attraction_id });
