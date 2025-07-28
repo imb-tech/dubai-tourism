@@ -51,8 +51,19 @@ export default function PaymentMain() {
   });
 
   const onSubmit = (values: FormFields) => {
+    const promo_codes = data?.attractions
+      .filter((item) => item.code)
+      .map((item) => ({
+        code: item.code,
+        id: item.id,
+      }));
+
     if (!data?.id) return;
-    mutate('payment/order/attraction', { ...values, basket_id: data.id });
+    mutate('payment/order/attraction', {
+      ...values,
+      basket_id: data.id,
+      promo_codes,
+    });
   };
 
   return (
@@ -165,7 +176,7 @@ function CouponeForm({
   const queryClient = useQueryClient();
   const [code, setCode] = useState('');
 
-    useEffect(() => {
+  useEffect(() => {
     if (codeItem) {
       setCode(codeItem);
     }
