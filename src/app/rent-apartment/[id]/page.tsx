@@ -19,12 +19,11 @@ import Modal from 'components/custom/modal';
 import ApplicationFormApartment from 'views/rent-apartment/application-form';
 
 export default async function RentId({ params }: PageProps) {
-  const { id } =  params;
+  const { id } = params;
   const cars = await fetchData<RentCarResults>(APARTMENTS);
   const slides = cars?.results?.map((s) => <CarCard key={s.id} {...s} />);
 
   const apartments = await fetchData<RentCar>(`${APARTMENTS}/${id}`);
-
 
   return (
     <React.Fragment>
@@ -36,7 +35,7 @@ export default async function RentId({ params }: PageProps) {
         <div className="lg:hidden">
           <SliderComponents images={apartments?.images || []} showCout={true} />
         </div>
-        
+
         <div className="space-y-5 mb-8">
           <PropertyHeader
             price="23,270,000 AED"
@@ -58,7 +57,17 @@ export default async function RentId({ params }: PageProps) {
             </div>
           </div>
 
-          <PropertyMap />
+          <div>
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d321.98712541444945!2d69.23603555442904!3d41.20093632800717!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e1!3m2!1suz!2s!4v1745214332280!5m2!1suz!2s"
+              width="100%"
+              height="450"
+              allowFullScreen
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              className="rounded-md"
+            ></iframe>
+          </div>
 
           <PaymentPlan />
 
