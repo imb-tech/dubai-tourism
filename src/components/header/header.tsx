@@ -68,30 +68,6 @@ export default function Header() {
           </Link>
           <Navbar pathname={pathname} />
 
-          {/* {token ? (
-            <div className="hidden lg:flex flex-col items-start gap-1">
-              <a
-                href={
-                  data?.phone ? `tel:${data?.phone}` : `mailto:${data?.email}`
-                }
-                className={cn(
-                  'font-bold   border-b',
-                  pathname === '/' ? 'text-white' : ''
-                )}
-              >
-                {' '}
-                {data?.email || data?.phone}
-              </a>
-              <span
-                className={cn(
-                  'text-sm capitalize',
-                  pathname === '/' ? 'text-gray-300' : 'text-[#00000099]'
-                )}
-              >
-                {data?.first_name} {data?.last_name}
-              </span>
-            </div>
-          ) : null} */}
           <div className="flex items-end gap-3  h-[45px]">
             <UserMenu data={data} />
             <Button

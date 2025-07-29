@@ -3,7 +3,6 @@ import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { Button } from 'components/ui/button';
 import FormInput from 'components/form/input';
-import Image from 'next/image';
 import { useTextStore } from 'store/auth';
 import { useOtpTimerStore } from 'store/useOtpTimerStore';
 import { usePost } from 'hooks/usePost';
@@ -74,7 +73,7 @@ const Login = () => {
         <div className="h-[1px] w-full bg-gray-300" />
       </div>
 
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 gap-4">
         <Button
           onClick={() => signIn('google')}
           variant="outline"
@@ -106,7 +105,7 @@ const Login = () => {
           </svg>
           Google
         </Button>
-        <Button
+        {/* <Button
           variant="outline"
           className="flex items-center justify-center gap-2 shadow-none bg-[#F5F5F5] border-none"
         >
@@ -118,7 +117,7 @@ const Login = () => {
             priority
           />
           Apple
-        </Button>
+        </Button> */}
       </div>
 
       <div className="text-center text-sm">

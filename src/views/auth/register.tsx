@@ -3,7 +3,6 @@ import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { Button } from 'components/ui/button';
 import FormInput from 'components/form/input';
-import Image from 'next/image';
 import { useTextStore } from 'store/auth';
 import { useOtpTimerStore } from 'store/useOtpTimerStore';
 import { usePost } from 'hooks/usePost';
@@ -77,7 +76,12 @@ const Register = () => {
           type="email"
           message={'Email manzilingiz'}
         />
-        <Button disabled={isPending} loading={isPending} type="submit" className="w-full">
+        <Button
+          disabled={isPending}
+          loading={isPending}
+          type="submit"
+          className="w-full"
+        >
           Register
         </Button>
       </form>
@@ -90,7 +94,7 @@ const Register = () => {
         <div className="h-[1px] w-full bg-gray-300" />
       </div>
 
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 gap-4">
         <Button
           variant="outline"
           className="flex items-center justify-center gap-2 shadow-none bg-[#F5F5F5] border-none"
@@ -121,7 +125,7 @@ const Register = () => {
           </svg>
           Google
         </Button>
-        <Button
+        {/* <Button
           variant="outline"
           className="flex items-center justify-center gap-2 shadow-none bg-[#F5F5F5] border-none"
         >
@@ -133,7 +137,7 @@ const Register = () => {
             property=""
           />
           Apple
-        </Button>
+        </Button> */}
       </div>
 
       <div className="text-center text-sm">
