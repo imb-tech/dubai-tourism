@@ -55,7 +55,7 @@ export default function PaymentMain() {
       .filter((item) => item.code)
       .map((item) => ({
         code: item.code,
-        id: item.id,
+        id: item.attraction_offer,
       }));
 
     if (!data?.id) return;

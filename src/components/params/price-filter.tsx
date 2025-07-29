@@ -144,7 +144,7 @@ export default function PriceFilter({
     }
   }, [isDragging, handleMouseMove, handleMouseUp]);
 
-  console.log(priceDistribution);
+
 
   return (
     <div className="w-full relative select-none">

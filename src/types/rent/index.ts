@@ -1,6 +1,6 @@
 type RentCar = {
     id: number;
-    images:Banner[];
+    images: Banner[];
     similar: RentCar[];
     name: string;
     slug: string;
@@ -11,7 +11,7 @@ type RentCar = {
     gcc: boolean;
     safety: boolean;
     gear: string;
-    discount:number
+    discount: number
     seats: number;
     sensors: boolean;
     camera: boolean;
@@ -29,6 +29,9 @@ type RentCar = {
     description: string;
     km_per_day: number;
     brand: number;
+    lat: number
+    lon: number
+    type:string
 
 }
 
