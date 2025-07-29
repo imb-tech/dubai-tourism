@@ -11,7 +11,7 @@ const Shopping = async () => {
   const banners = await fetchData<Banner[]>(BANNERS, {
     params: { service: 'shopping' },
   });
-  
+
   const shopping = await fetchData<ShoppingData>(SHOPPING_GOLDS);
 
   return (

@@ -12,7 +12,7 @@ function ShoppingCard({ item }: { item: Shopping }) {
       <Image
         src={item.poster || '/image.jpg'}
         height={220}
-        width={290}
+        width={380}
         alt={item.name}
         priority
       />

@@ -11,6 +11,7 @@ const RentApartment = async () => {
   const banners = await fetchData<Banner[]>(BANNERS, {
     params: { service: 'apartments' },
   });
+    const apartments = await fetchData<>()
 
   return (
     <div className="container mx-auto lg:px-0 px-3">
