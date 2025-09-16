@@ -19,7 +19,7 @@ import UserMenu from './user-menu';
 
 export default function Header() {
   const pathname = usePathname();
-  const router = useRouter()
+  const router = useRouter();
   const { closeModal } = useModal('auth');
   const { token, setToken } = useAuthStore();
   const hasCalledRef = useRef(false);
@@ -70,19 +70,21 @@ export default function Header() {
 
           <div className="flex items-end gap-3  h-[45px]">
             <UserMenu data={data} />
-            <Button
-            onClick={()=>{
-              router.push("/checkout")
-            }}
-              className={cn(
-                '  shadow-none ',
-                pathname === '/'
-                  ? 'hover:bg-white bg-white text-orange-500 '
-                  : 'bg-[#F5F5F5] hover:bg-[#ebe8e8] text-black '
-              )}
-            >
-              <CartIcon />
-            </Button>
+            {token && (
+              <Button
+                onClick={() => {
+                  router.push('/checkout');
+                }}
+                className={cn(
+                  '  shadow-none ',
+                  pathname === '/'
+                    ? 'hover:bg-white bg-white text-orange-500 '
+                    : 'bg-[#F5F5F5] hover:bg-[#ebe8e8] text-black '
+                )}
+              >
+                <CartIcon />
+              </Button>
+            )}
           </div>
         </div>
         <ServicesButton pathname={pathname} />

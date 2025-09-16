@@ -186,8 +186,8 @@ export default function CustomCard({
         <Link
           href={
             other === 'transfer-service'
-              ? `${other}/${slug}${query}`
-              : `${other}/${slug}`
+              ? `/${other}/${slug}${query}`
+              : `/${other}/${slug}`
           }
           className={cn(
             buttonVariants({ size: 'default' }),

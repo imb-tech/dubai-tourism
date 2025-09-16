@@ -34,9 +34,10 @@ export default function WtpTable() {
     },
     [getOptions]
   );
+     
 
   useEffect(() => {
-    if (offers.length > 0 && !offers[0]?.checked) {
+    if (offers.length > 0 && offers.every((row) => !row.checked)) {
       updateRow(0, { checked: true });
     }
   }, [offers, updateRow]);
@@ -88,7 +89,7 @@ export default function WtpTable() {
                 <td>
                   <div className="flex items-center gap-2">
                     <Checkbox
-                      checked={index === 0 ? true : watchedRow.checked ?? false}
+                      checked={watchedRow.checked ?? false}
                       onCheckedChange={(checked) =>
                         updateRow(index, { checked: checked === true })
                       }

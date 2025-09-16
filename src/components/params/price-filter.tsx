@@ -81,6 +81,13 @@ export default function PriceFilter({
   const minPercent = getPercent(values.min, minPrice, maxPrice);
   const maxPercent = getPercent(values.max, minPrice, maxPrice);
 
+  useEffect(() => {
+    const min = Number(searchParams.get('price_min') || minPrice);
+    const max = Number(searchParams.get('price_max') || maxPrice);
+
+    setValues({ min, max });
+  }, [searchParams, minPrice, maxPrice]);
+
   const updateURL = useCallback(
     (min: number, max: number) => {
       const params = new URLSearchParams(searchParams.toString());
@@ -143,7 +150,6 @@ export default function PriceFilter({
       };
     }
   }, [isDragging, handleMouseMove, handleMouseUp]);
-
 
 
   return (

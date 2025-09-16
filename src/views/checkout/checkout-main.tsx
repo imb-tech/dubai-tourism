@@ -10,6 +10,7 @@ import { BASKET } from 'constants/api-endpoints';
 import { useGet } from 'hooks/useGet';
 import { FormProvider, useForm } from 'react-hook-form';
 import CheckoutCardMobile from './checkout-mobile-card';
+import SectionDetailsHeading from 'components/ui/page-heading';
 
 export default function CheckoutMain() {
   const isMobile = useIsMobile();
@@ -39,7 +40,7 @@ export default function CheckoutMain() {
   return (
     <FormProvider {...form}>
       <div className="container mx-auto">
-        <h1 className="text-center text-3xl mb-6">Cart</h1>
+           <SectionDetailsHeading title={'Cart'} />
         <div className="flex flex-col gap-3 p-2 rounded-md bg-secondary">
           {data?.attractions?.map((item, index) => (
             <Fragment key={item.id}>

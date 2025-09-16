@@ -24,6 +24,7 @@ const MapApartment = ({
   const [activeFilter, setActiveFilter] = useState<RentCar['type'] | 'All'>(
     'All'
   );
+  
   const [selectedApartment, setSelectedApartment] = useState<RentCar | null>(
     null
   );

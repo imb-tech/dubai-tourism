@@ -16,60 +16,63 @@ import {
 import { Button } from 'components/ui/button';
 import { ChevronDown } from 'lucide-react';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+
+const data = [
+  {
+    id: 1,
+    name: 'Tours and Activities',
+    icon: TouresIcon,
+    url: '/atraction',
+  },
+  {
+    id: 2,
+    name: 'Transfers',
+    icon: TransfersIcon,
+    url: '/transfer-service',
+  },
+  {
+    id: 3,
+    name: 'MICE Groups',
+    icon: GroupIcon,
+    url: '/mice-group',
+  },
+  {
+    id: 4,
+    name: 'Real Estate',
+    icon: RealIcon,
+    url: '/rent-apartment',
+  },
+  {
+    id: 5,
+    name: 'VIP Concierge',
+    icon: ConciergeIcon,
+    url: '/vip-concierge',
+  },
+  {
+    id: 6,
+    name: 'Tour Packages',
+    icon: TourIcon,
+    url: '/tour-packages',
+  },
+  {
+    id: 7,
+    name: 'Rent a car',
+    icon: RentaIcon,
+    url: '/rent',
+  },
+  {
+    id: 8,
+    name: 'Shopping',
+    icon: ShoppingIcon,
+    url: '/shopping',
+  },
+];
 
 function ServicesButton({ pathname }: { pathname: string | null }) {
   const pathnameBol = pathname === '/' ? true : false;
   const [open, setOpen] = useState(false);
-  const data = [
-    {
-      id: 1,
-      name: 'Tours and Activities',
-      icon: TouresIcon,
-      url: '/atraction',
-    },
-    {
-      id: 2,
-      name: 'Transfers',
-      icon: TransfersIcon,
-      url: '/transfer-service',
-    },
-    {
-      id: 3,
-      name: 'MICE Groups',
-      icon: GroupIcon,
-      url: '/mice-group',
-    },
-    {
-      id: 4,
-      name: 'Real Estate',
-      icon: RealIcon,
-      url: '/rent-apartment',
-    },
-    {
-      id: 5,
-      name: 'VIP Concierge',
-      icon: ConciergeIcon,
-      url: '/vip-concierge',
-    },
-    {
-      id: 6,
-      name: 'Tour Packages',
-      icon: TourIcon,
-      url: '/tour-packages',
-    },
-    {
-      id: 7,
-      name: 'Rent a car',
-      icon: RentaIcon,
-      url: '/rent',
-    },
-    {
-      id: 8,
-      name: 'Shopping',
-      icon: ShoppingIcon,
-      url: '/shopping',
-    },
-  ];
+  const location = usePathname();
 
   return (
     <>
@@ -83,6 +86,7 @@ function ServicesButton({ pathname }: { pathname: string | null }) {
               pathnameBol
                 ? 'bg-[#FFFFFF1A] text-white '
                 : 'bg-[#FFF3EC]  text-[#FF5533]',
+              location.includes(item.url) && 'text-[#FFF3EC]  bg-[#FF5533]'
             )}
           >
             <item.icon />
