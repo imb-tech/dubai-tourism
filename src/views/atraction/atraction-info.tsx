@@ -6,7 +6,7 @@ import {
   AccordionTrigger,
 } from 'components/ui/accordion';
 
-export default function WtpInfo() {
+export default function WtpInfo({ description }: { description: string }) {
   return (
     <div className="w-full">
       <Accordion
@@ -24,12 +24,10 @@ export default function WtpInfo() {
             </div>
           </AccordionTrigger>
           <AccordionContent>
-            <div>
-              <h4 className="font-medium mb-1">Mobile Voucher</h4>
-              <p className="text-sm text-gray-600">
-                Use your phone or Print your Voucher
-              </p>
-            </div>
+            <div
+              className="!list-disc"
+              dangerouslySetInnerHTML={{ __html:description as string }}
+            />
           </AccordionContent>
         </AccordionItem>
 

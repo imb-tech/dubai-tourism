@@ -147,10 +147,12 @@ function StepContent({
         <PaymentForm />
         <PaymentTypes />
         <div className="bg-background p-4 rounded-md flex flex-col sm:flex-row items-center justify-between gap-4">
-          <Checkbox defaultChecked />
-          <p className="text-sm">
-            By clicking Pay now you agree with Terms and Conditions
-          </p>
+          <div className="flex items-center gap-3 flex-1">
+            <Checkbox defaultChecked />
+            <p className="text-sm">
+              By clicking Pay now you agree with Terms and Conditions
+            </p>
+          </div>
           <Button disabled={isPending} loading={isPending} type="submit">
             Pay now
           </Button>

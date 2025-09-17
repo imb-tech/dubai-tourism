@@ -58,7 +58,7 @@ export default function CheckoutMain() {
           <GoToPayment /> 
         </div>
         <Modal modalKey="more-info" className="max-w-xl">
-          <WtpInfo />
+          <WtpInfo description='' />
         </Modal>
       </div>
     </FormProvider>

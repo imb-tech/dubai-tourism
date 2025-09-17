@@ -22,6 +22,8 @@ export default function WtpForm({ data }: { data: AtractionDetail }) {
     },
   });
 
+
+
   return (
     <div className="lg:px-6 py-6 px-3 rounded-lg bg-secondary mt-14">
       <FormProvider {...form}>
@@ -69,7 +71,7 @@ export default function WtpForm({ data }: { data: AtractionDetail }) {
       </FormProvider>
       <Modal size="max-w-4xl" modalKey="more-info" title>
         <div className="max-h-[75vh] overflow-y-auto no-scrollbar ">
-          <WtpInfo />
+          <WtpInfo description={data.description} />
         </div>
       </Modal>
     </div>

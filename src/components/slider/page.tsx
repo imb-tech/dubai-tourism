@@ -62,7 +62,7 @@ export function SliderComponents({
                     height={500}
                     className="sm:object-contain object-center w-full lg:!h-[460px] sm:!h-[300px] !h-[260px] md:!h-[340px] lg:!max-h-[460px] sm:!max-h-[300px] !max-h-[260px] md:!max-h-[340px]"
                   />
-                </div>
+                </div> 
 
                 <div className="lg:w-1/3 sm:w-1/2 w-full  h-full absolute flex items-center pl-4 md:pl-0 sm:justify-center">
                   <div className="lg:space-y-12 space-y-4">

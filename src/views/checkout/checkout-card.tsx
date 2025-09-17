@@ -67,13 +67,22 @@ export default function CheckoutCard({
   return (
     <Fragment>
       <div className="flex gap-3 bg-white rounded-md p-4 justify-between  w-full">
-        <Image
-          src={data?.image}
-          alt="logo"
-          className="size-[300px]  rounded-md"
-          width={500}
-          height={500}
-        />
+        <div className="relative w-[300px] h-[300px] group overflow-hidden rounded-md">
+          <div
+            className="absolute inset-0 bg-cover bg-center scale-105 blur-[4px] "
+            style={{
+              backgroundImage: `url(${data?.image})`,
+            }}
+          ></div>
+
+          <Image
+            src={data?.image}
+            alt="logo"
+            width={300}
+            height={300}
+            className="relative z-10 object-contain w-full h-full"
+          />
+        </div>
         <div className="min-h-full flex flex-col justify-between gap-2 flex-[1]">
           <div className="flex justify-between items-center gap-3 w-full">
             <h2 className="text-2xl font-semibold">{data.name}</h2>
@@ -127,7 +136,7 @@ export default function CheckoutCard({
             <li className="py-4 px-3 bg-secondary rounded-md space-y-2">
               <h3 className="font-semibold">Tour Date</h3>
               <DatePicker
-              fromDate={new Date()}
+                fromDate={new Date()}
                 className="w-full mb-2"
                 defaultValue={watchedRow.tour_date ?? today}
                 onChange={(val) => {
