@@ -73,6 +73,8 @@ export default function CustomCard({
   const url =
     other === 'transfer-service'
       ? `/${other}/${slug}${query}`
+      : other === 'rent'
+      ? `/rent-cars/${slug}`
       : `/${other}/${slug}`;
 
   return (

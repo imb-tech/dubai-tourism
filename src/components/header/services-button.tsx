@@ -59,7 +59,7 @@ const data = [
     id: 7,
     name: 'Rent a car',
     icon: RentaIcon,
-    url: '/rent',
+    url: '/rent-cars',
   },
   {
     id: 8,

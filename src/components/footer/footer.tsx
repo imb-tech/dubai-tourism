@@ -60,7 +60,7 @@ const data = [
       {
         id: 7,
         title: 'Renta car',
-        href: '/rent',
+        href: '/rent-cars',
       },
       {
         id: 8,
