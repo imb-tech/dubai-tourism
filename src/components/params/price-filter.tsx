@@ -50,6 +50,7 @@ export default function PriceFilter({
   const router = useRouter();
   const searchParams = useSearchParams();
   const [isOpen, setIsOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
   const maxParam = searchParams.get('max_price');
   const minParam = searchParams.get('min_price');
@@ -155,9 +156,29 @@ export default function PriceFilter({
     }
   }, [isDragging, handleMouseMove, handleMouseUp]);
 
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
+        setIsOpen(false);
+      }
+    };
+
+    if (isOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+    } else {
+      document.removeEventListener('mousedown', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [isOpen]);
 
   return (
-    <div className="w-full relative select-none">
+    <div className="w-full relative select-none" ref={dropdownRef}>
       <div
         className={cn(
           ' px-5 py-2 cursor-pointer flex items-center justify-between w-full  bg-secondary rounded-lg ',
