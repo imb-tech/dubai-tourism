@@ -30,7 +30,7 @@ export default async function RentId({ params }: PageProps) {
       <div className="container mx-auto lg:px-0 px-3">
         <SectionDetailsHeading title="Duplex Full Floor apartment" />
         <div className="hidden lg:block">
-          <DrawerImagesView images={apartments?.images || []} />
+          <DrawerImagesView images={apartments?.images || []} title={''} />
         </div>
         <div className="lg:hidden">
           <SliderComponents images={apartments?.images || []} showCout={true} />

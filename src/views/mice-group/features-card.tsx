@@ -11,7 +11,7 @@ function FeaturesCard({
   return (
     <div className="bg-[#F5F8FC] p-4 rounded-md flex flex-col items-center gap-3 justify-between">
       <Gem className="text-primary" />
-      <h1 className="text-lg font-medium">{name}</h1>
+      <h1 className="text-lg font-medium text-center">{name}</h1>
       <p className="text-center text-gray-500">{description}</p>
     </div>
   );

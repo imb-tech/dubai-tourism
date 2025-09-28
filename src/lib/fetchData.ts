@@ -30,7 +30,8 @@ export async function fetchData<T = any>(
     });
 
     if (!res.ok) {
-      throw new Error(`Fetch failed for ${url} - status ${res.status}`);
+      const errorText = await res.text();
+      throw new Error(`Fetch failed (${res.status}): ${errorText}`);
     }
 
     const data: T = await res.json();

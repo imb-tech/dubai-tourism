@@ -9,11 +9,10 @@ import { fetchData } from 'lib/fetchData';
 import React from 'react';
 import ApplicationFormShoppping from 'views/shopping/application-form';
 import ShoppingCard from 'views/shopping/shopping-card';
-import ShoppingInfo from 'views/shopping/shopping-info'; 
-
+import ShoppingInfo from 'views/shopping/shopping-info';
 
 export default async function ShoppingId({ params }: PageProps) {
-  const { id } =  params;
+  const { id } = params;
   const shopping = await fetchData<Shopping>(`${SHOPPING_GOLDS}/${id}`);
 
   const slides = shopping?.similar?.map((item) => (
@@ -25,7 +24,10 @@ export default async function ShoppingId({ params }: PageProps) {
       <div className="container mx-auto lg:px-0 px-3">
         <SectionDetailsHeading title={shopping?.name || 'Shopping page'} />
         <div className="hidden lg:block">
-          <DrawerImagesView images={shopping?.images || []} />
+          <DrawerImagesView
+            images={shopping?.images || []}
+            title={shopping?.name || ''}
+          />
         </div>
         <div className="lg:hidden">
           <SliderComponents images={shopping?.images || []} showCout={true} />

@@ -23,7 +23,7 @@ export default async function RentId({ params }: PageProps) {
       <div className="container mx-auto lg:px-0 px-3">
         <SectionDetailsHeading title={cars?.name || 'Rent a car'} />
         <div className="hidden lg:block">
-          <DrawerImagesView images={cars?.images || []} />
+          <DrawerImagesView images={cars?.images || []} title={cars?.name || ''} />
         </div>
         <div className="lg:hidden">
           <SliderComponents images={cars?.images || []} showCout={true} />

@@ -138,9 +138,7 @@ export default function BookingForm() {
           className="2xl:h-[50px] h-[40px] mt-1 cursor-pointer"
           required
           fromDate={
-            form.watch('start')
-              ? new Date(parseDateDMY(form.watch('start')))
-              : new Date()
+            form.watch('start') ? new Date(form.watch('start')) : new Date()
           }
         />
       </div>

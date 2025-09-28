@@ -9,7 +9,7 @@ import { MICE_SERVICES } from 'constants/api-endpoints';
 import { fetchData } from 'lib/fetchData';
 
 export default async function RentId({ params }: PageProps) {
-  const { id } =  params;
+  const { id } = params;
   const data = await fetchData<MiceGroup>(`${MICE_SERVICES}/${id}`);
 
   return (
@@ -17,7 +17,10 @@ export default async function RentId({ params }: PageProps) {
       <SectionDetailsHeading title={data?.title || 'MICE Group'} />
       <div className="space-y-5  mb-12">
         <div className="hidden lg:block">
-          <DrawerImagesView images={data?.images || []} />
+          <DrawerImagesView
+            images={data?.images || []}
+            title={data?.title || ''}
+          />
         </div>
         <div className="lg:hidden">
           <SliderComponents images={data?.images || []} showCout={true} />

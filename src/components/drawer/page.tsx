@@ -7,7 +7,13 @@ import { useModal } from 'hooks/use-modal';
 import CustomDrawer from 'components/custom/drawer';
 import { DriwerImageSlides } from 'components/slider/drawer-slider';
 
-export default function DrawerImagesView({ images }: { images: Banner[] }) {
+export default function DrawerImagesView({
+  images,
+  title,
+}: {
+  images: Banner[];
+  title: string;
+}) {
   const { openModal } = useModal();
   return (
     <div className="grid lg:grid-cols-4 grid-cols-1  gap-2 relative ">
@@ -38,7 +44,7 @@ export default function DrawerImagesView({ images }: { images: Banner[] }) {
         <span className="font-bold">Show all photos</span>
       </div>
 
-      <CustomDrawer className="max-w-full min-h-full" title="Shopping">
+      <CustomDrawer className="max-w-full min-h-full" title={title}>
         <DriwerImageSlides images={images} />
       </CustomDrawer>
     </div>

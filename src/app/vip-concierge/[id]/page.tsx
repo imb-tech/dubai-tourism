@@ -12,18 +12,19 @@ import Modal from 'components/custom/modal';
 import ApplicationFormVIP from 'views/vip-concierge/application-form';
 
 export default async function RentId({ params }: PageProps) {
-  const { id } =  params;
+  const { id } = params;
   const data = await fetchData<VipConicerge>(`${CONCIERGES}/${id}`);
-  const slides = data?.similar?.map((s) => (
-    <CarCard  key={s.id} {...s} />
-  ));
+  const slides = data?.similar?.map((s) => <CarCard key={s.id} {...s} />);
 
   return (
     <React.Fragment>
       <div className="container mx-auto lg:px-0 px-3">
         <SectionDetailsHeading title={data?.name || 'Vip Comicerge'} />
         <div className="hidden lg:block">
-          <DrawerImagesView images={data?.images || []} />
+          <DrawerImagesView
+            images={data?.images || []}
+            title={data?.name || ''}
+          />
         </div>
         <div className="lg:hidden">
           <SliderComponents images={data?.images || []} showCout={true} />
