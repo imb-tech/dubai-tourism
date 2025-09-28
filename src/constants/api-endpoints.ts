@@ -10,6 +10,7 @@ export const BANNERS = 'services/banners';
 export const CARS = 'services/cars';
 export const CARS_FILTERS = 'services/cars/filters';
 export const ATRACTIONS_HOME = 'home/attraction';
+export const APPLICATIONS = 'home/application';
 export const SHOPPING_GOLD_HOME = 'home/shopping/golds';
 export const TOURS_HOME = 'home/tour';
 export const TOUR='services/tour'

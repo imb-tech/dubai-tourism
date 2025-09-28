@@ -5,7 +5,7 @@ import { Button } from 'components/ui/button';
 import { Checkbox } from 'components/ui/checkbox';
 import { DownloadIcon } from 'lucide-react';
 import { useGet } from 'hooks/useGet';
-import { BASKET } from 'constants/api-endpoints';
+import { BASKET, PROFILE } from 'constants/api-endpoints';
 import {
   Accordion,
   AccordionItem,
@@ -22,6 +22,7 @@ import { Input } from 'components/ui/input';
 import { useQueryClient } from '@tanstack/react-query';
 import { formatMoney } from 'lib/utils';
 import { toast } from 'sonner';
+import { useAuthStore } from 'store/auth-store';
 
 type FormFields = {
   name: string;
@@ -38,6 +39,10 @@ export default function PaymentMain() {
   const methods = useForm<FormFields>();
   const { handleSubmit } = methods;
   const [step, setStep] = useState(1);
+  const { token } = useAuthStore();
+  const { data: profile } = useGet<Profile>(PROFILE, {
+    options: { enabled: Boolean(token) },
+  });
 
   const { data } = useGet<{ id: number; attractions: AtractionOffers[] }>(
     BASKET
@@ -65,6 +70,16 @@ export default function PaymentMain() {
       promo_codes,
     });
   };
+
+  useEffect(() => {
+    if (profile?.email) {
+      methods.reset({
+        first_name: profile.first_name || '',
+        last_name: profile.last_name || '',
+        email: profile.email || '',
+      });
+    }
+  }, [profile]);
 
   return (
     <FormProvider {...methods}>

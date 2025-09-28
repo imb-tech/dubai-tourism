@@ -3,14 +3,39 @@ import FormInput from 'components/form/input';
 import PhoneField from 'components/form/phone-field';
 import FormTextarea from 'components/form/textarea';
 import { Button } from 'components/ui/button';
+import { APPLICATIONS } from 'constants/api-endpoints';
+import { usePost } from 'hooks/usePost';
 import Link from 'next/link';
 import React from 'react';
 import { useForm } from 'react-hook-form';
+import { toast } from 'sonner';
+
+type FormValues = {
+  first_name: string;
+  phone: string;
+  email: string;
+  text: string;
+};
 
 const Contact = () => {
-  const form = useForm();
+  const form = useForm<FormValues>();
 
-  const onSubmit = (data: any) => {};
+  const { mutate, isPending } = usePost({
+    onSuccess: () => {
+      toast.success('Successful');
+      form.reset();
+    },
+  });
+
+  const onSubmit = (data: FormValues) => {
+    const cleanedData = Object.fromEntries(
+      Object.entries(data).filter(
+        ([_, value]) => value !== null && value !== ''
+      )
+    );
+    mutate(APPLICATIONS, cleanedData);
+  };
+
   return (
     <div className="lg:px-0 px-3 mb-12">
       <div className="container mx-auto lg:p-10 p-6 mb-6 lg:bg-[url(/images/contact-info.png)] bg-[#FF5533] lg:h-[400px] rounded-2xl w-full bg-cover bg-center">
@@ -44,7 +69,7 @@ const Contact = () => {
             variant="clean"
             label="Ism"
             methods={form}
-            name="full_name"
+            name="first_name"
             placeholder="Ismingiz"
             required
             className="h-[40px]"
@@ -54,27 +79,33 @@ const Contact = () => {
             name="phone"
             label="Telefon raqam"
             className="h-[40px] "
+            required={form.watch('email') ? false : true}
           />
           <FormInput
-           variant="clean"
+            variant="clean"
             type="email"
             label="Email"
             placeholder="Email manzilingiz"
             methods={form}
             name="email"
-            required
+            required={form.watch('phone') ? false : true}
             className="h-[40px]"
           />
           <FormTextarea
-            name="comment"
+            name="text"
             methods={form}
             label="Xabar"
             placeholder="Sizning xabaringiz"
             required
-            className='border-none'
+            className="border-none"
             wrapperClassName="lg:col-span-3  "
           />
-          <Button type="submit" className="lg:col-span-3 cursor-pointer">
+          <Button
+            disabled={isPending}
+            loading={isPending}
+            type="submit"
+            className="lg:col-span-3 cursor-pointer"
+          >
             Ariza qoldirish
           </Button>
         </form>

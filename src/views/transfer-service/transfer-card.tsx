@@ -17,7 +17,7 @@ type Props = {
 };
 
 export default function TransferCard({ data }: Props) {
-  const { push, refresh } = useRouter();
+  const { push } = useRouter();
   const params = useSearchParams();
   const to_airport = params.get('to_airport');
   const from_airport = params.get('from_airport');
@@ -44,6 +44,8 @@ export default function TransferCard({ data }: Props) {
   };
 
   const [isReturn, setIsReturn] = useState(false);
+
+ 
 
   useEffect(() => {
     if (return_date && return_time) {

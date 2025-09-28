@@ -42,8 +42,13 @@ export default function CustomCard({
   searchParams,
 }: CustomCardProps) {
   const query = searchParams
-    ? `?from_airport=${searchParams.from_airport}&to_airport=${searchParams.to_airport}&from_date=${searchParams.from_date}&from_time=${searchParams.from_time}&passengers=${searchParams.passengers}&return_date=${searchParams.return_date}&return_time=${searchParams.return_time}`
+    ? '?' +
+      Object.entries(searchParams)
+        .filter(([_, value]) => value !== undefined && value !== null)
+        .map(([key, value]) => `${key}=${encodeURIComponent(value as string)}`)
+        .join('&')
     : '';
+
 
   const personSuffix = (
     <span className="flex items-center">
