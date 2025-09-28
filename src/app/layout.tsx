@@ -9,6 +9,7 @@ import { queryClient } from 'lib/query-client';
 import Contact from 'views/home/contact';
 import { SessionProvider } from 'next-auth/react';
 import './globals.css';
+import ProgressBar from 'components/progress-bar';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -32,6 +33,7 @@ export default function RootLayout({
       >
         <SessionProvider>
           <QueryClientProvider client={queryClient}>
+            <ProgressBar />
             <Header />
             <main className="min-h-screen ">{children}</main>
             <Contact />

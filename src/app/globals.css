@@ -1,6 +1,8 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
+@import 'nprogress/nprogress.css';
+
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
@@ -128,4 +130,10 @@
 
 .no-scrollbar::-webkit-scrollbar {
   display: none;             /* Chrome, Safari, Opera */
+}
+
+
+#nprogress .bar {
+  background: #FF5533;
+  height: 3px;
 }
