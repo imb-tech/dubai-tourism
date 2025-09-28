@@ -51,9 +51,13 @@ export default function PriceFilter({
   const searchParams = useSearchParams();
   const [isOpen, setIsOpen] = useState(false);
 
+  const maxParam = searchParams.get('max_price');
+  const minParam = searchParams.get('min_price');
+  const defaultMaxPrice = maxPrice > 0 ? maxPrice : 50000;
+
   const initialRangeRef = useRef({
-    min: Number.parseInt(searchParams.get('min_price') || String(minPrice)),
-    max: Number.parseInt(searchParams.get('max_price') || String(maxPrice)),
+    min: parseInt(minParam || '') || minPrice,
+    max: parseInt(maxParam || '') || defaultMaxPrice,
   });
 
   const [values, setValues] = useState({
@@ -64,8 +68,8 @@ export default function PriceFilter({
   const [isDragging, setIsDragging] = useState<'min' | 'max' | null>(null);
 
   const priceDistribution = useMemo(
-    () => generatePriceDistribution(minPrice, maxPrice),
-    [minPrice, maxPrice]
+    () => generatePriceDistribution(minPrice, defaultMaxPrice),
+    [minPrice, defaultMaxPrice]
   );
   const maxDistribution = Math.max(...priceDistribution);
 
@@ -78,15 +82,15 @@ export default function PriceFilter({
     return Math.max(0, Math.min(100, percent));
   }
 
-  const minPercent = getPercent(values.min, minPrice, maxPrice);
-  const maxPercent = getPercent(values.max, minPrice, maxPrice);
+  const minPercent = getPercent(values.min, minPrice, defaultMaxPrice);
+  const maxPercent = getPercent(values.max, minPrice, defaultMaxPrice);
 
   useEffect(() => {
     const min = Number(searchParams.get('price_min') || minPrice);
-    const max = Number(searchParams.get('price_max') || maxPrice);
+    const max = Number(searchParams.get('price_max') || defaultMaxPrice);
 
     setValues({ min, max });
-  }, [searchParams, minPrice, maxPrice]);
+  }, [searchParams, minPrice, defaultMaxPrice]);
 
   const updateURL = useCallback(
     (min: number, max: number) => {
@@ -115,7 +119,7 @@ export default function PriceFilter({
         Math.min(100, ((e.clientX - rect.left) / rect.width) * 100)
       );
       const value = Math.round(
-        (percent / 100) * (maxPrice - minPrice) + minPrice
+        (percent / 100) * (defaultMaxPrice - minPrice) + minPrice
       );
 
       setValues((prev) => {
@@ -130,7 +134,7 @@ export default function PriceFilter({
         return newValues;
       });
     },
-    [isDragging, minPrice, maxPrice]
+    [isDragging, minPrice, defaultMaxPrice]
   );
 
   const handleMouseUp = useCallback(() => {
@@ -178,7 +182,7 @@ export default function PriceFilter({
               const pricePoint =
                 minPrice +
                 (index / (priceDistribution.length - 1)) *
-                  (maxPrice - minPrice);
+                  (defaultMaxPrice - minPrice);
 
               const isInRange =
                 pricePoint >= values.min && pricePoint <= values.max;

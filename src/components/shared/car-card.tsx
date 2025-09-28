@@ -49,7 +49,6 @@ export default function CustomCard({
         .join('&')
     : '';
 
-
   const personSuffix = (
     <span className="flex items-center">
       1 <User2Icon size={24} />
@@ -70,6 +69,11 @@ export default function CustomCard({
   };
 
   const suffix: React.ReactNode = other ? suffixMap[other] || '' : '';
+
+  const url =
+    other === 'transfer-service'
+      ? `/${other}/${slug}${query}`
+      : `/${other}/${slug}`;
 
   return (
     <div className="relative bg-white rounded-lg border flex flex-col justify-between p-2 gap-2 min-w-[320px] lg:min-w-40">
@@ -189,11 +193,7 @@ export default function CustomCard({
         />
 
         <Link
-          href={
-            other === 'transfer-service'
-              ? `/${other}/${slug}${query}`
-              : `/${other}/${slug}`
-          }
+          href={url}
           className={cn(
             buttonVariants({ size: 'default' }),
             'w-full',
