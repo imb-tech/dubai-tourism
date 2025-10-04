@@ -5,45 +5,45 @@ import React from 'react';
 const services: Service[] = [
   {
     name: 'Tours and Activities',
-    image: '/activity.png',
+    image: '/services/activity.png',
     link: '/atraction',
   },
   {
     name: 'Transfers',
-    image: '/transfer.png',
+    image: '/services/transfer.png',
     link: '/transfer-service',
   },
   {
     name: 'Mice Groups',
-    image: '/Mice group.png',
+    image: '/services/mice-group.png',
     link: '/mice-group',
   },
   {
     name: 'VIP Concierge',
-    image: '/concierge.png',
+    image: '/services/concierge.png',
     link: '/vip-concierge',
   },
   {
     name: 'Real Estate',
-    image: '/real estate.png',
+    image: '/services/real-estate.png',
     link: '/rent-apartment',
   },
   {
     name: 'Ranet a car',
-    image: '/ranet-car.png',
+    image: '/services/ranet-car.png',
     link: '/rent-cars',
   },
   {
     name: 'Shopping',
-    image: '/shopping.png',
+    image: '/services/shopping.png',
     link: '/shopping',
   },
   {
     name: 'Tour Packages',
-    image: '/tour package.png',
+    image: '/services/tour-package.png',
     link: '/tour-packages',
   },
-];
+]; 
 
 export default function Services() {
   return (

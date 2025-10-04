@@ -12,7 +12,7 @@ export default function ServicesCard({ name, image, link }: Service) {
     >
       <div className="z-50">
         <h3 className="lg:text-2xl font-semibold w-full">{name}</h3>
-        <div className={cn(buttonVariants(), 'lg:h-10 h-8 lg:text-sm text-xs')}>
+        <div className={cn(buttonVariants(), 'lg:h-9 mt-2 h-8 lg:text-sm text-xs')}>
           Batafsil
         </div>
       </div>
