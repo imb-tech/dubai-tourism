@@ -1,5 +1,5 @@
-@import "tailwindcss";
-@import "tw-animate-css";
+@import 'tailwindcss';
+@import 'tw-animate-css';
 
 @import 'nprogress/nprogress.css';
 
@@ -117,6 +117,7 @@
 @layer base {
   * {
     @apply border-border outline-ring/50;
+    @apply scroll-smooth;
   }
   body {
     @apply bg-background text-foreground;
@@ -124,16 +125,16 @@
 }
 
 .no-scrollbar {
-  -ms-overflow-style: none;  /* Internet Explorer 10+ */
-  scrollbar-width: none;     /* Firefox */
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+  scrollbar-width: none; /* Firefox */
 }
 
 .no-scrollbar::-webkit-scrollbar {
-  display: none;             /* Chrome, Safari, Opera */
+  display: none; /* Chrome, Safari, Opera */
 }
-
 
 #nprogress .bar {
-  background: #FF5533;
+  background: #ff5533;
   height: 3px;
 }
+

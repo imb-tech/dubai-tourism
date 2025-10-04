@@ -37,7 +37,7 @@ const HeroPages = () => {
 
   return (
     <>
-      <div className="lg:h-[620px] h-[500px] overflow-hidden">
+      <div id='#services' className="lg:h-[620px] h-[500px] overflow-hidden">
         {backgroundImages.map((image, index) => (
           <div
             key={index}

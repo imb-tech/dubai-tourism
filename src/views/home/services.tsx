@@ -5,42 +5,42 @@ import React from 'react';
 const services: Service[] = [
   {
     name: 'Tours and Activities',
-    image: '/atroksion.png',
+    image: '/activity.png',
     link: '/atraction',
   },
   {
     name: 'Transfers',
-    image: '/atroksion.png',
+    image: '/transfer.png',
     link: '/transfer-service',
   },
   {
     name: 'Mice Groups',
-    image: '/atroksion.png',
+    image: '/Mice group.png',
     link: '/mice-group',
   },
   {
     name: 'VIP Concierge',
-    image: '/atroksion.png',
+    image: '/concierge.png',
     link: '/vip-concierge',
   },
   {
     name: 'Real Estate',
-    image: '/atroksion.png',
+    image: '/real estate.png',
     link: '/rent-apartment',
   },
   {
     name: 'Ranet a car',
-    image: '/atroksion.png',
-    link: '/rent',
+    image: '/ranet-car.png',
+    link: '/rent-cars',
   },
   {
     name: 'Shopping',
-    image: '/atroksion.png',
+    image: '/shopping.png',
     link: '/shopping',
   },
   {
     name: 'Tour Packages',
-    image: '/atroksion.png',
+    image: '/tour package.png',
     link: '/tour-packages',
   },
 ];
